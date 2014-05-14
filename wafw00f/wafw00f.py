@@ -77,7 +77,9 @@ class WafW00F(waftoolsengine):
     xssstring = '<script>alert(1)</script>'
     dirtravstring = '../../../../etc/passwd'
     cleanhtmlstring = '<invalid>hello'
-    isaservermatch = 'Forbidden ( The server denied the specified Uniform Resource Locator (URL). Contact the server administrator.  )'
+    isaservermatch = [
+                    'Forbidden ( The server denied the specified Uniform Resource Locator (URL). Contact the server administrator.  )',
+                    "Forbidden ( The ISA Server denied the specified Uniform Resource Locator (URL)"]
     
     def __init__(self,target='www.microsoft.com',port=80,ssl=False,
                  debuglevel=0,path='/',followredirect=True):
@@ -257,7 +259,18 @@ class WafW00F(waftoolsengine):
         return detected
     
     def isbigip(self):
-        return self.matchheader(('X-Cnection','^close$'), attack=True)
+        detected = False
+        if self.matchheader(('X-Cnection','^close$'), attack=True):
+            return True
+        # the following based on nmap's http-waf-fingerprint.nse
+        elif self.matchheader(('server','BigIP')):
+            return True
+        # the following based on nmap's http-waf-fingerprint.nse
+        elif self.matchcookie('^BIGipServer='):
+            return True
+        else:
+            return False
+        
     
     def iswebknight(self):
         detected = False
@@ -281,6 +294,9 @@ class WafW00F(waftoolsengine):
             if response.status == 501:
                 detected = True
                 break
+        # the following based on nmap's http-waf-fingerprint.nse 
+        if self.matchheader(('server','(mod_security|Mod_Security|NOYB)')):
+            return True
         return detected
     
     def isisaserver(self):
@@ -289,7 +305,7 @@ class WafW00F(waftoolsengine):
         if r is None:
             return
         response,responsebody = r
-        if response.reason == self.isaservermatch:
+        if response.reason in self.isaservermatch:
             detected = True
         return detected
     
@@ -377,6 +393,9 @@ class WafW00F(waftoolsengine):
                 return
             elif r:
                 return r
+        # the following based on nmap's http-waf-fingerprint.nse 
+        if self.matchheader(('server','F5-TrafficShield')):
+            return True
         return False
     
     def isteros(self):
@@ -389,7 +408,16 @@ class WafW00F(waftoolsengine):
     
     def isbinarysec(self):
         # credit goes to W3AF
-        return self.matchheader(('server','BinarySec'))
+        if self.matchheader(('server','BinarySec')):
+            return True
+        # the following based on nmap's http-waf-fingerprint.nse 
+        elif self.matchheader(('x-binarysec-via','.')):
+            return True
+        # the following based on nmap's http-waf-fingerprint.nse 
+        elif self.matchheader(('x-binarysec-nocache','.')):
+            return True
+        else:
+            return False
     
     def ishyperguard(self):
         # credit goes to W3AF
@@ -413,6 +441,10 @@ class WafW00F(waftoolsengine):
         if self.matchheader(('Cneonction','close'),attack=True):
             return True
         if self.matchheader(('nnCoection','close'),attack=True):
+            return True
+        if self.matchheader(('Via','NS-CACHE'),attack=True):
+            return True
+        if self.matchheader(('x-client-ip','.'),attack=True):
             return True
         return False
     
@@ -511,6 +543,24 @@ class WafW00F(waftoolsengine):
         if r is None:
             detected = True
         return detected
+    
+    # the following based on nmap's http-waf-fingerprint.nse 
+    def iscloudflare(self):
+        if self.matchheader(('server','cloudflare-nginx')):
+            return True
+        if self.matchcookie('__cfduid'):
+            return True
+        return False
+    
+    def isuspses(self):
+        if self.matchheader(('server','Secure Entry Server')):
+            return True
+        return False
+    
+    def isciscoacexml(self):
+        if self.matchheader(('server','ACE XML Gateway')):
+            return True
+        return False
 
     
     wafdetections = dict()
@@ -541,7 +591,11 @@ class WafW00F(waftoolsengine):
     # wafdetections['ModSecurity (positive model)'] = ismodsecuritypositive removed for now
     wafdetections['Imperva'] = isimperva
     wafdetections['Incapsula'] = isincapsula    
-    wafdetectionsprio = ['Profense','NetContinuum','Incapsula',
+    wafdetections['Cloud Flare'] = iscloudflare
+    wafdetections['Secure Entry Server'] = isuspses
+    wafdetections['Cisco ACE XML Gateway'] = isciscoacexml
+    wafdetectionsprio = ['Profense','NetContinuum','Incapsula','Cloud Flare',
+                         'Secure Entry Server','Cisco ACE XML Gateway',
                          'Barracuda','HyperGuard','BinarySec','Teros',
                          'F5 Trafficshield','F5 ASM','Airlock','Citrix NetScaler',
                          'ModSecurity', 'IBM Web Application Security', 'IBM DataPower', 'DenyALL',
