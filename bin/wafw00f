@@ -1,0 +1,4 @@
+#!/bin/bash
+
+BINPATH=`dirname $0`
+python "$BINPATH/../wafw00f/wafw00f.py" $@

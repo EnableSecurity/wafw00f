@@ -8,12 +8,12 @@ __pycache__/
 # Distribution / packaging
 .Python
 env/
-bin/
+#bin/
 build/
 develop-eggs/
 dist/
 eggs/
-lib/
+#lib/
 lib64/
 parts/
 sdist/
