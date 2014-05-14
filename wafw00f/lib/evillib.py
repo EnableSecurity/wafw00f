@@ -14,7 +14,7 @@ import logging
 from lib.BeautifulSoup import BeautifulSoup
 
 __license__ = """
-Copyright (c) 2009, {Sandro Gauci|Wendel G. Henrique}
+Copyright (c) 2014, {Sandro Gauci|Wendel G. Henrique}
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification,
