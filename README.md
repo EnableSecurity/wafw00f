@@ -31,16 +31,19 @@ WAFW00F with the `-l` option. At the time of writing the output is as follows:
           |_n_,'/_n_//_/   |_n_,' \_,' \_,'/_/
                                     <
                                      ...'
-
+                                     
         WAFW00F - Web Application Firewall Detection Tool
-
+        
         By Sandro Gauci && Wendel G. Henrique
-
+        
     Can test for these WAFs:
-
+    
     Profense
     NetContinuum
     Incapsula
+    Cloud Flare
+    Secure Entry Server
+    Cisco ACE XML Gateway
     Barracuda
     HyperGuard
     BinarySec
@@ -61,6 +64,7 @@ WAFW00F with the `-l` option. At the time of writing the output is as follows:
     SecureIIS
     Imperva
     ISA Server
+    
 
 
 ## How do I use it?
