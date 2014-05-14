@@ -31,9 +31,14 @@ OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISE
 OF THE POSSIBILITY OF SUCH DAMAGE.
 """
 import os
-import httplib
-from urllib import quote, unquote
-import urllib2
+try:
+    import httplib
+except ImportError:
+    import http.client as httplib
+try:
+    from urllib import quote, unquote
+except ImportError:
+    from urllib.parse import quote,unquote
 from optparse import OptionParser
 import logging
 import socket
@@ -624,14 +629,14 @@ def xmlrpc_interface(bindaddr=('localhost',8001)):
     try:
         server.serve_forever()
     except KeyboardInterrupt:
-        print "bye!"
+        print ("bye!")
         return
 
 
 
 
 def main():
-    print lackofart
+    print( lackofart)
     parser = OptionParser(usage="""%prog url1 [url2 [url3 ... ]]\r\nexample: %prog http://www.victim.org/""")
     parser.add_option('-v','--verbose',action='count', dest='verbose', default=0,
                       help="enable verbosity - multiple -v options increase verbosity")
@@ -653,15 +658,15 @@ def main():
     logging.basicConfig(level=calclogginglevel(options.verbose))
     log = logging.getLogger()
     if options.list:
-        print "Can test for these WAFs:\r\n"
+        print ("Can test for these WAFs:\r\n")
         attacker = WafW00F(None)
-        print '\r\n'.join(attacker.wafdetectionsprio)
+        print ('\r\n'.join(attacker.wafdetectionsprio))
         return
     if options.version:
-        print 'WAFW00F version %s' % __version__
+        print ('WAFW00F version %s' % __version__)
         return
     elif options.xmlrpc:
-        print "Starting XML-RPC interface"
+        print ("Starting XML-RPC interface")
         xmlrpc_interface(bindaddr=('localhost',options.xmlrpcport))
         return
     if len(args) == 0:
@@ -671,7 +676,7 @@ def main():
         if not (target.startswith('http://') or target.startswith('https://')):
             log.info('The url %s should start with http:// or https:// .. fixing (might make this unusable)' % target)
             target = 'http://' + target
-        print "Checking %s" % target
+        print ("Checking %s" % target)
         pret = oururlparse(target)
         if pret is None:
             log.critical('The url %s is not well formed' % target)
@@ -688,25 +693,25 @@ def main():
             if attacker.wafdetections.has_key(options.test):
                 waf = attacker.wafdetections[options.test](attacker)
                 if waf:
-                    print "The site %s is behind a %s" % (target, options.test)
+                    print ("The site %s is behind a %s" % (target, options.test))
                 else:
-                    print "WAF %s was not detected on %s" % (options.test,target)
+                    print ("WAF %s was not detected on %s" % (options.test,target))
             else:
-                print "WAF %s was not found in our list\r\nUse the --list option to see what is available" % options.test
+                print( "WAF %s was not found in our list\r\nUse the --list option to see what is available" % options.test)
             return
         waf = attacker.identwaf(options.findall)
         log.info('Ident WAF: %s' % waf)
         if len(waf) > 0:
-            print 'The site %s is behind a %s' % (target, ' and/or '.join( waf))
+            print ('The site %s is behind a %s' % (target, ' and/or '.join( waf)))
         if (options.findall) or len(waf) == 0:
-            print 'Generic Detection results:'
+            print ('Generic Detection results:')
             if attacker.genericdetect():
                 log.info('Generic Detection: %s' % attacker.knowledge['generic']['reason'])
-                print 'The site %s seems to be behind a WAF or some sort of security solution' % target
-                print 'Reason: %s' % attacker.knowledge['generic']['reason']
+                print ('The site %s seems to be behind a WAF or some sort of security solution' % target)
+                print ('Reason: %s' % attacker.knowledge['generic']['reason'])
             else:
-                print 'No WAF detected by the generic detection'
-        print 'Number of requests: %s' % attacker.requestnumber
+                print ('No WAF detected by the generic detection')
+        print ('Number of requests: %s' % attacker.requestnumber)
 
 if __name__ == '__main__':
     if sys.hexversion < 0x2040000:

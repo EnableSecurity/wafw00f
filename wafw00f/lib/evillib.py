@@ -1,12 +1,17 @@
 #!/usr/bin/env python
 import re
 import sys
-import httplib
+try:
+    import httplib
+except ImportError:
+    import http.client as httplib
 import socket
-import urllib
-from urlparse import urlparse, urlunparse
+try:
+    from urlparse import urlparse, urlunparse
+except ImportError:
+    from urllib.parse import urlparse, urlunparse
 import logging
-from BeautifulSoup import BeautifulSoup
+from lib.BeautifulSoup import BeautifulSoup
 
 __license__ = """
 Copyright (c) 2009, {Sandro Gauci|Wendel G. Henrique}
@@ -40,7 +45,10 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 
 # unicode mapping borrowed from http://packetstormsecurity.org/web/unicode-fun.txt
 # by Gary O'leary-Steele of Sec-1 Ltd
-from urllib import quote, unquote
+try:
+    from urllib import quote, unquote
+except ImportError:
+    from urllib.parse import quote,unquote
 unicodemapping = {  ' ' : '%u0020',
                     '/' : '%u2215',
                     '\\' : '%u2215',
@@ -172,7 +180,7 @@ def modifypath(path,newstrs,log,encode=True):
         ourstr = m[1:-1]
         for newstr in newstrs:
             if encode:
-                newstr= urllib.quote(newstr)
+                newstr= quote(newstr)
             log.debug('String was %s' % ourstr)
             log.debug('String became %s' % newstr)
             newpath = path.replace(m,newstr).replace(']','').replace('[','')
@@ -369,7 +377,7 @@ class waftoolsengine:
                         self.log.info('Found query %s' % location)
                         return href                    
                     if path not in self.crawlpaths:
-                        href = urllib.unquote(path)
+                        href = unquote(path)
                         self.log.debug('adding %s for crawling' % href)
                         self.crawlpaths.append(href)
                         localcrawlpaths.append(href)
