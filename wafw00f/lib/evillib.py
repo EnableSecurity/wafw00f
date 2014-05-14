@@ -11,7 +11,12 @@ try:
 except ImportError:
     from urllib.parse import urlparse, urlunparse
 import logging
-from lib.BeautifulSoup import BeautifulSoup
+try:    
+    from bs4 import BeautifulSoup
+except ImportError:
+    sys.stderr.write('You need to get BeautifulSoup installed\n')
+    sys.stderr.write('Do it now, as privileged user/root run: pip install beautifulsoup4\now')
+    sys.exit(1)
 
 __license__ = """
 Copyright (c) 2014, {Sandro Gauci|Wendel G. Henrique}
@@ -279,7 +284,7 @@ class waftoolsengine:
             headers['Accept'] = '*/*'
         k = str([method,path,headers])
         if usecache:                
-            if self.cachedresponses.has_key(k):
+            if k in self.cachedresponses.keys():
                 self.log.debug('Using cached version of %s, %s' % (method,path))
                 return self.cachedresponses[k]
             else:
