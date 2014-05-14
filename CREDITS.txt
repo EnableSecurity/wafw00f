@@ -1,0 +1,13 @@
+Original code by Sandro Gauci && Wendel G. Henrique
+
+However, a number of people contributed (in no particular order):
+
+- Sebastien Gioria
+- W3AF (or Andres Riancho)
+- Charlie Campbell 
+- @j0eMcCray
+- Mathieu Dessus
+- David S. Langlands
+
+If you did contributed and somehow I didn't put your name in there, please do
+let me know: <sandro@enablesecurity.com>. 
