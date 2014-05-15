@@ -1,0 +1,15 @@
+root = true
+
+[*]
+indent_style = space
+end_of_line = lf
+insert_final_newline = true
+charset = utf-8
+trim_trailing_whitespace = true
+
+[*.py]
+indent_size = 4
+
+[{*.bat,Makefile}]
+indent_style = tab
+indent_size = 4

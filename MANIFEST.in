@@ -1,0 +1,9 @@
+include CREDITS.txt
+include LICENSE
+include MANIFEST.in
+include README.md
+include requirements.txt
+include requirements/common.txt
+include requirements/prod.txt
+include wafw00f/__init__.py
+include wafw00f/bin/wafw00f

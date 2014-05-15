@@ -49,7 +49,7 @@ currentDir = os.getcwd()
 scriptDir = os.path.dirname(sys.argv[0]) or '.'
 os.chdir( scriptDir )
 
-from lib.evillib import *
+from wafw00f.lib.evillib import *
 
 __version__ = '0.9.1'
 
