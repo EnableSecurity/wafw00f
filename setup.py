@@ -14,7 +14,7 @@ setup(
     name='wafw00f',
     version=__import__('wafw00f').__version__,
     description=('WAFW00F identifies and fingerprints '
-        'Web Application Firewall (WAF) products.'),
+                 'Web Application Firewall (WAF) products.'),
     author='sandrogauci',
     author_email='sandro@enablesecurity.com',
     license='BSD License',
