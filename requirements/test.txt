@@ -1,0 +1,6 @@
+-r common.txt
+
+coverage==3.7.1
+coveralls==0.4.2
+python-coveralls==2.4.2
+nose==1.3.0

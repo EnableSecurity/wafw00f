@@ -1,0 +1,6 @@
+doc-warnings: no
+test-warnings: no
+strictness: veryhigh
+autodetect: yes
+ignore-paths:
+    - docs
