@@ -9,7 +9,7 @@ All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification,
 are permitted provided that the following conditions are met:
-    
+
     * Redistributions of source code must retain the above copyright notice,
       this list of conditions and the following disclaimer.
     * Redistributions in binary form must reproduce the above copyright notice,
@@ -61,9 +61,9 @@ lackofart = """
       |_n_,'/_n_//_/   |_n_,' \_,' \_,'/_/
                                 <
                                  ...'
-    
+
     WAFW00F - Web Application Firewall Detection Tool
-    
+
     By Sandro Gauci && Wendel G. Henrique
 """
 
@@ -72,15 +72,15 @@ class WafW00F(waftoolsengine):
     """
     WAF detection tool
     """
-    
+
     AdminFolder = '/Admin_Files/'
     xssstring = '<script>alert(1)</script>'
     dirtravstring = '../../../../etc/passwd'
     cleanhtmlstring = '<invalid>hello'
     isaservermatch = [
                     'Forbidden ( The server denied the specified Uniform Resource Locator (URL). Contact the server administrator.  )',
-                    "Forbidden ( The ISA Server denied the specified Uniform Resource Locator (URL)"]
-    
+                    'Forbidden ( The ISA Server denied the specified Uniform Resource Locator (URL)']
+
     def __init__(self,target='www.microsoft.com',port=80,ssl=False,
                  debuglevel=0,path='/',followredirect=True):
         """
@@ -91,51 +91,51 @@ class WafW00F(waftoolsengine):
         waftoolsengine.__init__(self,target,port,ssl,debuglevel,path,followredirect)
         self.log = logging.getLogger('wafw00f')
         self.knowledge = dict(generic=dict(found=False,reason=''),wafname=list())
-    
+
     def normalrequest(self,usecache=True,cacheresponse=True,headers=None):
         return self.request(usecache=usecache,cacheresponse=cacheresponse,headers=headers)
-    
+
     def normalnonexistentfile(self,usecache=True,cacheresponse=True):
         path = self.path + str(random.randrange(1000,9999)) + '.html'
         return self.request(path=path,usecache=usecache,cacheresponse=cacheresponse)
-    
+
     def unknownmethod(self,usecache=True,cacheresponse=True):
         return self.request(method='OHYEA',usecache=usecache,cacheresponse=cacheresponse)
-    
+
     def directorytraversal(self,usecache=True,cacheresponse=True):
         return self.request(path=self.path+self.dirtravstring,usecache=usecache,cacheresponse=cacheresponse)
-    
+
     def invalidhost(self,usecache=True,cacheresponse=True):
         randomnumber = random.randrange(100000,999999)
         return self.request(headers={'Host':str(randomnumber)})
-    
+
     def cleanhtmlencoded(self,usecache=True,cacheresponse=True):
         string = self.path + quote(self.cleanhtmlstring) + '.html'
         return self.request(path=string,usecache=usecache,cacheresponse=cacheresponse)
-    
+
     def cleanhtml(self,usecache=True,cacheresponse=True):
         string = self.path + self.cleanhtmlstring + '.html'
         return self.request(path=string,usecache=usecache,cacheresponse=cacheresponse)
-    
+
     def xssstandard(self,usecache=True,cacheresponse=True):
         xssstringa = self.path + self.xssstring + '.html'
         return self.request(path=xssstringa,usecache=usecache,cacheresponse=cacheresponse)
-    
+
     def protectedfolder(self,usecache=True,cacheresponse=True):
         pfstring = self.path + self.AdminFolder
         return self.request(path=pfstring,usecache=usecache,cacheresponse=cacheresponse)
-    
+
     def xssstandardencoded(self,usecache=True,cacheresponse=True):
         xssstringa = self.path + quote(self.xssstring) + '.html'
         return self.request(path=xssstringa,usecache=usecache,cacheresponse=cacheresponse)
-    
+
     def cmddotexe(self,usecache=True,cacheresponse=True):
         # thanks j0e
         string = self.path + 'cmd.exe'
         return self.request(path=string,usecache=usecache,cacheresponse=cacheresponse)
-    
+
     attacks = [cmddotexe,directorytraversal,xssstandard,protectedfolder,xssstandardencoded]
-    
+
     def genericdetect(self,usecache=True,cacheresponse=True):
         reason = ''
         reasons = ['Blocking is being done at connection/packet level.',
@@ -223,7 +223,7 @@ class WafW00F(waftoolsengine):
                     self.knowledge['generic']['found'] = True
                     return True
         return False
-    
+
     def matchheader(self,headermatch,attack=False,ignorecase=True):
         import re
         detected = False
@@ -257,7 +257,7 @@ class WafW00F(waftoolsengine):
                 if detected:
                     break
         return detected
-    
+
     def isbigip(self):
         detected = False
         if self.matchheader(('X-Cnection','^close$'), attack=True):
@@ -270,8 +270,7 @@ class WafW00F(waftoolsengine):
             return True
         else:
             return False
-        
-    
+
     def iswebknight(self):
         detected = False
         for attack in self.attacks:
@@ -283,7 +282,7 @@ class WafW00F(waftoolsengine):
                 detected = True
                 break
         return detected
-    
+
     def ismodsecurity(self):
         detected = False
         for attack in self.attacks:
@@ -294,11 +293,11 @@ class WafW00F(waftoolsengine):
             if response.status == 501:
                 detected = True
                 break
-        # the following based on nmap's http-waf-fingerprint.nse 
+        # the following based on nmap's http-waf-fingerprint.nse
         if self.matchheader(('server','(mod_security|Mod_Security|NOYB)')):
             return True
         return detected
-    
+
     def isisaserver(self):
         detected = False
         r = self.invalidhost()
@@ -308,7 +307,7 @@ class WafW00F(waftoolsengine):
         if response.reason in self.isaservermatch:
             detected = True
         return detected
-    
+
     def issecureiis(self):
         # credit goes to W3AF
         detected = False
@@ -327,26 +326,26 @@ class WafW00F(waftoolsengine):
         if response.status == 404:
             detected = True
         return detected
-    
+
     def matchcookie(self,match):
         """
         a convenience function which calls matchheader
         """
         return self.matchheader(('set-cookie',match))
-    
+
     def isairlock(self):
         # credit goes to W3AF
         return self.matchcookie('^AL[_-]?(SESS|LB)=')
-    
+
     def isbarracuda(self):
         # credit goes to W3AF
         if self.matchcookie('^barra_counter_session='):
             return True
-        # credit goes to Charlie Campbell 
+        # credit goes to Charlie Campbell
         if self.matchcookie('^BNI__BARRACUDA_LB_COOKIE='):
             return True
         return False
-    
+
     def isdenyall(self):
         # credit goes to W3AF
         if self.matchcookie('^sessioncookie='):
@@ -363,7 +362,7 @@ class WafW00F(waftoolsengine):
                 if response.reason == 'Condition Intercepted':
                     return True
         return False
-    
+
     def isbeeware(self):
         # disabled cause it was giving way too many false positives
         # credit goes to Sebastien Gioria
@@ -378,14 +377,14 @@ class WafW00F(waftoolsengine):
                 return
             response, responsebody = r
             if response.status == 403:
-                if response.reason == "Forbidden":
+                if response.reason == 'Forbidden':
                     detected = True
         return detected
-    
+
     def isf5asm(self):
         # credit goes to W3AF
         return self.matchcookie('^TS[a-zA-Z0-9]{3,6}=')
-    
+
     def isf5trafficshield(self):
         for hv in [['cookie','^ASINFO='],['server','F5-TrafficShield']]:
             r = self.matchheader(hv)
@@ -393,42 +392,42 @@ class WafW00F(waftoolsengine):
                 return
             elif r:
                 return r
-        # the following based on nmap's http-waf-fingerprint.nse 
+        # the following based on nmap's http-waf-fingerprint.nse
         if self.matchheader(('server','F5-TrafficShield')):
             return True
         return False
-    
+
     def isteros(self):
         # credit goes to W3AF
         return self.matchcookie('^st8id=')
-    
+
     def isnetcontinuum(self):
         # credit goes to W3AF
         return self.matchcookie('^NCI__SessionId=')
-    
+
     def isbinarysec(self):
         # credit goes to W3AF
         if self.matchheader(('server','BinarySec')):
             return True
-        # the following based on nmap's http-waf-fingerprint.nse 
+        # the following based on nmap's http-waf-fingerprint.nse
         elif self.matchheader(('x-binarysec-via','.')):
             return True
-        # the following based on nmap's http-waf-fingerprint.nse 
+        # the following based on nmap's http-waf-fingerprint.nse
         elif self.matchheader(('x-binarysec-nocache','.')):
             return True
         else:
             return False
-    
+
     def ishyperguard(self):
         # credit goes to W3AF
         return self.matchcookie('^WODSESSION=')
-    
+
     def isprofense(self):
         """
         Checks for server headers containing "profense"
         """
         return self.matchheader(('server','profense'))
-    
+
     def isnetscaler(self):
         """
         First checks if a cookie associated with Netscaler is present,
@@ -447,7 +446,7 @@ class WafW00F(waftoolsengine):
         if self.matchheader(('x-client-ip','.'),attack=True):
             return True
         return False
-    
+
     def isurlscan(self):
         detected = False
         testheaders = dict()
@@ -467,7 +466,7 @@ class WafW00F(waftoolsengine):
             if response2.status == 404:
                 detected = True
         return detected
-    
+
     def iswebscurity(self):
         detected = False
         r = self.normalrequest()
@@ -484,11 +483,11 @@ class WafW00F(waftoolsengine):
         if response.status == 403:
             detected = True
         return detected
-    
+
     def isdotdefender(self):
         # thanks to j0e
         return self.matchheader(['X-dotDefender-denied', '^1$'],attack=True)
-    
+
     def isimperva(self):
         # thanks to Mathieu Dessus <mathieu.dessus(a)verizonbusiness.com> for this
         # might lead to false positives so please report back to sandro@enablesecurity.com
@@ -500,7 +499,7 @@ class WafW00F(waftoolsengine):
             if response.version == 10:
                 return True
         return False
-    
+
     def ismodsecuritypositive(self):
         import random
         detected = False
@@ -520,15 +519,15 @@ class WafW00F(waftoolsengine):
         if response.status == 404:
             detected = True
         return detected
-    
+
     def isincapsula(self):
-       #credit goes to Charlie Campbell
+        # credit goes to Charlie Campbell
         if self.matchcookie('^.incap_ses'):
             return True
         if self.matchcookie('^visid.*='):
             return True
         return False
-    
+
     def isibmdatapower(self):
         # Added by Mathieu Dessus <mathieu.dessus(a)verizonbusiness.com>
         detected = False
@@ -536,33 +535,32 @@ class WafW00F(waftoolsengine):
             detected = True
         return detected
 
-    
+
     def isibm(self):
         detected = False
         r = self.protectedfolder()
         if r is None:
             detected = True
         return detected
-    
-    # the following based on nmap's http-waf-fingerprint.nse 
+
+    # the following based on nmap's http-waf-fingerprint.nse
     def iscloudflare(self):
         if self.matchheader(('server','cloudflare-nginx')):
             return True
         if self.matchcookie('__cfduid'):
             return True
         return False
-    
+
     def isuspses(self):
         if self.matchheader(('server','Secure Entry Server')):
             return True
         return False
-    
+
     def isciscoacexml(self):
         if self.matchheader(('server','ACE XML Gateway')):
             return True
         return False
 
-    
     wafdetections = dict()
     # easy ones
     wafdetections['IBM Web Application Security'] = isibm
@@ -590,7 +588,7 @@ class WafW00F(waftoolsengine):
     #wafdetections['BeeWare'] = isbeeware
     # wafdetections['ModSecurity (positive model)'] = ismodsecuritypositive removed for now
     wafdetections['Imperva'] = isimperva
-    wafdetections['Incapsula'] = isincapsula    
+    wafdetections['Incapsula'] = isincapsula
     wafdetections['Cloud Flare'] = iscloudflare
     wafdetections['Secure Entry Server'] = isuspses
     wafdetections['Cisco ACE XML Gateway'] = isciscoacexml
@@ -602,7 +600,7 @@ class WafW00F(waftoolsengine):
                          'dotDefender','webApp.secure', # removed for now 'ModSecurity (positive model)',
                          'BIG-IP','URLScan','WebKnight',
                          'SecureIIS','Imperva','ISA Server']
-    
+
     def identwaf(self,findall=False):
         detected = list()
         for wafvendor in self.wafdetectionsprio:
@@ -614,6 +612,7 @@ class WafW00F(waftoolsengine):
         self.knowledge['wafname'] = detected
         return detected
 
+
 def calclogginglevel(verbosity):
     default = 40 # errors are printed out
     level = default - (verbosity*10)
@@ -621,10 +620,11 @@ def calclogginglevel(verbosity):
         level = 0
     return level
 
+
 class wafwoof_api:
     def __init__(self):
         self.cache = dict()
-    
+
     def vendordetect(self,url,findall=False):
         if self.cache.has_key(url):
             wafw00f = self.cache[url]
@@ -636,7 +636,7 @@ class wafwoof_api:
             wafw00f = WafW00F(target=hostname,port=port,path=path,ssl=ssl)
             self.cache[url] = wafw00f
         return wafw00f.identwaf(findall=findall)
-    
+
     def genericdetect(self,url):
         if self.cache.has_key(url):
             wafw00f = self.cache[url]
@@ -649,7 +649,7 @@ class wafwoof_api:
             self.cache[url] = wafw00f
         wafw00f.genericdetect()
         return wafw00f.knowledge['generic']
-    
+
     def alltests(self,url,findall=False):
         if self.cache.has_key(url):
             wafw00f = self.cache[url]
@@ -666,36 +666,31 @@ class wafwoof_api:
         return wafw00f.knowledge
 
 
-
-
 def xmlrpc_interface(bindaddr=('localhost',8001)):
     from SimpleXMLRPCServer import SimpleXMLRPCServer
     from SimpleXMLRPCServer import SimpleXMLRPCRequestHandler
-    
+
     class RequestHandler(SimpleXMLRPCRequestHandler):
         rpc_paths = ('/RPC2',)
-        
-    
+
     server = SimpleXMLRPCServer(bindaddr,
-                            requestHandler=RequestHandler)
+                                requestHandler=RequestHandler)
     server.register_introspection_functions()
     server.register_instance(wafwoof_api())
     try:
         server.serve_forever()
     except KeyboardInterrupt:
-        print ("bye!")
+        print('bye!')
         return
 
 
-
-
 def main():
-    print( lackofart)
-    parser = OptionParser(usage="""%prog url1 [url2 [url3 ... ]]\r\nexample: %prog http://www.victim.org/""")
+    print(lackofart)
+    parser = OptionParser(usage='%prog url1 [url2 [url3 ... ]]\r\nexample: %prog http://www.victim.org/')
     parser.add_option('-v','--verbose',action='count', dest='verbose', default=0,
-                      help="enable verbosity - multiple -v options increase verbosity")
+                      help='enable verbosity - multiple -v options increase verbosity')
     parser.add_option('-a','--findall',action='store_true', dest='findall', default=False,
-                      help="Find all WAFs, do not stop testing on the first one")
+                      help='Find all WAFs, do not stop testing on the first one')
     parser.add_option('-r','--disableredirect',action='store_false',dest='followredirect',
                       default=True, help='Do not follow redirections given by 3xx responses')
     parser.add_option('-t','--test',dest='test',
@@ -712,25 +707,25 @@ def main():
     logging.basicConfig(level=calclogginglevel(options.verbose))
     log = logging.getLogger()
     if options.list:
-        print ("Can test for these WAFs:\r\n")
+        print('Can test for these WAFs:\r\n')
         attacker = WafW00F(None)
-        print ('\r\n'.join(attacker.wafdetectionsprio))
+        print('\r\n'.join(attacker.wafdetectionsprio))
         return
     if options.version:
-        print ('WAFW00F version %s' % __version__)
+        print('WAFW00F version %s' % __version__)
         return
     elif options.xmlrpc:
-        print ("Starting XML-RPC interface")
+        print('Starting XML-RPC interface')
         xmlrpc_interface(bindaddr=('localhost',options.xmlrpcport))
         return
     if len(args) == 0:
-        parser.error("we need a target site")
+        parser.error('we need a target site')
     targets = args
     for target in targets:
         if not (target.startswith('http://') or target.startswith('https://')):
             log.info('The url %s should start with http:// or https:// .. fixing (might make this unusable)' % target)
             target = 'http://' + target
-        print ("Checking %s" % target)
+        print('Checking %s' % target)
         pret = oururlparse(target)
         if pret is None:
             log.critical('The url %s is not well formed' % target)
@@ -747,25 +742,26 @@ def main():
             if attacker.wafdetections.has_key(options.test):
                 waf = attacker.wafdetections[options.test](attacker)
                 if waf:
-                    print ("The site %s is behind a %s" % (target, options.test))
+                    print('The site %s is behind a %s' % (target, options.test))
                 else:
-                    print ("WAF %s was not detected on %s" % (options.test,target))
+                    print('WAF %s was not detected on %s' % (options.test,target))
             else:
-                print( "WAF %s was not found in our list\r\nUse the --list option to see what is available" % options.test)
+                print('WAF %s was not found in our list\r\nUse the --list option to see what is available' % options.test)
             return
         waf = attacker.identwaf(options.findall)
         log.info('Ident WAF: %s' % waf)
         if len(waf) > 0:
-            print ('The site %s is behind a %s' % (target, ' and/or '.join( waf)))
+            print('The site %s is behind a %s' % (target, ' and/or '.join( waf)))
         if (options.findall) or len(waf) == 0:
-            print ('Generic Detection results:')
+            print('Generic Detection results:')
             if attacker.genericdetect():
                 log.info('Generic Detection: %s' % attacker.knowledge['generic']['reason'])
-                print ('The site %s seems to be behind a WAF or some sort of security solution' % target)
-                print ('Reason: %s' % attacker.knowledge['generic']['reason'])
+                print('The site %s seems to be behind a WAF or some sort of security solution' % target)
+                print('Reason: %s' % attacker.knowledge['generic']['reason'])
             else:
-                print ('No WAF detected by the generic detection')
-        print ('Number of requests: %s' % attacker.requestnumber)
+                print('No WAF detected by the generic detection')
+        print('Number of requests: %s' % attacker.requestnumber)
+
 
 if __name__ == '__main__':
     if sys.hexversion < 0x2040000:
