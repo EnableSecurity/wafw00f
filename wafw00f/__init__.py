@@ -49,7 +49,7 @@ currentDir = os.getcwd()
 scriptDir = os.path.dirname(sys.argv[0]) or '.'
 os.chdir(scriptDir)
 
-from wafw00f.lib.evillib import *
+from wafw00f.lib.evillib import oururlparse, scrambledheader, waftoolsengine
 
 __version__ = '0.9.2'
 
