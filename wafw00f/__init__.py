@@ -501,7 +501,6 @@ class WafW00F(waftoolsengine):
         return False
 
     def ismodsecuritypositive(self):
-        import random
         detected = False
         self.normalrequest(usecache=False, cacheresponse=False)
         randomfn = self.path + str(random.randrange(1000, 9999)) + '.html'
