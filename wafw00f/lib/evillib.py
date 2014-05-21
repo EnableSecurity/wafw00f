@@ -200,8 +200,8 @@ def modifypath(path, newstrs, log, encode=True):
 
 def bruteforceascii(ourstr):
     listourstr = list(ourstr)
-    for pos in xrange(len(ourstr)):
-        for i in xrange(256):
+    for pos in range(len(ourstr)):
+        for i in range(256):
             newlistourstr = listourstr[:]
             newlistourstr[pos] = chr(i)
             yield (quote(''.join(newlistourstr)))
