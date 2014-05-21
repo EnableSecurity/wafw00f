@@ -1,17 +1,20 @@
 #!/usr/bin/env python
 import re
 import sys
+
 try:
     import httplib
 except ImportError:
     import http.client as httplib
 import socket
+
 try:
     from urlparse import urlparse, urlunparse
 except ImportError:
     from urllib.parse import urlparse, urlunparse
 import logging
-try:    
+
+try:
     from bs4 import BeautifulSoup
 except ImportError:
     sys.stderr.write('You need to get BeautifulSoup installed\n')
@@ -53,102 +56,103 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 try:
     from urllib import quote, unquote
 except ImportError:
-    from urllib.parse import quote,unquote
-unicodemapping = {  ' ' : '%u0020',
-                    '/' : '%u2215',
-                    '\\' : '%u2215',
-                    "'" : '%u02b9',
-                    '"' : '%u0022',
-                    '>' : '%u003e',
-                    '<' : '%u003c',
-                    '#' : '%uff03',
-                    '!' : '%uff01',
-                    '$' : '%uff04',
-                    '*' : '%uff0a',
-                    '@' : '%u0040',
-                    '.' : '%uff0e',
-                    '_' : '%uff3f',
-                    '(' : '%uff08',
-                    ')' : '%uff09',
-                    ',' : '%uff0c',
-                    '%' : '%u0025',
-                    '-' : '%uff0d',
-                    ';' : '%uff1b',
-                    ':' : '%uff1a',
-                    '|' : '%uff5c',
-                    '&' : '%uff06',
-                    '+' : '%uff0b',
-                    '=' : '%uff1d',
-                    'a' : '%uff41',
-                    'A' : '%uff21',
-                    'b' : '%uff42',
-                    'B' : '%uff22',
-                    'c' : '%uff43',
-                    'C' : '%uff23',
-                    'd' : '%uff44',
-                    'D' : '%uff24',
-                    'e' : '%uff45',
-                    'E' : '%uff25',
-                    'f' : '%uff46',
-                    'F' : '%uff26',
-                    'g' : '%uff47',
-                    'G' : '%uff27',
-                    'h' : '%uff48',
-                    'H' : '%uff28',
-                    'i' : '%uff49',
-                    'I' : '%uff29',
-                    'j' : '%uff4a',
-                    'J' : '%uff2a',
-                    'k' : '%uff4b',
-                    'K' : '%uff2b',
-                    'l' : '%uff4c',
-                    'L' : '%uff2c',
-                    'm' : '%uff4d',
-                    'M' : '%uff2d',
-                    'n' : '%uff4e',
-                    'N' : '%uff2e',
-                    'o' : '%uff4f',
-                    'O' : '%uff2f',
-                    'p' : '%uff50',
-                    'P' : '%uff30',
-                    'q' : '%uff51',
-                    'Q' : '%uff31',
-                    'r' : '%uff52',
-                    'R' : '%uff32',
-                    's' : '%uff53',
-                    'S' : '%uff33',
-                    't' : '%uff54',
-                    'T' : '%uff34',
-                    'u' : '%uff55',
-                    'U' : '%uff35',
-                    'v' : '%uff56',
-                    'V' : '%uff36',
-                    'w' : '%uff57',
-                    'W' : '%uff37',
-                    'x' : '%uff58',
-                    'X' : '%uff38',
-                    'y' : '%uff59',
-                    'Y' : '%uff39',
-                    'z' : '%uff5a',
-                    'Z' : '%uff3a',
-                    '0' : '%uff10',
-                    '1' : '%uff11',
-                    '2' : '%uff12',
-                    '3' : '%uff13',
-                    '4' : '%uff14',
-                    '5' : '%uff15',
-                    '6' : '%uff16',
-                    '7' : '%uff17',
-                    '8' : '%uff18',
-                    '9' : '%uff19'}
+    from urllib.parse import quote, unquote
+unicodemapping = {' ': '%u0020',
+                  '/': '%u2215',
+                  '\\': '%u2215',
+                  "'": '%u02b9',
+                  '"': '%u0022',
+                  '>': '%u003e',
+                  '<': '%u003c',
+                  '#': '%uff03',
+                  '!': '%uff01',
+                  '$': '%uff04',
+                  '*': '%uff0a',
+                  '@': '%u0040',
+                  '.': '%uff0e',
+                  '_': '%uff3f',
+                  '(': '%uff08',
+                  ')': '%uff09',
+                  ',': '%uff0c',
+                  '%': '%u0025',
+                  '-': '%uff0d',
+                  ';': '%uff1b',
+                  ':': '%uff1a',
+                  '|': '%uff5c',
+                  '&': '%uff06',
+                  '+': '%uff0b',
+                  '=': '%uff1d',
+                  'a': '%uff41',
+                  'A': '%uff21',
+                  'b': '%uff42',
+                  'B': '%uff22',
+                  'c': '%uff43',
+                  'C': '%uff23',
+                  'd': '%uff44',
+                  'D': '%uff24',
+                  'e': '%uff45',
+                  'E': '%uff25',
+                  'f': '%uff46',
+                  'F': '%uff26',
+                  'g': '%uff47',
+                  'G': '%uff27',
+                  'h': '%uff48',
+                  'H': '%uff28',
+                  'i': '%uff49',
+                  'I': '%uff29',
+                  'j': '%uff4a',
+                  'J': '%uff2a',
+                  'k': '%uff4b',
+                  'K': '%uff2b',
+                  'l': '%uff4c',
+                  'L': '%uff2c',
+                  'm': '%uff4d',
+                  'M': '%uff2d',
+                  'n': '%uff4e',
+                  'N': '%uff2e',
+                  'o': '%uff4f',
+                  'O': '%uff2f',
+                  'p': '%uff50',
+                  'P': '%uff30',
+                  'q': '%uff51',
+                  'Q': '%uff31',
+                  'r': '%uff52',
+                  'R': '%uff32',
+                  's': '%uff53',
+                  'S': '%uff33',
+                  't': '%uff54',
+                  'T': '%uff34',
+                  'u': '%uff55',
+                  'U': '%uff35',
+                  'v': '%uff56',
+                  'V': '%uff36',
+                  'w': '%uff57',
+                  'W': '%uff37',
+                  'x': '%uff58',
+                  'X': '%uff38',
+                  'y': '%uff59',
+                  'Y': '%uff39',
+                  'z': '%uff5a',
+                  'Z': '%uff3a',
+                  '0': '%uff10',
+                  '1': '%uff11',
+                  '2': '%uff12',
+                  '3': '%uff13',
+                  '4': '%uff14',
+                  '5': '%uff15',
+                  '6': '%uff16',
+                  '7': '%uff17',
+                  '8': '%uff18',
+                  '9': '%uff19'}
 
-homoglyphicmapping = {"'" : '%ca%bc'}
+homoglyphicmapping = {"'": '%ca%bc'}
+
 
 def oururlparse(target):
     log = logging.getLogger('urlparser')
     ssl = False
     o = urlparse(target)
-    if o[0] not in ['http','https','']:
+    if o[0] not in ['http', 'https', '']:
         log.error('scheme %s not supported' % o[0])
         return
     if o[0] == 'https':
@@ -164,40 +168,44 @@ def oururlparse(target):
         port = None
     hostname = tmp[0]
     query = o[4]
-    return (hostname,port,path,query,ssl)
-    
-def modifyurl(path,modfunc,log):
+    return (hostname, port, path, query, ssl)
+
+
+def modifyurl(path, modfunc, log):
     path = path
     log.debug('path is currently %s' % path)
     #s = re.search('(\[.*?\])',path)
-    for m in re.findall('(\[.*?\])',path):
+    for m in re.findall('(\[.*?\])', path):
         ourstr = m[1:-1]
         newstr = modfunc(ourstr)
         log.debug('String was %s' % ourstr)
         log.debug('String became %s' % newstr)
-        path = path.replace(m,newstr)
+        path = path.replace(m, newstr)
     log.debug('the path is now %s' % path)
     return path
 
-def modifypath(path,newstrs,log,encode=True):    
+
+def modifypath(path, newstrs, log, encode=True):
     log.debug('path is currently %s' % path)
-    for m in re.findall('(\[.*?\])',path):
+    for m in re.findall('(\[.*?\])', path):
         ourstr = m[1:-1]
         for newstr in newstrs:
             if encode:
-                newstr= quote(newstr)
+                newstr = quote(newstr)
             log.debug('String was %s' % ourstr)
             log.debug('String became %s' % newstr)
-            newpath = path.replace(m,newstr).replace(']','').replace('[','')
-            yield(newpath)
+            newpath = path.replace(m, newstr).replace(']', '').replace('[', '')
+            yield (newpath)
+
 
 def bruteforceascii(ourstr):
     listourstr = list(ourstr)
     for pos in xrange(len(ourstr)):
-        for i in xrange(256):            
+        for i in xrange(256):
             newlistourstr = listourstr[:]
-            newlistourstr[pos] = chr(i)            
-            yield(quote(''.join(newlistourstr)))
+            newlistourstr[pos] = chr(i)
+            yield (quote(''.join(newlistourstr)))
+
 
 def unicodeurlencode(ourstr):
     newstr = str()
@@ -215,28 +223,35 @@ def nullify(ourstr):
         newstr += character + "\x00"
     return quote(newstr)
 
-def replacechars(ourstr,origchar,newchar):
-    newstr = ourstr.replace(origchar,newchar)    
+
+def replacechars(ourstr, origchar, newchar):
+    newstr = ourstr.replace(origchar, newchar)
     return newstr
 
+
 def nullifyspaces(ourstr):
-    return quote(replacechars(ourstr,' ','\x00'))
+    return quote(replacechars(ourstr, ' ', '\x00'))
+
 
 def slashspaces(ourstr):
-    return replacechars(ourstr,' ','/')
-    
+    return replacechars(ourstr, ' ', '/')
+
+
 def tabifyspaces(ourstr):
-    return replacechars(ourstr,' ','\t')
+    return replacechars(ourstr, ' ', '\t')
+
 
 def crlfspaces(ourstr):
-    return replacechars(ourstr,' ','\n')
-   
+    return replacechars(ourstr, ' ', '\n')
+
+
 def backslashquotes(ourstr):
-    return replacechars(ourstr,"'","\''")
-    
+    return replacechars(ourstr, "'", "\''")
+
+
 class waftoolsengine:
-    def __init__(self,target='www.microsoft.com',port=80,ssl=False,
-                 debuglevel=0,path='/',followredirect=True):
+    def __init__(self, target='www.microsoft.com', port=80, ssl=False,
+                 debuglevel=0, path='/', followredirect=True):
         """
         target: the hostname or ip of the target server
         port: defaults to 80
@@ -249,8 +264,8 @@ class waftoolsengine:
             else:
                 port = 80
         self.port = port
-        self.ssl = ssl        
-        self.debuglevel=debuglevel
+        self.ssl = ssl
+        self.debuglevel = debuglevel
         self.cachedresponses = dict()
         self.requestnumber = 0
         self.path = path
@@ -258,7 +273,7 @@ class waftoolsengine:
         self.followredirect = followredirect
         self.crawlpaths = list()
 
-    def request(self,method='GET',path=None,usecache=True,
+    def request(self, method='GET', path=None, usecache=True,
                 cacheresponse=True, headers=None,
                 comingfromredir=False):
         followredirect = self.followredirect
@@ -266,7 +281,7 @@ class waftoolsengine:
             self.redirectno += 1
             if self.redirectno >= 5:
                 self.log.error('We received way too many redirects.. stopping that')
-                followredirect=False
+                followredirect = False
         else:
             self.redirectno = 0
         if path is None:
@@ -277,34 +292,35 @@ class waftoolsengine:
             knownheaders = {}
             headers = {}
         if not 'user-agent' in knownheaders:
-            headers['User-Agent'] = 'Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.5; en-US; rv:1.9.1b1) Gecko/20081007 Firefox/3.0'
+            headers[
+                'User-Agent'] = 'Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.5; en-US; rv:1.9.1b1) Gecko/20081007 Firefox/3.0'
         if not 'accept-charset' in knownheaders:
             headers['Accept-Charset'] = 'ISO-8859-1,utf-8;q=0.7,*;q=0.7'
         if not 'accept' in knownheaders:
             headers['Accept'] = '*/*'
-        k = str([method,path,headers])
-        if usecache:                
+        k = str([method, path, headers])
+        if usecache:
             if k in self.cachedresponses.keys():
-                self.log.debug('Using cached version of %s, %s' % (method,path))
+                self.log.debug('Using cached version of %s, %s' % (method, path))
                 return self.cachedresponses[k]
             else:
-                self.log.debug('%s not found in %s' % (k,self.cachedresponses.keys()))
+                self.log.debug('%s not found in %s' % (k, self.cachedresponses.keys()))
         if sys.hexversion > 0x2060000:
             if self.ssl:
-                h = httplib.HTTPSConnection(self.target,self.port,timeout=4)
+                h = httplib.HTTPSConnection(self.target, self.port, timeout=4)
             else:
-                h = httplib.HTTPConnection(self.target,self.port,timeout=4)
+                h = httplib.HTTPConnection(self.target, self.port, timeout=4)
         else:
             if self.ssl:
-                h = httplib.HTTPSConnection(self.target,self.port)
+                h = httplib.HTTPSConnection(self.target, self.port)
             else:
-                h = httplib.HTTPConnection(self.target,self.port)
+                h = httplib.HTTPConnection(self.target, self.port)
         if self.debuglevel <= 10:
             if self.debuglevel > 1:
                 h.set_debuglevel(self.debuglevel)
         try:
-            self.log.info('Sending %s %s' % (method,path))
-            h.request(method,path,headers=headers)
+            self.log.info('Sending %s %s' % (method, path))
+            h.request(method, path, headers=headers)
         except socket.error:
             self.log.warn('Could not initialize connection to %s' % self.target)
             return
@@ -314,49 +330,49 @@ class waftoolsengine:
             responsebody = response.read()
             h.close()
             r = response, responsebody
-        except (socket.error,socket.timeout,httplib.BadStatusLine):
+        except (socket.error, socket.timeout, httplib.BadStatusLine):
             self.log.warn('Hey.. they closed our connection!')
             r = None
         if cacheresponse:
             self.cachedresponses[k] = r
         if r:
-            if response.status in [301,302,307]:                
-                if followredirect:                    
-                    if response.getheader('location'):                        
-                        newloc = response.getheader('location')                                            
-                        self.log.info('Redirected to %s' % newloc)                    
+            if response.status in [301, 302, 307]:
+                if followredirect:
+                    if response.getheader('location'):
+                        newloc = response.getheader('location')
+                        self.log.info('Redirected to %s' % newloc)
                         pret = oururlparse(newloc)
                         if pret is not None:
-                            (target,port,path,query,ssl) = pret                            
+                            (target, port, path, query, ssl) = pret
                             if not port: port = 80
                             if target == '':
                                 target = self.target
                             if port is None:
                                 port = self.port
                             if not path.startswith('/'):
-                                path = '/'+path
-                            if (target,port,ssl) == (self.target,self.port,ssl):
-                                r = self.request(method,path,usecache,cacheresponse,
-                                             headers,comingfromredir=True)
-                            else:                                
+                                path = '/' + path
+                            if (target, port, ssl) == (self.target, self.port, ssl):
+                                r = self.request(method, path, usecache, cacheresponse,
+                                                 headers, comingfromredir=True)
+                            else:
                                 self.log.warn('Tried to redirect to a different server %s' % newloc)
                         else:
                             self.log.warn('%s is not a well formatted url' % response.getheader('location'))
         return r
 
 
-    def querycrawler(self,path=None,curdepth=0,maxdepth=1):
+    def querycrawler(self, path=None, curdepth=0, maxdepth=1):
         self.log.debug('Crawler is visiting %s' % path)
-        localcrawlpaths = list()        
+        localcrawlpaths = list()
         if curdepth > maxdepth:
             self.log.info('maximum depth %s reached' % maxdepth)
             return
         r = self.request(path=path)
         if r is None:
             return
-        response, responsebody = r                
+        response, responsebody = r
         try:
-            soup=BeautifulSoup(responsebody)
+            soup = BeautifulSoup(responsebody)
         except:
             self.log.warn('could not parse the response body')
             return
@@ -365,22 +381,22 @@ class waftoolsengine:
             try:
                 href = tag["href"]
                 if href is not None:
-                    tmpu = urlparse(href)                    
+                    tmpu = urlparse(href)
                     if (tmpu[1] != '') and (self.target != tmpu[1]):
                         # not on the same domain name .. ignore
                         self.log.debug('Ignoring link because it is not on the same site %s' % href)
                         continue
-                    if tmpu[0] not in ['http','https','']:
+                    if tmpu[0] not in ['http', 'https', '']:
                         self.log.debug('Ignoring link because it is not an http uri %s' % href)
                         continue
                     path = tmpu[2]
                     if not path.startswith('/'):
-                        path = '/'+path
+                        path = '/' + path
                     if len(tmpu[4]) > 0:
                         # found a query .. thats all we need                                                
-                        location = urlunparse(('','',path,tmpu[3],tmpu[4],''))
+                        location = urlunparse(('', '', path, tmpu[3], tmpu[4], ''))
                         self.log.info('Found query %s' % location)
-                        return href                    
+                        return href
                     if path not in self.crawlpaths:
                         href = unquote(path)
                         self.log.debug('adding %s for crawling' % href)
@@ -388,8 +404,8 @@ class waftoolsengine:
                         localcrawlpaths.append(href)
             except KeyError:
                 pass
-        for nextpath in localcrawlpaths:            
-            r = self.querycrawler(path=nextpath,curdepth=curdepth+1,maxdepth=maxdepth)
+        for nextpath in localcrawlpaths:
+            r = self.querycrawler(path=nextpath, curdepth=curdepth + 1, maxdepth=maxdepth)
             if r:
                 return r
 

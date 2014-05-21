@@ -31,6 +31,7 @@ OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISE
 OF THE POSSIBILITY OF SUCH DAMAGE.
 """
 import os
+
 try:
     import httplib
 except ImportError:
@@ -41,7 +42,6 @@ except ImportError:
     from urllib.parse import quote, unquote
 from optparse import OptionParser
 import logging
-import socket
 import sys
 import random
 
@@ -78,8 +78,8 @@ class WafW00F(waftoolsengine):
     dirtravstring = '../../../../etc/passwd'
     cleanhtmlstring = '<invalid>hello'
     isaservermatch = [
-                    'Forbidden ( The server denied the specified Uniform Resource Locator (URL). Contact the server administrator.  )',
-                    'Forbidden ( The ISA Server denied the specified Uniform Resource Locator (URL)']
+        'Forbidden ( The server denied the specified Uniform Resource Locator (URL). Contact the server administrator.  )',
+        'Forbidden ( The ISA Server denied the specified Uniform Resource Locator (URL)']
 
     def __init__(self, target='www.microsoft.com', port=80, ssl=False,
                  debuglevel=0, path='/', followredirect=True):
@@ -143,7 +143,7 @@ class WafW00F(waftoolsengine):
                    'The server returned a different response code when a string trigged the blacklist.',
                    'It closed the connection for a normal request.',
                    'The connection header was scrambled.'
-                   ]
+        ]
         # test if response for a path containing html tags with known evil strings
         # gives a different response from another containing invalid html tags
         r = self.cleanhtml()
@@ -226,6 +226,7 @@ class WafW00F(waftoolsengine):
 
     def matchheader(self, headermatch, attack=False, ignorecase=True):
         import re
+
         detected = False
         header, match = headermatch
         if attack:
@@ -450,10 +451,10 @@ class WafW00F(waftoolsengine):
     def isurlscan(self):
         detected = False
         testheaders = dict()
-        testheaders['Translate'] = 'z'*10
-        testheaders['If'] = 'z'*10
-        testheaders['Lock-Token'] = 'z'*10
-        testheaders['Transfer-Encoding'] = 'z'*10
+        testheaders['Translate'] = 'z' * 10
+        testheaders['If'] = 'z' * 10
+        testheaders['Lock-Token'] = 'z' * 10
+        testheaders['Transfer-Encoding'] = 'z' * 10
         r = self.normalrequest()
         if r is None:
             return
@@ -510,7 +511,7 @@ class WafW00F(waftoolsengine):
         response, responsebody = r
         if response.status != 302:
             return False
-        randomfnnull = randomfn+'%00'
+        randomfnnull = randomfn + '%00'
         r = self.request(path=randomfnnull)
         if r is None:
             return
@@ -613,8 +614,8 @@ class WafW00F(waftoolsengine):
 
 
 def calclogginglevel(verbosity):
-    default = 40 # errors are printed out
-    level = default - (verbosity*10)
+    default = 40  # errors are printed out
+    level = default - (verbosity * 10)
     if level < 0:
         level = 0
     return level
@@ -745,7 +746,8 @@ def main():
                 else:
                     print('WAF %s was not detected on %s' % (options.test, target))
             else:
-                print('WAF %s was not found in our list\r\nUse the --list option to see what is available' % options.test)
+                print(
+                    'WAF %s was not found in our list\r\nUse the --list option to see what is available' % options.test)
             return
         waf = attacker.identwaf(options.findall)
         log.info('Ident WAF: %s' % waf)
