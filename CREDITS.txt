@@ -9,6 +9,9 @@ However, a number of people contributed (in no particular order):
 - Mathieu Dessus
 - David S. Langlands
 - Nmap's http-waf-fingerprint.nse / Hani Benhabiles
+- Denis Kolegov
+- kun a <https://github.com/akun>
+
 
 If you did contributed and somehow I didn't put your name in there, please do
 let me know: <sandro@enablesecurity.com>. 
