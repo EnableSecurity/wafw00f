@@ -561,6 +561,21 @@ class WafW00F(waftoolsengine):
             return True
         return False
 
+    def is360wzb(self):
+        return self.matchheader(('X-Powered-By-360WZB', '.+'))
+
+    def isanquanbao(self):
+        return self.matchheader(('X-Powered-By-Anquanbao', '.+'))
+
+    def ischinacache(self):
+        return self.matchheader(('Powered-By-ChinaCache', '.+'))
+
+    def ispowercdn(self):
+        return self.matchheader(('PowerCDN', '.+'))
+
+    def iswest263cdn(self):
+        return self.matchheader(('X-Cache', '.+WT263CDN-.+'))
+
     wafdetections = dict()
     # easy ones
     wafdetections['IBM Web Application Security'] = isibm
@@ -592,6 +607,11 @@ class WafW00F(waftoolsengine):
     wafdetections['Cloud Flare'] = iscloudflare
     wafdetections['Secure Entry Server'] = isuspses
     wafdetections['Cisco ACE XML Gateway'] = isciscoacexml
+    wafdetections['360WangZhanBao'] = is360wzb
+    wafdetections['Anquanbao'] = isanquanbao
+    wafdetections['ChinaCache-CDN'] = ischinacache
+    wafdetections['PowerCDN'] = ispowercdn
+    wafdetections['West263CDN'] = iswest263cdn
     wafdetectionsprio = ['Profense', 'NetContinuum', 'Incapsula', 'Cloud Flare',
                          'Secure Entry Server', 'Cisco ACE XML Gateway',
                          'Barracuda', 'HyperGuard', 'BinarySec', 'Teros',
