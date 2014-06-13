@@ -1,5 +1,6 @@
 -r common.txt
 
+httpretty==0.8.0
 coverage==3.7.1
 coveralls==0.4.2
 python-coveralls==2.4.2
