@@ -259,18 +259,63 @@ class WafW00F(waftoolsengine):
                     break
         return detected
 
-    def isbigip(self):
+    def isf5trafficshield(self):
+        for hv in [['cookie', '^ASINFO='], ['server', 'F5-TrafficShield']]:
+            r = self.matchheader(hv)
+            if r is None:
+                return
+            elif r:
+                return r
+        # the following based on nmap's http-waf-fingerprint.nse
+        if self.matchheader(('server', 'F5-TrafficShield')):
+            return True
+        return False
+
+    def isf5firepass(self):
         detected = False
-        if self.matchheader(('X-Cnection', '^close$'), attack=True):
+	if self.matchheader(('Location', '\/my\.logon\.php3')) and self.matchcookie('^VHOST'):
+           return True
+        elif self.matchcookie('^MRHSession') and (self.matchcookie('^VHOST') or self.matchcookie('^uRoamTestCookie')) :
             return True
-        # the following based on nmap's http-waf-fingerprint.nse
-        elif self.matchheader(('server', 'BigIP')):
+        elif self.matchcookie('^MRHSession') and (self.matchcookie('^MRHCId') or self.matchcookie('^MRHIntranetSession')) :
             return True
-        # the following based on nmap's http-waf-fingerprint.nse
-        elif self.matchcookie('^BIGipServer='):
+        elif self.matchcookie('^uRoamTestCookie') or self.matchcookie('^VHOST'):
+           return True
+        else:
+            return False
+
+
+    def isf5bigipltm(self):
+        detected = False
+	if self.matchcookie('^BIGipServer'):
+            return True        
+	elif self.matchheader(('X-Cnection', '^close$'), attack=True):
             return True
         else:
             return False
+
+    def isf5bigipapm(self):
+        detected = False
+        # the following based on nmap's http-waf-fingerprint.nse
+        if self.matchcookie('^LastMRH_Session') and self.matchcookie('^MRHSession'):
+            return True
+        elif self.matchheader(('server', 'BigIP|BIG-IP|BIGIP')) and self.matchcookie('^MRHSession'):
+            return True
+        if self.matchheader(('Location', '\/my.policy')) and self.matchheader(('server', 'BigIP|BIG-IP|BIGIP')):
+            return True
+	elif self.matchheader(('Location', '\/my\.logout\.php3')) and self.matchheader(('server', 'BigIP|BIG-IP|BIGIP')):
+           return True
+	elif self.matchheader(('Location', '.+\/f5\-w\-68747470.+')) and self.matchheader(('server', 'BigIP|BIG-IP|BIGIP')):
+            return True
+        elif self.matchcookie('^F5_ST') or self.matchcookie('^MRHSHint') or self.matchcookie('^LastMRH_Session') or self.matchheader(('server', 'BigIP|BIG-IP|BIGIP')):
+            return True 
+        else:
+            return False
+
+
+    def isf5bigipasm(self):
+        # credit goes to W3AF
+        return self.matchcookie('^TS[a-zA-Z0-9]{3,6}=')
 
     def iswebknight(self):
         detected = False
@@ -382,21 +427,6 @@ class WafW00F(waftoolsengine):
                     detected = True
         return detected
 
-    def isf5asm(self):
-        # credit goes to W3AF
-        return self.matchcookie('^TS[a-zA-Z0-9]{3,6}=')
-
-    def isf5trafficshield(self):
-        for hv in [['cookie', '^ASINFO='], ['server', 'F5-TrafficShield']]:
-            r = self.matchheader(hv)
-            if r is None:
-                return
-            elif r:
-                return r
-        # the following based on nmap's http-waf-fingerprint.nse
-        if self.matchheader(('server', 'F5-TrafficShield')):
-            return True
-        return False
 
     def isteros(self):
         # credit goes to W3AF
@@ -589,10 +619,12 @@ class WafW00F(waftoolsengine):
     wafdetections['Airlock'] = isairlock
     wafdetections['BinarySec'] = isbinarysec
     wafdetections['F5 Trafficshield'] = isf5trafficshield
-    wafdetections['F5 ASM'] = isf5asm
+    wafdetections['F5 FirePass'] = isf5firepass
+    wafdetections['F5 BIG-IP LTM'] = isf5bigipltm
+    wafdetections['F5 BIG-IP APM'] = isf5bigipapm
+    wafdetections['F5 BIG-IP ASM'] = isf5bigipasm
     wafdetections['Teros'] = isteros
     wafdetections['DenyALL'] = isdenyall
-    wafdetections['BIG-IP'] = isbigip
     wafdetections['Citrix NetScaler'] = isnetscaler
     # lil bit more complex
     wafdetections['webApp.secure'] = iswebscurity
@@ -615,10 +647,10 @@ class WafW00F(waftoolsengine):
     wafdetectionsprio = ['Profense', 'NetContinuum', 'Incapsula', 'Cloud Flare',
                          'Secure Entry Server', 'Cisco ACE XML Gateway',
                          'Barracuda', 'HyperGuard', 'BinarySec', 'Teros',
-                         'F5 Trafficshield', 'F5 ASM', 'Airlock', 'Citrix NetScaler',
+                         'F5 BIG-IP LTM','F5 BIG-IP APM', 'F5 BIG-IP ASM','F5 FirePass','F5 Trafficshield','Airlock', 'Citrix NetScaler',
                          'ModSecurity', 'IBM Web Application Security', 'IBM DataPower', 'DenyALL',
                          'dotDefender', 'webApp.secure',  # removed for now 'ModSecurity (positive model)',
-                         'BIG-IP', 'URLScan', 'WebKnight',
+                         'URLScan', 'WebKnight',
                          'SecureIIS', 'Imperva', 'ISA Server']
 
     def identwaf(self, findall=False):
