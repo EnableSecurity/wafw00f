@@ -618,8 +618,8 @@ class WafW00F(waftoolsengine):
     wafdetections['Barracuda'] = isbarracuda
     wafdetections['Airlock'] = isairlock
     wafdetections['BinarySec'] = isbinarysec
-    wafdetections['F5 Trafficshield'] = isf5trafficshield
     wafdetections['F5 FirePass'] = isf5firepass
+    wafdetections['F5 Trafficshield'] = isf5trafficshield
     wafdetections['F5 BIG-IP LTM'] = isf5bigipltm
     wafdetections['F5 BIG-IP APM'] = isf5bigipapm
     wafdetections['F5 BIG-IP ASM'] = isf5bigipasm
