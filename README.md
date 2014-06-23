@@ -49,7 +49,8 @@ WAFW00F with the `-l` option. At the time of writing the output is as follows:
     BinarySec
     Teros
     F5 Trafficshield
-    F5 ASM
+    F5 FirePass
+    F5 BIG-IP (LTM, APM, ASM)
     Airlock
     Citrix NetScaler
     ModSecurity
@@ -58,7 +59,6 @@ WAFW00F with the `-l` option. At the time of writing the output is as follows:
     DenyALL
     dotDefender
     webApp.secure
-    BIG-IP
     URLScan
     WebKnight
     SecureIIS
