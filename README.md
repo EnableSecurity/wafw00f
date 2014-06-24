@@ -48,8 +48,13 @@ WAFW00F with the `-l` option. At the time of writing the output is as follows:
     HyperGuard
     BinarySec
     Teros
+<<<<<<< HEAD
     F5 Trafficshield
     F5 FirePass
+=======
+    F5 FirePass
+    F5 TrafficShield
+>>>>>>> origin/master
     F5 BIG-IP (LTM, APM, ASM)
     Airlock
     Citrix NetScaler
