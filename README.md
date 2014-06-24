@@ -37,36 +37,35 @@ WAFW00F with the `-l` option. At the time of writing the output is as follows:
         By Sandro Gauci && Wendel G. Henrique
         
     Can test for these WAFs:
-    
-    Profense
-    NetContinuum
-    Incapsula
-    Cloud Flare
-    Secure Entry Server
-    Cisco ACE XML Gateway
-    Barracuda
-    HyperGuard
+
+    Applicure dotDefender
+    Art of Defence HyperGuard
+    Aqtronix WebKnight
+    Barracuda Aplication Firewall
     BinarySec
-    Teros
+    Cisco ACE XML Gateway
+    Citrix NetScaler
+    CloudFlare
+    DenyALL WAF
+    eEye Digital Security - SecureIIS
     F5 FirePass
     F5 TrafficShield
     F5 BIG-IP (LTM, APM, ASM)
-    Airlock
-    Citrix NetScaler
-    ModSecurity
     IBM Web Application Security
     IBM DataPower
-    DenyALL
-    dotDefender
-    webApp.secure
-    URLScan
-    WebKnight
-    SecureIIS
-    Imperva
-    ISA Server
-    
+    Imperva SecureSphere
+    InfoGuard Airlock    
+    Incapsula WAF
+    Juniper WebApp Secure
+    Microsoft ISA Server
+    Microsoft UrlScan
+    NetContinuum
+    Profense
+    TrustWave ModSecurity
+    Teros WAF
+    USP Secure Entry Server
 
-
+  
 ## How do I use it?
 
 For help please make use of the `--help` option. The basic usage is to pass it
