@@ -480,6 +480,10 @@ class WafW00F(waftoolsengine):
             return True
         if self.matchheader(('x-client-ip', '.'), attack=True):
             return True
+        if self.matchheader(('Location', '\/vpn\/index\.html')):
+            return True
+        if self.matchcookie('^pwcount'):
+            return True
         return False
 
     def isurlscan(self):
