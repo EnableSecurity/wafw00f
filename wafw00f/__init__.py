@@ -651,7 +651,7 @@ class WafW00F(waftoolsengine):
     wafdetectionsprio = ['Profense', 'NetContinuum', 'Incapsula WAF', 'CloudFlare',
                          'USP Secure Entry Server', 'Cisco ACE XML Gateway',
                          'Barracuda Application Firewall', 'Art of Defence HyperGuard', 'BinarySec', 'Teros WAF',
-                         'F5 BIG-IP LTM','F5 BIG-IP APM', 'F5 BIG-IP ASM','F5 FirePass','F5 Trafficshield','Airlock', 'Citrix NetScaler',
+                         'F5 BIG-IP LTM','F5 BIG-IP APM', 'F5 BIG-IP ASM','F5 FirePass','F5 Trafficshield','InfoGuard Airlock', 'Citrix NetScaler',
                          'Trustwave ModSecurity', 'IBM Web Application Security', 'IBM DataPower', 'DenyALL WAF',
                          'Applicure dotDefender', 'Juniper WebApp Secure',  # removed for now 'ModSecurity (positive model)',
                          'Microsoft URLScan', 'Aqtronix WebKnight',
