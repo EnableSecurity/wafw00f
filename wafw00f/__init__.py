@@ -273,23 +273,23 @@ class WafW00F(waftoolsengine):
 
     def isf5firepass(self):
         detected = False
-	if self.matchheader(('Location', '\/my\.logon\.php3')) and self.matchcookie('^VHOST'):
-           return True
-        elif self.matchcookie('^MRHSession') and (self.matchcookie('^VHOST') or self.matchcookie('^uRoamTestCookie')) :
+        if self.matchheader(('Location', '\/my\.logon\.php3')) and self.matchcookie('^VHOST'):
             return True
-        elif self.matchcookie('^MRHSession') and (self.matchcookie('^MRHCId') or self.matchcookie('^MRHIntranetSession')) :
+        elif self.matchcookie('^MRHSession') and (self.matchcookie('^VHOST') or self.matchcookie('^uRoamTestCookie')):
+            return True
+        elif self.matchcookie('^MRHSession') and (self.matchcookie('^MRHCId') or self.matchcookie('^MRHIntranetSession')):
             return True
         elif self.matchcookie('^uRoamTestCookie') or self.matchcookie('^VHOST'):
-           return True
+            return True
         else:
             return False
 
 
     def isf5bigipltm(self):
         detected = False
-	if self.matchcookie('^BIGipServer'):
-            return True        
-	elif self.matchheader(('X-Cnection', '^close$'), attack=True):
+        if self.matchcookie('^BIGipServer'):
+            return True
+        elif self.matchheader(('X-Cnection', '^close$'), attack=True):
             return True
         else:
             return False
@@ -303,16 +303,16 @@ class WafW00F(waftoolsengine):
             return True
         if self.matchheader(('Location', '\/my.policy')) and self.matchheader(('server', 'BigIP|BIG-IP|BIGIP')):
             return True
-	elif self.matchheader(('Location', '\/my\.logout\.php3')) and self.matchheader(('server', 'BigIP|BIG-IP|BIGIP')):
-           return True
-	elif self.matchheader(('Location', '.+\/f5\-w\-68747470.+')) and self.matchheader(('server', 'BigIP|BIG-IP|BIGIP')):
+        elif self.matchheader(('Location', '\/my\.logout\.php3')) and self.matchheader(('server', 'BigIP|BIG-IP|BIGIP')):
             return True
-	elif self.matchheader(('server', 'BigIP|BIG-IP|BIGIP')):
+        elif self.matchheader(('Location', '.+\/f5\-w\-68747470.+')) and self.matchheader(('server', 'BigIP|BIG-IP|BIGIP')):
+            return True
+        elif self.matchheader(('server', 'BigIP|BIG-IP|BIGIP')):
             return True
         elif self.matchcookie('^F5_fullWT') or self.matchcookie('^F5_ST') or self.matchcookie('^F5_HT_shrinked'):
             return True
-	elif self.matchcookie('^MRHSequence') or self.matchcookie('^MRHSHint') or self.matchcookie('^LastMRH_Session'):
-            return True  
+        elif self.matchcookie('^MRHSequence') or self.matchcookie('^MRHSHint') or self.matchcookie('^LastMRH_Session'):
+            return True
         else:
             return False
 
@@ -655,7 +655,7 @@ class WafW00F(waftoolsengine):
     wafdetectionsprio = ['Profense', 'NetContinuum', 'Incapsula WAF', 'CloudFlare',
                          'USP Secure Entry Server', 'Cisco ACE XML Gateway',
                          'Barracuda Application Firewall', 'Art of Defence HyperGuard', 'BinarySec', 'Teros WAF',
-                         'F5 BIG-IP LTM','F5 BIG-IP APM', 'F5 BIG-IP ASM','F5 FirePass','F5 Trafficshield','InfoGuard Airlock', 'Citrix NetScaler',
+                         'F5 BIG-IP LTM', 'F5 BIG-IP APM', 'F5 BIG-IP ASM', 'F5 FirePass', 'F5 Trafficshield', 'InfoGuard Airlock', 'Citrix NetScaler',
                          'Trustwave ModSecurity', 'IBM Web Application Security', 'IBM DataPower', 'DenyALL WAF',
                          'Applicure dotDefender', 'Juniper WebApp Secure',  # removed for now 'ModSecurity (positive model)',
                          'Microsoft URLScan', 'Aqtronix WebKnight',
