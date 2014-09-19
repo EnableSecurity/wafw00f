@@ -137,6 +137,9 @@ class WafW00F(waftoolsengine):
     attacks = [cmddotexe, directorytraversal, xssstandard, protectedfolder, xssstandardencoded]
 
     def genericdetect(self, usecache=True, cacheresponse=True):
+        knownflops = [
+            ('Microsoft-IIS/7.0','Microsoft-HTTPAPI/2.0'),
+        ]
         reason = ''
         reasons = ['Blocking is being done at connection/packet level.',
                    'The server header is different when an attack is detected.',
@@ -196,6 +199,8 @@ class WafW00F(waftoolsengine):
             attackresponse_server = response.getheader('Server')
             if attackresponse_server:
                 if attackresponse_server != normalserver:
+                    if (normalserver, attackresponse_server) in knownflops:
+                        return False
                     self.log.info('Server header changed, WAF possibly detected')
                     self.log.debug('attack response: %s' % attackresponse_server)
                     self.log.debug('normal response: %s' % normalserver)
