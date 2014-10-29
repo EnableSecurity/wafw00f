@@ -23,7 +23,7 @@ It detects a number of WAFs. To view which WAFs it is able to detect run
 WAFW00F with the `-l` option. At the time of writing the output is as follows:
 
     $ ./wafw00f -l
-    
+
                                      ^     ^
             _   __  _   ____ _   __  _    _   ____
            ///7/ /.' \ / __////7/ /,' \ ,' \ / __/
@@ -31,11 +31,11 @@ WAFW00F with the `-l` option. At the time of writing the output is as follows:
           |_n_,'/_n_//_/   |_n_,' \_,' \_,'/_/
                                     <
                                      ...'
-                                     
+
         WAFW00F - Web Application Firewall Detection Tool
-        
+
         By Sandro Gauci && Wendel G. Henrique
-        
+
     Can test for these WAFs:
 
     Applicure dotDefender
@@ -54,7 +54,7 @@ WAFW00F with the `-l` option. At the time of writing the output is as follows:
     IBM Web Application Security
     IBM DataPower
     Imperva SecureSphere
-    InfoGuard Airlock    
+    InfoGuard Airlock
     Incapsula WAF
     Juniper WebApp Secure
     Microsoft ISA Server
@@ -65,14 +65,14 @@ WAFW00F with the `-l` option. At the time of writing the output is as follows:
     Teros WAF
     USP Secure Entry Server
 
-  
+
 ## How do I use it?
 
 For help please make use of the `--help` option. The basic usage is to pass it
 a URL as an argument. Example:
 
     $./wafw00f https://www.ibm.com/
-    
+
                                      ^     ^
             _   __  _   ____ _   __  _    _   ____
            ///7/ /.' \ / __////7/ /,' \ ,' \ / __/
@@ -80,15 +80,15 @@ a URL as an argument. Example:
           |_n_,'/_n_//_/   |_n_,' \_,' \_,'/_/
                                     <
                                      ...'
-                                     
+
         WAFW00F - Web Application Firewall Detection Tool
-        
+
         By Sandro Gauci && Wendel G. Henrique
-        
+
     Checking https://www.ibm.com/
     The site https://www.ibm.com/ is behind a Citrix NetScaler
     Number of requests: 6
-    
+
 
 ## How do I install it?
 
