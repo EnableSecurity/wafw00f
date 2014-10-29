@@ -90,6 +90,12 @@ a URL as an argument. Example:
     Number of requests: 6
     
 
+## How do I install it?
+
+The following should do the trick:
+
+	python setup.py install
+
 ## Need a freelance pentester?
 
 More information about the services that I offer at [Enable Security](http://enablesecurity.com/)
