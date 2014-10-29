@@ -94,7 +94,11 @@ a URL as an argument. Example:
 
 The following should do the trick:
 
-	python setup.py install
+    python setup.py install
+
+or
+
+    pip install wafw00f
 
 ## Need a freelance pentester?
 
