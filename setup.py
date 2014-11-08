@@ -12,7 +12,7 @@ def get_reqs():
 
 setup(
     name='wafw00f',
-    version=__import__('wafw00f').__version__,
+    version='0.9.2',
     description=('WAFW00F identifies and fingerprints '
                  'Web Application Firewall (WAF) products.'),
     author='sandrogauci',
