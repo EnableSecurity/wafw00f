@@ -2,12 +2,12 @@
 
 
 from setuptools import setup, find_packages
-from pip.req import parse_requirements
 
 
 def get_reqs():
-    install_reqs = parse_requirements('requirements.txt')
-    return [str(ir.req) for ir in install_reqs]
+    req_lines = [line.strip() for line in open(
+        'requirements/common.txt').readlines()]
+    return list(filter(None, req_lines))
 
 
 setup(
