@@ -51,7 +51,7 @@ os.chdir(scriptDir)
 
 from wafw00f.lib.evillib import oururlparse, scrambledheader, waftoolsengine
 
-__version__ = '0.9.2'
+__version__ = '0.9.3'
 
 lackofart = """
                                  ^     ^
@@ -399,7 +399,7 @@ class WafW00F(waftoolsengine):
         # credit goes to Charlie Campbell
         if self.matchcookie('^BNI__BARRACUDA_LB_COOKIE='):
             return True
-        # credit goes to yours truly      
+        # credit goes to yours truly
         if self.matchcookie('^BNI_persistence='):
             return True
         if self.matchcookie('^BN[IE]S_.*?='):
