@@ -5,7 +5,7 @@ from unittest import TestCase
 
 import httpretty
 
-from wafw00f import WafW00F
+from wafw00f.main import WafW00F
 
 
 class WafW00FTestCase(TestCase):
