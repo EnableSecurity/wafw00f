@@ -81,13 +81,13 @@ class WafW00F(waftoolsengine):
         'Forbidden ( The ISA Server denied the specified Uniform Resource Locator (URL)']
 
     def __init__(self, target='www.microsoft.com', port=80, ssl=False,
-                 debuglevel=0, path='/', followredirect=True):
+                 debuglevel=0, path='/', followredirect=True, extraheaders={}):
         """
         target: the hostname or ip of the target server
         port: defaults to 80
         ssl: defaults to false
         """
-        waftoolsengine.__init__(self, target, port, ssl, debuglevel, path, followredirect)
+        waftoolsengine.__init__(self, target, port, ssl, debuglevel, path, followredirect, extraheaders)
         self.log = logging.getLogger('wafw00f')
         self.knowledge = dict(generic=dict(found=False, reason=''), wafname=list())
 
@@ -702,7 +702,7 @@ class wafwoof_api:
             if r is None:
                 return ['']
             (hostname, port, path, query, ssl) = r
-            wafw00f = WafW00F(target=hostname, port=port, path=path, ssl=ssl)
+            wafw00f = WafW00F(target=hostname, port=port, path=path, ssl=ssl, extraheaders=extraheaders)
             self.cache[url] = wafw00f
         return wafw00f.identwaf(findall=findall)
 
@@ -714,7 +714,7 @@ class wafwoof_api:
             if r is None:
                 return {}
             (hostname, port, path, query, ssl) = r
-            wafw00f = WafW00F(target=hostname, port=port, path=path, ssl=ssl)
+            wafw00f = WafW00F(target=hostname, port=port, path=path, ssl=ssl, extraheaders=extraheaders)
             self.cache[url] = wafw00f
         wafw00f.genericdetect()
         return wafw00f.knowledge['generic']
@@ -727,7 +727,7 @@ class wafwoof_api:
             if r is None:
                 return {}
             (hostname, port, path, query, ssl) = r
-            wafw00f = WafW00F(target=hostname, port=port, path=path, ssl=ssl)
+            wafw00f = WafW00F(target=hostname, port=port, path=path, ssl=ssl, extraheaders=extraheaders)
             self.cache[url] = wafw00f
         wafw00f.identwaf(findall=findall)
         if (len(wafw00f.knowledge['wafname']) == 0) or (findall):
@@ -753,6 +753,20 @@ def xmlrpc_interface(bindaddr=('localhost', 8001)):
         return
 
 
+def getheaders(fn):
+    headers = {}
+    fullfn = os.path.abspath(os.path.join(os.getcwd(),fn))
+    if not os.path.exists(fullfn):
+        logging.getLogger('wafw00f').critical('Headers file "%s" does not exist!'%fullfn)
+        return
+    with open(fn,'r') as f:
+        for line in f.readlines():            
+            _t = line.split(':',2)
+            if len(_t) == 2:
+                h,v = map(lambda x: x.strip(),_t)
+                headers[h] = v
+    return headers
+
 def main():
     print(lackofart)
     parser = OptionParser(usage='%prog url1 [url2 [url3 ... ]]\r\nexample: %prog http://www.victim.org/')
@@ -772,6 +786,8 @@ def main():
                       default=8001, help='Specify an alternative port to listen on, default 8001')
     parser.add_option('--version', '-V', dest='version', action='store_true',
                       default=False, help='Print out the version')
+    parser.add_option('--headersfile', '-H', dest='headersfile', action='store',
+                      default=None, help='Pass custom headers, for example to overwrite the default User-Agent string')
     options, args = parser.parse_args()
     logging.basicConfig(level=calclogginglevel(options.verbose))
     log = logging.getLogger()
@@ -787,6 +803,11 @@ def main():
         print('Starting XML-RPC interface')
         xmlrpc_interface(bindaddr=('localhost', options.xmlrpcport))
         return
+    if options.headersfile:
+        log.info('Getting extra headers from %s' % options.headersfile)
+        extraheaders = getheaders(options.headersfile)
+        if extraheaders is None:
+            parser.error('Please provide a headers file with colon delimited header names and values')
     if len(args) == 0:
         parser.error('we need a target site')
     targets = args
@@ -803,7 +824,8 @@ def main():
         log.info('starting wafw00f on %s' % target)
         attacker = WafW00F(hostname, port=port, ssl=ssl,
                            debuglevel=options.verbose, path=path,
-                           followredirect=options.followredirect)
+                           followredirect=options.followredirect,
+                           extraheaders=extraheaders)
         if attacker.normalrequest() is None:
             log.error('Site %s appears to be down' % target)
             sys.exit(1)

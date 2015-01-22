@@ -251,7 +251,7 @@ def backslashquotes(ourstr):
 
 class waftoolsengine:
     def __init__(self, target='www.microsoft.com', port=80, ssl=False,
-                 debuglevel=0, path='/', followredirect=True):
+                 debuglevel=0, path='/', followredirect=True, extraheaders={}):
         """
         target: the hostname or ip of the target server
         port: defaults to 80
@@ -272,6 +272,7 @@ class waftoolsengine:
         self.redirectno = 0
         self.followredirect = followredirect
         self.crawlpaths = list()
+        self.extraheaders = extraheaders
 
     def request(self, method='GET', path=None, usecache=True,
                 cacheresponse=True, headers=None,
@@ -286,6 +287,10 @@ class waftoolsengine:
             self.redirectno = 0
         if path is None:
             path = self.path
+        for hdr in self.extraheaders.keys():
+            if headers is None:
+                headers = {}
+            headers[hdr] = self.extraheaders[hdr]
         if headers is not None:
             knownheaders = map(lambda x: x.lower(), headers.keys())
         else:
