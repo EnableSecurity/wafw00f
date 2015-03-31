@@ -803,6 +803,8 @@ def main():
         print('Starting XML-RPC interface')
         xmlrpc_interface(bindaddr=('localhost', options.xmlrpcport))
         return
+
+    extraheaders = {}
     if options.headersfile:
         log.info('Getting extra headers from %s' % options.headersfile)
         extraheaders = getheaders(options.headersfile)
