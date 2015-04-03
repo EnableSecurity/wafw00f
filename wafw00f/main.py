@@ -604,11 +604,6 @@ class WafW00F(waftoolsengine):
             return True
         return False
 
-    def isciscoacexml(self):
-        if self.matchheader(('server', 'ACE XML Gateway')):
-            return True
-        return False
-
     wafdetections = dict()
     # easy ones
     wafdetections['IBM Web Application Security'] = isibm
@@ -641,7 +636,6 @@ class WafW00F(waftoolsengine):
     wafdetections['Incapsula WAF'] = isincapsula
     wafdetections['CloudFlare'] = iscloudflare
     wafdetections['USP Secure Entry Server'] = isuspses
-    wafdetections['Cisco ACE XML Gateway'] = isciscoacexml
     wafdetectionsprio = ['Profense', 'NetContinuum', 'Incapsula WAF', 'CloudFlare',
                          'USP Secure Entry Server', 'Cisco ACE XML Gateway',
                          'Barracuda Application Firewall', 'Art of Defence HyperGuard', 'BinarySec', 'Teros WAF',
