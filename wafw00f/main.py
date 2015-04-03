@@ -621,9 +621,6 @@ class WafW00F(waftoolsengine):
     def ispowercdn(self):
         return self.matchheader(('PowerCDN', '.+'))
 
-    def iswest263cdn(self):
-        return self.matchheader(('X-Cache', '.+WT263CDN-.+'))
-
     wafdetections = dict()
     # easy ones
     wafdetections['IBM Web Application Security'] = isibm
@@ -661,7 +658,6 @@ class WafW00F(waftoolsengine):
     wafdetections['Anquanbao'] = isanquanbao
     wafdetections['ChinaCache-CDN'] = ischinacache
     wafdetections['PowerCDN'] = ispowercdn
-    wafdetections['West263CDN'] = iswest263cdn
     wafdetectionsprio = ['Profense', 'NetContinuum', 'Incapsula WAF', 'CloudFlare',
                          'USP Secure Entry Server', 'Cisco ACE XML Gateway',
                          'Barracuda Application Firewall', 'Art of Defence HyperGuard', 'BinarySec', 'Teros WAF',
