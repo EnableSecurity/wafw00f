@@ -51,6 +51,7 @@ os.chdir(scriptDir)
 
 from wafw00f import __version__
 from wafw00f.lib.evillib import oururlparse, scrambledheader, waftoolsengine
+from wafw00f.manager import load_plugins
 
 lackofart = """
                                  ^     ^
@@ -669,6 +670,11 @@ class WafW00F(waftoolsengine):
                          'Applicure dotDefender', 'Juniper WebApp Secure',  # removed for now 'ModSecurity (positive model)',
                          'Microsoft URLScan', 'Aqtronix WebKnight',
                          'eEye Digital Security SecureIIS', 'Imperva SecureSphere', 'Microsoft ISA Server']
+
+    plugin_dict = load_plugins()
+    result_dict = {}
+    for plugin_module in plugin_dict.values():
+        wafdetections[plugin_module.NAME] = plugin_module.is_waf
 
     def identwaf(self, findall=False):
         detected = list()
