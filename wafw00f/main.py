@@ -612,9 +612,6 @@ class WafW00F(waftoolsengine):
     def is360wzb(self):
         return self.matchheader(('X-Powered-By-360WZB', '.+'))
 
-    def isanquanbao(self):
-        return self.matchheader(('X-Powered-By-Anquanbao', '.+'))
-
     wafdetections = dict()
     # easy ones
     wafdetections['IBM Web Application Security'] = isibm
@@ -649,7 +646,6 @@ class WafW00F(waftoolsengine):
     wafdetections['USP Secure Entry Server'] = isuspses
     wafdetections['Cisco ACE XML Gateway'] = isciscoacexml
     wafdetections['360WangZhanBao'] = is360wzb
-    wafdetections['Anquanbao'] = isanquanbao
     wafdetectionsprio = ['Profense', 'NetContinuum', 'Incapsula WAF', 'CloudFlare',
                          'USP Secure Entry Server', 'Cisco ACE XML Gateway',
                          'Barracuda Application Firewall', 'Art of Defence HyperGuard', 'BinarySec', 'Teros WAF',
