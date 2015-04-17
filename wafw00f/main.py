@@ -463,10 +463,6 @@ class WafW00F(waftoolsengine):
         else:
             return False
 
-    def ishyperguard(self):
-        # credit goes to W3AF
-        return self.matchcookie('^WODSESSION=')
-
     def ismodsecuritypositive(self):
         detected = False
         self.normalrequest(usecache=False, cacheresponse=False)
@@ -491,7 +487,6 @@ class WafW00F(waftoolsengine):
     wafdetections['Trustwave ModSecurity'] = ismodsecurity
     wafdetections['Microsoft ISA Server'] = isisaserver
     wafdetections['NetContinuum'] = isnetcontinuum
-    wafdetections['Art of Defence HyperGuard'] = ishyperguard
     wafdetections['Barracuda Application Firewall'] = isbarracuda
     wafdetections['InfoGuard Airlock'] = isairlock
     wafdetections['BinarySec'] = isbinarysec
