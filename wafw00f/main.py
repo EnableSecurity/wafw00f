@@ -446,10 +446,6 @@ class WafW00F(waftoolsengine):
         # credit goes to W3AF
         return self.matchcookie('^st8id=')
 
-    def isnetcontinuum(self):
-        # credit goes to W3AF
-        return self.matchcookie('^NCI__SessionId=')
-
     def ismodsecuritypositive(self):
         detected = False
         self.normalrequest(usecache=False, cacheresponse=False)
@@ -473,7 +469,6 @@ class WafW00F(waftoolsengine):
     # easy ones
     wafdetections['Trustwave ModSecurity'] = ismodsecurity
     wafdetections['Microsoft ISA Server'] = isisaserver
-    wafdetections['NetContinuum'] = isnetcontinuum
     wafdetections['Barracuda Application Firewall'] = isbarracuda
     wafdetections['InfoGuard Airlock'] = isairlock
     wafdetections['F5 FirePass'] = isf5firepass
