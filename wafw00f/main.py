@@ -599,11 +599,6 @@ class WafW00F(waftoolsengine):
             return True
         return False
 
-    def isuspses(self):
-        if self.matchheader(('server', 'Secure Entry Server')):
-            return True
-        return False
-
     wafdetections = dict()
     # easy ones
     wafdetections['IBM Web Application Security'] = isibm
@@ -635,7 +630,6 @@ class WafW00F(waftoolsengine):
     wafdetections['Imperva SecureSphere'] = isimperva
     wafdetections['Incapsula WAF'] = isincapsula
     wafdetections['CloudFlare'] = iscloudflare
-    wafdetections['USP Secure Entry Server'] = isuspses
     wafdetectionsprio = ['Profense', 'NetContinuum', 'Incapsula WAF', 'CloudFlare',
                          'USP Secure Entry Server', 'Cisco ACE XML Gateway',
                          'Barracuda Application Firewall', 'Art of Defence HyperGuard', 'BinarySec', 'Teros WAF',
