@@ -467,12 +467,6 @@ class WafW00F(waftoolsengine):
         # credit goes to W3AF
         return self.matchcookie('^WODSESSION=')
 
-    def isprofense(self):
-        """
-        Checks for server headers containing "profense"
-        """
-        return self.matchheader(('server', 'profense'))
-
     def ismodsecuritypositive(self):
         detected = False
         self.normalrequest(usecache=False, cacheresponse=False)
@@ -494,7 +488,6 @@ class WafW00F(waftoolsengine):
 
     wafdetections = dict()
     # easy ones
-    wafdetections['Profense'] = isprofense
     wafdetections['Trustwave ModSecurity'] = ismodsecurity
     wafdetections['Microsoft ISA Server'] = isisaserver
     wafdetections['NetContinuum'] = isnetcontinuum
