@@ -338,21 +338,6 @@ class WafW00F(waftoolsengine):
                 break
         return detected
 
-    def ismodsecurity(self):
-        detected = False
-        for attack in self.attacks:
-            r = attack(self)
-            if r is None:
-                return
-            response, responsebody = r
-            if response.status == 501:
-                detected = True
-                break
-        # the following based on nmap's http-waf-fingerprint.nse
-        if self.matchheader(('server', '(mod_security|Mod_Security|NOYB)')):
-            return True
-        return detected
-
     def matchcookie(self, match):
         """
         a convenience function which calls matchheader
@@ -398,7 +383,6 @@ class WafW00F(waftoolsengine):
 
     wafdetections = dict()
     # easy ones
-    wafdetections['Trustwave ModSecurity'] = ismodsecurity
     wafdetections['F5 FirePass'] = isf5firepass
     wafdetections['F5 Trafficshield'] = isf5trafficshield
     wafdetections['F5 BIG-IP LTM'] = isf5bigipltm
