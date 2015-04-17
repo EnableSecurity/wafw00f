@@ -392,20 +392,6 @@ class WafW00F(waftoolsengine):
         # credit goes to W3AF
         return self.matchcookie('^AL[_-]?(SESS|LB)=')
 
-    def isbarracuda(self):
-        # credit goes to W3AF
-        if self.matchcookie('^barra_counter_session='):
-            return True
-        # credit goes to Charlie Campbell
-        if self.matchcookie('^BNI__BARRACUDA_LB_COOKIE='):
-            return True
-        # credit goes to yours truly
-        if self.matchcookie('^BNI_persistence='):
-            return True
-        if self.matchcookie('^BN[IE]S_.*?='):
-            return True
-        return False
-
     def isbeeware(self):
         # disabled cause it was giving way too many false positives
         # credit goes to Sebastien Gioria
@@ -447,7 +433,6 @@ class WafW00F(waftoolsengine):
     # easy ones
     wafdetections['Trustwave ModSecurity'] = ismodsecurity
     wafdetections['Microsoft ISA Server'] = isisaserver
-    wafdetections['Barracuda Application Firewall'] = isbarracuda
     wafdetections['InfoGuard Airlock'] = isairlock
     wafdetections['F5 FirePass'] = isf5firepass
     wafdetections['F5 Trafficshield'] = isf5trafficshield
