@@ -276,20 +276,6 @@ class WafW00F(waftoolsengine):
             return True
         return False
 
-    def isf5firepass(self):
-        detected = False
-        if self.matchheader(('Location', '\/my\.logon\.php3')) and self.matchcookie('^VHOST'):
-            return True
-        elif self.matchcookie('^MRHSession') and (self.matchcookie('^VHOST') or self.matchcookie('^uRoamTestCookie')):
-            return True
-        elif self.matchcookie('^MRHSession') and (self.matchcookie('^MRHCId') or self.matchcookie('^MRHIntranetSession')):
-            return True
-        elif self.matchcookie('^uRoamTestCookie') or self.matchcookie('^VHOST'):
-            return True
-        else:
-            return False
-
-
     def matchcookie(self, match):
         """
         a convenience function which calls matchheader
@@ -335,7 +321,6 @@ class WafW00F(waftoolsengine):
 
     wafdetections = dict()
     # easy ones
-    wafdetections['F5 FirePass'] = isf5firepass
     wafdetections['F5 Trafficshield'] = isf5trafficshield
     # lil bit more complex
     #wafdetections['BeeWare'] = isbeeware
