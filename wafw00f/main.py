@@ -591,14 +591,6 @@ class WafW00F(waftoolsengine):
             detected = True
         return detected
 
-    # the following based on nmap's http-waf-fingerprint.nse
-    def iscloudflare(self):
-        if self.matchheader(('server', 'cloudflare-nginx')):
-            return True
-        if self.matchcookie('__cfduid'):
-            return True
-        return False
-
     wafdetections = dict()
     # easy ones
     wafdetections['IBM Web Application Security'] = isibm
@@ -629,7 +621,6 @@ class WafW00F(waftoolsengine):
     #wafdetections['ModSecurity (positive model)'] = ismodsecuritypositive removed for now
     wafdetections['Imperva SecureSphere'] = isimperva
     wafdetections['Incapsula WAF'] = isincapsula
-    wafdetections['CloudFlare'] = iscloudflare
     wafdetectionsprio = ['Profense', 'NetContinuum', 'Incapsula WAF', 'CloudFlare',
                          'USP Secure Entry Server', 'Cisco ACE XML Gateway',
                          'Barracuda Application Firewall', 'Art of Defence HyperGuard', 'BinarySec', 'Teros WAF',
