@@ -322,10 +322,6 @@ class WafW00F(waftoolsengine):
             return False
 
 
-    def isf5bigipasm(self):
-        # credit goes to W3AF
-        return self.matchcookie('^TS[a-zA-Z0-9]{3,6}=')
-
     def matchcookie(self, match):
         """
         a convenience function which calls matchheader
@@ -375,7 +371,6 @@ class WafW00F(waftoolsengine):
     wafdetections['F5 Trafficshield'] = isf5trafficshield
     wafdetections['F5 BIG-IP LTM'] = isf5bigipltm
     wafdetections['F5 BIG-IP APM'] = isf5bigipapm
-    wafdetections['F5 BIG-IP ASM'] = isf5bigipasm
     # lil bit more complex
     #wafdetections['BeeWare'] = isbeeware
     #wafdetections['ModSecurity (positive model)'] = ismodsecuritypositive removed for now
