@@ -533,10 +533,6 @@ class WafW00F(waftoolsengine):
             detected = True
         return detected
 
-    def isdotdefender(self):
-        # thanks to j0e
-        return self.matchheader(['X-dotDefender-denied', '^1$'], attack=True)
-
     def ismodsecuritypositive(self):
         detected = False
         self.normalrequest(usecache=False, cacheresponse=False)
@@ -579,7 +575,6 @@ class WafW00F(waftoolsengine):
     wafdetections['Aqtronix WebKnight'] = iswebknight
     wafdetections['Microsoft URLScan'] = isurlscan
     wafdetections['eEye Digital Security SecureIIS'] = issecureiis
-    wafdetections['Applicure dotDefender'] = isdotdefender
     #wafdetections['BeeWare'] = isbeeware
     #wafdetections['ModSecurity (positive model)'] = ismodsecuritypositive removed for now
     wafdetectionsprio = ['Profense', 'NetContinuum', 'Incapsula WAF', 'CloudFlare',
