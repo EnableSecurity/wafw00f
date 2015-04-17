@@ -51,6 +51,7 @@ os.chdir(scriptDir)
 
 from wafw00f import __version__
 from wafw00f.lib.evillib import oururlparse, scrambledheader, waftoolsengine
+from wafw00f.manager import load_plugins
 
 lackofart = """
                                  ^     ^
@@ -263,164 +264,11 @@ class WafW00F(waftoolsengine):
                     break
         return detected
 
-    def isf5trafficshield(self):
-        for hv in [['cookie', '^ASINFO='], ['server', 'F5-TrafficShield']]:
-            r = self.matchheader(hv)
-            if r is None:
-                return
-            elif r:
-                return r
-        # the following based on nmap's http-waf-fingerprint.nse
-        if self.matchheader(('server', 'F5-TrafficShield')):
-            return True
-        return False
-
-    def isf5firepass(self):
-        detected = False
-        if self.matchheader(('Location', '\/my\.logon\.php3')) and self.matchcookie('^VHOST'):
-            return True
-        elif self.matchcookie('^MRHSession') and (self.matchcookie('^VHOST') or self.matchcookie('^uRoamTestCookie')):
-            return True
-        elif self.matchcookie('^MRHSession') and (self.matchcookie('^MRHCId') or self.matchcookie('^MRHIntranetSession')):
-            return True
-        elif self.matchcookie('^uRoamTestCookie') or self.matchcookie('^VHOST'):
-            return True
-        else:
-            return False
-
-
-    def isf5bigipltm(self):
-        detected = False
-        if self.matchcookie('^BIGipServer'):
-            return True
-        elif self.matchheader(('X-Cnection', '^close$'), attack=True):
-            return True
-        else:
-            return False
-
-    def isf5bigipapm(self):
-        detected = False
-        # the following based on nmap's http-waf-fingerprint.nse
-        if self.matchcookie('^LastMRH_Session') and self.matchcookie('^MRHSession'):
-            return True
-        elif self.matchheader(('server', 'BigIP|BIG-IP|BIGIP')) and self.matchcookie('^MRHSession'):
-            return True
-        if self.matchheader(('Location', '\/my.policy')) and self.matchheader(('server', 'BigIP|BIG-IP|BIGIP')):
-            return True
-        elif self.matchheader(('Location', '\/my\.logout\.php3')) and self.matchheader(('server', 'BigIP|BIG-IP|BIGIP')):
-            return True
-        elif self.matchheader(('Location', '.+\/f5\-w\-68747470.+')) and self.matchheader(('server', 'BigIP|BIG-IP|BIGIP')):
-            return True
-        elif self.matchheader(('server', 'BigIP|BIG-IP|BIGIP')):
-            return True
-        elif self.matchcookie('^F5_fullWT') or self.matchcookie('^F5_ST') or self.matchcookie('^F5_HT_shrinked'):
-            return True
-        elif self.matchcookie('^MRHSequence') or self.matchcookie('^MRHSHint') or self.matchcookie('^LastMRH_Session'):
-            return True
-        else:
-            return False
-
-
-    def isf5bigipasm(self):
-        # credit goes to W3AF
-        return self.matchcookie('^TS[a-zA-Z0-9]{3,6}=')
-
-    def iswebknight(self):
-        detected = False
-        for attack in self.attacks:
-            r = attack(self)
-            if r is None:
-                return
-            response, responsebody = r
-            if response.status == 999:
-                detected = True
-                break
-        return detected
-
-    def ismodsecurity(self):
-        detected = False
-        for attack in self.attacks:
-            r = attack(self)
-            if r is None:
-                return
-            response, responsebody = r
-            if response.status == 501:
-                detected = True
-                break
-        # the following based on nmap's http-waf-fingerprint.nse
-        if self.matchheader(('server', '(mod_security|Mod_Security|NOYB)')):
-            return True
-        return detected
-
-    def isisaserver(self):
-        detected = False
-        r = self.invalidhost()
-        if r is None:
-            return
-        response, responsebody = r
-        if response.reason in self.isaservermatch:
-            detected = True
-        return detected
-
-    def issecureiis(self):
-        # credit goes to W3AF
-        detected = False
-        r = self.normalrequest()
-        if r is None:
-            return
-        response, responsebody = r
-        if response.status == 404:
-            return
-        headers = dict()
-        headers['Transfer-Encoding'] = 'z' * 1025
-        r = self.normalrequest(headers=headers)
-        if r is None:
-            return
-        response, responsebody = r
-        if response.status == 404:
-            detected = True
-        return detected
-
     def matchcookie(self, match):
         """
         a convenience function which calls matchheader
         """
         return self.matchheader(('set-cookie', match))
-
-    def isairlock(self):
-        # credit goes to W3AF
-        return self.matchcookie('^AL[_-]?(SESS|LB)=')
-
-    def isbarracuda(self):
-        # credit goes to W3AF
-        if self.matchcookie('^barra_counter_session='):
-            return True
-        # credit goes to Charlie Campbell
-        if self.matchcookie('^BNI__BARRACUDA_LB_COOKIE='):
-            return True
-        # credit goes to yours truly
-        if self.matchcookie('^BNI_persistence='):
-            return True
-        if self.matchcookie('^BN[IE]S_.*?='):
-            return True
-        return False
-
-    def isdenyall(self):
-        # credit goes to W3AF
-        if self.matchcookie('^sessioncookie='):
-            return True
-        # credit goes to Sebastien Gioria
-        #   Tested against a Rweb 3.8
-        # and modified by sandro gauci and someone else
-        for attack in self.attacks:
-            r = attack(self)
-            if r is None:
-                return
-            response, responsebody = r
-            if response.status == 200:
-                if response.reason == 'Condition Intercepted':
-                    return True
-        return False
 
     def isbeeware(self):
         # disabled cause it was giving way too many false positives
@@ -439,114 +287,6 @@ class WafW00F(waftoolsengine):
                 if response.reason == 'Forbidden':
                     detected = True
         return detected
-
-
-    def isteros(self):
-        # credit goes to W3AF
-        return self.matchcookie('^st8id=')
-
-    def isnetcontinuum(self):
-        # credit goes to W3AF
-        return self.matchcookie('^NCI__SessionId=')
-
-    def isbinarysec(self):
-        # credit goes to W3AF
-        if self.matchheader(('server', 'BinarySec')):
-            return True
-        # the following based on nmap's http-waf-fingerprint.nse
-        elif self.matchheader(('x-binarysec-via', '.')):
-            return True
-        # the following based on nmap's http-waf-fingerprint.nse
-        elif self.matchheader(('x-binarysec-nocache', '.')):
-            return True
-        else:
-            return False
-
-    def ishyperguard(self):
-        # credit goes to W3AF
-        return self.matchcookie('^WODSESSION=')
-
-    def isprofense(self):
-        """
-        Checks for server headers containing "profense"
-        """
-        return self.matchheader(('server', 'profense'))
-
-    def isnetscaler(self):
-        """
-        First checks if a cookie associated with Netscaler is present,
-        if not it will try to find if a "Cneonction" or "nnCoection" is returned
-        for any of the attacks sent
-        """
-        # NSC_ and citrix_ns_id come from David S. Langlands <dsl 'at' surfstar.com>
-        if self.matchcookie('^(ns_af=|citrix_ns_id|NSC_)'):
-            return True
-        if self.matchheader(('Cneonction', 'close'), attack=True):
-            return True
-        if self.matchheader(('nnCoection', 'close'), attack=True):
-            return True
-        if self.matchheader(('Via', 'NS-CACHE'), attack=True):
-            return True
-        if self.matchheader(('x-client-ip', '.'), attack=True):
-            return True
-        if self.matchheader(('Location', '\/vpn\/index\.html')):
-            return True
-        if self.matchcookie('^pwcount'):
-            return True
-        return False
-
-    def isurlscan(self):
-        detected = False
-        testheaders = dict()
-        testheaders['Translate'] = 'z' * 10
-        testheaders['If'] = 'z' * 10
-        testheaders['Lock-Token'] = 'z' * 10
-        testheaders['Transfer-Encoding'] = 'z' * 10
-        r = self.normalrequest()
-        if r is None:
-            return
-        response, _tmp = r
-        r = self.normalrequest(headers=testheaders)
-        if r is None:
-            return
-        response2, _tmp = r
-        if response.status != response2.status:
-            if response2.status == 404:
-                detected = True
-        return detected
-
-    def iswebscurity(self):
-        detected = False
-        r = self.normalrequest()
-        if r is None:
-            return
-        response, responsebody = r
-        if response.status == 403:
-            return detected
-        newpath = self.path + '?nx=@@'
-        r = self.request(path=newpath)
-        if r is None:
-            return
-        response, responsebody = r
-        if response.status == 403:
-            detected = True
-        return detected
-
-    def isdotdefender(self):
-        # thanks to j0e
-        return self.matchheader(['X-dotDefender-denied', '^1$'], attack=True)
-
-    def isimperva(self):
-        # thanks to Mathieu Dessus <mathieu.dessus(a)verizonbusiness.com> for this
-        # might lead to false positives so please report back to sandro@enablesecurity.com
-        for attack in self.attacks:
-            r = attack(self)
-            if r is None:
-                return
-            response, responsebody = r
-            if response.version == 10:
-                return True
-        return False
 
     def ismodsecuritypositive(self):
         detected = False
@@ -567,100 +307,12 @@ class WafW00F(waftoolsengine):
             detected = True
         return detected
 
-    def isincapsula(self):
-        # credit goes to Charlie Campbell
-        if self.matchcookie('^.incap_ses'):
-            return True
-        if self.matchcookie('^visid.*='):
-            return True
-        return False
-
-    def isibmdatapower(self):
-        # Added by Mathieu Dessus <mathieu.dessus(a)verizonbusiness.com>
-        detected = False
-        if self.matchheader(('X-Backside-Transport', '^(OK|FAIL)')):
-            detected = True
-        return detected
-
-
-    def isibm(self):
-        detected = False
-        r = self.protectedfolder()
-        if r is None:
-            detected = True
-        return detected
-
-    # the following based on nmap's http-waf-fingerprint.nse
-    def iscloudflare(self):
-        if self.matchheader(('server', 'cloudflare-nginx')):
-            return True
-        if self.matchcookie('__cfduid'):
-            return True
-        return False
-
-    def isuspses(self):
-        if self.matchheader(('server', 'Secure Entry Server')):
-            return True
-        return False
-
-    def isciscoacexml(self):
-        if self.matchheader(('server', 'ACE XML Gateway')):
-            return True
-        return False
-
-    def is360wzb(self):
-        return self.matchheader(('X-Powered-By-360WZB', '.+'))
-
-    def isanquanbao(self):
-        return self.matchheader(('X-Powered-By-Anquanbao', '.+'))
-
-    def ischinacache(self):
-        return self.matchheader(('Powered-By-ChinaCache', '.+'))
-
-    def ispowercdn(self):
-        return self.matchheader(('PowerCDN', '.+'))
-
-    def iswest263cdn(self):
-        return self.matchheader(('X-Cache', '.+WT263CDN-.+'))
-
     wafdetections = dict()
+
     # easy ones
-    wafdetections['IBM Web Application Security'] = isibm
-    wafdetections['IBM DataPower'] = isibmdatapower
-    wafdetections['Profense'] = isprofense
-    wafdetections['Trustwave ModSecurity'] = ismodsecurity
-    wafdetections['Microsoft ISA Server'] = isisaserver
-    wafdetections['NetContinuum'] = isnetcontinuum
-    wafdetections['Art of Defence HyperGuard'] = ishyperguard
-    wafdetections['Barracuda Application Firewall'] = isbarracuda
-    wafdetections['InfoGuard Airlock'] = isairlock
-    wafdetections['BinarySec'] = isbinarysec
-    wafdetections['F5 FirePass'] = isf5firepass
-    wafdetections['F5 Trafficshield'] = isf5trafficshield
-    wafdetections['F5 BIG-IP LTM'] = isf5bigipltm
-    wafdetections['F5 BIG-IP APM'] = isf5bigipapm
-    wafdetections['F5 BIG-IP ASM'] = isf5bigipasm
-    wafdetections['Teros WAF'] = isteros
-    wafdetections['DenyALL WAF'] = isdenyall
-    wafdetections['Citrix NetScaler'] = isnetscaler
     # lil bit more complex
-    wafdetections['Juniper WebApp Secure'] = iswebscurity
-    wafdetections['Aqtronix WebKnight'] = iswebknight
-    wafdetections['Microsoft URLScan'] = isurlscan
-    wafdetections['eEye Digital Security SecureIIS'] = issecureiis
-    wafdetections['Applicure dotDefender'] = isdotdefender
     #wafdetections['BeeWare'] = isbeeware
     #wafdetections['ModSecurity (positive model)'] = ismodsecuritypositive removed for now
-    wafdetections['Imperva SecureSphere'] = isimperva
-    wafdetections['Incapsula WAF'] = isincapsula
-    wafdetections['CloudFlare'] = iscloudflare
-    wafdetections['USP Secure Entry Server'] = isuspses
-    wafdetections['Cisco ACE XML Gateway'] = isciscoacexml
-    wafdetections['360WangZhanBao'] = is360wzb
-    wafdetections['Anquanbao'] = isanquanbao
-    wafdetections['ChinaCache-CDN'] = ischinacache
-    wafdetections['PowerCDN'] = ispowercdn
-    wafdetections['West263CDN'] = iswest263cdn
     wafdetectionsprio = ['Profense', 'NetContinuum', 'Incapsula WAF', 'CloudFlare',
                          'USP Secure Entry Server', 'Cisco ACE XML Gateway',
                          'Barracuda Application Firewall', 'Art of Defence HyperGuard', 'BinarySec', 'Teros WAF',
@@ -669,6 +321,11 @@ class WafW00F(waftoolsengine):
                          'Applicure dotDefender', 'Juniper WebApp Secure',  # removed for now 'ModSecurity (positive model)',
                          'Microsoft URLScan', 'Aqtronix WebKnight',
                          'eEye Digital Security SecureIIS', 'Imperva SecureSphere', 'Microsoft ISA Server']
+
+    plugin_dict = load_plugins()
+    result_dict = {}
+    for plugin_module in plugin_dict.values():
+        wafdetections[plugin_module.NAME] = plugin_module.is_waf
 
     def identwaf(self, findall=False):
         detected = list()
