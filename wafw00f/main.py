@@ -388,10 +388,6 @@ class WafW00F(waftoolsengine):
         """
         return self.matchheader(('set-cookie', match))
 
-    def isairlock(self):
-        # credit goes to W3AF
-        return self.matchcookie('^AL[_-]?(SESS|LB)=')
-
     def isbeeware(self):
         # disabled cause it was giving way too many false positives
         # credit goes to Sebastien Gioria
@@ -433,7 +429,6 @@ class WafW00F(waftoolsengine):
     # easy ones
     wafdetections['Trustwave ModSecurity'] = ismodsecurity
     wafdetections['Microsoft ISA Server'] = isisaserver
-    wafdetections['InfoGuard Airlock'] = isairlock
     wafdetections['F5 FirePass'] = isf5firepass
     wafdetections['F5 Trafficshield'] = isf5trafficshield
     wafdetections['F5 BIG-IP LTM'] = isf5bigipltm
