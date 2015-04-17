@@ -326,18 +326,6 @@ class WafW00F(waftoolsengine):
         # credit goes to W3AF
         return self.matchcookie('^TS[a-zA-Z0-9]{3,6}=')
 
-    def iswebknight(self):
-        detected = False
-        for attack in self.attacks:
-            r = attack(self)
-            if r is None:
-                return
-            response, responsebody = r
-            if response.status == 999:
-                detected = True
-                break
-        return detected
-
     def matchcookie(self, match):
         """
         a convenience function which calls matchheader
@@ -389,7 +377,6 @@ class WafW00F(waftoolsengine):
     wafdetections['F5 BIG-IP APM'] = isf5bigipapm
     wafdetections['F5 BIG-IP ASM'] = isf5bigipasm
     # lil bit more complex
-    wafdetections['Aqtronix WebKnight'] = iswebknight
     #wafdetections['BeeWare'] = isbeeware
     #wafdetections['ModSecurity (positive model)'] = ismodsecuritypositive removed for now
     wafdetectionsprio = ['Profense', 'NetContinuum', 'Incapsula WAF', 'CloudFlare',
