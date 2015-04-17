@@ -583,17 +583,8 @@ class WafW00F(waftoolsengine):
             detected = True
         return detected
 
-
-    def isibm(self):
-        detected = False
-        r = self.protectedfolder()
-        if r is None:
-            detected = True
-        return detected
-
     wafdetections = dict()
     # easy ones
-    wafdetections['IBM Web Application Security'] = isibm
     wafdetections['IBM DataPower'] = isibmdatapower
     wafdetections['Profense'] = isprofense
     wafdetections['Trustwave ModSecurity'] = ismodsecurity
