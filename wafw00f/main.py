@@ -516,23 +516,6 @@ class WafW00F(waftoolsengine):
                 detected = True
         return detected
 
-    def iswebscurity(self):
-        detected = False
-        r = self.normalrequest()
-        if r is None:
-            return
-        response, responsebody = r
-        if response.status == 403:
-            return detected
-        newpath = self.path + '?nx=@@'
-        r = self.request(path=newpath)
-        if r is None:
-            return
-        response, responsebody = r
-        if response.status == 403:
-            detected = True
-        return detected
-
     def ismodsecuritypositive(self):
         detected = False
         self.normalrequest(usecache=False, cacheresponse=False)
@@ -571,7 +554,6 @@ class WafW00F(waftoolsengine):
     wafdetections['DenyALL WAF'] = isdenyall
     wafdetections['Citrix NetScaler'] = isnetscaler
     # lil bit more complex
-    wafdetections['Juniper WebApp Secure'] = iswebscurity
     wafdetections['Aqtronix WebKnight'] = iswebknight
     wafdetections['Microsoft URLScan'] = isurlscan
     wafdetections['eEye Digital Security SecureIIS'] = issecureiis
