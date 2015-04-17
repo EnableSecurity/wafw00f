@@ -353,16 +353,6 @@ class WafW00F(waftoolsengine):
             return True
         return detected
 
-    def isisaserver(self):
-        detected = False
-        r = self.invalidhost()
-        if r is None:
-            return
-        response, responsebody = r
-        if response.reason in self.isaservermatch:
-            detected = True
-        return detected
-
     def matchcookie(self, match):
         """
         a convenience function which calls matchheader
@@ -409,7 +399,6 @@ class WafW00F(waftoolsengine):
     wafdetections = dict()
     # easy ones
     wafdetections['Trustwave ModSecurity'] = ismodsecurity
-    wafdetections['Microsoft ISA Server'] = isisaserver
     wafdetections['F5 FirePass'] = isf5firepass
     wafdetections['F5 Trafficshield'] = isf5trafficshield
     wafdetections['F5 BIG-IP LTM'] = isf5bigipltm
