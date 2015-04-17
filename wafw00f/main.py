@@ -363,25 +363,6 @@ class WafW00F(waftoolsengine):
             detected = True
         return detected
 
-    def issecureiis(self):
-        # credit goes to W3AF
-        detected = False
-        r = self.normalrequest()
-        if r is None:
-            return
-        response, responsebody = r
-        if response.status == 404:
-            return
-        headers = dict()
-        headers['Transfer-Encoding'] = 'z' * 1025
-        r = self.normalrequest(headers=headers)
-        if r is None:
-            return
-        response, responsebody = r
-        if response.status == 404:
-            detected = True
-        return detected
-
     def matchcookie(self, match):
         """
         a convenience function which calls matchheader
@@ -436,7 +417,6 @@ class WafW00F(waftoolsengine):
     wafdetections['F5 BIG-IP ASM'] = isf5bigipasm
     # lil bit more complex
     wafdetections['Aqtronix WebKnight'] = iswebknight
-    wafdetections['eEye Digital Security SecureIIS'] = issecureiis
     #wafdetections['BeeWare'] = isbeeware
     #wafdetections['ModSecurity (positive model)'] = ismodsecuritypositive removed for now
     wafdetectionsprio = ['Profense', 'NetContinuum', 'Incapsula WAF', 'CloudFlare',
