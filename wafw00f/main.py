@@ -537,18 +537,6 @@ class WafW00F(waftoolsengine):
         # thanks to j0e
         return self.matchheader(['X-dotDefender-denied', '^1$'], attack=True)
 
-    def isimperva(self):
-        # thanks to Mathieu Dessus <mathieu.dessus(a)verizonbusiness.com> for this
-        # might lead to false positives so please report back to sandro@enablesecurity.com
-        for attack in self.attacks:
-            r = attack(self)
-            if r is None:
-                return
-            response, responsebody = r
-            if response.version == 10:
-                return True
-        return False
-
     def ismodsecuritypositive(self):
         detected = False
         self.normalrequest(usecache=False, cacheresponse=False)
@@ -594,7 +582,6 @@ class WafW00F(waftoolsengine):
     wafdetections['Applicure dotDefender'] = isdotdefender
     #wafdetections['BeeWare'] = isbeeware
     #wafdetections['ModSecurity (positive model)'] = ismodsecuritypositive removed for now
-    wafdetections['Imperva SecureSphere'] = isimperva
     wafdetectionsprio = ['Profense', 'NetContinuum', 'Incapsula WAF', 'CloudFlare',
                          'USP Secure Entry Server', 'Cisco ACE XML Gateway',
                          'Barracuda Application Firewall', 'Art of Defence HyperGuard', 'BinarySec', 'Teros WAF',
