@@ -290,15 +290,6 @@ class WafW00F(waftoolsengine):
             return False
 
 
-    def isf5bigipltm(self):
-        detected = False
-        if self.matchcookie('^BIGipServer'):
-            return True
-        elif self.matchheader(('X-Cnection', '^close$'), attack=True):
-            return True
-        else:
-            return False
-
     def matchcookie(self, match):
         """
         a convenience function which calls matchheader
@@ -346,7 +337,6 @@ class WafW00F(waftoolsengine):
     # easy ones
     wafdetections['F5 FirePass'] = isf5firepass
     wafdetections['F5 Trafficshield'] = isf5trafficshield
-    wafdetections['F5 BIG-IP LTM'] = isf5bigipltm
     # lil bit more complex
     #wafdetections['BeeWare'] = isbeeware
     #wafdetections['ModSecurity (positive model)'] = ismodsecuritypositive removed for now
