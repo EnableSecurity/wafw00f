@@ -441,11 +441,6 @@ class WafW00F(waftoolsengine):
                     detected = True
         return detected
 
-
-    def isteros(self):
-        # credit goes to W3AF
-        return self.matchcookie('^st8id=')
-
     def ismodsecuritypositive(self):
         detected = False
         self.normalrequest(usecache=False, cacheresponse=False)
@@ -476,7 +471,6 @@ class WafW00F(waftoolsengine):
     wafdetections['F5 BIG-IP LTM'] = isf5bigipltm
     wafdetections['F5 BIG-IP APM'] = isf5bigipapm
     wafdetections['F5 BIG-IP ASM'] = isf5bigipasm
-    wafdetections['Teros WAF'] = isteros
     wafdetections['DenyALL WAF'] = isdenyall
     # lil bit more complex
     wafdetections['Aqtronix WebKnight'] = iswebknight
