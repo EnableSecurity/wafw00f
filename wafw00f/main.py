@@ -576,16 +576,8 @@ class WafW00F(waftoolsengine):
             return True
         return False
 
-    def isibmdatapower(self):
-        # Added by Mathieu Dessus <mathieu.dessus(a)verizonbusiness.com>
-        detected = False
-        if self.matchheader(('X-Backside-Transport', '^(OK|FAIL)')):
-            detected = True
-        return detected
-
     wafdetections = dict()
     # easy ones
-    wafdetections['IBM DataPower'] = isibmdatapower
     wafdetections['Profense'] = isprofense
     wafdetections['Trustwave ModSecurity'] = ismodsecurity
     wafdetections['Microsoft ISA Server'] = isisaserver
