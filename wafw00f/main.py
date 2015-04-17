@@ -473,29 +473,6 @@ class WafW00F(waftoolsengine):
         """
         return self.matchheader(('server', 'profense'))
 
-    def isnetscaler(self):
-        """
-        First checks if a cookie associated with Netscaler is present,
-        if not it will try to find if a "Cneonction" or "nnCoection" is returned
-        for any of the attacks sent
-        """
-        # NSC_ and citrix_ns_id come from David S. Langlands <dsl 'at' surfstar.com>
-        if self.matchcookie('^(ns_af=|citrix_ns_id|NSC_)'):
-            return True
-        if self.matchheader(('Cneonction', 'close'), attack=True):
-            return True
-        if self.matchheader(('nnCoection', 'close'), attack=True):
-            return True
-        if self.matchheader(('Via', 'NS-CACHE'), attack=True):
-            return True
-        if self.matchheader(('x-client-ip', '.'), attack=True):
-            return True
-        if self.matchheader(('Location', '\/vpn\/index\.html')):
-            return True
-        if self.matchcookie('^pwcount'):
-            return True
-        return False
-
     def ismodsecuritypositive(self):
         detected = False
         self.normalrequest(usecache=False, cacheresponse=False)
@@ -532,7 +509,6 @@ class WafW00F(waftoolsengine):
     wafdetections['F5 BIG-IP ASM'] = isf5bigipasm
     wafdetections['Teros WAF'] = isteros
     wafdetections['DenyALL WAF'] = isdenyall
-    wafdetections['Citrix NetScaler'] = isnetscaler
     # lil bit more complex
     wafdetections['Aqtronix WebKnight'] = iswebknight
     wafdetections['eEye Digital Security SecureIIS'] = issecureiis
