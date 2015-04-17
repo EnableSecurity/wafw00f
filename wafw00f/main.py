@@ -299,29 +299,6 @@ class WafW00F(waftoolsengine):
         else:
             return False
 
-    def isf5bigipapm(self):
-        detected = False
-        # the following based on nmap's http-waf-fingerprint.nse
-        if self.matchcookie('^LastMRH_Session') and self.matchcookie('^MRHSession'):
-            return True
-        elif self.matchheader(('server', 'BigIP|BIG-IP|BIGIP')) and self.matchcookie('^MRHSession'):
-            return True
-        if self.matchheader(('Location', '\/my.policy')) and self.matchheader(('server', 'BigIP|BIG-IP|BIGIP')):
-            return True
-        elif self.matchheader(('Location', '\/my\.logout\.php3')) and self.matchheader(('server', 'BigIP|BIG-IP|BIGIP')):
-            return True
-        elif self.matchheader(('Location', '.+\/f5\-w\-68747470.+')) and self.matchheader(('server', 'BigIP|BIG-IP|BIGIP')):
-            return True
-        elif self.matchheader(('server', 'BigIP|BIG-IP|BIGIP')):
-            return True
-        elif self.matchcookie('^F5_fullWT') or self.matchcookie('^F5_ST') or self.matchcookie('^F5_HT_shrinked'):
-            return True
-        elif self.matchcookie('^MRHSequence') or self.matchcookie('^MRHSHint') or self.matchcookie('^LastMRH_Session'):
-            return True
-        else:
-            return False
-
-
     def matchcookie(self, match):
         """
         a convenience function which calls matchheader
@@ -370,7 +347,6 @@ class WafW00F(waftoolsengine):
     wafdetections['F5 FirePass'] = isf5firepass
     wafdetections['F5 Trafficshield'] = isf5trafficshield
     wafdetections['F5 BIG-IP LTM'] = isf5bigipltm
-    wafdetections['F5 BIG-IP APM'] = isf5bigipapm
     # lil bit more complex
     #wafdetections['BeeWare'] = isbeeware
     #wafdetections['ModSecurity (positive model)'] = ismodsecuritypositive removed for now
