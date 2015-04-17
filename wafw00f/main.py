@@ -264,18 +264,6 @@ class WafW00F(waftoolsengine):
                     break
         return detected
 
-    def isf5trafficshield(self):
-        for hv in [['cookie', '^ASINFO='], ['server', 'F5-TrafficShield']]:
-            r = self.matchheader(hv)
-            if r is None:
-                return
-            elif r:
-                return r
-        # the following based on nmap's http-waf-fingerprint.nse
-        if self.matchheader(('server', 'F5-TrafficShield')):
-            return True
-        return False
-
     def matchcookie(self, match):
         """
         a convenience function which calls matchheader
@@ -320,8 +308,8 @@ class WafW00F(waftoolsengine):
         return detected
 
     wafdetections = dict()
+
     # easy ones
-    wafdetections['F5 Trafficshield'] = isf5trafficshield
     # lil bit more complex
     #wafdetections['BeeWare'] = isbeeware
     #wafdetections['ModSecurity (positive model)'] = ismodsecuritypositive removed for now
