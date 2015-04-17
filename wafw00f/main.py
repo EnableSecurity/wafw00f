@@ -568,14 +568,6 @@ class WafW00F(waftoolsengine):
             detected = True
         return detected
 
-    def isincapsula(self):
-        # credit goes to Charlie Campbell
-        if self.matchcookie('^.incap_ses'):
-            return True
-        if self.matchcookie('^visid.*='):
-            return True
-        return False
-
     wafdetections = dict()
     # easy ones
     wafdetections['Profense'] = isprofense
@@ -603,7 +595,6 @@ class WafW00F(waftoolsengine):
     #wafdetections['BeeWare'] = isbeeware
     #wafdetections['ModSecurity (positive model)'] = ismodsecuritypositive removed for now
     wafdetections['Imperva SecureSphere'] = isimperva
-    wafdetections['Incapsula WAF'] = isincapsula
     wafdetectionsprio = ['Profense', 'NetContinuum', 'Incapsula WAF', 'CloudFlare',
                          'USP Secure Entry Server', 'Cisco ACE XML Gateway',
                          'Barracuda Application Firewall', 'Art of Defence HyperGuard', 'BinarySec', 'Teros WAF',
