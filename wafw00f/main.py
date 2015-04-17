@@ -450,19 +450,6 @@ class WafW00F(waftoolsengine):
         # credit goes to W3AF
         return self.matchcookie('^NCI__SessionId=')
 
-    def isbinarysec(self):
-        # credit goes to W3AF
-        if self.matchheader(('server', 'BinarySec')):
-            return True
-        # the following based on nmap's http-waf-fingerprint.nse
-        elif self.matchheader(('x-binarysec-via', '.')):
-            return True
-        # the following based on nmap's http-waf-fingerprint.nse
-        elif self.matchheader(('x-binarysec-nocache', '.')):
-            return True
-        else:
-            return False
-
     def ismodsecuritypositive(self):
         detected = False
         self.normalrequest(usecache=False, cacheresponse=False)
@@ -489,7 +476,6 @@ class WafW00F(waftoolsengine):
     wafdetections['NetContinuum'] = isnetcontinuum
     wafdetections['Barracuda Application Firewall'] = isbarracuda
     wafdetections['InfoGuard Airlock'] = isairlock
-    wafdetections['BinarySec'] = isbinarysec
     wafdetections['F5 FirePass'] = isf5firepass
     wafdetections['F5 Trafficshield'] = isf5trafficshield
     wafdetections['F5 BIG-IP LTM'] = isf5bigipltm
