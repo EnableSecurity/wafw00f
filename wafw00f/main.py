@@ -406,23 +406,6 @@ class WafW00F(waftoolsengine):
             return True
         return False
 
-    def isdenyall(self):
-        # credit goes to W3AF
-        if self.matchcookie('^sessioncookie='):
-            return True
-        # credit goes to Sebastien Gioria
-        #   Tested against a Rweb 3.8
-        # and modified by sandro gauci and someone else
-        for attack in self.attacks:
-            r = attack(self)
-            if r is None:
-                return
-            response, responsebody = r
-            if response.status == 200:
-                if response.reason == 'Condition Intercepted':
-                    return True
-        return False
-
     def isbeeware(self):
         # disabled cause it was giving way too many false positives
         # credit goes to Sebastien Gioria
@@ -471,7 +454,6 @@ class WafW00F(waftoolsengine):
     wafdetections['F5 BIG-IP LTM'] = isf5bigipltm
     wafdetections['F5 BIG-IP APM'] = isf5bigipapm
     wafdetections['F5 BIG-IP ASM'] = isf5bigipasm
-    wafdetections['DenyALL WAF'] = isdenyall
     # lil bit more complex
     wafdetections['Aqtronix WebKnight'] = iswebknight
     wafdetections['eEye Digital Security SecureIIS'] = issecureiis
