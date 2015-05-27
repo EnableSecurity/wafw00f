@@ -3,20 +3,14 @@ DOC_DIR = docs
 MAKE = make
 
 all:
-	make installall
+	make install
 	make lint
 	make test
 	make html
 	make clean
 
 install:
-	pip install -r requirements.txt
-
-installall:
-	pip install -r requirements/prod.txt
-	pip install -r requirements/dev.txt
-	pip install -r requirements/docs.txt
-	pip install -r requirements/test.txt
+	pip install -q -e .[dev,test,docs]
 
 lint:
 	pylint --rcfile=.pylintrc -E $(SRC_DIR)

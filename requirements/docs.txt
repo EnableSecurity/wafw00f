@@ -1,3 +1,0 @@
--r common.txt
-
-Sphinx==1.2.2

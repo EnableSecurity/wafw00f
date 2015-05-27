@@ -4,12 +4,6 @@
 from setuptools import setup, find_packages
 
 
-def get_reqs():
-    req_lines = [line.strip() for line in open(
-        'requirements/common.txt').readlines()]
-    return list(filter(None, req_lines))
-
-
 setup(
     name='wafw00f',
     version=__import__('wafw00f').__version__,
@@ -21,6 +15,24 @@ setup(
     url='https://github.com/sandrogauci/wafw00f',
     packages=find_packages(),
     scripts=['wafw00f/bin/wafw00f'],
-    install_requires=get_reqs(),
+    install_requires=[
+        'beautifulsoup4==4.3.2',
+        'pluginbase==0.3',
+    ],
+    extras_require={
+        'dev': [
+            'pylint==1.1.0',
+        ],
+        'test': [
+            'httpretty==0.8.0',
+            'coverage==3.7.1',
+            'coveralls==0.4.2',
+            'python-coveralls==2.4.2',
+            'nose==1.3.0',
+        ],
+        'docs': [
+            'Sphinx==1.2.2',
+        ],
+    },
     test_suite='nose.collector',
 )
