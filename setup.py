@@ -21,7 +21,7 @@ setup(
     ],
     extras_require={
         'dev': [
-            'pylint==1.1.0',
+            'prospector==0.10.1',
         ],
         'test': [
             'httpretty==0.8.0',

@@ -13,10 +13,7 @@ install:
 	pip install -q -e .[dev,test,docs]
 
 lint:
-	pylint --rcfile=.pylintrc -E $(SRC_DIR)
-
-lintall:
-	pylint --rcfile=.pylintrc $(SRC_DIR)
+	prospector $(SRC_DIR) --strictness veryhigh
 
 test:
 	nosetests -c nose.cfg
