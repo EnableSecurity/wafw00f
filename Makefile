@@ -4,7 +4,6 @@ MAKE = make
 
 all:
 	make install
-	make lint
 	make test
 	make html
 	make clean
