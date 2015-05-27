@@ -28,8 +28,5 @@ htmlci:
 	curl -X POST http://readthedocs.org/build/wafw00f
 
 clean:
-	rm -rf *.egg-info
-	rm -rf build/*
-	rm -rf dist/*
-	rm -rf $(SRC_DIR)/*.egg-info
-	find $(SRC_DIR) -name "*.pyc" | xargs rm
+	rm -rf *.egg-info build dist .coverage
+	find $(SRC_DIR) -name "*.pyc" | xargs rm -rf
