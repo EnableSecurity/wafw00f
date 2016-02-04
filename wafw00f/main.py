@@ -320,7 +320,7 @@ class WafW00F(waftoolsengine):
                          'Trustwave ModSecurity', 'IBM Web Application Security', 'IBM DataPower', 'DenyALL WAF',
                          'Applicure dotDefender', 'Juniper WebApp Secure',  # removed for now 'ModSecurity (positive model)',
                          'Microsoft URLScan', 'Aqtronix WebKnight',
-                         'eEye Digital Security SecureIIS', 'Imperva SecureSphere', 'Microsoft ISA Server']
+                         'eEye Digital Security SecureIIS', 'Imperva SecureSphere', 'Microsoft ISA Server', 'NSFocus']
 
     plugin_dict = load_plugins()
     result_dict = {}
