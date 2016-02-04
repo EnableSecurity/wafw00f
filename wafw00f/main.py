@@ -319,7 +319,7 @@ class WafW00F(waftoolsengine):
                          'F5 BIG-IP LTM', 'F5 BIG-IP APM', 'F5 BIG-IP ASM', 'F5 FirePass', 'F5 Trafficshield', 'InfoGuard Airlock', 'Citrix NetScaler',
                          'Trustwave ModSecurity', 'IBM Web Application Security', 'IBM DataPower', 'DenyALL WAF',
                          'Applicure dotDefender', 'Juniper WebApp Secure',  # removed for now 'ModSecurity (positive model)',
-                         'Microsoft URLScan', 'Aqtronix WebKnight',
+                         'Microsoft URLScan', 'Aqtronix WebKnight', 'Mission Control Application Shield',
                          'eEye Digital Security SecureIIS', 'Imperva SecureSphere', 'Microsoft ISA Server']
 
     plugin_dict = load_plugins()
