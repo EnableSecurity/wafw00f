@@ -313,14 +313,14 @@ class WafW00F(waftoolsengine):
     # lil bit more complex
     #wafdetections['BeeWare'] = isbeeware
     #wafdetections['ModSecurity (positive model)'] = ismodsecuritypositive removed for now
-    wafdetectionsprio = ['Profense', 'NetContinuum', 'Incapsula WAF', 'CloudFlare',
+    wafdetectionsprio = ['Profense', 'NetContinuum', 'Incapsula WAF', 'CloudFlare', 'NSFocus'
                          'USP Secure Entry Server', 'Cisco ACE XML Gateway',
                          'Barracuda Application Firewall', 'Art of Defence HyperGuard', 'BinarySec', 'Teros WAF',
                          'F5 BIG-IP LTM', 'F5 BIG-IP APM', 'F5 BIG-IP ASM', 'F5 FirePass', 'F5 Trafficshield', 'InfoGuard Airlock', 'Citrix NetScaler',
                          'Trustwave ModSecurity', 'IBM Web Application Security', 'IBM DataPower', 'DenyALL WAF',
                          'Applicure dotDefender', 'Juniper WebApp Secure',  # removed for now 'ModSecurity (positive model)',
                          'Microsoft URLScan', 'Aqtronix WebKnight',
-                         'eEye Digital Security SecureIIS', 'Imperva SecureSphere', 'Microsoft ISA Server', 'NSFocus']
+                         'eEye Digital Security SecureIIS', 'Imperva SecureSphere', 'Microsoft ISA Server']
 
     plugin_dict = load_plugins()
     result_dict = {}
