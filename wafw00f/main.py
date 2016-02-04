@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # wafw00f - Web Application Firewall Detection Tool
-# by Sandro Gauci - enablesecurity.com (c) 2014
+# by Sandro Gauci - enablesecurity.com (c) 2016
 #  and Wendel G. Henrique - Trustwave 2009
 
 __license__ = """
