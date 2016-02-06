@@ -313,7 +313,7 @@ class WafW00F(waftoolsengine):
     # lil bit more complex
     #wafdetections['BeeWare'] = isbeeware
     #wafdetections['ModSecurity (positive model)'] = ismodsecuritypositive removed for now
-    wafdetectionsprio = ['Profense', 'NetContinuum', 'Incapsula WAF', 'CloudFlare', 'NSFocus',
+    wafdetectionsprio = ['Profense', 'NetContinuum', 'Incapsula WAF', 'CloudFlare', 'NSFocus', 'Safedog',
                          'Mission Control Application Shield', 'USP Secure Entry Server', 'Cisco ACE XML Gateway',
                          'Barracuda Application Firewall', 'Art of Defence HyperGuard', 'BinarySec', 'Teros WAF',
                          'F5 BIG-IP LTM', 'F5 BIG-IP APM', 'F5 BIG-IP ASM', 'F5 FirePass', 'F5 Trafficshield', 
