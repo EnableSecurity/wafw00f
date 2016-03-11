@@ -18,7 +18,7 @@ except ImportError:
     sys.exit(1)
 
 
-from .proxy import NullProxy, HttpProxy, Socks5Proxy, httplib
+from .proxy import NullProxy, HttpProxy, Socks5Proxy, httplib, socks
 
 __license__ = """
 Copyright (c) 2014, {Sandro Gauci|Wendel G. Henrique}
@@ -442,14 +442,14 @@ class waftoolsengine:
 
         try:
             if parts.scheme == "socks5":
-                import socks
+                if socks is None:
+                    raise Exception("socks5 proxy requires PySocks")
+
                 return Socks5Proxy(netloc[0], int(netloc[1]))
             elif parts.scheme == "http":
                 return HttpProxy(netloc[0], int(netloc[1]))
             else:
                 raise Exception("Unsupported proxy scheme")
-        except ImportError:
-            raise Exception("socks5 proxy requires PySocks")
         except ValueError:
             raise Exception("Invalid port number")
 
