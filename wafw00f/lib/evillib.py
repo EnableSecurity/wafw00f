@@ -2,10 +2,6 @@
 import re
 import sys
 
-try:
-    import httplib
-except ImportError:
-    import http.client as httplib
 import socket
 
 try:
@@ -20,6 +16,9 @@ except ImportError:
     sys.stderr.write('You need to get BeautifulSoup installed\n')
     sys.stderr.write('Do it now, as privileged user/root run: pip install beautifulsoup4\now')
     sys.exit(1)
+
+
+from .proxy import NullProxy, HttpProxy, Socks5Proxy, httplib, socks
 
 __license__ = """
 Copyright (c) 2014, {Sandro Gauci|Wendel G. Henrique}
@@ -150,6 +149,7 @@ homoglyphicmapping = {"'": '%ca%bc'}
 
 def oururlparse(target):
     log = logging.getLogger('urlparser')
+
     ssl = False
     o = urlparse(target)
     if o[0] not in ['http', 'https', '']:
@@ -251,7 +251,8 @@ def backslashquotes(ourstr):
 
 class waftoolsengine:
     def __init__(self, target='www.microsoft.com', port=80, ssl=False,
-                 debuglevel=0, path='/', followredirect=True, extraheaders={}):
+                 debuglevel=0, path='/', followredirect=True, extraheaders={},
+                 proxy=False):
         """
         target: the hostname or ip of the target server
         port: defaults to 80
@@ -263,7 +264,7 @@ class waftoolsengine:
                 port = 443
             else:
                 port = 80
-        self.port = port
+        self.port = int(port)
         self.ssl = ssl
         self.debuglevel = debuglevel
         self.cachedresponses = dict()
@@ -273,6 +274,12 @@ class waftoolsengine:
         self.followredirect = followredirect
         self.crawlpaths = list()
         self.extraheaders = extraheaders
+
+        try:
+            self.proxy = self._parse_proxy(proxy) if proxy else NullProxy()
+        except Exception as e:
+            self.log.critical("Proxy disabled: %s" % e)
+            self.proxy = NullProxy()
 
     def request(self, method='GET', path=None, usecache=True,
                 cacheresponse=True, headers=None,
@@ -310,38 +317,12 @@ class waftoolsengine:
                 return self.cachedresponses[k]
             else:
                 self.log.debug('%s not found in %s' % (k, self.cachedresponses.keys()))
-        params = dict()
-        if sys.hexversion > 0x2060000:
-            params['timeout'] = 4
-        if (sys.hexversion >= 0x2070900) and self.ssl:
-            import ssl
-            params['context'] = ssl._create_unverified_context()
-        if self.ssl:
-            Connection = httplib.HTTPSConnection
-        else:
-            Connection = httplib.HTTPConnection
-        h = Connection(self.target, self.port,**params)
-        if self.debuglevel <= 10:
-            if self.debuglevel > 1:
-                h.set_debuglevel(self.debuglevel)
-        try:
-            self.log.info('Sending %s %s' % (method, path))
-            h.request(method, path, headers=headers)
-        except socket.error:
-            self.log.warn('Could not initialize connection to %s' % self.target)
-            return
-        self.requestnumber += 1
-        try:
-            response = h.getresponse()
-            responsebody = response.read()
-            h.close()
-            r = response, responsebody
-        except (socket.error, socket.timeout, httplib.BadStatusLine):
-            self.log.warn('Hey.. they closed our connection!')
-            r = None
+        r = self._request(method, path, headers)
         if cacheresponse:
             self.cachedresponses[k] = r
+
         if r:
+            response, responsebody = r
             if response.status in [301, 302, 307]:
                 if followredirect:
                     if response.getheader('location'):
@@ -364,6 +345,40 @@ class waftoolsengine:
                                 self.log.warn('Tried to redirect to a different server %s' % newloc)
                         else:
                             self.log.warn('%s is not a well formatted url' % response.getheader('location'))
+        return r
+
+    def _request(self, method, path, headers):
+        original_socket = socket.socket
+        try:
+            conn_factory, connect_host, connect_port, query_path = \
+                    self.proxy.prepare(self.target, self.port, path, self.ssl)
+
+            if sys.hexversion > 0x2060000:
+                h = conn_factory(connect_host, connect_port, timeout=4)
+            else:
+                h = conn_factory(connect_host, connect_port)
+
+            if self.debuglevel <= 10:
+                if self.debuglevel > 1:
+                    h.set_debuglevel(self.debuglevel)
+            try:
+                self.log.info('Sending %s %s' % (method, path))
+                h.request(method, query_path, headers=headers)
+            except socket.error:
+                self.log.warn('Could not initialize connection to %s' % self.target)
+                return
+            self.requestnumber += 1
+
+            response = h.getresponse()
+            responsebody = response.read()
+            h.close()
+            r = response, responsebody
+        except (socket.error, socket.timeout, httplib.BadStatusLine):
+            self.log.warn('Hey.. they closed our connection!')
+            r = None
+        finally:
+            self.proxy.terminate()
+
         return r
 
 
@@ -414,6 +429,29 @@ class waftoolsengine:
             r = self.querycrawler(path=nextpath, curdepth=curdepth + 1, maxdepth=maxdepth)
             if r:
                 return r
+
+    def _parse_proxy(self, proxy):
+        parts = urlparse(proxy)
+        if not parts.scheme or not parts.netloc:
+            raise Exception("Invalid proxy specified, scheme required")
+        
+        netloc = parts.netloc.split(":")
+        if len(netloc) != 2:
+            raise Exception("Proxy port unspecified")
+
+        try:
+            if parts.scheme == "socks5":
+                if socks is None:
+                    raise Exception("socks5 proxy requires PySocks")
+
+                return Socks5Proxy(netloc[0], int(netloc[1]))
+            elif parts.scheme == "http":
+                return HttpProxy(netloc[0], int(netloc[1]))
+            else:
+                raise Exception("Unsupported proxy scheme")
+        except ValueError:
+            raise Exception("Invalid port number")
+
 
 
 def scrambledheader(header):
