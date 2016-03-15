@@ -264,7 +264,7 @@ class waftoolsengine:
                 port = 443
             else:
                 port = 80
-        self.port = port
+        self.port = int(port)
         self.ssl = ssl
         self.debuglevel = debuglevel
         self.cachedresponses = dict()
