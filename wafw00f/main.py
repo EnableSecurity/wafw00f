@@ -391,7 +391,6 @@ def main():
     if options.version:
         print('WAFW00F version %s' % __version__)
         return
-
     extraheaders = {}
     if options.headersfile:
         log.info('Getting extra headers from %s' % options.headersfile)
@@ -447,6 +446,6 @@ def main():
 
 
 if __name__ == '__main__':
-    if sys.hexversion < 0x2040000:
-        sys.stderr.write('Your version of python is way too old .. please update to 2.4 or later\r\n')
+    if sys.hexversion < 0x2060000:
+        sys.stderr.write('Your version of python is way too old .. please update to 2.6 or later\r\n')
     main()
