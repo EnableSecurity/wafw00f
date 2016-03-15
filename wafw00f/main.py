@@ -347,70 +347,6 @@ def calclogginglevel(verbosity):
         level = 0
     return level
 
-
-class wafwoof_api:
-    def __init__(self):
-        self.cache = dict()
-
-    def vendordetect(self, url, findall=False):
-        if url in self.cache:
-            wafw00f = self.cache[url]
-        else:
-            r = oururlparse(url)
-            if r is None:
-                return ['']
-            (hostname, port, path, query, ssl) = r
-            wafw00f = WafW00F(target=hostname, port=port, path=path, ssl=ssl, extraheaders=extraheaders)
-            self.cache[url] = wafw00f
-        return wafw00f.identwaf(findall=findall)
-
-    def genericdetect(self, url):
-        if url in self.cache:
-            wafw00f = self.cache[url]
-        else:
-            r = oururlparse(url)
-            if r is None:
-                return {}
-            (hostname, port, path, query, ssl) = r
-            wafw00f = WafW00F(target=hostname, port=port, path=path, ssl=ssl, extraheaders=extraheaders)
-            self.cache[url] = wafw00f
-        wafw00f.genericdetect()
-        return wafw00f.knowledge['generic']
-
-    def alltests(self, url, findall=False):
-        if url in self.cache:
-            wafw00f = self.cache[url]
-        else:
-            r = oururlparse(url)
-            if r is None:
-                return {}
-            (hostname, port, path, query, ssl) = r
-            wafw00f = WafW00F(target=hostname, port=port, path=path, ssl=ssl, extraheaders=extraheaders)
-            self.cache[url] = wafw00f
-        wafw00f.identwaf(findall=findall)
-        if (len(wafw00f.knowledge['wafname']) == 0) or (findall):
-            wafw00f.genericdetect()
-        return wafw00f.knowledge
-
-
-def xmlrpc_interface(bindaddr=('localhost', 8001)):
-    from SimpleXMLRPCServer import SimpleXMLRPCServer
-    from SimpleXMLRPCServer import SimpleXMLRPCRequestHandler
-
-    class RequestHandler(SimpleXMLRPCRequestHandler):
-        rpc_paths = ('/RPC2',)
-
-    server = SimpleXMLRPCServer(bindaddr,
-                                requestHandler=RequestHandler)
-    server.register_introspection_functions()
-    server.register_instance(wafwoof_api())
-    try:
-        server.serve_forever()
-    except KeyboardInterrupt:
-        print('bye!')
-        return
-
-
 def getheaders(fn):
     headers = {}
     fullfn = os.path.abspath(os.path.join(os.getcwd(),fn))
@@ -440,10 +376,6 @@ def main():
                       default=False, help='List all WAFs that we are able to detect')
     parser.add_option('-p', '--proxy', dest='proxy',
                       default=False, help='Use an HTTP proxy to perform requests, example: http://hostname:8080, socks5://hostname:1080')
-    parser.add_option('--xmlrpc', dest='xmlrpc', action='store_true',
-                      default=False, help='Switch on the XML-RPC interface instead of CUI')
-    parser.add_option('--xmlrpcport', dest='xmlrpcport', type='int',
-                      default=8001, help='Specify an alternative port to listen on, default 8001')
     parser.add_option('--version', '-V', dest='version', action='store_true',
                       default=False, help='Print out the version')
     parser.add_option('--headersfile', '-H', dest='headersfile', action='store',
@@ -458,10 +390,6 @@ def main():
         return
     if options.version:
         print('WAFW00F version %s' % __version__)
-        return
-    elif options.xmlrpc:
-        print('Starting XML-RPC interface')
-        xmlrpc_interface(bindaddr=('localhost', options.xmlrpcport))
         return
 
     extraheaders = {}
