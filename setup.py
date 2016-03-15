@@ -16,7 +16,7 @@ setup(
     packages=find_packages(),
     scripts=['wafw00f/bin/wafw00f'],
     install_requires=[
-        'beautifulsoup4==4.3.2',
+        'beautifulsoup4==4.4.1',
         'pluginbase==0.3',
     ],
     extras_require={

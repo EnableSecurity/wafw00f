@@ -82,14 +82,14 @@ class WafW00F(waftoolsengine):
         'Forbidden ( The ISA Server denied the specified Uniform Resource Locator (URL)']
 
     def __init__(self, target='www.microsoft.com', port=80, ssl=False,
-                 debuglevel=0, path='/', followredirect=True, extraheaders={}):
+                 debuglevel=0, path='/', followredirect=True, extraheaders={}, proxy=False):
         """
         target: the hostname or ip of the target server
         port: defaults to 80
         ssl: defaults to false
         """
-        waftoolsengine.__init__(self, target, port, ssl, debuglevel, path, followredirect, extraheaders)
         self.log = logging.getLogger('wafw00f')
+        waftoolsengine.__init__(self, target, port, ssl, debuglevel, path, followredirect, extraheaders, proxy)
         self.knowledge = dict(generic=dict(found=False, reason=''), wafname=list())
 
     def normalrequest(self, usecache=True, cacheresponse=True, headers=None):
@@ -353,7 +353,7 @@ class wafwoof_api:
         self.cache = dict()
 
     def vendordetect(self, url, findall=False):
-        if self.cache.has_key(url):
+        if url in self.cache:
             wafw00f = self.cache[url]
         else:
             r = oururlparse(url)
@@ -365,7 +365,7 @@ class wafwoof_api:
         return wafw00f.identwaf(findall=findall)
 
     def genericdetect(self, url):
-        if self.cache.has_key(url):
+        if url in self.cache:
             wafw00f = self.cache[url]
         else:
             r = oururlparse(url)
@@ -378,7 +378,7 @@ class wafwoof_api:
         return wafw00f.knowledge['generic']
 
     def alltests(self, url, findall=False):
-        if self.cache.has_key(url):
+        if url in self.cache:
             wafw00f = self.cache[url]
         else:
             r = oururlparse(url)
@@ -438,6 +438,8 @@ def main():
                       help='Test for one specific WAF')
     parser.add_option('-l', '--list', dest='list', action='store_true',
                       default=False, help='List all WAFs that we are able to detect')
+    parser.add_option('-p', '--proxy', dest='proxy',
+                      default=False, help='Use an HTTP proxy to perform requests, example: http://hostname:8080, socks5://hostname:1080')
     parser.add_option('--xmlrpc', dest='xmlrpc', action='store_true',
                       default=False, help='Switch on the XML-RPC interface instead of CUI')
     parser.add_option('--xmlrpcport', dest='xmlrpcport', type='int',
@@ -485,12 +487,13 @@ def main():
         attacker = WafW00F(hostname, port=port, ssl=ssl,
                            debuglevel=options.verbose, path=path,
                            followredirect=options.followredirect,
-                           extraheaders=extraheaders)
+                           extraheaders=extraheaders,
+                           proxy=options.proxy)
         if attacker.normalrequest() is None:
             log.error('Site %s appears to be down' % target)
             sys.exit(1)
         if options.test:
-            if attacker.wafdetections.has_key(options.test):
+            if options.test in attacker.wafdetections:
                 waf = attacker.wafdetections[options.test](attacker)
                 if waf:
                     print('The site %s is behind a %s' % (target, options.test))
