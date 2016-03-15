@@ -330,7 +330,12 @@ class WafW00F(waftoolsengine):
 
     def identwaf(self, findall=False):
         detected = list()
-        for wafvendor in self.wafdetectionsprio:
+
+        # Check for prioritized ones first, then check those added externally
+        checklist = self.wafdetectionsprio
+        checklist = checklist + list(set(self.wafdetections.keys()) - set(checklist))
+
+        for wafvendor in checklist:
             self.log.info('Checking for %s' % wafvendor)
             if self.wafdetections[wafvendor](self):
                 detected.append(wafvendor)
