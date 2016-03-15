@@ -353,11 +353,13 @@ class waftoolsengine:
             conn_factory, connect_host, connect_port, query_path = \
                     self.proxy.prepare(self.target, self.port, path, self.ssl)
 
+            params = dict()
             if sys.hexversion > 0x2060000:
-                h = conn_factory(connect_host, connect_port, timeout=4)
-            else:
-                h = conn_factory(connect_host, connect_port)
-
+                params['timeout'] = 4
+            if (sys.hexversion >= 0x2070900) and self.ssl:
+                import ssl as ssllib
+                params['context'] = ssllib._create_unverified_context()
+            h = conn_factory(connect_host, connect_port,**params)
             if self.debuglevel <= 10:
                 if self.debuglevel > 1:
                     h.set_debuglevel(self.debuglevel)
