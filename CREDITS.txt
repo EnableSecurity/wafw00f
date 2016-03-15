@@ -2,15 +2,20 @@ Original code by Sandro Gauci && Wendel G. Henrique
 
 However, a number of people contributed (in no particular order):
 
-- Sebastien Gioria
-- W3AF (or Andres Riancho)
-- Charlie Campbell 
-- @j0eMcCray
+- Sebastien Gioria <https://github.com/SPoint42>
+- W3AF (or Andres Riancho) <https://github.com/andresriancho>
+- Charlie Campbell <https://github.com/sinnur>
+- @j0eMcCray <https://github.com/joemccray>
 - Mathieu Dessus
 - David S. Langlands
 - Nmap's http-waf-fingerprint.nse / Hani Benhabiles
-- Denis Kolegov
+- Denis Kolegov <https://github.com/dnkolegov>
 - kun a <https://github.com/akun>
+- Louis-Philippe Huberdeau <https://github.com/lphuberdeau>
+- Brendan Coles <https://github.com/bcoles>
+- Matt Foster <https://github.com/mattfoster>
+- g0tmi1k (?) <https://github.com/g0tmi1k>
+- MyKings <https://github.com/MyKings>
 
 
 If you did contributed and somehow I didn't put your name in there, please do
