@@ -310,16 +310,17 @@ class waftoolsengine:
                 return self.cachedresponses[k]
             else:
                 self.log.debug('%s not found in %s' % (k, self.cachedresponses.keys()))
+        params = dict()
         if sys.hexversion > 0x2060000:
-            if self.ssl:
-                h = httplib.HTTPSConnection(self.target, self.port, timeout=4)
-            else:
-                h = httplib.HTTPConnection(self.target, self.port, timeout=4)
+            params['timeout'] = 4
+        if (sys.hexversion >= 0x2070900) and self.ssl:
+            import ssl
+            params['context'] = ssl._create_unverified_context()
+        if self.ssl:
+            Connection = httplib.HTTPSConnection
         else:
-            if self.ssl:
-                h = httplib.HTTPSConnection(self.target, self.port)
-            else:
-                h = httplib.HTTPConnection(self.target, self.port)
+            Connection = httplib.HTTPConnection
+        h = Connection(self.target, self.port,**params)
         if self.debuglevel <= 10:
             if self.debuglevel > 1:
                 h.set_debuglevel(self.debuglevel)
