@@ -391,7 +391,7 @@ def main():
     if options.list:
         print('Can test for these WAFs:\r\n')
         attacker = WafW00F(None)
-        print('\r\n'.join(attacker.wafdetectionsprio))
+        print('\r\n'.join(attacker.wafdetections.keys()))
         return
     if options.version:
         print('WAFW00F version %s' % __version__)
