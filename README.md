@@ -38,35 +38,44 @@ WAFW00F with the `-l` option. At the time of writing the output is as follows:
 
     Can test for these WAFs:
 
-    Profense
-    NetContinuum
-    Incapsula WAF
-    CloudFlare
-    NSFocus
-    USP Secure Entry Server
-    Cisco ACE XML Gateway
-    Barracuda Application Firewall
-    Art of Defence HyperGuard
-    BinarySec
-    Teros WAF
-    F5 BIG-IP LTM
-    F5 BIG-IP APM
-    F5 BIG-IP ASM
-    F5 FirePass
-    F5 Trafficshield
-    InfoGuard Airlock
-    Citrix NetScaler
-    Trustwave ModSecurity
-    IBM Web Application Security
-    IBM DataPower
-    DenyALL WAF
-    Applicure dotDefender
+    Anquanbao
     Juniper WebApp Secure
-    Microsoft URLScan
-    Aqtronix WebKnight
-    eEye Digital Security SecureIIS
+    IBM Web Application Security
+    Cisco ACE XML Gateway
+    F5 BIG-IP APM
+    360WangZhanBao
+    ModSecurity (OWASP CRS)
+    PowerCDN
+    Safedog
+    F5 FirePass
+    DenyALL WAF
+    Trustwave ModSecurity
+    CloudFlare
     Imperva SecureSphere
+    Incapsula WAF
+    Citrix NetScaler
+    F5 BIG-IP LTM
+    Art of Defence HyperGuard
+    Aqtronix WebKnight
+    Teros WAF
+    eEye Digital Security SecureIIS
+    BinarySec
+    IBM DataPower
     Microsoft ISA Server
+    NetContinuum
+    NSFocus
+    ChinaCache-CDN
+    West263CDN
+    InfoGuard Airlock
+    Barracuda Application Firewall
+    F5 BIG-IP ASM
+    Profense
+    Mission Control Application Shield
+    Microsoft URLScan
+    Applicure dotDefender
+    USP Secure Entry Server
+    F5 Trafficshield
+
 
 
 ## How do I use it?
