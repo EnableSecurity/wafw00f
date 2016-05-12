@@ -149,85 +149,72 @@ class WafW00F(waftoolsengine):
         ]
         # test if response for a path containing html tags with known evil strings
         # gives a different response from another containing invalid html tags
-        r = self.cleanhtml()
-        if r is None:
-            self.knowledge['generic']['reason'] = reasons[0]
-            self.knowledge['generic']['found'] = True
-            return True
-        cleanresponse, _tmp = r
-        r = self.xssstandard()
-        if r is None:
-            self.knowledge['generic']['reason'] = reasons[0]
-            self.knowledge['generic']['found'] = True
-            return True
-        xssresponse, _tmp = r
-        if xssresponse.status != cleanresponse.status:
-            self.log.info('Server returned a different response when a script tag was tried')
-            reason = reasons[2]
-            reason += '\r\n'
-            reason += 'Normal response code is "%s",' % cleanresponse.status
-            reason += ' while the response code to an attack is "%s"' % xssresponse.status
-            self.knowledge['generic']['reason'] = reason
-            self.knowledge['generic']['found'] = True
-            return True
-        r = self.cleanhtmlencoded()
-        cleanresponse, _tmp = r
-        r = self.xssstandardencoded()
-        if r is None:
-            self.knowledge['generic']['reason'] = reasons[0]
-            self.knowledge['generic']['found'] = True
-            return True
-        xssresponse, _tmp = r
-        if xssresponse.status != cleanresponse.status:
-            self.log.info('Server returned a different response when a script tag was tried')
-            reason = reasons[2]
-            reason += '\r\n'
-            reason += 'Normal response code is "%s",' % cleanresponse.status
-            reason += ' while the response code to an attack is "%s"' % xssresponse.status
-            self.knowledge['generic']['reason'] = reason
-            self.knowledge['generic']['found'] = True
-            return True
-        response, responsebody = self.normalrequest()
-        normalserver = response.getheader('Server')
-        for attack in self.attacks:
-            r = attack(self)
-            if r is None:
-                self.knowledge['generic']['reason'] = reasons[0]
+        try:
+            cleanresponse, _tmp = self._perform_and_check(self.cleanhtml)
+            xssresponse, _tmp = self._perform_and_check(self.xssstandard)
+            if xssresponse.status != cleanresponse.status:
+                self.log.info('Server returned a different response when a script tag was tried')
+                reason = reasons[2]
+                reason += '\r\n'
+                reason += 'Normal response code is "%s",' % cleanresponse.status
+                reason += ' while the response code to an attack is "%s"' % xssresponse.status
+                self.knowledge['generic']['reason'] = reason
                 self.knowledge['generic']['found'] = True
                 return True
-            response, responsebody = r
-            attackresponse_server = response.getheader('Server')
-            if attackresponse_server:
-                if attackresponse_server != normalserver:
-                    if (normalserver, attackresponse_server) in knownflops:
-                        return False
-                    self.log.info('Server header changed, WAF possibly detected')
-                    self.log.debug('attack response: %s' % attackresponse_server)
-                    self.log.debug('normal response: %s' % normalserver)
-                    reason = reasons[1]
-                    reason += '\r\nThe server header for a normal response is "%s",' % normalserver
-                    reason += ' while the server header a response to an attack is "%s.",' % attackresponse_server
-                    self.knowledge['generic']['reason'] = reason
+            cleanresponse, _tmp = self._perform_and_check(self.cleanhtmlencoded)
+            xssresponse, _tmp = self._perform_and_check(self.xssstandardencoded)
+            if xssresponse.status != cleanresponse.status:
+                self.log.info('Server returned a different response when a script tag was tried')
+                reason = reasons[2]
+                reason += '\r\n'
+                reason += 'Normal response code is "%s",' % cleanresponse.status
+                reason += ' while the response code to an attack is "%s"' % xssresponse.status
+                self.knowledge['generic']['reason'] = reason
+                self.knowledge['generic']['found'] = True
+                return True
+            response, responsebody = self._perform_and_check(self.normalrequest)
+            normalserver = response.getheader('Server')
+            for attack in self.attacks:
+                response, responsebody = self._perform_and_check(lambda: attack(self))
+                attackresponse_server = response.getheader('Server')
+                if attackresponse_server:
+                    if attackresponse_server != normalserver:
+                        if (normalserver, attackresponse_server) in knownflops:
+                            return False
+                        self.log.info('Server header changed, WAF possibly detected')
+                        self.log.debug('attack response: %s' % attackresponse_server)
+                        self.log.debug('normal response: %s' % normalserver)
+                        reason = reasons[1]
+                        reason += '\r\nThe server header for a normal response is "%s",' % normalserver
+                        reason += ' while the server header a response to an attack is "%s.",' % attackresponse_server
+                        self.knowledge['generic']['reason'] = reason
+                        self.knowledge['generic']['found'] = True
+                        return True
+            for attack in self.wafdetectionsprio:
+                if self.wafdetections[attack](self) is None:
+                    self.knowledge['generic']['reason'] = reasons[0]
                     self.knowledge['generic']['found'] = True
                     return True
-        for attack in self.wafdetectionsprio:
-            if self.wafdetections[attack](self) is None:
-                self.knowledge['generic']['reason'] = reasons[0]
-                self.knowledge['generic']['found'] = True
-                return True
-        for attack in self.attacks:
-            r = attack(self)
-            if r is None:
-                self.knowledge['generic']['reason'] = reasons[0]
-                self.knowledge['generic']['found'] = True
-                return True
-            response, responsebody = r
-            for h, v in response.getheaders():
-                if scrambledheader(h):
-                    self.knowledge['generic']['reason'] = reasons[4]
-                    self.knowledge['generic']['found'] = True
-                    return True
+            for attack in self.attacks:
+                response, responsebody = self._perform_and_check(lambda: attack(self))
+                for h, v in response.getheaders():
+                    if scrambledheader(h):
+                        self.knowledge['generic']['reason'] = reasons[4]
+                        self.knowledge['generic']['found'] = True
+                        return True
+        except RequestBlocked:
+            self.knowledge['generic']['reason'] = reasons[0]
+            self.knowledge['generic']['found'] = True
+            return True
+
         return False
+
+    def _perform_and_check(self, request_method):
+        r = request_method()
+        if r is None:
+            raise RequestBlocked()
+
+        return r
 
     def matchheader(self, headermatch, attack=False, ignorecase=True):
         import re
@@ -448,6 +435,10 @@ def main():
             else:
                 print('No WAF detected by the generic detection')
         print('Number of requests: %s' % attacker.requestnumber)
+
+
+class RequestBlocked(Exception):
+    pass
 
 
 if __name__ == '__main__':
