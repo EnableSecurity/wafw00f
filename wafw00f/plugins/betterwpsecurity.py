@@ -12,7 +12,7 @@ def is_waf(self):
         # Does not appear to be a wordpress at all
         return False
 
-    r = self.request("GET", "/wp-content/plugins/better-wp-security/")
+    r = self.request("GET", self.path + "wp-content/plugins/better-wp-security/")
 
     if not r:
         return False
