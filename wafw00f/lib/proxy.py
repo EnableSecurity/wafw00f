@@ -25,14 +25,18 @@ class HttpProxy:
 
     def __init__(self, host, port):
         self.host = host
-        self.port = port
+        self.port = port        
 
     def prepare(self, target, port, path, ssl):
-        conn_factory = httplib.HTTPConnection
-        query_path = "%(scheme)s://%(host)s%(path)s" % dict(
-                scheme="https" if ssl else "http",
-                host=target,
-                path=path)
+        if ssl:
+            conn_factory = httplib.HTTPConnection
+            query_path = path            
+        else:        
+            conn_factory = httplib.HTTPConnection
+            query_path = "%(scheme)s://%(host)s%(path)s" % dict(
+                    scheme="http",
+                    host=target,
+                    path=path)
         return conn_factory, self.host, self.port, query_path
     
     def terminate(self):

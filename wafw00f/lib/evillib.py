@@ -276,7 +276,7 @@ class waftoolsengine:
         self.extraheaders = extraheaders
 
         try:
-            self.proxy = self._parse_proxy(proxy) if proxy else NullProxy()
+            self.proxy = self._parse_proxy(proxy, ssl) if proxy else NullProxy()
         except Exception as e:
             self.log.critical("Proxy disabled: %s" % e)
             self.proxy = NullProxy()
@@ -356,10 +356,13 @@ class waftoolsengine:
             params = dict()
             if sys.hexversion > 0x2060000:
                 params['timeout'] = 4
-            if (sys.hexversion >= 0x2070900) and self.ssl:
+            if (sys.hexversion >= 0x2070900) and self.ssl and not isinstance(self.proxy,HttpProxy):
                 import ssl as ssllib
                 params['context'] = ssllib._create_unverified_context()
-            h = conn_factory(connect_host, connect_port,**params)
+            h = conn_factory(connect_host, connect_port, **params)
+            if self.ssl and isinstance(self.proxy,HttpProxy):
+                import ssl as ssllib                
+                h.set_tunnel("%s:%s" % (self.target,self.port))                
             if self.debuglevel <= 10:
                 if self.debuglevel > 1:
                     h.set_debuglevel(self.debuglevel)
@@ -432,7 +435,9 @@ class waftoolsengine:
             if r:
                 return r
 
-    def _parse_proxy(self, proxy):
+    def _parse_proxy(self, proxy, ssl):
+        if ssl:
+            raise Exception("SSL over HTTP proxy is not yet supported, but proxychains or similar would fix this ;-)")
         parts = urlparse(proxy)
         if not parts.scheme or not parts.netloc:
             raise Exception("Invalid proxy specified, scheme required")
