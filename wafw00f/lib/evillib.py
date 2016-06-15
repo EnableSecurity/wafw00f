@@ -436,8 +436,6 @@ class waftoolsengine:
                 return r
 
     def _parse_proxy(self, proxy, ssl):
-        if ssl:
-            raise Exception("SSL over HTTP proxy is not yet supported, but proxychains or similar would fix this ;-)")
         parts = urlparse(proxy)
         if not parts.scheme or not parts.netloc:
             raise Exception("Invalid proxy specified, scheme required")
@@ -453,6 +451,8 @@ class waftoolsengine:
 
                 return Socks5Proxy(netloc[0], int(netloc[1]))
             elif parts.scheme == "http":
+                if ssl:
+                    raise Exception("SSL over HTTP proxy is not yet supported, but proxychains or similar would fix this ;-)")
                 return HttpProxy(netloc[0], int(netloc[1]))
             else:
                 raise Exception("Unsupported proxy scheme")
