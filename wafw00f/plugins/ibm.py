@@ -5,8 +5,7 @@ NAME = 'IBM Web Application Security'
 
 
 def is_waf(self):
-    detected = False
-    r = self.protectedfolder()
-    if r is None:
-        detected = True
-    return detected
+    normal = self.normalrequest()
+    protected = self.protectedfolder()
+
+    return protected is None and normal is not None

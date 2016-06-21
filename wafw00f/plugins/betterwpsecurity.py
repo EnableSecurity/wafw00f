@@ -5,7 +5,13 @@ NAME = 'Better WP Security'
 
 
 def is_waf(self):
-    normalresponse, _ = self.normalrequest()
+    r = self.normalrequest()
+
+    if r is None:
+        return False
+
+    r = normalresponse, _
+
     link_header = normalresponse.getheader('Link') or ""
 
     if "https://api.w.org/" not in link_header:
@@ -14,7 +20,7 @@ def is_waf(self):
 
     r = self.request("GET", self.path + "wp-content/plugins/better-wp-security/")
 
-    if not r:
+    if r is None:
         return False
 
     pluginresponse, _ = r
