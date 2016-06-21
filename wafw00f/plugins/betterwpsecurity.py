@@ -10,7 +10,7 @@ def is_waf(self):
     if r is None:
         return False
 
-    r = normalresponse, _
+    normalresponse, _ = r
 
     link_header = normalresponse.getheader('Link') or ""
 
