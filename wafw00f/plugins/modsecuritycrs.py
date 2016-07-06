@@ -5,12 +5,13 @@ NAME = 'ModSecurity (OWASP CRS)'
 
 
 def is_waf(self):
-    detected = False
     r = self.request('GET', self.path + '?id=' + self.xssstring)
-    if r is None:
+    normal = self.normalrequest()
+
+    if r is None or normal is None:
         return False
 
-    normalresponse, _ = self.normalrequest()
     response, _ = r
+    normalresponse, _ = normal
 
     return normalresponse.status != response.status
