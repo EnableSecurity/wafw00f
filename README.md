@@ -22,7 +22,7 @@ For further details, check out the source code on the main site,
 It detects a number of WAFs. To view which WAFs it is able to detect run
 WAFW00F with the `-l` option. At the time of writing the output is as follows:
 
-    $ ./wafw00f -l
+    $ wafw00f -l
 
                                      ^     ^
             _   __  _   ____ _   __  _    _   ____
@@ -80,10 +80,12 @@ WAFW00F with the `-l` option. At the time of writing the output is as follows:
 
 ## How do I use it?
 
+First, install the tools as described [here](#how-do-i-install-it).
+
 For help please make use of the `--help` option. The basic usage is to pass it
 a URL as an argument. Example:
 
-    $./wafw00f https://www.ibm.com/
+    $ wafw00f https://www.ibm.com/
 
                                      ^     ^
             _   __  _   ____ _   __  _    _   ____
