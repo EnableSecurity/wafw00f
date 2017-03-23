@@ -348,7 +348,6 @@ class waftoolsengine:
         return r
 
     def _request(self, method, path, headers):
-        original_socket = socket.socket
         try:
             conn_factory, connect_host, connect_port, query_path = \
                     self.proxy.prepare(self.target, self.port, path, self.ssl)
@@ -356,16 +355,18 @@ class waftoolsengine:
             params = dict()
             if sys.hexversion > 0x2060000:
                 params['timeout'] = 4
-            if (sys.hexversion >= 0x2070900) and self.ssl and not isinstance(self.proxy,HttpProxy):
+
+            if (sys.hexversion >= 0x2070900) and self.ssl:
                 import ssl as ssllib
                 params['context'] = ssllib._create_unverified_context()
+
             h = conn_factory(connect_host, connect_port, **params)
-            if self.ssl and isinstance(self.proxy,HttpProxy):
-                import ssl as ssllib                
-                h.set_tunnel("%s:%s" % (self.target,self.port))                
+            self.proxy.initialize(h, self.ssl, self.target, self.port)
+
             if self.debuglevel <= 10:
                 if self.debuglevel > 1:
                     h.set_debuglevel(self.debuglevel)
+
             try:
                 self.log.info('Sending %s %s' % (method, path))
                 h.request(method, query_path, headers=headers)
@@ -451,8 +452,6 @@ class waftoolsengine:
 
                 return Socks5Proxy(netloc[0], int(netloc[1]))
             elif parts.scheme == "http":
-                if ssl:
-                    raise Exception("SSL over HTTP proxy is not yet supported, but proxychains or similar would fix this ;-)")
                 return HttpProxy(netloc[0], int(netloc[1]))
             else:
                 raise Exception("Unsupported proxy scheme")
