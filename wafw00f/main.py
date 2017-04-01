@@ -302,6 +302,7 @@ class WafW00F(waftoolsengine):
     #wafdetections['ModSecurity (positive model)'] = ismodsecuritypositive removed for now
     # NOTE: this priority list is used so that the 
     wafdetectionsprio = ['Profense', 
+                         'AdNovum nevisProxy', 
                          'NetContinuum', 
                          'Incapsula WAF', 
                          'CloudFlare', 
