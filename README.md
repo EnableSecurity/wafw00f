@@ -118,6 +118,10 @@ or
 
 More information about the services that I offer at [Enable Security](http://enablesecurity.com/)
 
+## How do I write my own new checks?
+
+Follow the instructions on the [wiki](https://github.com/EnableSecurity/wafw00f/wiki/How-to-write-new-WAF-checks)
+
 ## Questions?
 
 Contact [me](mailto:sandro@enablesecurity.com)
