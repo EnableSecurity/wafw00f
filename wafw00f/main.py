@@ -296,11 +296,9 @@ class WafW00F(waftoolsengine):
 
     wafdetections = dict()
 
-    # easy ones
-    # lil bit more complex
-    #wafdetections['BeeWare'] = isbeeware
-    #wafdetections['ModSecurity (positive model)'] = ismodsecuritypositive removed for now
-    # NOTE: this priority list is used so that the 
+    # NOTE: this priority list is used so that each check can be prioritized,
+    # so that the quick checks are done first and ones that require more 
+    # requests, are done later
     wafdetectionsprio = ['Profense', 
                          'AdNovum nevisProxy', 
                          'NetContinuum', 
@@ -326,7 +324,7 @@ class WafW00F(waftoolsengine):
                          'IBM Web Application Security', 
                          'IBM DataPower', 'DenyALL WAF',
                          'Applicure dotDefender', 
-                         'Juniper WebApp Secure',  # removed for now 'ModSecurity (positive model)',
+                         'Juniper WebApp Secure', 
                          'Microsoft URLScan', 
                          'Aqtronix WebKnight', 
                          'eEye Digital Security SecureIIS', 
