@@ -255,44 +255,7 @@ class WafW00F(waftoolsengine):
         """
         a convenience function which calls matchheader
         """
-        return self.matchheader(('set-cookie', match))
-
-    def isbeeware(self):
-        # disabled cause it was giving way too many false positives
-        # credit goes to Sebastien Gioria
-        detected = False
-        r = self.xssstandard()
-        if r is None:
-            return
-        response, responsebody = r
-        if (response.status != 200) or (response.reason == 'Forbidden'):
-            r = self.directorytraversal()
-            if r is None:
-                return
-            response, responsebody = r
-            if response.status == 403:
-                if response.reason == 'Forbidden':
-                    detected = True
-        return detected
-
-    def ismodsecuritypositive(self):
-        detected = False
-        self.normalrequest(usecache=False, cacheresponse=False)
-        randomfn = self.path + str(random.randrange(1000, 9999)) + '.html'
-        r = self.request(path=randomfn)
-        if r is None:
-            return
-        response, responsebody = r
-        if response.status != 302:
-            return False
-        randomfnnull = randomfn + '%00'
-        r = self.request(path=randomfnnull)
-        if r is None:
-            return
-        response, responsebody = r
-        if response.status == 404:
-            detected = True
-        return detected
+        return self.matchheader(('set-cookie', match))    
 
     wafdetections = dict()
 
