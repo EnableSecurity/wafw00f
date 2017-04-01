@@ -24,13 +24,13 @@ WAFW00F with the `-l` option. At the time of writing the output is as follows:
 
     $ wafw00f -l
 
-                                     ^     ^
+                                    ^     ^
             _   __  _   ____ _   __  _    _   ____
-           ///7/ /.' \ / __////7/ /,' \ ,' \ / __/
-          | V V // o // _/ | V V // 0 // 0 // _/
-          |_n_,'/_n_//_/   |_n_,' \_,' \_,'/_/
+        ///7/ /.' \ / __////7/ /,' \ ,' \ / __/
+        | V V // o // _/ | V V // 0 // 0 // _/
+        |_n_,'/_n_//_/   |_n_,' \_,' \_,'/_/
                                     <
-                                     ...'
+                                    ...'
 
         WAFW00F - Web Application Firewall Detection Tool
 
@@ -42,6 +42,7 @@ WAFW00F with the `-l` option. At the time of writing the output is as follows:
     Juniper WebApp Secure
     IBM Web Application Security
     Cisco ACE XML Gateway
+    Better WP Security
     F5 BIG-IP APM
     360WangZhanBao
     ModSecurity (OWASP CRS)
@@ -67,6 +68,7 @@ WAFW00F with the `-l` option. At the time of writing the output is as follows:
     ChinaCache-CDN
     West263CDN
     InfoGuard Airlock
+    AdNovum nevisProxy
     Barracuda Application Firewall
     F5 BIG-IP ASM
     Profense
@@ -75,6 +77,7 @@ WAFW00F with the `-l` option. At the time of writing the output is as follows:
     Applicure dotDefender
     USP Secure Entry Server
     F5 Trafficshield
+
 
 
 
