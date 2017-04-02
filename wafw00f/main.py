@@ -304,7 +304,7 @@ class WafW00F(waftoolsengine):
 
         # Check for prioritized ones first, then check those added externally
         checklist = self.wafdetectionsprio
-        checklist = checklist + list(set(self.wafdetections.keys()) - set(checklist))
+        checklist += list(set(self.wafdetections.keys()) - set(checklist))
 
         for wafvendor in checklist:
             self.log.info('Checking for %s' % wafvendor)
