@@ -258,7 +258,7 @@ class WafW00F(waftoolsengine):
         """
         return self.matchheader(('set-cookie', match))
 
-    wafdetections = dict()    
+    wafdetections = dict()
 
     plugin_dict = load_plugins()
     result_dict = {}
@@ -322,8 +322,9 @@ def main():
                       default=False, help='Use an HTTP proxy to perform requests, example: http://hostname:8080, socks5://hostname:1080')
     parser.add_option('--version', '-V', dest='version', action='store_true',
                       default=False, help='Print out the version')
-    parser.add_option('--headersfile', '-H', dest='headersfile', action='store',
-                      default=None, help='Pass custom headers, for example to overwrite the default User-Agent string')
+    parser.add_option('--headersfile', '-H', dest='headersfile', 
+                      action='store', default=None, 
+                      help='Pass custom headers, for example to overwrite the default User-Agent string')
     options, args = parser.parse_args()
     logging.basicConfig(level=calclogginglevel(options.verbose))
     log = logging.getLogger()
