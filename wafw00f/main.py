@@ -52,20 +52,21 @@ os.chdir(scriptDir)
 from wafw00f import __version__
 from wafw00f.lib.evillib import oururlparse, scrambledheader, waftoolsengine
 from wafw00f.manager import load_plugins
+from wafw00f.wafprio import wafdetectionsprio
 
-lackofart = """
+lackofart = r'''
                                  ^     ^
         _   __  _   ____ _   __  _    _   ____
        ///7/ /.' \ / __////7/ /,' \ ,' \ / __/
       | V V // o // _/ | V V // 0 // 0 // _/
       |_n_,'/_n_//_/   |_n_,' \_,' \_,'/_/
                                 <
-                                 ...'
+                                ...'
 
     WAFW00F - Web Application Firewall Detection Tool
 
     By Sandro Gauci && Wendel G. Henrique
-"""
+'''
 
 
 class WafW00F(waftoolsengine):
@@ -190,7 +191,7 @@ class WafW00F(waftoolsengine):
                         self.knowledge['generic']['reason'] = reason
                         self.knowledge['generic']['found'] = True
                         return True
-            for attack in self.wafdetectionsprio:
+            for attack in wafdetectionsprio:
                 if self.wafdetections[attack](self) is None:
                     self.knowledge['generic']['reason'] = reasons[0]
                     self.knowledge['generic']['found'] = True
@@ -255,44 +256,9 @@ class WafW00F(waftoolsengine):
         """
         a convenience function which calls matchheader
         """
-        return self.matchheader(('set-cookie', match))    
+        return self.matchheader(('set-cookie', match))
 
-    wafdetections = dict()
-
-    # NOTE: this priority list is used so that each check can be prioritized,
-    # so that the quick checks are done first and ones that require more 
-    # requests, are done later
-    wafdetectionsprio = ['Profense', 
-                         'AdNovum nevisProxy', 
-                         'NetContinuum', 
-                         'Incapsula WAF', 
-                         'CloudFlare', 
-                         'NSFocus', 
-                         'Safedog',
-                         'Mission Control Application Shield', 
-                         'USP Secure Entry Server', 
-                         'Cisco ACE XML Gateway',
-                         'Barracuda Application Firewall', 
-                         'Art of Defence HyperGuard', 
-                         'BinarySec', 
-                         'Teros WAF',
-                         'F5 BIG-IP LTM', 
-                         'F5 BIG-IP APM', 
-                         'F5 BIG-IP ASM', 
-                         'F5 FirePass', 
-                         'F5 Trafficshield', 
-                         'InfoGuard Airlock', 
-                         'Citrix NetScaler',
-                         'Trustwave ModSecurity', 
-                         'IBM Web Application Security', 
-                         'IBM DataPower', 'DenyALL WAF',
-                         'Applicure dotDefender', 
-                         'Juniper WebApp Secure', 
-                         'Microsoft URLScan', 
-                         'Aqtronix WebKnight', 
-                         'eEye Digital Security SecureIIS', 
-                         'Imperva SecureSphere', 
-                         'Microsoft ISA Server']
+    wafdetections = dict()    
 
     plugin_dict = load_plugins()
     result_dict = {}
@@ -303,7 +269,7 @@ class WafW00F(waftoolsengine):
         detected = list()
 
         # Check for prioritized ones first, then check those added externally
-        checklist = self.wafdetectionsprio
+        checklist = wafdetectionsprio
         checklist += list(set(self.wafdetections.keys()) - set(checklist))
 
         for wafvendor in checklist:
@@ -323,19 +289,21 @@ def calclogginglevel(verbosity):
         level = 0
     return level
 
+
 def getheaders(fn):
     headers = {}
-    fullfn = os.path.abspath(os.path.join(os.getcwd(),fn))
+    fullfn = os.path.abspath(os.path.join(os.getcwd(), fn))
     if not os.path.exists(fullfn):
-        logging.getLogger('wafw00f').critical('Headers file "%s" does not exist!'%fullfn)
+        logging.getLogger('wafw00f').critical('Headers file "%s" does not exist!' % fullfn)
         return
-    with open(fn,'r') as f:
-        for line in f.readlines():            
-            _t = line.split(':',2)
+    with open(fn, 'r') as f:
+        for line in f.readlines():
+            _t = line.split(':', 2)
             if len(_t) == 2:
-                h,v = map(lambda x: x.strip(),_t)
+                h, v = map(lambda x: x.strip(), _t)
                 headers[h] = v
     return headers
+
 
 def main():
     print(lackofart)
