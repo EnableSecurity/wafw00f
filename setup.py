@@ -18,6 +18,7 @@ setup(
     install_requires=[
         'beautifulsoup4==4.4.1',
         'pluginbase==0.3',
+        'SQLAlchemy==1.1.6',
     ],
     extras_require={
         'dev': [

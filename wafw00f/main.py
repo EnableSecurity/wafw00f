@@ -258,7 +258,7 @@ class WafW00F(waftoolsengine):
         """
         return self.matchheader(('set-cookie', match))
 
-    wafdetections = dict()    
+    wafdetections = dict()
 
     plugin_dict = load_plugins()
     result_dict = {}
