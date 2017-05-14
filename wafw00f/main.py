@@ -45,10 +45,6 @@ import logging
 import sys
 import random
 
-currentDir = os.getcwd()
-scriptDir = os.path.dirname(sys.argv[0]) or '.'
-os.chdir(scriptDir)
-
 from wafw00f import __version__
 from wafw00f.lib.evillib import oururlparse, scrambledheader, waftoolsengine
 from wafw00f.manager import load_plugins
