@@ -281,8 +281,8 @@ class waftoolsengine:
             self.log.critical("Proxy disabled: %s" % e)
             self.proxy = NullProxy()
 
-    def request(self, method='GET', path=None, usecache=True,
-                cacheresponse=True, headers=None,
+    def request(self, method='GET', path=None, usecache=False,
+                cacheresponse=False, headers=None,
                 comingfromredir=False):
         followredirect = self.followredirect
         if comingfromredir:
@@ -317,12 +317,14 @@ class waftoolsengine:
                 return self.cachedresponses[k]
             else:
                 self.log.debug('%s not found in %s' % (k, self.cachedresponses.keys()))
-        r = self._request(method, path, headers)
+        resp = self._request(method, path, headers)
         if cacheresponse:
-            self.cachedresponses[k] = r
+            self.cachedresponses[k] = resp
 
-        if r:
-            response, responsebody = r
+        import pdb;pdb.set_trace()
+
+        if resp:
+            response, responsebody = resp
             if response.status in [301, 302, 307]:
                 if followredirect:
                     if response.getheader('location'):
@@ -331,21 +333,26 @@ class waftoolsengine:
                         pret = oururlparse(newloc)
                         if pret is not None:
                             (target, port, path, query, ssl) = pret
-                            if not port: port = 80
+                            if not port:
+                                if not ssl:
+                                    port = 80
+                                else:
+                                    port = 443
                             if target == '':
                                 target = self.target
-                            if port is None:
-                                port = self.port
                             if not path.startswith('/'):
                                 path = '/' + path
+                            self.port = port
                             if (target, port, ssl) == (self.target, self.port, ssl):
-                                r = self.request(method, path, usecache, cacheresponse,
-                                                 headers, comingfromredir=True)
+                                self.ssl = ssl
+                                self.port = port
+                                resp = self.request(method, path, False, cacheresponse,
+                                                    headers, comingfromredir=True)
                             else:
                                 self.log.warn('Tried to redirect to a different server %s' % newloc)
                         else:
                             self.log.warn('%s is not a well formatted url' % response.getheader('location'))
-        return r
+        return resp
 
     def _request(self, method, path, headers):
         original_socket = socket.socket
@@ -360,9 +367,10 @@ class waftoolsengine:
                 import ssl as ssllib
                 params['context'] = ssllib._create_unverified_context()
             h = conn_factory(connect_host, connect_port, **params)
-            if self.ssl and isinstance(self.proxy,HttpProxy):
-                import ssl as ssllib                
-                h.set_tunnel("%s:%s" % (self.target,self.port))                
+            print(connect_host, connect_port, params)
+            if self.ssl and isinstance(self.proxy, HttpProxy):
+                import ssl as ssllib
+                h.set_tunnel("%s:%s" % (self.target, self.port))
             if self.debuglevel <= 10:
                 if self.debuglevel > 1:
                     h.set_debuglevel(self.debuglevel)
@@ -385,7 +393,6 @@ class waftoolsengine:
             self.proxy.terminate()
 
         return r
-
 
     def querycrawler(self, path=None, curdepth=0, maxdepth=1):
         self.log.debug('Crawler is visiting %s' % path)
@@ -419,7 +426,7 @@ class waftoolsengine:
                     if not path.startswith('/'):
                         path = '/' + path
                     if len(tmpu[4]) > 0:
-                        # found a query .. thats all we need                                                
+                        # found a query .. thats all we need
                         location = urlunparse(('', '', path, tmpu[3], tmpu[4], ''))
                         self.log.info('Found query %s' % location)
                         return href
@@ -439,7 +446,7 @@ class waftoolsengine:
         parts = urlparse(proxy)
         if not parts.scheme or not parts.netloc:
             raise Exception("Invalid proxy specified, scheme required")
-        
+
         netloc = parts.netloc.split(":")
         if len(netloc) != 2:
             raise Exception("Proxy port unspecified")
@@ -460,7 +467,6 @@ class waftoolsengine:
             raise Exception("Invalid port number")
 
 
-
 def scrambledheader(header):
     c = 'connection'
     if len(header) != len(c):
@@ -471,4 +477,3 @@ def scrambledheader(header):
         if c.count(character) != header.count(character):
             return False
     return True
-
