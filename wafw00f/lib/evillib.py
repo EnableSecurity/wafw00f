@@ -168,7 +168,7 @@ def oururlparse(target):
         port = 443
     else:
         port = 80
-    hostname = tmp[0]#.replace('www.', '')
+    hostname = tmp[0]
     query = o[4]
     return (hostname, port, path, query, ssl)
 
@@ -260,7 +260,7 @@ class waftoolsengine:
         port: defaults to 80
         ssl: defaults to false
         """
-        self.target = target#.replace('www.', '')
+        self.target = target
         self.port = int(port)
         self.ssl = ssl
         self.debuglevel = debuglevel
@@ -308,20 +308,18 @@ class waftoolsengine:
             headers['Accept-Charset'] = 'ISO-8859-1,utf-8;q=0.7,*;q=0.7'
         if not 'accept' in knownheaders:
             headers['Accept'] = '*/*'
-        # k = str([method, path, headers])
-        # if usecache:
-        #     if k in self.cachedresponses.keys():
-        #         self.log.debug('Using cached version of %s, %s' % (method, path))
-        #         return self.cachedresponses[k]
-        #     else:
-        #         self.log.debug('%s not found in %s' % (k, self.cachedresponses.keys()))
+        k = str([method, path, headers])
+        if usecache:
+            if k in self.cachedresponses.keys():
+                self.log.debug('Using cached version of %s, %s' % (method, path))
+                return self.cachedresponses[k]
+            else:
+                self.log.debug('%s not found in %s' % (k, self.cachedresponses.keys()))
 
         resp = self._request(method, path, headers, target)
 
-        # if cacheresponse:
-        #     self.cachedresponses[k] = resp
-
-        #import pdb;pdb.set_trace()
+        if cacheresponse:
+            self.cachedresponses[k] = resp
 
         if resp:
             response, responsebody = resp
@@ -333,22 +331,16 @@ class waftoolsengine:
                         pret = oururlparse(newloc)
                         if pret is not None:
                             (target, port, path, query, ssl) = pret
-                            # if not port:
-                            #     if not ssl:
-                            #         port = 80
-                            #     else:
-                            #         port = 443
-                            # if target == '':
-                            #     target = self.target
+                            if target == '':
+                                target = self.target
                             if not path.startswith('/'):
                                 path = '/' + path
-                            # self.port = port
-                            # if target != self.target:
-                            #     self.log.warn('Tried to redirect to a different server %s' % newloc)
-                            #     print('Tried to redirect to a different server %s' % newloc)
+                            if target.replace('www.', '') != self.target.replace('www.', ''):
+                                self.log.warn('Tried to redirect to a different server %s' % newloc)
+                                print('Tried to redirect to a different server %s' % newloc)
                             self.ssl = ssl
                             self.port = port
-                            resp = self.request(method, path, False, cacheresponse,
+                            resp = self.request(method, path, usecache, cacheresponse,
                                                 headers, comingfromredir=True, target=target)
                         else:
                             self.log.warn('%s is not a well formatted url' % response.getheader('location'))
@@ -367,7 +359,7 @@ class waftoolsengine:
                 import ssl as ssllib
                 params['context'] = ssllib._create_unverified_context()
             h = conn_factory(connect_host, connect_port, **params)
-            # print(connect_host, connect_port, path, params)
+            print(connect_host, connect_port, path, params)
             if self.ssl and isinstance(self.proxy, HttpProxy):
                 import ssl as ssllib
                 h.set_tunnel("%s:%s" % (self.target, self.port))
