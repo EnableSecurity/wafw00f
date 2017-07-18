@@ -283,7 +283,8 @@ class waftoolsengine:
 
     def request(self, method='GET', path=None, usecache=False,
                 cacheresponse=False, headers=None,
-                comingfromredir=False):
+                comingfromredir=False,
+                target=None):
         followredirect = self.followredirect
         if comingfromredir:
             self.redirectno += 1
@@ -317,11 +318,11 @@ class waftoolsengine:
                 return self.cachedresponses[k]
             else:
                 self.log.debug('%s not found in %s' % (k, self.cachedresponses.keys()))
-        resp = self._request(method, path, headers)
+        resp = self._request(method, path, headers, target)
         if cacheresponse:
             self.cachedresponses[k] = resp
 
-        import pdb;pdb.set_trace()
+        # import pdb;pdb.set_trace()
 
         if resp:
             response, responsebody = resp
@@ -343,22 +344,22 @@ class waftoolsengine:
                             if not path.startswith('/'):
                                 path = '/' + path
                             self.port = port
-                            if (target, port, ssl) == (self.target, self.port, ssl):
-                                self.ssl = ssl
-                                self.port = port
-                                resp = self.request(method, path, False, cacheresponse,
-                                                    headers, comingfromredir=True)
-                            else:
+                            if (target, port, ssl) != (self.target, self.port, ssl):
                                 self.log.warn('Tried to redirect to a different server %s' % newloc)
+                                print('Tried to redirect to a different server %s' % newloc)
+                            self.ssl = ssl
+                            self.port = port
+                            resp = self.request(method, path, False, cacheresponse,
+                                                headers, comingfromredir=True, target=target)
                         else:
                             self.log.warn('%s is not a well formatted url' % response.getheader('location'))
         return resp
 
-    def _request(self, method, path, headers):
+    def _request(self, method, path, headers, target=None):
         original_socket = socket.socket
         try:
             conn_factory, connect_host, connect_port, query_path = \
-                    self.proxy.prepare(self.target, self.port, path, self.ssl)
+                    self.proxy.prepare(target or self.target, self.port, path, self.ssl)
 
             params = dict()
             if sys.hexversion > 0x2060000:
@@ -367,7 +368,7 @@ class waftoolsengine:
                 import ssl as ssllib
                 params['context'] = ssllib._create_unverified_context()
             h = conn_factory(connect_host, connect_port, **params)
-            print(connect_host, connect_port, params)
+            print(connect_host, connect_port, path, params)
             if self.ssl and isinstance(self.proxy, HttpProxy):
                 import ssl as ssllib
                 h.set_tunnel("%s:%s" % (self.target, self.port))
