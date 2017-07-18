@@ -16,8 +16,9 @@ setup(
     packages=find_packages(),
     scripts=['wafw00f/bin/wafw00f'],
     install_requires=[
-        'beautifulsoup4==4.4.1',
+        'bs4==0.0.1',
         'pluginbase==0.3',
+        'SQLAlchemy==1.1.6',
     ],
     extras_require={
         'dev': [
