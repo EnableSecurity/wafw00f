@@ -45,10 +45,10 @@ import logging
 import sys
 import random
 
-# from wafw00f import __version__
-from lib.evillib import oururlparse, scrambledheader, waftoolsengine
-from manager import load_plugins
-from wafprio import wafdetectionsprio
+from wafw00f import __version__
+from wafw00f.lib.evillib import oururlparse, scrambledheader, waftoolsengine
+from wafw00f.manager import load_plugins
+from wafw00f.wafprio import wafdetectionsprio
 
 lackofart = r'''
                                  ^     ^
