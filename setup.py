@@ -19,6 +19,17 @@ setup(
         'beautifulsoup4==4.6.0',
         'pluginbase==0.3',
     ],
+    classifiers=[
+        'Development Status :: 5 - Production/Stable',
+        'Intended Audience :: System Administrators',
+        'Intended Audience :: Information Technology',
+        'Topic :: Internet',
+        'Topic :: Security',
+        'Topic :: System :: Networking :: Firewalls',
+        'License :: OSI Approved :: BSD License',
+        'Programming Language :: Python :: 2',
+    ],
+    keywords='waf firewall detector',
     extras_require={
         'dev': [
             'prospector==0.10.1',
