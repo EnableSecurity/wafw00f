@@ -29,7 +29,7 @@ setup(
         'License :: OSI Approved :: BSD License',
         'Programming Language :: Python :: 2',
     ],
-    keywords='waf firewall detector',
+    keywords='waf firewall detector fingerprint',
     extras_require={
         'dev': [
             'prospector==0.10.1',
