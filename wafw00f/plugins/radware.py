@@ -1,10 +1,6 @@
 #!/usr/bin/env python
 
-
-NAME = 'Radware'
-
+NAME = 'Radware AppWall'
 
 def is_waf(self):
-    # credit goes to W3AF
-    if self.matchheader(('X-SL-CompState', '.')):
-        return True
+    return self.matchheader(('X-SL-CompState', '.'))
