@@ -1,9 +1,7 @@
 #!/usr/bin/env python
 
-
-NAME = 'BlackDos'
-
+NAME = 'BlockDoS'
 
 def is_waf(self):
-    if self.matchheader(('server', "BlockDos\.net")):
-        return True
+    return self.matchheader(('server', "BlockDos\.net"))
+
