@@ -1,9 +1,7 @@
 #!/usr/bin/env python
 
-
-NAME = 'Comodo'
-
+NAME = 'Comodo WAF'
 
 def is_waf(self):
-    if self.matchheader(('server', "Protected by COMODO WAF")):
-        return True
+    return self.matchheader(('server', "Protected by COMODO WAF"))
+
