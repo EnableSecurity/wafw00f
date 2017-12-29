@@ -12,6 +12,7 @@ wafdetectionsprio = [
     'Incapsula WAF',
     'CloudFlare',
     'NSFocus',
+    'Edgecast / Verizon Digital media',
     'Safedog',
     'Mission Control Application Shield',
     'USP Secure Entry Server',
