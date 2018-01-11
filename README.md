@@ -39,22 +39,29 @@ WAFW00F with the `-l` option. At the time of writing the output is as follows:
     Can test for these WAFs:
 
     Anquanbao
+    FortiWeb
+    Naxsi
     Juniper WebApp Secure
     IBM Web Application Security
     Cisco ACE XML Gateway
     Better WP Security
+    F5 BIG-IP ASM
+    Citrix NetScaler
+    ModSecurity (OWASP CRS)
     F5 BIG-IP APM
     360WangZhanBao
-    ModSecurity (OWASP CRS)
+    Mission Control Application Shield
     PowerCDN
     Safedog
+    Sucuri WAF
     F5 FirePass
     DenyALL WAF
     Trustwave ModSecurity
     CloudFlare
-    Imperva SecureSphere
+    Profense
+    Wallarm
     Incapsula WAF
-    Citrix NetScaler
+    Radware AppWall
     F5 BIG-IP LTM
     Art of Defence HyperGuard
     Aqtronix WebKnight
@@ -70,13 +77,15 @@ WAFW00F with the `-l` option. At the time of writing the output is as follows:
     InfoGuard Airlock
     AdNovum nevisProxy
     Barracuda Application Firewall
-    F5 BIG-IP ASM
-    Profense
-    Mission Control Application Shield
+    Comodo WAF
+    Imperva SecureSphere
+    BlockDoS
+    Edgecast / Verizon Digital media
     Microsoft URLScan
     Applicure dotDefender
     USP Secure Entry Server
     F5 Trafficshield
+
 
 
 
