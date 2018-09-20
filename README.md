@@ -44,6 +44,7 @@ WAFW00F with the `-l` option. At the time of writing the output is as follows:
     Juniper WebApp Secure
     IBM Web Application Security
     Cisco ACE XML Gateway
+    AWS WAF
     Better WP Security
     F5 BIG-IP ASM
     Citrix NetScaler
@@ -85,9 +86,6 @@ WAFW00F with the `-l` option. At the time of writing the output is as follows:
     Applicure dotDefender
     USP Secure Entry Server
     F5 Trafficshield
-
-
-
 
 
 ## How do I use it?

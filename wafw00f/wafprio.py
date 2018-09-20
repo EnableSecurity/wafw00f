@@ -33,6 +33,7 @@ wafdetectionsprio = [
     'F5 BIG-IP ASM',
     'F5 FirePass',
     'F5 Trafficshield',
+    'AWS WAF',
     'InfoGuard Airlock',
     'Citrix NetScaler',
     'Trustwave ModSecurity',
