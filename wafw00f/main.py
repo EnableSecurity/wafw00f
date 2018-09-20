@@ -187,7 +187,7 @@ class WafW00F(waftoolsengine):
                         self.log.debug('normal response: %s' % normalserver)
                         reason = reasons[1]
                         reason += '\r\nThe server header for a normal response is "%s",' % normalserver
-                        reason += ' while the server header a response to an attack is "%s.",' % attackresponse_server
+                        reason += ' while the server header a response to an attack is "%s",' % attackresponse_server
                         self.knowledge['generic']['reason'] = reason
                         self.knowledge['generic']['found'] = True
                         return True
