@@ -37,5 +37,6 @@ wafdetectionsprio = [
     'Aqtronix WebKnight',
     'eEye Digital Security SecureIIS',
     'Imperva SecureSphere',
-    'Microsoft ISA Server'
+    'Microsoft ISA Server',
+    'DOSarrest'
 ]
