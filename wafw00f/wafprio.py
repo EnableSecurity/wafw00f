@@ -12,6 +12,7 @@ wafdetectionsprio = [
     'Incapsula WAF',
     'CloudFlare',
     'NSFocus',
+    'DOSarrest',
     'Edgecast / Verizon Digital media',
     'Safedog',
     'Mission Control Application Shield',
@@ -38,5 +39,4 @@ wafdetectionsprio = [
     'eEye Digital Security SecureIIS',
     'Imperva SecureSphere',
     'Microsoft ISA Server',
-    'DOSarrest'
 ]
