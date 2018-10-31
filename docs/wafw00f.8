@@ -1,0 +1,52 @@
+.TH WAFW00F "8" "November 2017" "wafw00f " "User Commands"
+.SH NAME
+wafw00f \- identify and fingerprint Web Application Firewall products
+.SH SYNOPSIS
+.B wafw00f
+\fI\,url1 \/\fR[\fI\,url2 \/\fR[\fI\,url3 \/\fR... ]]
+.SH DESCRIPTION
+.TP
+Identifies and fingerprints Web Application Firewall (WAF) products:
+.TP
+.TP
+To do its magic, WAFW00F does the following:
+Sends a normal HTTP request and analyses the response; this identifies a number of WAF solutions
+If that is not successful, it sends a number of (potentially malicious) HTTP requests and uses simple logic to deduce which WAF it is
+If that is also not successful, it analyses the responses previously returned and uses another simple algorithm to guess if a WAF or security solution is actively responding to our attacks
+.SH OPTIONS
+.TP
+\fB\-h\fR, \fB\-\-help\fR
+Show available options
+.TP
+\fB\-v\fR, \fB\-\-verbose\fR
+Enable verbosity \- multiple \fB\-v\fR options increase
+verbosity
+.TP
+\fB\-a\fR, \fB\-\-findall\fR
+Find all WAFs, do not stop testing on the first one
+.TP
+\fB\-r\fR, \fB\-\-disableredirect\fR
+Do not follow redirections given by 3xx responses
+.TP
+\fB\-t\fR TEST, \fB\-\-test\fR=\fI\,TEST\/\fR
+Test for one specific WAF
+.TP
+\fB\-l\fR, \fB\-\-list\fR
+List all WAFs that we are able to detect
+.TP
+\fB\-p\fR PROXY, \fB\-\-proxy\fR=\fI\,PROXY\/\fR
+Use an HTTP proxy to perform requests, example:
+http://hostname:8080, socks5://hostname:1080
+.TP
+\fB\-V\fR, \fB\-\-version\fR
+Print out the version
+.TP
+\fB\-H\fR HEADERSFILE, \fB\-\-headersfile\fR=\fI\,HEADERSFILE\/\fR
+Pass custom headers, for example to overwrite the
+default User\-Agent string
+.SH AUTHORS
+Sandro Gauci
+.br
+Wendel G. Henrique
+.PP
+This manpage was written by Daniel Echeverry and Samuel Henrique for the Debian Project (but may be used by others), it was based on wafw00f's help output.
