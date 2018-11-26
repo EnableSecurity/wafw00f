@@ -124,6 +124,41 @@ or
 
     pip install wafw00f
 
+
+## How do I use wafw00f as a library in my code?
+
+Wafw00f can also be imported in python programs as a library. 
+**Import wafw00f in Python code**
+
+```python
+import sys
+
+from wafw00f.lib.evillib import oururlparse
+from wafw00f.main import WafW00F
+
+target = 'https://www.example.com:443'
+wafw00f_parsed_target = oururlparse(target=target)
+
+if wafw00f_parsed_target:
+    (hostname, port, path, query, ssl) = wafw00f_parsed_target
+else:
+    print('Wafw00f could not parse the given url.')
+    sys.exit(1)
+
+attacker = WafW00F(hostname, port=port, ssl=ssl, debuglevel=0, path=path,
+                   followredirect=True, extraheaders={}, proxy=False)
+
+if not attacker.normalrequest():
+    print('Site {} appears to be down'.format(target))
+    sys.exit(1)
+
+waf = attacker.identwaf(True)
+
+for identified_firewall in waf:
+    print(identified_firewall)
+
+```
+
 ## Need a freelance pentester?
 
 More information about the services that I offer at [Enable Security](http://enablesecurity.com/)
