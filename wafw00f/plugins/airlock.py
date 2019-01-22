@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 
-NAME = 'InfoGuard Airlock'
+NAME = 'Ergon Airlock'
 
 
 def is_waf(self):
