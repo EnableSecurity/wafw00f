@@ -35,7 +35,7 @@ wafdetectionsprio = [
     'F5 FirePass',
     'F5 Trafficshield',
     'AWS WAF',
-    'InfoGuard Airlock',
+    'Ergon Airlock',
     'Citrix NetScaler',
     'Trustwave ModSecurity',
     'IBM Web Application Security',
