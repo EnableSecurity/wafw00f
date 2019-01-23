@@ -75,7 +75,7 @@ WAFW00F with the `-l` option. At the time of writing the output is as follows:
     NSFocus
     ChinaCache-CDN
     West263CDN
-    InfoGuard Airlock
+    Ergon Airlock
     AdNovum nevisProxy
     Barracuda Application Firewall
     Comodo WAF
