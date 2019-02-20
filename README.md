@@ -46,20 +46,21 @@ WAFW00F with the `-l` option. At the time of writing the output is as follows:
     Cisco ACE XML Gateway
     AWS WAF
     Better WP Security
-    F5 BIG-IP ASM
     Citrix NetScaler
     ModSecurity (OWASP CRS)
+    Ergon Airlock
     F5 BIG-IP APM
     360WangZhanBao
     Mission Control Application Shield
     PowerCDN
     Safedog
+    XLabs Security WAF
     Sucuri WAF
     F5 FirePass
     DenyALL WAF
     Trustwave ModSecurity
     CloudFlare
-    Profense
+    Imperva SecureSphere
     Wallarm
     Incapsula WAF
     Radware AppWall
@@ -75,16 +76,17 @@ WAFW00F with the `-l` option. At the time of writing the output is as follows:
     NSFocus
     ChinaCache-CDN
     West263CDN
-    Ergon Airlock
+    F5 BIG-IP ASM
     AdNovum nevisProxy
     Barracuda Application Firewall
     Comodo WAF
-    Imperva SecureSphere
+    Profense
     BlockDoS
     Edgecast / Verizon Digital media
     Microsoft URLScan
     Applicure dotDefender
     USP Secure Entry Server
+    DOSarrest
     F5 Trafficshield
 
 
@@ -126,7 +128,7 @@ or
 
 ## Need a freelance pentester?
 
-More information about the services that I offer at [Enable Security](http://enablesecurity.com/)
+More information about the services that we offer at [Enable Security](http://enablesecurity.com/)
 
 ## How do I write my own new checks?
 
