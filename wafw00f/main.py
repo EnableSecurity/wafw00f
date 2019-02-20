@@ -173,10 +173,10 @@ class WafW00F(waftoolsengine):
                 self.knowledge['generic']['reason'] = reason
                 self.knowledge['generic']['found'] = True
                 return True
-            response, responsebody = self._perform_and_check(self.normalrequest)
+            response, _ = self._perform_and_check(self.normalrequest)
             normalserver = response.getheader('Server')
             for attack in self.attacks:
-                response, responsebody = self._perform_and_check(lambda: attack(self))
+                response, _ = self._perform_and_check(lambda: attack(self))
                 attackresponse_server = response.getheader('Server')
                 if attackresponse_server:
                     if attackresponse_server != normalserver:
@@ -197,8 +197,8 @@ class WafW00F(waftoolsengine):
                     self.knowledge['generic']['found'] = True
                     return True
             for attack in self.attacks:
-                response, responsebody = self._perform_and_check(lambda: attack(self))
-                for h, v in response.getheaders():
+                response, _ = self._perform_and_check(lambda: attack(self))
+                for h, _ in response.getheaders():
                     if scrambledheader(h):
                         self.knowledge['generic']['reason'] = reasons[4]
                         self.knowledge['generic']['found'] = True
@@ -230,7 +230,7 @@ class WafW00F(waftoolsengine):
             r = request(self)
             if r is None:
                 return
-            response, responsebody = r
+            response, _ = r
             headerval = response.getheader(header)
             if headerval:
                 # set-cookie can have multiple headers, python gives it to us
@@ -354,7 +354,7 @@ def main():
         if pret is None:
             log.critical('The url %s is not well formed' % target)
             sys.exit(1)
-        (hostname, port, path, query, ssl) = pret
+        (hostname, port, path, _, ssl) = pret
         log.info('starting wafw00f on %s' % target)
         attacker = WafW00F(hostname, port=port, ssl=ssl,
                            debuglevel=options.verbose, path=path,
