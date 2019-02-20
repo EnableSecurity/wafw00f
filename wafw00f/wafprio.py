@@ -16,6 +16,7 @@ wafdetectionsprio = [
     'Sucuri WAF',
     'Edgecast / Verizon Digital media',
     'Comodo WAF',
+    'XLabs Security WAF',
     'FortiWeb',
     'Wallarm',
     'BlockDoS',
