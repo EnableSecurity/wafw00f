@@ -15,7 +15,7 @@ To do its magic, WAFW00F does the following:
   solution is actively responding to our attacks
 
 For further details, check out the source code on the main site,
-[github.com/sandrogauci/wafw00f](https://github.com/sandrogauci/wafw00f).
+[github.com/EnableSecurity/wafw00f](https://github.com/EnableSecurity/wafw00f).
 
 ## What does it detect?
 
