@@ -6,6 +6,7 @@
 
 
 wafdetectionsprio = [
+    # cached default request ones first
     'Profense',
     'AdNovum nevisProxy',
     'NetContinuum',
@@ -38,9 +39,11 @@ wafdetectionsprio = [
     'AWS WAF',
     'Ergon Airlock',
     'Citrix NetScaler',
+    'IBM DataPower',
+    # the next ones require attack strings to be sent
     'Trustwave ModSecurity',
     'IBM Web Application Security',
-    'IBM DataPower', 'DenyALL WAF',
+    'DenyALL WAF',
     'Applicure dotDefender',
     'Juniper WebApp Secure',
     'Microsoft URLScan',
