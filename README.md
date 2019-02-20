@@ -88,6 +88,7 @@ WAFW00F with the `-l` option. At the time of writing the output is as follows:
     USP Secure Entry Server
     DOSarrest
     F5 Trafficshield
+    XLabs Security
 
 
 ## How do I use it?
