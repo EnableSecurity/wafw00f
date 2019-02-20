@@ -5,6 +5,4 @@ NAME = 'Cisco ACE XML Gateway'
 
 
 def is_waf(self):
-    if self.matchheader(('server', 'ACE XML Gateway')):
-        return True
-    return False
+    return self.matchheader(('server', 'ACE XML Gateway'))

@@ -10,7 +10,7 @@ def is_waf(self):
         r = attack(self)
         if r is None:
             return
-        response, responsebody = r
+        response, _ = r
         if response.status == 999:
             detected = True
             break

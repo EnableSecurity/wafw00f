@@ -10,7 +10,7 @@ def is_waf(self):
     r = self.normalrequest()
     if r is None:
         return
-    response, responsebody = r
+    response, _ = r
     if response.status == 404:
         return
     headers = dict()
@@ -18,7 +18,7 @@ def is_waf(self):
     r = self.normalrequest(headers=headers)
     if r is None:
         return
-    response, responsebody = r
+    response, _ = r
     if response.status == 404:
         detected = True
     return detected

@@ -5,7 +5,6 @@ NAME = 'F5 BIG-IP APM'
 
 
 def is_waf(self):
-    detected = False
     # the following based on nmap's http-waf-fingerprint.nse
     if self.matchcookie('^LastMRH_Session') and self.matchcookie('^MRHSession'):
         return True

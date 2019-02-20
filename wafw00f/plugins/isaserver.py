@@ -9,7 +9,7 @@ def is_waf(self):
     r = self.invalidhost()
     if r is None:
         return
-    response, responsebody = r
+    response, _ = r
     if response.reason in self.isaservermatch:
         detected = True
     return detected

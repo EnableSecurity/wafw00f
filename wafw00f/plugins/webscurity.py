@@ -9,7 +9,7 @@ def is_waf(self):
     r = self.normalrequest()
     if r is None:
         return
-    response, responsebody = r
+    response, _ = r
     if response.status == 403:
         return detected
     newpath = self.path + '?nx=@@'

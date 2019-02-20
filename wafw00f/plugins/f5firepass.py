@@ -4,8 +4,7 @@
 NAME = 'F5 FirePass'
 
 
-def is_waf(self):
-    detected = False
+def is_waf(self):    
     if self.matchheader(('Location', '\/my\.logon\.php3')) and self.matchcookie('^VHOST'):
         return True
     elif self.matchcookie('^MRHSession') and (self.matchcookie('^VHOST') or self.matchcookie('^uRoamTestCookie')):

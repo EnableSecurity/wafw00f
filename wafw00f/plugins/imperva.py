@@ -11,7 +11,7 @@ def is_waf(self):
         r = attack(self)
         if r is None:
             return
-        response, responsebody = r
+        response, _ = r
         if response.version == 10:
             return True
     return False
