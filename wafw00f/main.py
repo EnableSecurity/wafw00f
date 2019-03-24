@@ -78,9 +78,6 @@ class WafW00F(waftoolsengine):
     xssstring = '<script>alert(1)</script>'
     dirtravstring = '../../../../etc/passwd'
     cleanhtmlstring = '<invalid>hello'
-    isaservermatch = [
-        'Forbidden ( The server denied the specified Uniform Resource Locator (URL). Contact the server administrator.  )',
-        'Forbidden ( The ISA Server denied the specified Uniform Resource Locator (URL)']
 
     def __init__(self, target='www.microsoft.com', port=80, ssl=False,
                  debuglevel=0, path='/', followredirect=True, extraheaders={}, proxy=False):

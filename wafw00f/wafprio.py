@@ -8,6 +8,11 @@
 wafdetectionsprio = [
     # cached default request ones first
     'Profense',
+    'Anquanbao',
+    'PowerCDN',
+    'ChinaCache-CDN',
+    'West263CDN',
+    '360WangZhanBao',
     'AdNovum nevisProxy',
     'NetContinuum',
     'Incapsula WAF',
@@ -50,5 +55,8 @@ wafdetectionsprio = [
     'Aqtronix WebKnight',
     'eEye Digital Security SecureIIS',
     'Imperva SecureSphere',
-    'Microsoft ISA Server'
+    'Better WP Security',
+    'Wordfence',
+    'ModSecurity (OWASP CRS)',
+    'Microsoft ISA Server',
 ]
