@@ -112,11 +112,11 @@ class WafW00F(waftoolsengine):
         return self.request(path=string, usecache=usecache, cacheresponse=cacheresponse)
 
     def cleanhtml(self, usecache=True, cacheresponse=True):
-        string = self.path + self.cleanhtmlstring + '.html'
+        string = self.path + '?htmli=' + self.cleanhtmlstring
         return self.request(path=string, usecache=usecache, cacheresponse=cacheresponse)
 
     def xssstandard(self, usecache=True, cacheresponse=True):
-        xssstringa = self.path + self.xssstring + '.html'
+        xssstringa = self.path + '?xss=' + self.xssstring
         return self.request(path=xssstringa, usecache=usecache, cacheresponse=cacheresponse)
 
     def protectedfolder(self, usecache=True, cacheresponse=True):
@@ -127,12 +127,7 @@ class WafW00F(waftoolsengine):
         xssstringa = self.path + quote(self.xssstring) + '.html'
         return self.request(path=xssstringa, usecache=usecache, cacheresponse=cacheresponse)
 
-    def cmddotexe(self, usecache=True, cacheresponse=True):
-        # thanks j0e
-        string = self.path + 'cmd.exe'
-        return self.request(path=string, usecache=usecache, cacheresponse=cacheresponse)
-
-    attacks = [cmddotexe, directorytraversal, xssstandard, protectedfolder, xssstandardencoded]
+    attacks = [xssstandard, directorytraversal, protectedfolder, xssstandardencoded]
 
     def genericdetect(self, usecache=True, cacheresponse=True):
         knownflops = [
