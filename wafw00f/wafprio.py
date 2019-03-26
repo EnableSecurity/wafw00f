@@ -57,6 +57,5 @@ wafdetectionsprio = [
     'Imperva SecureSphere',
     'Better WP Security',
     'Wordfence',
-    'ModSecurity (OWASP CRS)',
     'Microsoft ISA Server',
 ]
