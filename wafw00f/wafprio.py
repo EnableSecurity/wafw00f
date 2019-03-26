@@ -36,6 +36,7 @@ wafdetectionsprio = [
     'Art of Defence HyperGuard',
     'BinarySec',
     'Teros WAF',
+    # the next ones require attack strings to be sent
     'F5 BIG-IP LTM',
     'F5 BIG-IP APM',
     'F5 BIG-IP ASM',
@@ -45,7 +46,6 @@ wafdetectionsprio = [
     'Ergon Airlock',
     'Citrix NetScaler',
     'IBM DataPower',
-    # the next ones require attack strings to be sent
     'Trustwave ModSecurity',
     'IBM Web Application Security',
     'DenyALL WAF',
