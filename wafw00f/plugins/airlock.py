@@ -5,7 +5,7 @@ NAME = 'Ergon Airlock'
 
 
 def is_waf(self):
-	# This method of detection is old (though most reliable), 
+    # This method of detection is old (though most reliable), 
     # so we check it first
     return self.matchcookie('^AL[_-]?(SESS|LB)=')
     # Nowadays many sites running Airlock do not set cookies 
@@ -17,6 +17,6 @@ def is_waf(self):
             return
         _, responsepage = r
         if all(a in responsepage for a in (b"Check your request and all parameters", 
-        	b"Bad Request", b"The server detected a syntax error in your request")):
+            b"Bad Request", b"The server detected a syntax error in your request")):
             return True
     return False

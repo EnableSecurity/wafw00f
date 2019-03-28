@@ -5,7 +5,7 @@ NAME = 'CloudFlare'
 
 
 def is_waf(self):
-	# This should be given first priority (most reliable)
+    # This should be given first priority (most reliable)
     if self.matchcookie('__cfduid'):
         return True
     # Not all servers return sloudflare-nginx, only nginx ones

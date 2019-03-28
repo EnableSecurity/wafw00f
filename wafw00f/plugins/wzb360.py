@@ -6,7 +6,7 @@ NAME = '360WangZhanBao'
 
 def is_waf(self):
     if self.matchheader(('X-Powered-By-360WZB', '.+')):
-    	return True
+        return True
     for attack in self.attacks:
         r = attack(self)
         if r is None:
