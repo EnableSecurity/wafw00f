@@ -4,10 +4,11 @@
 NAME = 'CloudFlare'
 
 
-# the following based on nmap's http-waf-fingerprint.nse
 def is_waf(self):
-    if self.matchheader(('server', 'cloudflare-nginx')):
-        return True
+	# This should be given first priority (most reliable)
     if self.matchcookie('__cfduid'):
+        return True
+    # Not all servers return sloudflare-nginx, only nginx ones
+    if self.matchheader(('server', 'cloudflare-nginx')) or self.matchheader(('server', 'cloudflare')):
         return True
     return False
