@@ -5,7 +5,8 @@ NAME = 'Profense'
 
 
 def is_waf(self):
-    """
-    Checks for server headers containing "profense"
-    """
-    return self.matchheader(('server', 'profense'))
+    if self.matchheader(('server', 'profense')):
+        return True
+    if self.matchcookie('^PLBSID='):
+        return True
+    return False
