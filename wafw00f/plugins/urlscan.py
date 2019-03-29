@@ -22,4 +22,13 @@ def is_waf(self):
     if response.status != response2.status:
         if response2.status == 404:
             detected = True
+    for attack in self.attacks:
+        r = attack(self)
+        if r is None:
+            return
+        _, responsebody = r
+        # Most reliable fingerprint is this on block page
+        if any(i in responsebody for i in (b'Rejected-By-UrlScan', b'A custom filter or module, such as URLScan')):
+            detected = True
+            break
     return detected
