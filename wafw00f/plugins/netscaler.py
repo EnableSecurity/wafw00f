@@ -6,7 +6,7 @@ NAME = 'Citrix NetScaler'
 
 def is_waf(self):
     # This header can be obtained without attack mode
-    if response.matchheader(('Via', 'NS-CACHE')):
+    if self.matchheader(('Via', 'NS-CACHE')):
         return True
     # Cookies are set only when someone is authenticated.
     # Not much reliable since wafw00f isn't authenticating.
