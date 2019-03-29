@@ -5,11 +5,9 @@ NAME = 'Citrix NetScaler'
 
 
 def is_waf(self):
-    """
-    First checks if a cookie associated with Netscaler is present,
-    if not it will try to find if a "Cneonction" or "nnCoection" is returned
-    for any of the attacks sent
-    """
+    # This header can be obtained without attack mode
+    if response.matchheader(('Via', 'NS-CACHE')):
+        return True
     # Cookies are set only when someone is authenticated.
     # Not much reliable since wafw00f isn't authenticating.
     if self.matchcookie('^(ns_af=|citrix_ns_id|NSC_)'):
@@ -28,10 +26,8 @@ def is_waf(self):
             b'Violation Category: APPFW_', b'Citrix|NetScaler')):
             return True
         # Reliable but not all servers return this header
-        if self.matchheader(('Via', 'NS-CACHE')):
+        if response.getheader('Cneonction'):
             return True
-        if self.matchheader(('Cneonction', 'close')):
-            return True
-        if self.matchheader(('nnCoection', 'close')):
+        if response.getheader('nnCoection'):
             return True
     return False
