@@ -12,6 +12,7 @@ def is_waf(self):
         _, responsebody = r
         # Most reliable fingerprint is this on block page
         if all(i in responsebody for i in (b'because we have detected unauthorized activity', 
-            b'<TITLE>Unauthorized Request Blocked</TITLE>', b'mailto:CloudWebSec@radware.com')):
+            b'<TITLE>Unauthorized Request Blocked</TITLE>', b'If you believe that there has been some mistake',
+            b'?Subject=Security Page - Case Number')):
             return True
     return False
