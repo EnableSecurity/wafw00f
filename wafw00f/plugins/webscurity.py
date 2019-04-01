@@ -16,7 +16,7 @@ def is_waf(self):
     r = self.request(path=newpath)
     if r is None:
         return
-    response, responsebody = r
+    response, _ = r
     if response.status == 403:
         detected = True
     return detected

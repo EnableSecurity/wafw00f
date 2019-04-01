@@ -16,7 +16,7 @@ def is_waf(self):
     # one of the sites I've met returned this header
     if self.matchheader(('Location', '\\/vpn\\/index\\.html')):
         return True
-    # The actual fngerprints are obtained upon attack in source.
+    # The actual fingerprints are obtained upon attack in source.
     for attack in self.attacks:
         r = attack(self)
         if r is None:
