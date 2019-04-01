@@ -5,8 +5,6 @@ NAME = 'DenyALL WAF'
 
 
 def is_waf(self):
-    if self.matchcookie('^sessioncookie='):
-        return True
     # Tested against a Rweb 3.8
     for attack in self.attacks:
         r = attack(self)
