@@ -7,7 +7,7 @@ NAME = 'Wordfence'
 def is_waf(self):
     # Wordfence sometimes returns 403 to the directory in which
     # it is installed, hence using a more elaborate attack detection
-    # method. This accurately detects the WAF, plus requires only a
+    # method accurately detects the WAF, plus it requires only a
     # single request instead of two.
     for attack in self.attacks:
         r = attack(self)

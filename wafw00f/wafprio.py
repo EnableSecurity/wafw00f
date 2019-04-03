@@ -50,7 +50,6 @@ wafdetectionsprio = [
     'IBM Web Application Security',
     'DenyALL WAF',
     'Applicure dotDefender',
-    'Juniper WebApp Secure',
     'Microsoft URLScan',
     'Aqtronix WebKnight',
     'eEye Digital Security SecureIIS',
