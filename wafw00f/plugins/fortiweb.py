@@ -3,4 +3,9 @@
 NAME = 'FortiWeb'
 
 def is_waf(self):
-    return self.matchcookie('FORTIWAFSID=')
+    if self.matchcookie('FORTIWAFSID='):
+        return True
+    elif self.matchcookie('cookiesession1='):
+        return True
+    else:
+        return False
