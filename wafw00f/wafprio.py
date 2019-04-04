@@ -54,7 +54,7 @@ wafdetectionsprio = [
     'Aqtronix WebKnight',
     'eEye Digital Security SecureIIS',
     'Imperva SecureSphere',
-    'Better WP Security',
+    'iThemes Security',
     'Wordfence',
     'Microsoft ISA Server',
 ]
