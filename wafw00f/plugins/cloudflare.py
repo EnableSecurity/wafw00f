@@ -11,4 +11,7 @@ def is_waf(self):
     # Not all servers return cloudflare-nginx, only nginx ones
     if self.matchheader(('server', 'cloudflare-nginx')) or self.matchheader(('server', 'cloudflare')):
         return True
+    # Found a new nice fingerprint for cloudflare
+    if self.matchheader(('cf-ray', '.*')):
+        return True
     return False
