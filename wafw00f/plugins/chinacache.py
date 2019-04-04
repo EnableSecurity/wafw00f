@@ -5,4 +5,6 @@ NAME = 'ChinaCache-CDN'
 
 
 def is_waf(self):
-    return self.matchheader(('Powered-By-ChinaCache', '.+'))
+    if self.matchheader(('Powered-By-ChinaCache', '.+')):
+        return True
+    return False

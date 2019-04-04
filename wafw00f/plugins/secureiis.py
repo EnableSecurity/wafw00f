@@ -5,20 +5,13 @@ NAME = 'eEye Digital Security SecureIIS'
 
 
 def is_waf(self):
-    # credit goes to W3AF
-    detected = False
-    r = self.normalrequest()
-    if r is None:
-        return
-    response, _ = r
-    if response.status == 404:
-        return
-    headers = dict()
-    headers['Transfer-Encoding'] = 'z' * 1025
-    r = self.normalrequest(headers=headers)
-    if r is None:
-        return
-    response, _ = r
-    if response.status == 404:
-        detected = True
-    return detected
+    for attack in self.attacks:
+        r = attack(self)
+        if r is None:
+            return
+        _, responsebody = r
+        # Most reliable fingerprint is this on block page
+        if any(i in responsebody for i in (b'SecureIIS is an internet security application', 
+            b'Download SecureIIS Personal Edition', b'http://www.eeye.com/SecureIIS/')):
+            return True
+    return False

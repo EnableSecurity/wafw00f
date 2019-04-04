@@ -5,4 +5,8 @@ NAME = 'DOSarrest'
 
 
 def is_waf(self):
-    return self.matchheader(('X-DIS-Request-ID', '.+')) or self.matchheader(('server', 'DOSarrest'))
+    if self.matchheader(('X-DIS-Request-ID', '.+')):
+        return True
+    if self.matchheader(('server', 'DOSarrest')):
+        return True
+    return False

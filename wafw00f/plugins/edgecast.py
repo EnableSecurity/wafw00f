@@ -3,4 +3,8 @@
 NAME = 'Edgecast / Verizon Digital media'
 
 def is_waf(self):
-    return self.matchheader(('Server', '^ECD \(.*?\)$')) or self.matchheader(('Server', '^ECS \(.*?\)$'))
+    if self.matchheader(('Server', '^ECD \\(.*?\\)$')):
+        return True
+    if self.matchheader(('Server', '^ECS \\(.*?\\)$')):
+        return True
+    return False

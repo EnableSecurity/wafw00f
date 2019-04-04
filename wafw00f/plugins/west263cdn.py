@@ -5,4 +5,7 @@ NAME = 'West263CDN'
 
 
 def is_waf(self):
-    return self.matchheader(('X-Cache', '.+WT263CDN-.+'))
+	# Found traces where only WT263CDN was in X-Cache header
+    if self.matchheader(('X-Cache', '(.*)?WT263CDN(.*)?')):
+        return True
+    return False
