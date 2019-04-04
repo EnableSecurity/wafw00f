@@ -15,7 +15,7 @@ def is_waf(self):
             return
         response, page = r    
         if response.reason in isaservermatch:
-            detected = True
+            return True
         # This is also found in response page of URLs
         if any(a in page for a in (b'The ISA Server denied the specified Uniform Resource Locator (URL)',
             b'The server denied the specified Uniform Resource Locator (URL). Contact the server administrator.')):

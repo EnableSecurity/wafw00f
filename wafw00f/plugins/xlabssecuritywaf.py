@@ -9,3 +9,4 @@ def is_waf(self):
     # header as 'Server: XLabs WAF v3.0 http://www.xlabs.com.br/waf'
     if self.matchheader(('server', 'XLabs WAF(.*)?')):
         return True
+    return False

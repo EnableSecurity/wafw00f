@@ -3,4 +3,6 @@
 NAME = 'AWS WAF'
 
 def is_waf(self):
-    return self.matchheader(('Server', 'awselb/2\\.0'), attack=True)
+    if self.matchheader(('Server', 'awselb/2\\.0'), attack=True):
+        return True
+    return False

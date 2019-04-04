@@ -5,4 +5,6 @@ NAME = 'NSFocus'
 
 
 def is_waf(self):
-    return self.matchheader(('server', 'NSFocus'))
+    if self.matchheader(('server', 'NSFocus')):
+        return True
+    return False

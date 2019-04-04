@@ -5,4 +5,6 @@ NAME = 'Art of Defence HyperGuard'
 
 
 def is_waf(self):
-    return self.matchcookie('^WODSESSION=')
+    if self.matchcookie('^WODSESSION='):
+        return True
+    return False

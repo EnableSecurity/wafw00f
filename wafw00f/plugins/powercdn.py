@@ -5,4 +5,6 @@ NAME = 'PowerCDN'
 
 
 def is_waf(self):
-    return self.matchheader(('PowerCDN', '.+'))
+    if self.matchheader(('PowerCDN', '.+')):
+        return True
+    return False

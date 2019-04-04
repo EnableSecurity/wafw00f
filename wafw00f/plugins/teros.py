@@ -5,5 +5,6 @@ NAME = 'Teros WAF'
 
 
 def is_waf(self):
-    # credit goes to W3AF
-    return self.matchcookie('^st8id=')
+    if self.matchcookie('^st8id='):
+        return True
+    return False
