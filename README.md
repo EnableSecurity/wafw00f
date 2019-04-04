@@ -40,14 +40,9 @@ WAFW00F with the `-l` option. At the time of writing the output is as follows:
 
     Anquanbao
     FortiWeb
-    Naxsi
-    Juniper WebApp Secure
-    IBM Web Application Security
-    Cisco ACE XML Gateway
+    NaxsiCisco ACE XML Gateway
     AWS WAF
-    iThemes Security
     Citrix NetScaler
-    ModSecurity (OWASP CRS)
     Ergon Airlock
     F5 BIG-IP APM
     360WangZhanBao
@@ -58,6 +53,7 @@ WAFW00F with the `-l` option. At the time of writing the output is as follows:
     Sucuri WAF
     F5 FirePass
     DenyALL WAF
+    iThemes Security
     Trustwave ModSecurity
     CloudFlare
     Imperva SecureSphere
@@ -66,6 +62,7 @@ WAFW00F with the `-l` option. At the time of writing the output is as follows:
     Radware AppWall
     F5 BIG-IP LTM
     Art of Defence HyperGuard
+    Wordfence
     Aqtronix WebKnight
     Teros WAF
     eEye Digital Security SecureIIS
