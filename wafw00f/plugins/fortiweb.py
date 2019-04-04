@@ -10,8 +10,9 @@ def is_waf(self):
         if r is None:
             return
         _, responsepage = r
-        # Faced false positives hence reverting back to unique ones only
-        if all(m in responsepage for m in (b'h2.fgd_icon', b'The page cannot be displayed',
-            b'Please contact the administrator for additional information', b'URL:', b'Attack ID', b'Message ID', b'Client IP')):
+        # Found a site running a tweaked version of Fortiweb block page. Picked those only
+        # in common. Discarded other.
+        if all(m in responsepage for m in (b'fgd_icon', b'Web Page Blocked', b'URL:', b'Attack ID', 
+            b'Message ID', b'Client IP')):
             return True
     return False
