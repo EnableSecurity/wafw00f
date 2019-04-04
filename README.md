@@ -7,12 +7,12 @@ WAFW00F identifies and fingerprints Web Application Firewall (WAF) products.
 To do its magic, WAFW00F does the following:
 
 - Sends a _normal_ HTTP request and analyses the response; this identifies a
-  number of WAF solutions
+  number of WAF solutions.
 - If that is not successful, it sends a number of (potentially malicious) HTTP
-  requests and uses simple logic to deduce which WAF it is
+  requests and uses simple logic to deduce which WAF it is.
 - If that is also not successful, it analyses the responses previously
   returned and uses another simple algorithm to guess if a WAF or security
-  solution is actively responding to our attacks
+  solution is actively responding to our attacks.
 
 For further details, check out the source code on the main site,
 [github.com/EnableSecurity/wafw00f](https://github.com/EnableSecurity/wafw00f).
@@ -45,7 +45,7 @@ WAFW00F with the `-l` option. At the time of writing the output is as follows:
     IBM Web Application Security
     Cisco ACE XML Gateway
     AWS WAF
-    Better WP Security
+    iThemes Security
     Citrix NetScaler
     ModSecurity (OWASP CRS)
     Ergon Airlock
