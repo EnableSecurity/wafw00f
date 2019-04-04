@@ -47,7 +47,6 @@ wafdetectionsprio = [
     'Citrix NetScaler',
     'IBM DataPower',
     'Trustwave ModSecurity',
-    'IBM Web Application Security',
     'DenyALL WAF',
     'Applicure dotDefender',
     'Microsoft URLScan',
