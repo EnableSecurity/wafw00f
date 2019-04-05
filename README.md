@@ -53,7 +53,6 @@ WAFW00F with the `-l` option. At the time of writing the output is as follows:
     Sucuri WAF
     F5 FirePass
     DenyALL WAF
-    iThemes Security
     Trustwave ModSecurity
     CloudFlare
     Imperva SecureSphere

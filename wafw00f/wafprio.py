@@ -53,7 +53,6 @@ wafdetectionsprio = [
     'Aqtronix WebKnight',
     'eEye Digital Security SecureIIS',
     'Imperva SecureSphere',
-    'iThemes Security',
     'Wordfence',
     'Microsoft ISA Server',
 ]
