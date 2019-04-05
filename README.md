@@ -108,7 +108,7 @@ a URL as an argument. Example:
         By Sandro Gauci && Wendel G. Henrique
 
     Checking https://www.ibm.com/
-    The site https://www.ibm.com/ is behind a Citrix NetScaler
+    The site https://www.ibm.com/ is behind Citrix NetScaler
     Number of requests: 6
 
 
