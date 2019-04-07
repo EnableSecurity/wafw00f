@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 
-NAME = 'Cerber (WordPress)'
+NAME = 'WordPress Cerber'
 
 
 def is_waf(self):
