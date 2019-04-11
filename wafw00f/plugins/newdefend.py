@@ -13,6 +13,6 @@ def is_waf(self):
         if r is None:
             return
         _, page = r
-        if any(i in page for i in (b'http://www.newdefend.com/feedbac', b'/nd-block/')):
+        if any(i in page for i in (b'http://www.newdefend.com/feedback', b'/nd-block/')):
             return True
     return False
