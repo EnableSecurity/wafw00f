@@ -22,4 +22,6 @@ def is_waf(self):
         if b'This generic 403 error means that the authenticated user is not authorized to use the requested resource' in page:
             detected2 = True
     # We return whatever we got from those 3 checks
-    return (detected1 == detected2)
+    if detected1 and detected2:
+        return True
+    return False
