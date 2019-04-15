@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 
-NAME = 'WTS WAF'
+NAME = 'WTS-WAF'
 
 
 def is_waf(self):
