@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 
-NAME = 'Secure Entry'
+NAME = 'Secure Entry (United Security Providers)'
 
 
 def is_waf(self):

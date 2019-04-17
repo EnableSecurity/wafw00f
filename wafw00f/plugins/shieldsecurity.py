@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 
-NAME = 'Shield Security'
+NAME = 'Shield Security (One Dollar Plugin)'
 
 
 def is_waf(self):

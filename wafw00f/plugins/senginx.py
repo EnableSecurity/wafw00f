@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 
-NAME = 'Neusoft SEnginx'
+NAME = 'SEnginx (Neusoft)'
 
 
 def is_waf(self):

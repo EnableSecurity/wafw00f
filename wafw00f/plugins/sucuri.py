@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-NAME = 'Sucuri WAF'
+NAME = 'Sucuri (Sucuri)'
 
 def is_waf(self):
     # Fingerprints not needing any attack

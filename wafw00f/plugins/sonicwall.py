@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 
-NAME = 'Dell SonicWall'
+NAME = 'SonicWall (Dell)'
 
 
 def is_waf(self):

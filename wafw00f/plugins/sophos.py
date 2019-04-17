@@ -2,7 +2,7 @@
 
 # Well this is confusing, Sitelock itself uses Incapsula from Imperva
 # So the fingerprints obtained on blockpage are exactly similar to those of Incapsula.
-NAME = 'Sophos UTM Web Protection'
+NAME = 'UTM Web Protection (Sophos)'
 
 
 def is_waf(self):

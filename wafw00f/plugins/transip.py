@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 
-NAME = 'TransIP Firewall'
+NAME = 'TransIP Web Firewall (TransIP)'
 
 
 def is_waf(self):

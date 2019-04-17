@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 
-NAME = 'Teros WAF'
+NAME = 'Teros (Citrix Systems)'
 
 
 def is_waf(self):

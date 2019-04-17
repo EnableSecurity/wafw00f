@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 
-NAME = 'Tencent Cloud'
+NAME = 'Tencent Cloud Firewall (Tencent Technologies)'
 
 
 def is_waf(self):

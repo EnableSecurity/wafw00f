@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 
-NAME = 'JP-Secure SiteGuard'
+NAME = 'SiteGuard (Sakura Inc.)'
 
 
 def is_waf(self):

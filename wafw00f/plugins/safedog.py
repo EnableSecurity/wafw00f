@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 
-NAME = 'Safedog'
+NAME = 'Safedog (SafeDog)'
 
 
 def is_waf(self):

@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 
-NAME = 'SiteGround'
+NAME = 'SiteGround (SiteGround)'
 
 
 def is_waf(self):

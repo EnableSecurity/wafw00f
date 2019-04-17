@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 
-NAME = 'Squarespace'
+NAME = 'Squarespace (Squarespace)'
 
 
 def is_waf(self):

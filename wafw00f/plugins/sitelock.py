@@ -2,7 +2,7 @@
 
 # Well this is confusing, Sitelock itself uses Incapsula from Imperva
 # So the fingerprints obtained on blockpage are exactly similar to those of Incapsula.
-NAME = 'TruShield Sitelock'
+NAME = 'Sitelock (TrueShield)'
 
 
 def is_waf(self):

@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 
-NAME = 'StackPath'
+NAME = 'StackPath (StackPath)'
 
 
 def is_waf(self):
