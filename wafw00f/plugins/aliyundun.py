@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 
-NAME = 'AliYunDun'
+NAME = 'AliYunDun (Alibaba Cloud Computing)'
 
 
 def is_waf(self):

@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-NAME = 'Comodo WAF'
+NAME = 'Comodo (Comodo)'
 
 def is_waf(self):
     # The (.*)? was required since some servers return additional info like

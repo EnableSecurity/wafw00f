@@ -2,7 +2,7 @@
 #!/usr/bin/env python
 
 
-NAME = 'Janusec Application Gateway'
+NAME = 'Janusec Application Gateway (Janusec)'
 
 
 def is_waf(self):

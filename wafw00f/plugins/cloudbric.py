@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 
-NAME = 'Cloudbric'
+NAME = 'Cloudbric (Zendesk)'
 
 
 def is_waf(self):

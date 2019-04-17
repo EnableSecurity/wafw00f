@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 
-NAME = 'F5 FirePass'
+NAME = 'FirePass (F5 Networks)'
 
 
 def is_waf(self):    

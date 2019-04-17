@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 
-NAME = 'Armor Defense'
+NAME = 'Armor Defense (Armor)'
 
 
 def is_waf(self):

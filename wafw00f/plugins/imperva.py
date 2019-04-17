@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 
-NAME = 'Imperva SecureSphere'
+NAME = 'SecureSphere (Imperva Inc.)'
 
 
 def is_waf(self):

@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 
-NAME = 'Approach'
+NAME = 'Approach (Approach)'
 
 
 def is_waf(self):

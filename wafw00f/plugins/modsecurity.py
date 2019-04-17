@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 
-NAME = 'Trustwave ModSecurity'
+NAME = 'ModSecurity (SpiderLabs)'
 
 
 def is_waf(self):

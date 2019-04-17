@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-NAME = 'Baidu Yunjiasu'
+NAME = 'Yunjiasu (Baidu Could Computing)'
 
 def is_waf(self):
     # There are some servers which return 'Server: Yunjiasu-nginx'

@@ -2,7 +2,7 @@
 #!/usr/bin/env python
 
 
-NAME = 'CloudLinux Imunify360'
+NAME = 'Imunify360 (CloudLinux)'
 
 
 def is_waf(self):

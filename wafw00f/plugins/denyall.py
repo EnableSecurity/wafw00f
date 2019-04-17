@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 
-NAME = 'DenyALL WAF'
+NAME = 'DenyALL (Rohde & Schwarz CyberSecurity)'
 
 
 def is_waf(self):

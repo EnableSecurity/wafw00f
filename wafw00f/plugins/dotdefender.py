@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 
-NAME = 'Applicure dotDefender'
+NAME = 'DotDefender (Applicure Technologies)'
 
 
 def is_waf(self):

@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 
-NAME = 'KnownSec WAF'
+NAME = 'KS-WAF (KnownSec)'
 
 
 def is_waf(self):

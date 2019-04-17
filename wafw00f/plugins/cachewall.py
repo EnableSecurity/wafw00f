@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 
-NAME = 'Varnish CacheWall'
+NAME = 'CacheWall (Varnish)'
 
 
 def is_waf(self):

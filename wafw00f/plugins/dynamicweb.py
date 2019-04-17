@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 
-NAME = 'DynamicWeb Injection Check'
+NAME = 'DynamicWeb Injection Check (DynamicWeb)'
 
 
 def is_waf(self):

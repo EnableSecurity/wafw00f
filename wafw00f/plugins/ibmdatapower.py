@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 
-NAME = 'IBM DataPower'
+NAME = 'DataPower (IBM)'
 
 
 def is_waf(self):

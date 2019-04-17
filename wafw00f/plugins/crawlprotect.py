@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 
-NAME = 'CrawlProtect'
+NAME = 'CrawlProtect (Jean-Denis Brun)'
 
 
 def is_waf(self):

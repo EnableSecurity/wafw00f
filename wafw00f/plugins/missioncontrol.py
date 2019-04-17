@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 
-NAME = 'Mission Control Application Shield'
+NAME = 'Mission Control Application Shield (Mission Control)'
 
 
 def is_waf(self):

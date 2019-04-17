@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 
-NAME = 'Distil Networks'
+NAME = 'Distil (Distil Networks)'
 
 
 def is_waf(self):

@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 
-NAME = 'Faydata Bekchy'
+NAME = 'Bekchy (Faydata Technologies Inc.)'
 
 
 def is_waf(self):

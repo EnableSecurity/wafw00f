@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 
-NAME = 'Art of Defence HyperGuard'
+NAME = 'HyperGuard (Art of Defense)'
 
 
 def is_waf(self):

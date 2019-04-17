@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 
-NAME = 'F5 BIG-IP APM'
+NAME = 'BIG-IP Access Policy Manager (F5 Networks)'
 
 
 def is_waf(self):

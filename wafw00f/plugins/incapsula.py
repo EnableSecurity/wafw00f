@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 
-NAME = 'Incapsula WAF'
+NAME = 'Incapsula (Imperva Inc.)'
 
 
 def is_waf(self):

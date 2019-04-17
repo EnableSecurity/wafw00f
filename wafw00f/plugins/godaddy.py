@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 
-NAME = 'GoDaddy Website Protection'
+NAME = 'GoDaddy Website Protection (GoDaddy)'
 
 
 def is_waf(self):

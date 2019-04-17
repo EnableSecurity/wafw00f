@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 
-NAME = 'BitNinja'
+NAME = 'BitNinja (BitNinja)'
 
 
 def is_waf(self):

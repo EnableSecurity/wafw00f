@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-NAME = 'FortiWeb'
+NAME = 'FortiWeb (Fortinet)'
 
 def is_waf(self):
     if self.matchcookie('FORTIWAFSID='):

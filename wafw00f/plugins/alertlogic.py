@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 
-NAME = 'AlertLogic'
+NAME = 'Alert Logic (Alert Logic)'
 
 
 def is_waf(self):

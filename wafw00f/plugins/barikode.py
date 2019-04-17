@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 
-NAME = 'Barikode'
+NAME = 'Barikode (Ethic Ninja)'
 
 
 def is_waf(self):

@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 
-NAME = 'BinarySec'
+NAME = 'BinarySec (BinarySec)'
 
 
 def is_waf(self):

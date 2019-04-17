@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 
-NAME = 'aeSecure'
+NAME = 'aeSecure (aeSecure)'
 
 
 def is_waf(self):

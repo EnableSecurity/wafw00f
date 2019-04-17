@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 
-NAME = 'Inactiv Malcare'
+NAME = 'Malcare (Inactiv)'
 
 
 def is_waf(self):

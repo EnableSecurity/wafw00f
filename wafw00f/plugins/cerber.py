@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 
-NAME = 'WordPress Cerber'
+NAME = 'WP Cerber Security (Cerber Tech)'
 
 
 def is_waf(self):

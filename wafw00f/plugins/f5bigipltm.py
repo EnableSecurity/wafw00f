@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 
-NAME = 'F5 BIG-IP LTM'
+NAME = 'BIG-IP Local Traffic Manager (F5 Networks)'
 
 
 def is_waf(self):

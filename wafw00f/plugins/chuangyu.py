@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 
-NAME = 'Chuang Yu Shield'
+NAME = 'Chuang Yu Shield (Yunaq)'
 
 
 def is_waf(self):

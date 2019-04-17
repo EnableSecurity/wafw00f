@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 
-NAME = 'CDNNS Application Gateway'
+NAME = 'CdnNS Application Gateway (CdnNs/WdidcNet)'
 
 
 def is_waf(self):

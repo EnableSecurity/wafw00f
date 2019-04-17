@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 
-NAME = 'Barracuda Application Firewall'
+NAME = 'Barracuda Application Firewall (Barracuda Networks)'
 
 
 def is_waf(self):

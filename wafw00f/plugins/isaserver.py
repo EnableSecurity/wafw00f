@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 
-NAME = 'Microsoft ISA Server'
+NAME = 'ISA Server (Microsoft)'
 
 
 def is_waf(self):

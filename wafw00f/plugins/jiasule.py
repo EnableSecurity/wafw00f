@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 
-NAME = 'Jiasule'
+NAME = 'Jiasule (Jiasule)'
 
 
 def is_waf(self):

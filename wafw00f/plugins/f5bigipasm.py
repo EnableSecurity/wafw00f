@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 
-NAME = 'F5 BIG-IP ASM'
+NAME = 'BIG-IP Application Security Manager (F5 Networks)'
 
 
 def is_waf(self):

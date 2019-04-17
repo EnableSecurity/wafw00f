@@ -1,12 +1,12 @@
 #!/usr/bin/env python
 
 
-NAME = 'F5 Trafficshield'
+NAME = 'Trafficshield (F5 Networks)'
 
 
 def is_waf(self):
     if self.matchcookie('^ASINFO='):
         return True
-    if self.matchheader(('server', 'F5-TrafficShield')):
+    if self.matchheader(('Server', 'F5-TrafficShield')):
         return True
     return False
