@@ -5,9 +5,9 @@ NAME = 'Safedog (SafeDog)'
 
 
 def is_waf(self):
-    if self.matchcookie('^safedog-flow-item='):
+    if self.matchcookie(r'^safedog\-flow\-item='):
         return True
-    if self.matchheader(('server', '^Safedog')):
+    if self.matchheader(('server', 'Safedog')):
         return True
     for attack in self.attacks:
         r = attack(self)

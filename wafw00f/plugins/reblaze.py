@@ -5,7 +5,7 @@ NAME = 'Reblaze (Reblaze)'
 
 
 def is_waf(self):
-    if self.matchcookie('^rbzid='):
+    if self.matchcookie(r'^rbzid='):
         return True
     if self.matchheader(('Server', 'Reblaze Secure Web Gateway')):
         return True

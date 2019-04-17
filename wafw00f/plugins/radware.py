@@ -5,7 +5,7 @@ NAME = 'AppWall (Radware)'
 
 
 def is_waf(self):
-    if self.matchheader(('X-SL-CompState', '.')):
+    if self.matchheader(('X-SL-CompState', '.+')):
         return True
     for attack in self.attacks:
         r = attack(self)
