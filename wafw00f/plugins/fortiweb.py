@@ -3,7 +3,7 @@
 NAME = 'FortiWeb (Fortinet)'
 
 def is_waf(self):
-    if self.matchcookie('FORTIWAFSID='):
+    if self.matchcookie(r'^FORTIWAFSID='):
         return True
     for attack in self.attacks:
         r = attack(self)
