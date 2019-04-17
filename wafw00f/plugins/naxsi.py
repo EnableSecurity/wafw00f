@@ -6,10 +6,10 @@ NAME = 'NAXSI (NBS Systems)'
 
 def is_waf(self):
 	# Sometimes naxsi waf returns 'x-data-origin: naxsi/waf'
-    if self.matchheader(('X-Data-Origin', '^naxsi(.*)?')):
+    if self.matchheader(('X-Data-Origin', r'^naxsi(.*)?')):
     	return True
     # Found samples returning 'server: naxsi/2.0'
-    if self.matchheader(('server', 'naxsi(.*)?')):
+    if self.matchheader(('server', r'naxsi(.*)?')):
     	return True
     for attack in self.attacks:
         r = attack(self)

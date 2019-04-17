@@ -5,6 +5,6 @@ NAME = 'NetContinuum'
 
 
 def is_waf(self):
-    if self.matchcookie('^NCI__SessionId='):
+    if self.matchcookie(r'^NCI__SessionId='):
         return True
     return False

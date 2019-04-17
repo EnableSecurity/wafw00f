@@ -5,6 +5,9 @@ NAME = 'ModSecurity (SpiderLabs)'
 
 
 def is_waf(self):
+    # Prioritised non-attack checks
+    if self.matchheader(('Server', r'(mod_security|Mod_Security|NOYB)')):
+        return True
     for attack in self.attacks:
         r = attack(self)
         if r is None:
@@ -16,6 +19,4 @@ def is_waf(self):
             return True
         if response.reason == 'ModSecurity Action' and response.code == 403:
             return True
-    if self.matchheader(('server', '(mod_security|Mod_Security|NOYB)')):
-        return True
     return False

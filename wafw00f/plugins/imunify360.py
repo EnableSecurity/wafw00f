@@ -7,7 +7,7 @@ NAME = 'Imunify360 (CloudLinux)'
 
 def is_waf(self):
     # Imunify has a nice way of expressing itself in server header
-    if self.matchheader(('Server', 'imunify360-webshield')):
+    if self.matchheader(('Server', r'imunify360\-webshield')):
         return True
     for attack in self.attacks:
         r = attack(self)

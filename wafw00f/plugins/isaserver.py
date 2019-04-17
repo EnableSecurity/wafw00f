@@ -13,7 +13,8 @@ def is_waf(self):
         r = attack(self)
         if r is None:
             return
-        response, page = r    
+        response, page = r
+        # Not sure whether these long texts are found in response phrases or not :/
         if response.reason in isaservermatch:
             return True
         # This is also found in response page of URLs
