@@ -12,7 +12,7 @@ def is_waf(self):
     if self.matchheader(('X-Cache', 'YUNDUN')):
         return True
     # Found more fingerprints for Yundun during testing phase
-    if self.matchcookie('^yd_cookie='):
+    if self.matchcookie(r'^yd_cookie='):
         return True
     for attack in self.attacks:
         r = attack(self)

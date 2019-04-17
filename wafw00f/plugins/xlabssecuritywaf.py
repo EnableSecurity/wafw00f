@@ -7,6 +7,6 @@ def is_waf(self):
         return True
     # Another nice fingerprint found where server returns a
     # header as 'Server: XLabs WAF v3.0 http://www.xlabs.com.br/waf'
-    if self.matchheader(('server', 'XLabs WAF(.*)?')):
+    if self.matchheader(('server', r'XLabs WAF(.*)?')):
         return True
     return False

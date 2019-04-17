@@ -5,6 +5,6 @@ NAME = 'Teros (Citrix Systems)'
 
 
 def is_waf(self):
-    if self.matchcookie('^st8id='):
+    if self.matchcookie(r'^st8id='):
         return True
     return False

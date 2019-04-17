@@ -5,7 +5,7 @@ NAME = 'Yunsuo (Yunsuo)'
 
 
 def is_waf(self):
-    if self.matchcookie('yunsuo_session'):
+    if self.matchcookie(r'^yunsuo_session'):
         return True
     for attack in self.attacks:
         r = attack(self)

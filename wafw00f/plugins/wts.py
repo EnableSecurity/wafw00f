@@ -6,7 +6,7 @@ NAME = 'WTS-WAF (WTS)'
 
 def is_waf(self):
     # There are sites which are found to return 'Server: wts/1.2'
-    if self.matchheader(('Server', 'wts(.*)?')):
+    if self.matchheader(('Server', r'wts(.*)?')):
         return True
     for attack in self.attacks:
         r = attack(self)
