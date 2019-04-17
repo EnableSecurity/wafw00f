@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 
-NAME = 'PerimeterX'
+NAME = 'PerimeterX (PerimeterX)'
 
 
 def is_waf(self):
@@ -10,8 +10,7 @@ def is_waf(self):
         if r is None:
             return
         _, page = r
-        if all(i in page for i in (b'Download of virus/spyware blocked', b'blocked in accordance with company policy')):
-            return True
-        if b'Palo Alto Next Generation Security Platform' in page:
+        if any(i in page for i in (b'www.perimeterx.com/whywasiblocked', b'client.perimeterx.net', 
+            b'Access to this page has been denied because we believe you are using automation tools')):
             return True
     return False
