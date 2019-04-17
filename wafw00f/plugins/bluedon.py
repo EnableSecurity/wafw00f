@@ -6,7 +6,7 @@ NAME = 'Bluedon (Bluedon IST)'
 
 def is_waf(self):
     # Found sample servers returning 'Server: BDWAF/2.0'
-    if self.matchheader(('Server', 'BDWAF(.*)?')):
+    if self.matchheader(('Server', r'BDWAF(.*)?')):
         return True
     for attack in self.attacks:
         r = attack(self)

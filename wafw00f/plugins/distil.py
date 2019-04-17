@@ -5,8 +5,6 @@ NAME = 'Distil (Distil Networks)'
 
 
 def is_waf(self):
-    if self.matchcookie('crawlprotecttag'):
-        return True
     for attack in self.attacks:
         r = attack(self)
         if r is None:

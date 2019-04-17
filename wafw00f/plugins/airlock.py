@@ -7,7 +7,7 @@ NAME = 'Airlock (Phion/Ergon)'
 def is_waf(self):
     # This method of detection is old (though most reliable), 
     # so we check it first
-    if self.matchcookie('^AL[_-]?(SESS|LB)='):
+    if self.matchcookie(r'^AL[_-]?(SESS|LB)='):
         return True
     # Nowadays many sites running Airlock do not set cookies 
     # directly without authentication. So we have to make the 

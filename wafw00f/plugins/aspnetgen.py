@@ -8,7 +8,7 @@ def is_waf(self):
     detected1 = False
     detected2 = False
     # So first we are checking for whether the site is running ASP.NET or not
-    if self.matchheader(('X-Powered-By', 'ASP.NET(.*)?')):
+    if self.matchheader(('X-Powered-By', r'ASP.NET(.*)?')):
         detected1 = True
     # Sites running ASP.NEt also sometimes return this header
     if self.matchheader(('X-ASPNET-Version', '.*')):

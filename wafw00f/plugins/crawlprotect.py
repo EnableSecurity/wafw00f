@@ -5,7 +5,7 @@ NAME = 'CrawlProtect (Jean-Denis Brun)'
 
 
 def is_waf(self):
-    if self.matchcookie('crawlprotecttag'):
+    if self.matchcookie(r'^crawlprotecttag='):
         return True
     for attack in self.attacks:
         r = attack(self)

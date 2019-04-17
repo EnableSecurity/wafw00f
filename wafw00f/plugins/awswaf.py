@@ -9,6 +9,6 @@ def is_waf(self):
     if self.matchheader(('X-AMZ-Request-ID', '.*')):
         return True
     # Move to attack phase for identification
-    if self.matchheader(('Server', 'awselb/2\\.0'), attack=True):
+    if self.matchheader(('Server', r'awselb/2\.0'), attack=True):
         return True
     return False
