@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 
-NAME = 'WebTotem'
+NAME = 'WebTotem (WebTotem)'
 
 
 def is_waf(self):

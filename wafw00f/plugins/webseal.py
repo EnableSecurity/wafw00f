@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 
-NAME = 'IBM WebSEAL'
+NAME = 'WebSEAL (IBM)'
 
 
 def is_waf(self):

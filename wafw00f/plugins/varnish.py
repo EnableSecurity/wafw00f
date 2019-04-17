@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 
-NAME = 'OWASP Varnish'
+NAME = 'Varnish (OWASP)'
 
 
 def is_waf(self):

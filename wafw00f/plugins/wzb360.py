@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 
-NAME = '360WangZhanBao'
+NAME = '360WangZhanBao (360 Technologies)'
 
 
 def is_waf(self):

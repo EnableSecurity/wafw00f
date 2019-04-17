@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-NAME = 'XLabs Security WAF'
+NAME = 'XLabs Security WAF (XLabs)'
 
 def is_waf(self):
     if self.matchheader(('x-cdn', 'XLabs Security')):

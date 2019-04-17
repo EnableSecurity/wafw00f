@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 
-NAME = 'Aqtronix WebKnight'
+NAME = 'WebKnight (AQTRONIX)'
 
 
 def is_waf(self):

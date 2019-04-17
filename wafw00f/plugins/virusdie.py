@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 
-NAME = 'VirusDie'
+NAME = 'VirusDie (VirusDie LLC)'
 
 
 def is_waf(self):

@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 
-NAME = 'Microsoft URLScan'
+NAME = 'URLScan (Microsoft)'
 
 
 def is_waf(self):

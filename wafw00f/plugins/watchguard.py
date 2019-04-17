@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 
-NAME = 'WatchGuard'
+NAME = 'WatchGuard (WatchGuard Technologies)'
 
 
 def is_waf(self):

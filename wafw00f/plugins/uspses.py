@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 
-NAME = 'USP Secure Entry Server'
+NAME = 'Secure Entry Server (USP)'
 
 
 def is_waf(self):

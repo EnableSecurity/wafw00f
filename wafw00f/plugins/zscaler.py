@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 
-NAME = 'Accenture ZScaler'
+NAME = 'ZScaler (Accenture)'
 
 
 def is_waf(self):

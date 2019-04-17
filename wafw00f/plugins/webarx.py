@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 
-NAME = 'WebARX'
+NAME = 'WebARX (WebARX Security Solutions)'
 
 
 def is_waf(self):
