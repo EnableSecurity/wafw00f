@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 
-NAME = 'Citrix NetScaler'
+NAME = 'NetScaler AppFirewall (Citrix Systems)'
 
 
 def is_waf(self):

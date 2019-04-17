@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 
-NAME = 'Blackbaud OnMessage Shield'
+NAME = 'OnMessage Shield (BlackBaud)'
 
 
 def is_waf(self):

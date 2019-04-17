@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 
-NAME = 'NinTechNet NinjaFirewall'
+NAME = 'NinjaFirewall (NinTechNet)'
 
 
 def is_waf(self):

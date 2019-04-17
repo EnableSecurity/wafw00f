@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 
-NAME = 'Safe3 Web Firewall'
+NAME = 'Safe3 Web Firewall (Safe3)'
 
 
 def is_waf(self):

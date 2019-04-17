@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 
-NAME = 'ASP.NET RequestValidationMode'
+NAME = 'ASP.NET RequestValidationMode (Microsoft)'
 
 
 def is_waf(self):

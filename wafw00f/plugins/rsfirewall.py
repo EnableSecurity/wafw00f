@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 
-NAME = 'RSJoomla! RSFirewall'
+NAME = 'RSFirewall (RSJoomla!)'
 
 
 def is_waf(self):

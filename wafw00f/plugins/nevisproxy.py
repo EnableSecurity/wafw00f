@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 
-NAME = 'AdNovum nevisProxy'
+
+NAME = 'NevisProxy (AdNovum)'
+
 
 def is_waf(self):
     if self.matchcookie('^Navajo.*?$'):

@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 
-NAME = 'IBM Proventia'
+NAME = 'Proventia (IBM)'
 
 
 def is_waf(self):

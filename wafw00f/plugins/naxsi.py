@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 
+
 NAME = 'NAXSI (NBS Systems)'
+
 
 def is_waf(self):
 	# Sometimes naxsi waf returns 'x-data-origin: naxsi/waf'

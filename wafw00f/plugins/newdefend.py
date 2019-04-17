@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 
-NAME = 'Newdefend'
+NAME = 'Newdefend (NewDefend)'
 
 
 def is_waf(self):

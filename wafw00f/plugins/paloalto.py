@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 
-NAME = 'Palo Alto'
+NAME = 'Palo Alto Next Gen Firewall (Palo Alto Networks)'
 
 
 def is_waf(self):
