@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 
-NAME = 'ChinaCache CDN Load Balancer'
+NAME = 'ChinaCache CDN Load Balancer (ChinaCache)'
 
 
 def is_waf(self):

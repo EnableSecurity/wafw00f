@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 
-NAME = 'NetContinuum'
+NAME = 'NetContinuum (Barracuda Networks)'
 
 
 def is_waf(self):

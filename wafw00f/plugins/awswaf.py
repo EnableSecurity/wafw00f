@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 
+
 NAME = 'AWS Elastic Load Balancer (Amazon)'
+
 
 def is_waf(self):
     # Prioritize these checks first which doesn't require attack
