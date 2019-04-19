@@ -61,6 +61,7 @@ wafdetectionsprio = [
     'Distil (Distil Networks)',
     'DotDefender (Applicure Technologies)',
     'DynamicWeb Injection Check (DynamicWeb)',
+    'Expression Engine (EllisLab)',
     'BIG-IP Application Security Manager (F5 Networks)',
     'FortiWeb (Fortinet)',
     'GoDaddy Website Protection (GoDaddy)',
