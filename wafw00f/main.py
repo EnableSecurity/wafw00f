@@ -360,7 +360,7 @@ def main():
             if options.test in attacker.wafdetections:
                 waf = attacker.wafdetections[options.test](attacker)
                 if waf:
-                    print('The site %s is behind %s' % (target, options.test))
+                    print('The site %s is behind %s WAF.' % (target, options.test))
                 else:
                     print('WAF %s was not detected on %s' % (options.test, target))
             else:
@@ -370,7 +370,7 @@ def main():
         waf = attacker.identwaf(options.findall)
         log.info('Ident WAF: %s' % waf)
         if len(waf) > 0:
-            print('The site %s is behind %s' % (target, ' and/or '.join(waf)))
+            print('The site %s is behind %s WAF.' % (target, ' and/or '.join(waf)))
         if (options.findall) or len(waf) == 0:
             print('Generic Detection results:')
             if attacker.genericdetect():
