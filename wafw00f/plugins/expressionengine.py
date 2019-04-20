@@ -16,6 +16,6 @@ def is_waf(self):
         if 'exp_last_' in response.getheader('Set-Cookie'):
             return True
         # In-page fingerprints vary a lot in different sites. Hence these are not quite reliable.
-        if any(i in page for i in (b'Invalid GET Data', 'Invalid URI')):
+        if any(i in page for i in (b'Invalid GET Data', b'Invalid URI')):
             return True
     return False
