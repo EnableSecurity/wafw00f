@@ -14,8 +14,4 @@ def is_waf(self):
         if all(m in page for m in (b'<H2>Error</H2>', b'<title>Error</title>', b'The incident ID is:',
              b"This page can't be displayed.", b"Contact support for additional information.")):
             return True
-        # never met a site returning this, but still considered keeping it
-        # might lead to false positives
-        if response.version == 10:
-            return True
     return False
