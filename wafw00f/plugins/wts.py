@@ -13,7 +13,7 @@ def is_waf(self):
         if r is None:
             return
         _, page = r
-        # WebTotem returns its name in blockpage
+        # WTS returns its name in blockpage
         if any(i in page for  i in (b'<h1>WTS-WAF', b'<title>WTS-WAF')):
             return True
     return False
