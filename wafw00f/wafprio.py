@@ -7,9 +7,9 @@
 
 wafdetectionsprio = [
     # cached default request ones first
-    'Yunjiasu (Baidu Cloud Computing)'
+    'Yunjiasu (Baidu Cloud Computing)',
     'PowerCDN (PowerCDN)',
-    'ChinaCache CDN Load Balancer (ChinaCache)'
+    'ChinaCache CDN Load Balancer (ChinaCache)',
     'Edgecast (Verizon Digital Media)',
     'Profense (ArmorLogic)',
     'West263CDN',
