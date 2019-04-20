@@ -233,11 +233,11 @@ class WafW00F(waftoolsengine):
                     headervals = [headerval]
                 for headerval in headervals:
                     if ignorecase:
-                        if re.match(match, headerval, re.IGNORECASE):
+                        if re.search(match, headerval, re.IGNORECASE):
                             detected = True
                             break
                     else:
-                        if re.match(match, headerval):
+                        if re.search(match, headerval):
                             detected = True
                             break
                 if detected:
