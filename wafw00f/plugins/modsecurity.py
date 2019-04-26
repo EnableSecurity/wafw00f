@@ -17,6 +17,6 @@ def is_waf(self):
             b'rules of the mod_security module', b'mod_security rules triggered', b'Protected by Mod Security',
             b'/modsecurity-errorpage/', b'ModSecurity IIS')):
             return True
-        if response.reason == 'ModSecurity Action' and response.code == 403:
+        if response.reason == 'ModSecurity Action' and response.status == 403:
             return True
     return False
