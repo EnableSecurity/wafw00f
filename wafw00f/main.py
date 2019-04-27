@@ -79,11 +79,11 @@ woof = '''
           '''+Y+'''()``; '''+G+'''|==|_______)                '''+R+'''.)'''+Y+'''|__|
           '''+Y+'''/ ('        '''+G+'''/|\                  '''+R+'''(  '''+Y+'''|__|
       '''+Y+'''(  /  )       '''+G+''' / | \                  '''+R+'''. '''+Y+'''|__|
-       '''+Y+'''\(_)_))      '''+G+'''/  |  \                   '''+Y+'''|__|
+       '''+Y+'''\(_)_))      '''+G+'''/  |  \                   '''+Y+'''|__|'''+E+'''
 
-    '''+B+'''WAFW00F '''+C+'''- Web Application Firewall Detection Tool
+    WAFW00F - Web Application Firewall Detection Tool
 
-        '''+B+'''By '''+W+'''Sandro Gauci '''+B+'''&& '''+W+'''Wendel G. Henrique'''+E+'\n'
+        By Sandro Gauci && Wendel G. Henrique\n'''
 
 class WafW00F(waftoolsengine):
 
