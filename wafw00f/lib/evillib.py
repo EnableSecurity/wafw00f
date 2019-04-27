@@ -9,6 +9,10 @@ try:
 except ImportError:
     from urllib.parse import urlparse, urlunparse
 import logging
+try:
+    import httplib as clientlib
+except ImportError:
+    import http.client as clientlib
 
 try:
     from bs4 import BeautifulSoup
@@ -378,7 +382,7 @@ class waftoolsengine:
             responsebody = response.read()
             h.close()
             r = response, responsebody
-        except (socket.error, socket.timeout, httplib.BadStatusLine):
+        except (socket.error, socket.timeout, httplib.BadStatusLine, clientlib.IncompleteRead):
             self.log.warn('Hey.. they closed our connection!')
             r = None
         finally:
