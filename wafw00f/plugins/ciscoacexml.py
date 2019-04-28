@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 
-NAME = 'Cisco ACE XML Gateway'
+NAME = 'ACE XML Gateway (Cisco)'
 
 
 def is_waf(self):

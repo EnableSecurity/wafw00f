@@ -1,8 +1,16 @@
 #!/usr/bin/env python
 
-NAME = 'AWS WAF'
+
+NAME = 'AWS Elastic Load Balancer (Amazon)'
+
 
 def is_waf(self):
-    if self.matchheader(('Server', 'awselb/2\\.0'), attack=True):
+    # Prioritize these checks first which doesn't require attack
+    if self.matchheader(('X-AMZ-ID', '.*')):
+        return True
+    if self.matchheader(('X-AMZ-Request-ID', '.*')):
+        return True
+    # Move to attack phase for identification
+    if self.matchheader(('Server', r'awselb/2\.0'), attack=True):
         return True
     return False

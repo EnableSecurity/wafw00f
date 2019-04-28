@@ -1,12 +1,12 @@
 #!/usr/bin/env python
 
 
-NAME = 'Profense'
+NAME = 'Profense (ArmorLogic)'
 
 
 def is_waf(self):
-    if self.matchheader(('server', 'profense')):
+    if self.matchheader(('Server', 'profense')):
         return True
-    if self.matchcookie('^PLBSID='):
+    if self.matchcookie(r'^PLBSID='):
         return True
     return False

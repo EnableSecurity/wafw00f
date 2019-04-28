@@ -378,7 +378,7 @@ class waftoolsengine:
             responsebody = response.read()
             h.close()
             r = response, responsebody
-        except (socket.error, socket.timeout, httplib.BadStatusLine):
+        except (socket.error, socket.timeout, httplib.BadStatusLine, httplib.IncompleteRead):
             self.log.warn('Hey.. they closed our connection!')
             r = None
         finally:

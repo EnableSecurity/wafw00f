@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 
-NAME = 'eEye Digital Security SecureIIS'
+NAME = 'eEye SecureIIS (BeyondTrust)'
 
 
 def is_waf(self):

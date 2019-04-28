@@ -29,7 +29,7 @@ class WafW00FTestCase(TestCase):
            cache-control: max-age=7200
            age: 0
         """
-        self.__assert_waf('www.58dm.com', '360WangZhanBao', {'X-Powered-By-360WZB': 'wangzhan.360.cn'})
+        self.__assert_waf('www.58dm.com', '360WangZhanBao (360 Technologies)', {'X-Powered-By-360WZB': 'wangzhan.360.cn'})
 
     def test_isanquanbao(self):
         """
@@ -48,7 +48,7 @@ class WafW00FTestCase(TestCase):
            ETag: "766fe9afaf7dcf1:41fc"
            X-Powered-By-Anquanbao: MISS from chn-tj-ht-se2
         """
-        self.__assert_waf('www.51cdz.com', 'Anquanbao', {'X-Powered-By-Anquanbao': 'MISS from chn-tj-ht-se2'})
+        self.__assert_waf('www.51cdz.com', 'Anquanbao (Anquanbao)', {'X-Powered-By-Anquanbao': 'MISS from chn-tj-ht-se2'})
 
     def test_ischinacache(self):
         """
@@ -67,7 +67,7 @@ class WafW00FTestCase(TestCase):
            X-Cache-Lookup: MISS from DXT-BJ-219:80
            Connection: close
         """
-        self.__assert_waf('s1.meituan.net', 'ChinaCache-CDN', {'Powered-By-ChinaCache': 'fake'})
+        self.__assert_waf('s1.meituan.net', 'ChinaCache CDN Load Balancer (ChinaCache)', {'Powered-By-ChinaCache': 'fake'})
 
     def test_ispowercdn(self):
         """
@@ -86,7 +86,7 @@ class WafW00FTestCase(TestCase):
            Via: 1.1 ak244.powercdn.com (PowerCDN/2.4)
            Connection: keep-alive
         """
-        self.__assert_waf('www.jjwxc.net', 'PowerCDN', {'PowerCDN': 'HIT from ak244.powercdn.com'})
+        self.__assert_waf('www.jjwxc.net', 'PowerCDN (PowerCDN)', {'PowerCDN': 'HIT from ak244.powercdn.com'})
 
     def test_iswest263cdn(self):
         """

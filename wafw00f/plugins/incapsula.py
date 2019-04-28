@@ -1,13 +1,13 @@
 #!/usr/bin/env python
 
 
-NAME = 'Incapsula WAF'
+NAME = 'Incapsula (Imperva Inc.)'
 
 
 def is_waf(self):
-    if self.matchcookie('^incap_ses.*='):
+    if self.matchcookie(r'^incap_ses.*='):
         return True
-    if self.matchcookie('^visid_incap.*='):
+    if self.matchcookie(r'^visid_incap.*='):
         return True
     for attack in self.attacks:
         r = attack(self)

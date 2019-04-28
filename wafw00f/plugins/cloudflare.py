@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 
-NAME = 'CloudFlare'
+NAME = 'Cloudflare (Cloudflare Inc.)'
 
 
 def is_waf(self):
