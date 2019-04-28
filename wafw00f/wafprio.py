@@ -34,8 +34,8 @@ wafdetectionsprio = [
     'BIG-IP Local Traffic Manager (F5 Networks)',
     'Trafficshield (F5 Networks)',
     'DataPower (IBM)',
-    'Kona Site Defender (Akamai)',
     # the next ones require attack strings to be sent
+    'Kona Site Defender (Akamai)',
     'aeSecure (aeSecure)',
     'Airlock (Phion/Ergon)',
     'Alert Logic (Alert Logic)',
