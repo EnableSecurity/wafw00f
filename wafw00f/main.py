@@ -82,8 +82,7 @@ woof = '''
        '''+Y+'''\(_)_))      '''+G+'''/  |  \                   '''+Y+'''|__|'''+E+'''
 
     WAFW00F - Web Application Firewall Detection Tool
-
-        By Sandro Gauci && Wendel G. Henrique\n'''
+    \n'''
 
 class WafW00F(waftoolsengine):
 
