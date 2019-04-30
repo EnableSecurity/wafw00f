@@ -23,68 +23,133 @@ It detects a number of WAFs. To view which WAFs it is able to detect run
 WAFW00F with the `-l` option. At the time of writing the output is as follows:
 
     $ wafw00f -l
-
-                                    ^     ^
-            _   __  _   ____ _   __  _    _   ____
-        ///7/ /.' \ / __////7/ /,' \ ,' \ / __/
-        | V V // o // _/ | V V // 0 // 0 // _/
-        |_n_,'/_n_//_/   |_n_,' \_,' \_,'/_/
-                                    <
-                                    ...'
+                 ______
+                /      \
+               (  Woof! )
+                \______/                      )
+                ,,                           ) (_
+           .-. -    _______                 ( |__|
+          ()``; |==|_______)                .)|__|
+          / ('        /|\                  (  |__|
+      (  /  )        / | \                  . |__|
+       \(_)_))      /  |  \                   |__|
 
         WAFW00F - Web Application Firewall Detection Tool
 
-        By Sandro Gauci && Wendel G. Henrique
-
     Can test for these WAFs:
 
-    Anquanbao
-    FortiWeb
-    NaxsiCisco ACE XML Gateway
-    AWS WAF
-    Citrix NetScaler
-    Ergon Airlock
-    F5 BIG-IP APM
-    360WangZhanBao
-    Mission Control Application Shield
-    PowerCDN
-    Safedog
-    XLabs Security WAF
-    Sucuri WAF
-    F5 FirePass
-    DenyALL WAF
-    Trustwave ModSecurity
-    CloudFlare
+    BlockDoS (BlockDoS)
+    Armor Defense (Armor)
+    ACE XML Gateway (Cisco)
+    Malcare (Inactiv)
+    RSFirewall (RSJoomla!)
+    PerimeterX (PerimeterX)
+    Varnish (OWASP)
+    Barracuda Application Firewall (Barracuda Networks)
+    Anquanbao (Anquanbao)
+    NetContinuum (Barracuda Networks)
+    HyperGuard (Art of Defense)
+    Incapsula (Imperva Inc.)
+    Safedog (SafeDog)
+    NevisProxy (AdNovum)
+    SEnginx (Neusoft)
+    BitNinja (BitNinja)
+    Janusec Application Gateway (Janusec)
+    NinjaFirewall (NinTechNet)
+    Edgecast (Verizon Digital Media)
+    Alert Logic (Alert Logic)
+    Cloudflare (Cloudflare Inc.)
+    SecureSphere (Imperva Inc.)
+    Bekchy (Faydata Technologies Inc.)
+    Kona Site Defender (Akamai)
+    Wallarm (Wallarm Inc.)
+    Cloudfront (Amazon)
+    aeSecure (aeSecure)
+    eEye SecureIIS (BeyondTrust)
+    VirusDie (VirusDie LLC)
+    DOSarrest (DOSarrest Internet Security)
+    SiteGround (SiteGround)
+    Chuang Yu Shield (Yunaq)
+    Yunsuo (Yunsuo)
+    NAXSI (NBS Systems)
+    UTM Web Protection (Sophos)
+    Approach (Approach)
+    NetScaler AppFirewall (Citrix Systems)
+    DynamicWeb Injection Check (DynamicWeb)
+    Xuanwudun
+    WebTotem (WebTotem)
+    Comodo (Comodo CyberSecurity Solutions)
+    WTS-WAF (WTS)
+    PowerCDN (PowerCDN)
+    BIG-IP Access Policy Manager (F5 Networks)
+    BinarySec (BinarySec)
+    Greywizard (Grey Wizard)
+    Shield Security (One Dollar Plugin)
+    ASP.NET Generic Web Application Protection
+    CacheWall (Varnish)
+    Expression Engine (EllisLab)
+    Airlock (Phion/Ergon)
+    WatchGuard (WatchGuard Technologies)
+    WP Cerber Security (Cerber Tech)
+    Yunjiasu (Baidu Cloud Computing)
+    DenyALL (Rohde & Schwarz CyberSecurity)
+    AnYu (AnYu Technologies)
+    Secure Entry (United Security Providers)
+    ISA Server (Microsoft)
+    Yundun (Yundun)
+    FirePass (F5 Networks)
+    GoDaddy Website Protection (GoDaddy)
+    Imunify360 (CloudLinux)
+    Safe3 Web Firewall (Safe3)
+    WebSEAL (IBM)
+    NSFocus (NSFocus Global Inc.)
+    360WangZhanBao (360 Technologies)
+    Squarespace (Squarespace)
     Imperva SecureSphere
-    Wallarm
-    Incapsula WAF
-    Radware AppWall
-    F5 BIG-IP LTM
-    Art of Defence HyperGuard
-    Wordfence
-    Aqtronix WebKnight
-    Teros WAF
-    eEye Digital Security SecureIIS
-    BinarySec
-    IBM DataPower
-    Microsoft ISA Server
-    NetContinuum
-    NSFocus
-    ChinaCache-CDN
+    Bluedon (Bluedon IST)
+    AliYunDun (Alibaba Cloud Computing)
+    Wordfence (Feedjit)
+    Palo Alto Next Gen Firewall (Palo Alto Networks)
+    Tencent Cloud Firewall (Tencent Technologies)
     West263CDN
-    F5 BIG-IP ASM
-    AdNovum nevisProxy
-    Barracuda Application Firewall
-    Comodo WAF
-    Profense
-    BlockDoS
-    Edgecast / Verizon Digital media
-    Microsoft URLScan
-    Applicure dotDefender
+    WebARX (WebARX Security Solutions)
+    Mission Control Application Shield (Mission Control)
+    BIG-IP Local Traffic Manager (F5 Networks)
+    Sitelock (TrueShield)
+    ZScaler (Accenture)
+    CrawlProtect (Jean-Denis Brun)
+    Teros (Citrix Systems)
+    AWS Elastic Load Balancer (Amazon)
+    Cloudbric (Zendesk)
+    StackPath (StackPath)
+    URLScan (Microsoft)
+    Sucuri (Sucuri Inc.)
+    TransIP Web Firewall (TransIP)
+    OnMessage Shield (BlackBaud)
+    Distil (Distil Networks)
+    Profense (ArmorLogic)
+    ModSecurity (SpiderLabs)
+    FortiWeb (Fortinet)
+    XLabs Security WAF (XLabs)
+    ASP.NET RequestValidationMode (Microsoft)
+    Jiasule (Jiasule)
+    ChinaCache CDN Load Balancer (ChinaCache)
+    URLMaster SecurityCheck (iFinity/DotNetNuke)
+    Reblaze (Reblaze)
+    Newdefend (NewDefend)
+    Trafficshield (F5 Networks)
+    KS-WAF (KnownSec)
+    SiteGuard (Sakura Inc.)
+    CdnNS Application Gateway (CdnNs/WdidcNet)
+    DataPower (IBM)
+    WebKnight (AQTRONIX)
+    BIG-IP Application Security Manager (F5 Networks)
+    Barikode (Ethic Ninja)
+    Zenedge (Zenedge)
+    SonicWall (Dell)
+    DotDefender (Applicure Technologies)
     USP Secure Entry Server
-    DOSarrest
-    F5 Trafficshield
-
+    AppWall (Radware)
 
 ## How do I use it?
 
@@ -93,23 +158,26 @@ First, install the tools as described [here](#how-do-i-install-it).
 For help please make use of the `--help` option. The basic usage is to pass it
 a URL as an argument. Example:
 
-    $ wafw00f https://www.ibm.com/
+    $  wafw00f https://example.org
 
-                                     ^     ^
-            _   __  _   ____ _   __  _    _   ____
-           ///7/ /.' \ / __////7/ /,' \ ,' \ / __/
-          | V V // o // _/ | V V // 0 // 0 // _/
-          |_n_,'/_n_//_/   |_n_,' \_,' \_,'/_/
-                                    <
-                                     ...'
+                 ______
+                /      \
+               (  Woof! )
+                \______/                      )
+                ,,                           ) (_
+           .-. -    _______                 ( |__|
+          ()``; |==|_______)                .)|__|
+          / ('        /|\                  (  |__|
+      (  /  )        / | \                  . |__|
+       \(_)_))      /  |  \                   |__|
 
         WAFW00F - Web Application Firewall Detection Tool
 
-        By Sandro Gauci && Wendel G. Henrique
+            By Sandro Gauci && Wendel G. Henrique
 
-    Checking https://www.ibm.com/
-    The site https://www.ibm.com/ is behind Citrix NetScaler
-    Number of requests: 6
+    Checking https://example.org
+    The site https://example.org is behind Edgecast (Verizon Digital Media) WAF.
+    Number of requests: 1
 
 
 ## How do I install it?
@@ -122,7 +190,7 @@ or
 
     pip install wafw00f
 
-## Need a freelance pentester?
+## Looking for pentesters?
 
 More information about the services that we offer at [Enable Security](http://enablesecurity.com/)
 
