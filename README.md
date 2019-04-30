@@ -173,8 +173,6 @@ a URL as an argument. Example:
 
         WAFW00F - Web Application Firewall Detection Tool
 
-            By Sandro Gauci && Wendel G. Henrique
-
     Checking https://example.org
     The site https://example.org is behind Edgecast (Verizon Digital Media) WAF.
     Number of requests: 1
