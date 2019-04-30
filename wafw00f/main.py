@@ -368,7 +368,7 @@ def main():
                            proxy=options.proxy)
         if attacker.normalrequest() is None:
             log.error('Site %s appears to be down' % target)
-            sys.exit(1)
+            continue
         if options.test:
             if options.test in attacker.wafdetections:
                 waf = attacker.wafdetections[options.test](attacker)
