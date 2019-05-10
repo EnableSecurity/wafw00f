@@ -44,7 +44,7 @@ wafdetectionsprio = [
     'AnYu (AnYu Technologies)',
     'Approach (Approach)',
     'Armor Defense (Armor)',
-    'ASP.NET Generic Web Application Protection',
+    'ASP.NET Generic Protection (Microsoft)',
     'Barikode (Ethic Ninja)',
     'Barracuda Application Firewall (Barracuda Networks)',
     'Bekchy (Faydata Technologies Inc.)',
