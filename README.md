@@ -184,9 +184,7 @@ The following should do the trick:
 
     python setup.py install
 
-or
 
-    pip install wafw00f
 
 ## Looking for pentesters?
 
