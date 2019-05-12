@@ -181,9 +181,9 @@ a URL as an argument. Example:
 ## How do I install it?
 
 The following should do the trick:
-```
-python setup.py install
-```
+
+    python setup.py install
+
 ## Looking for pentesters?
 
 More information about the services that we offer at [Enable Security](http://enablesecurity.com/)
