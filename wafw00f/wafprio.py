@@ -54,7 +54,7 @@ wafdetectionsprio = [
     'CdnNS Application Gateway (CdnNs/WdidcNet)',
     'WP Cerber Security (Cerber Tech)',
     'Chuang Yu Shield (Yunaq)',
-    'Cloudbric (Zendesk)',
+    'Cloudbric (Penta Security)',
     'Cloudfront (Amazon)',
     'CrawlProtect (Jean-Denis Brun)',
     'DenyALL (Rohde & Schwarz CyberSecurity)',

@@ -85,7 +85,7 @@ WAFW00F with the `-l` option. At the time of writing the output is as follows:
     BinarySec (BinarySec)
     Greywizard (Grey Wizard)
     Shield Security (One Dollar Plugin)
-    ASP.NET Generic Web Application Protection
+    ASP.NET Generic Protection (Microsoft)
     CacheWall (Varnish)
     Expression Engine (EllisLab)
     Airlock (Phion/Ergon)
@@ -120,7 +120,7 @@ WAFW00F with the `-l` option. At the time of writing the output is as follows:
     CrawlProtect (Jean-Denis Brun)
     Teros (Citrix Systems)
     AWS Elastic Load Balancer (Amazon)
-    Cloudbric (Zendesk)
+    Cloudbric (Penta Security)
     StackPath (StackPath)
     URLScan (Microsoft)
     Sucuri (Sucuri Inc.)
@@ -183,8 +183,6 @@ a URL as an argument. Example:
 The following should do the trick:
 
     python setup.py install
-
-
 
 ## Looking for pentesters?
 
