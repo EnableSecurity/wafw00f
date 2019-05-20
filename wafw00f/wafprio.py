@@ -19,7 +19,6 @@ wafdetectionsprio = [
     'NSFocus (NSFocus Global Inc.)',
     'DOSarrest (DOSarrest Internet Security)',
     'Comodo (Comodo CyberSecurity Solutions)',
-    'XLabs Security WAF (XLabs)',
     'Wallarm (Wallarm Inc.)',
     'BlockDoS (BlockDoS)',
     'Mission Control Application Shield (Mission Control)',
@@ -35,6 +34,7 @@ wafdetectionsprio = [
     'Trafficshield (F5 Networks)',
     'DataPower (IBM)',
     # the next ones require attack strings to be sent
+    'XLabs Security WAF (XLabs)',
     'Kona Site Defender (Akamai)',
     'aeSecure (aeSecure)',
     'Airlock (Phion/Ergon)',
