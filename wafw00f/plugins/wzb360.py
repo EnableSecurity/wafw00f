@@ -14,4 +14,6 @@ def is_waf(self):
         response, responsepage = r
         if response.status == 493 and b'/wzws-waf-cgi/' in responsepage:
             return True
+        if b'wangshan.360.cn' in responsepage:
+            return True
     return False
