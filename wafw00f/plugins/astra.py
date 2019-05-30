@@ -1,0 +1,17 @@
+#!/usr/bin/env python
+
+
+NAME = '360WangZhanBao (360 Technologies)'
+
+
+def is_waf(self):
+    if self.matchcookie(r'^cz_astra_csrf_cookie'):
+        return True
+    for attack in self.attacks:
+        r = attack(self)
+        if r is None:
+            return
+        _, responsepage = r
+        if b'www.getastra.com/assets/images' in responsepage:
+            return True
+    return False
