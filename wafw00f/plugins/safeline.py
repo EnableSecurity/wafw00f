@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 
-NAME = 'Safeline (Chaitin Technologies)'
+NAME = 'Safeline (Chaitin Tech.)'
 
 
 def is_waf(self):
