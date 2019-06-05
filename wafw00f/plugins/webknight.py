@@ -19,6 +19,6 @@ def is_waf(self):
             return True
         if any(i in page for i in (b'WebKnight Application Firewall Alert', b'What is WebKnight?',
             b'AQTRONIX WebKnight is an application firewall', b'WebKnight will take over and protect',
-            b'http://www.aqtronix.com/WebKnight', b'>AQTRONIX</FONT> WebKnight')):
+            b'aqtronix.com/WebKnight', b'>AQTRONIX</FONT> WebKnight')):
             return True
     return False

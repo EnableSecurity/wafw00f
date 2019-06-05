@@ -1,14 +1,14 @@
 #!/usr/bin/env python
 
-NAME = 'Sucuri (Sucuri Inc.)'
+NAME = 'Sucuri CloudProxy (Sucuri Inc.)'
 
 def is_waf(self):
     # Fingerprints not needing any attack
-    if self.matchheader(('X-Sucuri-ID', '.+')):
+    if self.matchheader(('X-Sucuri-ID', r'.+?')):
         return True
-    if self.matchheader(('X-Sucuri-Cache', '.+')):
+    if self.matchheader(('X-Sucuri-Cache', r'.+?')):
         return True
-    if self.matchheader(('Server', 'Sucuri/Cloudproxy')):
+    if self.matchheader(('Server', r'Sucuri(.Cloudproxy)?')):
         return True
     # Fingerprints under attack
     for attack in self.attacks:
@@ -16,11 +16,11 @@ def is_waf(self):
         if r is None:
             return
         response, responsebody = r
-        # Most reliable fingerprint is this on block page
+        # Most reliable fingerprint is this amongst headers
         if response.getheader('X-Sucuri-Block'):
             return True
         if any(i in responsebody for i in (b'Access Denied - Sucuri Website Firewall', 
-            b'<title>Sucuri WebSite Firewall - Access Denied</title>', b'https://sucuri.net/privacy-policy', 
-            b'https://cdn.sucuri.net/sucuri-firewall-block.css', b'Sucuri Inc.', b'cloudproxy@sucuri.net')):
+            b'<title>Sucuri WebSite Firewall - Access Denied</title>', b'sucuri.net/privacy-policy', 
+            b'cdn.sucuri.net/sucuri-firewall-block.css', b'Sucuri Inc.', b'cloudproxy@sucuri.net')):
             return True
     return False
