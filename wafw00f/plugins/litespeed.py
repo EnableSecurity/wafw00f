@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 
-NAME = 'LiteSpeed (LiteSpeed Technologies)'
+NAME = 'LiteSpeed Firewall (LiteSpeed Technologies)'
 
 
 def is_waf(self):
