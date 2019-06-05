@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 
-NAME = 'Astra (Czar Securities)'
+NAME = 'Astra Web Protection (Czar Securities)'
 
 
 def is_waf(self):
