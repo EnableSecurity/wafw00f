@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 
-NAME = 'Open-Resty Lua WAF'
+NAME = 'Open-Resty Lua Nginx WAF'
 
 
 def is_waf(self):
