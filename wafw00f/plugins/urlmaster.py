@@ -19,6 +19,6 @@ def is_waf(self):
         _, page = r
         # This often displayed when the debug mode is enabled.
         # Otherwise it is the regular 403vblockpage itself.
-        if b'UrlRewriteModule.SecurityCheck' in page:
+        if all(i in page for i in (b'UrlRewriteModule', b'SecurityCheck')):
             return True
     return False
