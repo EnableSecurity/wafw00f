@@ -31,7 +31,9 @@ OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISE
 OF THE POSSIBILITY OF SUCH DAMAGE.
 """
 import os
-
+import logging
+import sys, re
+import random, io
 try:
     import httplib
 except ImportError:
@@ -41,9 +43,6 @@ try:
 except ImportError:
     from urllib.parse import quote, unquote
 from optparse import OptionParser
-import logging
-import sys, re
-import random
 
 # Colors for terminal
 W = '\033[1;97m'
@@ -82,7 +81,7 @@ woof = '''
        '''+Y+'''\(_)_))      '''+G+'''/  |  \                   '''+Y+'''|__|'''+E+'''
 
     WAFW00F - Web Application Firewall Detection Tool
-    \n'''
+    '''
 
 class WafW00F(waftoolsengine):
 
@@ -91,7 +90,7 @@ class WafW00F(waftoolsengine):
     dirtravstring = '../../../../etc/passwd'
     cleanhtmlstring = '<invalid>hello'
 
-    def __init__(self, target='www.microsoft.com', port=80, ssl=False,
+    def __init__(self, target='www.example.com', port=80, ssl=False,
                  debuglevel=0, path='/', followredirect=True, extraheaders={}, proxy=False):
         """
         target: the hostname or ip of the target server
@@ -300,7 +299,7 @@ def getheaders(fn):
     if not os.path.exists(fullfn):
         logging.getLogger('wafw00f').critical('Headers file "%s" does not exist!' % fullfn)
         return
-    with open(fn, 'r') as f:
+    with io.open(fn, 'r', encoding='utf-8') as f:
         for line in f.readlines():
             _t = line.split(':', 2)
             if len(_t) == 2:
