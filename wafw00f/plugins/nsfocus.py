@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 
-NAME = 'NSFocus'
+NAME = 'NSFocus (NSFocus Global Inc.)'
 
 
 def is_waf(self):

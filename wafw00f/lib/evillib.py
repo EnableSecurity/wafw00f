@@ -10,12 +10,6 @@ except ImportError:
     from urllib.parse import urlparse, urlunparse
 import logging
 
-try:
-    from bs4 import BeautifulSoup
-except ImportError:
-    sys.stderr.write('You need to get BeautifulSoup installed\n')
-    sys.stderr.write('Do it now, as privileged user/root run: pip install beautifulsoup4\now')
-    sys.exit(1)
 
 
 from .proxy import NullProxy, HttpProxy, Socks5Proxy, httplib, socks
@@ -379,7 +373,7 @@ class waftoolsengine:
             responsebody = response.read()
             h.close()
             r = response, responsebody
-        except (socket.error, socket.timeout, httplib.BadStatusLine):
+        except (socket.error, socket.timeout, httplib.BadStatusLine, httplib.IncompleteRead):
             self.log.warn('Hey.. they closed our connection!')
             r = None
         finally:
@@ -387,54 +381,6 @@ class waftoolsengine:
 
         return r
 
-
-    def querycrawler(self, path=None, curdepth=0, maxdepth=1):
-        self.log.debug('Crawler is visiting %s' % path)
-        localcrawlpaths = list()
-        if curdepth > maxdepth:
-            self.log.info('maximum depth %s reached' % maxdepth)
-            return
-        r = self.request(path=path)
-        if r is None:
-            return
-        response, responsebody = r
-        try:
-            soup = BeautifulSoup(responsebody)
-        except:
-            self.log.warn('could not parse the response body')
-            return
-        tags = soup('a')
-        for tag in tags:
-            try:
-                href = tag["href"]
-                if href is not None:
-                    tmpu = urlparse(href)
-                    if (tmpu[1] != '') and (self.target != tmpu[1]):
-                        # not on the same domain name .. ignore
-                        self.log.debug('Ignoring link because it is not on the same site %s' % href)
-                        continue
-                    if tmpu[0] not in ['http', 'https', '']:
-                        self.log.debug('Ignoring link because it is not an http uri %s' % href)
-                        continue
-                    path = tmpu[2]
-                    if not path.startswith('/'):
-                        path = '/' + path
-                    if len(tmpu[4]) > 0:
-                        # found a query .. thats all we need                                                
-                        location = urlunparse(('', '', path, tmpu[3], tmpu[4], ''))
-                        self.log.info('Found query %s' % location)
-                        return href
-                    if path not in self.crawlpaths:
-                        href = unquote(path)
-                        self.log.debug('adding %s for crawling' % href)
-                        self.crawlpaths.append(href)
-                        localcrawlpaths.append(href)
-            except KeyError:
-                pass
-        for nextpath in localcrawlpaths:
-            r = self.querycrawler(path=nextpath, curdepth=curdepth + 1, maxdepth=maxdepth)
-            if r:
-                return r
 
     def _parse_proxy(self, proxy, ssl):
         parts = urlparse(proxy)

@@ -1,8 +1,10 @@
 #!/usr/bin/env python
 
 
-NAME = 'ChinaCache-CDN'
+NAME = 'ChinaCache CDN Load Balancer (ChinaCache)'
 
 
 def is_waf(self):
-    return self.matchheader(('Powered-By-ChinaCache', '.+'))
+    if self.matchheader(('Powered-By-ChinaCache', '.+')):
+        return True
+    return False

@@ -1,9 +1,10 @@
 #!/usr/bin/env python
 
 
-NAME = 'Art of Defence HyperGuard'
+NAME = 'HyperGuard (Art of Defense)'
 
 
 def is_waf(self):
-    # credit goes to W3AF
-    return self.matchcookie('^WODSESSION=')
+    if self.matchcookie(r'^WODSESSION='):
+        return True
+    return False
