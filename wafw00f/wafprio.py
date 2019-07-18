@@ -1,4 +1,8 @@
 #!/usr/bin/env python
+'''
+Copyright (C) 2019, WAFW00F Developers.
+See the LICENSE file for copying permission.
+'''
 
 # NOTE: this priority list is used so that each check can be prioritized,
 # so that the quick checks are done first and ones that require more
