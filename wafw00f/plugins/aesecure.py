@@ -5,13 +5,10 @@ NAME = 'aeSecure (aeSecure)'
 
 
 def is_waf(self):
-    for attack in self.attacks:
-        r = attack(self)
-        if r is None:
-            return
-        response, page = r
-        if response.getheader('aeSecure-code'):
-            return True
-        if b'aesecure_denied.png' in page:
-            return True
+    schemes = [
+        self.matchHeader(('aeSecure-code', '.+')),
+        self.matchContent(r'aesecure_denied.png')
+    ]
+    if any(i for i in schemes):
+        return True
     return False
