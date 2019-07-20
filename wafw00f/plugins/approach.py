@@ -1,26 +1,18 @@
 #!/usr/bin/env python
-
+'''
+Copyright (C) 2019, WAFW00F Developers.
+See the LICENSE file for copying permission.
+'''
 
 NAME = 'Approach (Approach)'
 
 
 def is_waf(self):
-    # Approach reveals itself within the server headers without any mal requests
-    if self.matchheader(('Server', 'Approach Web Application Firewall')):
+    schemes = [
+        # This method of detection is old (though most reliable), so we check it first
+        self.matchContent(r'approach.+?web.application.(firewall|filtering)'),
+        self.matchContent(r'approach.+?infrastructure.team')
+        ]
+    if any(i for i in schemes):
         return True
-    for attack in self.attacks:
-        r = attack(self)
-        if r is None:
-            return
-        _, page = r
-        # Sites without modified block page return both, so checking for any
-        # one of them works.
-        if any(i in page for i in (b'Approach</b> Web Application Firewall', 
-            b'Approach</i> infrastructure team')):
-            return True
-        # However sites with modified blockpage retain these two common 
-        # characteristic fingerprints.
-        if all(i in page for i in (b'Sorry for the inconvenience!', 
-            b'If this was an legitimate request please contact us with details!')):
-            return True
     return False
