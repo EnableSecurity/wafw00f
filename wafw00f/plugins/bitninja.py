@@ -1,16 +1,17 @@
 #!/usr/bin/env python
-
+'''
+Copyright (C) 2019, WAFW00F Developers.
+See the LICENSE file for copying permission.
+'''
 
 NAME = 'BitNinja (BitNinja)'
 
 
 def is_waf(self):
-    for attack in self.attacks:
-        r = attack(self)
-        if r is None:
-            return
-        _, page = r
-        # Both signatures are contained within response, so checking for any one of them
-        if any(i in page for i in (b'Security check by BitNinja', b'<title>Visitor anti-robot validation</title>')):
-            return True
+    schemes = [
+        self.matchContent(r'Security check by BitNinja'),
+        self.matchContent(r'<.+?>Visitor anti-robot validation<.+>')
+    ]
+    if any(i for i in schemes):
+        return True
     return False
