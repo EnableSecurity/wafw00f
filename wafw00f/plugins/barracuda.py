@@ -1,25 +1,20 @@
 #!/usr/bin/env python
-
+'''
+Copyright (C) 2019, WAFW00F Developers.
+See the LICENSE file for copying permission.
+'''
 
 NAME = 'Barracuda Application Firewall (Barracuda Networks)'
 
 
 def is_waf(self):
-    if self.matchcookie(r'^barra_counter_session='):
+    schemes = [
+        self.matchCookie(r'^barra_counter_session='),
+        self.matchCookie(r'^BNI__BARRACUDA_LB_COOKIE='),
+        self.matchCookie(r'^BNI_persistence='),
+        self.matchCookie(r'^BN[IE]S_.*?='),
+        self.matchContent(r'Barracuda.Networks.+?Inc')
+    ]
+    if any(i for i in schemes):
         return True
-    if self.matchcookie(r'^BNI__BARRACUDA_LB_COOKIE='):
-        return True
-    if self.matchcookie(r'^BNI_persistence='):
-        return True
-    if self.matchcookie(r'^BN[IE]S_.*?='):
-        return True
-    for attack in self.attacks:
-        r = attack(self)
-        if r is None:
-            return
-        _, responsepage = r
-        # At the bottom of blockpage there is a copyright
-        # notice indicating barracuda networks.
-        if b'Barracuda Networks, Inc' in responsepage:
-            return True
     return False
