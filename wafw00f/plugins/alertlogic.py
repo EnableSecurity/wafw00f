@@ -9,7 +9,6 @@ NAME = 'Alert Logic (Alert Logic)'
 
 def is_waf(self):
     schemes = [
-        # This method of detection is old (though most reliable), so we check it first
         self.matchContent(r'<.+?>requested.url.cannot.be.found<.+?>'),
         self.matchContent(r'we.are.sorry.+but.the.page.you.are.looking.for.cannot.be.found'),
         self.matchContent(r'back.to.previous.page'),
