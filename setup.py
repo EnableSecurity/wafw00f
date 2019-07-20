@@ -19,7 +19,6 @@ setup(
     packages=find_packages(),
     scripts=['wafw00f/bin/wafw00f'],
     install_requires=[
-        'beautifulsoup4',
         'pluginbase',
         'html5lib'
     ],
