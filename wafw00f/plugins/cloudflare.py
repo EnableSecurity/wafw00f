@@ -1,17 +1,19 @@
 #!/usr/bin/env python
-
+'''
+Copyright (C) 2019, WAFW00F Developers.
+See the LICENSE file for copying permission.
+'''
 
 NAME = 'Cloudflare (Cloudflare Inc.)'
 
 
 def is_waf(self):
-    # This should be given first priority (most reliable)
-    if self.matchcookie('__cfduid'):
-        return True
-    # Not all servers return cloudflare-nginx, only nginx ones
-    if self.matchheader(('server', 'cloudflare-nginx')) or self.matchheader(('server', 'cloudflare')):
-        return True
-    # Found a new nice fingerprint for cloudflare
-    if self.matchheader(('cf-ray', '.*')):
+    schemes = [
+        self.matchHeader(('server', 'cloudflare')),
+        self.matchHeader(('server', 'cloudflare.nginx')),
+        self.matchHeader(('cf-ray', '.+')),
+        self.matchCookie('__cfduid')
+    ]
+    if any(i for i in schemes):
         return True
     return False
