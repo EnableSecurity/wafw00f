@@ -189,13 +189,12 @@ class WAFW00F(waftoolsengine):
             r = req(self)
             if r is None:
                 return
-            # We may need to match multiline context in response body
             if r.status_code == statuscode:
                 detected = True
         return detected
 
-    def matchCookie(self, match):
-        return self.matchHeader(('Set-Cookie', match))
+    def matchCookie(self, match, attack=False):
+        return self.matchHeader(('Set-Cookie', match), attack=attack)
 
     def matchReason(self, reasoncode, attack=True):
         if attack:
