@@ -1,16 +1,17 @@
 #!/usr/bin/env python
-
+'''
+Copyright (C) 2019, WAFW00F Developers.
+See the LICENSE file for copying permission.
+'''
 
 NAME = 'Chuang Yu Shield (Yunaq)'
 
 
 def is_waf(self):
-    for attack in self.attacks:
-        r = attack(self)
-        if r is None:
-            return
-        _, page = r
-        # Both reference to URLs in blockpage
-        if any(i in page for i in (b'www.365cyd.com', b'help.365cyd.com/cyd-error-help.html?code=403')):
-            return True
+    schemes = [
+        self.matchContent(r'www.365cyd.com'),
+        self.matchContent(r'help.365cyd.com/cyd\-error\-help.html\?code=403')
+    ]
+    if any(i for i in schemes):
+        return True
     return False
