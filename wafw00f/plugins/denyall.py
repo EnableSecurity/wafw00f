@@ -12,6 +12,6 @@ def is_waf(self):
         self.matchStatus(200),
         self.matchReason('Condition Intercepted')
     ]
-    if any(i for i in schemes):
+    if all(i for i in schemes):
         return True
     return False
