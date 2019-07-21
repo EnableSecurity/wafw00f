@@ -1,13 +1,18 @@
 #!/usr/bin/env python
-
+'''
+Copyright (C) 2019, WAFW00F Developers.
+See the LICENSE file for copying permission.
+'''
 
 NAME = 'DOSarrest (DOSarrest Internet Security)'
 
 
 def is_waf(self):
-    if self.matchheader(('X-DIS-Request-ID', '.+')):
-        return True
-    # Found samples of DOSArrest returning 'Server: DoSArrest/3.5'
-    if self.matchheader(('Server', 'DOSarrest(.*)?')):
+    schemes = [
+        self.matchHeader(('X-DIS-Request-ID', '.+')),
+        # Found samples of DOSArrest returning 'Server: DoSArrest/3.5'
+        self.matchHeader(('Server', r'DOSarrest(.*)?'))
+    ]
+    if any(i for i in schemes):
         return True
     return False
