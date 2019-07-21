@@ -1,16 +1,17 @@
 #!/usr/bin/env python
-
+'''
+Copyright (C) 2019, WAFW00F Developers.
+See the LICENSE file for copying permission.
+'''
 
 NAME = 'BIG-IP Application Security Manager (F5 Networks)'
 
 
 def is_waf(self):
-    # Actual fingerprint is this arising due to attack strings
-    for attack in self.attacks:
-        r = attack(self)
-        if r is None:
-            return
-        _, page = r
-        if b'The requested URL was rejected. Please consult with your administrator' in page:
-            return True
+    schemes = [
+        self.matchContent('the.requested.url.was.rejected'),
+        self.matchContent('please.consult.with.your.administrator')
+    ]
+    if all(i for i in schemes):
+        return True
     return False
