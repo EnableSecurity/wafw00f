@@ -1,17 +1,18 @@
 #!/usr/bin/env python
-
+'''
+Copyright (C) 2019, WAFW00F Developers.
+See the LICENSE file for copying permission.
+'''
 
 NAME = 'Distil (Distil Networks)'
 
 
 def is_waf(self):
-    for attack in self.attacks:
-        r = attack(self)
-        if r is None:
-            return
-        _, page = r
-        # Distil exposes itself in its captchas, and picture on blockpage
-        if any(i in page for i in (b'cdn.distilnetworks.com/images/anomaly-detected.png',
-            b'distilCaptchaForm', b'distilCallbackGuard')):
-            return True
+    schemes = [
+        self.matchContent(r'cdn.distilnetworks.com/images/anomaly.detected.png'),
+        self.matchContent(r'distilCaptchaForm'),
+        self.matchContent(r'distilCallbackGuard')
+    ]
+    if any(i for i in schemes):
+        return True
     return False
