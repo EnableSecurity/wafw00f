@@ -1,20 +1,18 @@
 #!/usr/bin/env python
-
+'''
+Copyright (C) 2019, WAFW00F Developers.
+See the LICENSE file for copying permission.
+'''
 
 NAME = 'DotDefender (Applicure Technologies)'
 
 
 def is_waf(self):
-    for attack in self.attacks:
-        r = attack(self)
-        if r is None:
-            return
-        response, responsepage = r
-        if response.getheader('X-dotDefender-denied'):
-            return True
-        # Using a bytes like object directly for comparison resolved 
-        # the load of decoding it again.
-        if any(i in responsepage for i in (b'dotDefender Blocked Your Request', 
-            b'Applicure is the leading provider of web application security')):
-            return True
+    schemes = [
+        self.matchHeader(('X-dotDefender-denied', r'.+?'), attack=True),
+        self.matchContent(r'dotdefender.blocked.your.request'),
+        self.matchContent(r'Applicure.is.the.leading.provider.of.web.application.security')
+    ]
+    if any(i for i in schemes):
+        return True
     return False
