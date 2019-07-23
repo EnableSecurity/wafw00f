@@ -1,19 +1,20 @@
 #!/usr/bin/env python
-
+'''
+Copyright (C) 2019, WAFW00F Developers.
+See the LICENSE file for copying permission.
+'''
 
 NAME = 'Incapsula (Imperva Inc.)'
 
 
 def is_waf(self):
-    if self.matchcookie(r'^incap_ses.*='):
+    schemes = [
+        self.matchCookie(r'^incap_ses.*='),
+        self.matchCookie(r'^visid_incap.*='),
+        self.matchContent(r'incapsula.incident.id'),
+        self.matchContent(r'powered.by.incapsula'),
+        self.matchContent(r'/_Incapsula_Resource')
+    ]
+    if any(i for i in schemes):
         return True
-    if self.matchcookie(r'^visid_incap.*='):
-        return True
-    for attack in self.attacks:
-        r = attack(self)
-        if r is None:
-            return
-        _, responsepage = r
-        if any(a in responsepage for a in (b"Incapsula incident ID:", b"/_Incapsula_Resource")):
-            return True
     return False
