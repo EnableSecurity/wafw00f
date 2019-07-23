@@ -1,20 +1,19 @@
-
 #!/usr/bin/env python
-
+'''
+Copyright (C) 2019, WAFW00F Developers.
+See the LICENSE file for copying permission.
+'''
 
 NAME = 'Imunify360 (CloudLinux)'
 
 
 def is_waf(self):
-    # Imunify has a nice way of expressing itself in server header
-    if self.matchheader(('Server', r'imunify360\-webshield')):
+    schemes = [
+        self.matchHeader(('Server', r'imunify360.+?')),
+        self.matchContent(r'protected.by.+?imunify360'),
+        self.matchContent(r'powered.by.+?imunify360'),
+        self.matchContent(r'imunify360.preloader')
+    ]
+    if any(i for i in schemes):
         return True
-    for attack in self.attacks:
-        r = attack(self)
-        if r is None:
-            return
-        _, page = r
-        # Sites without modified block page return all fingerprints, so checking for any one of them works.
-        if any(i in page for i in (b'protected by Imunify360', b'Powered by Imunify360', b'imunify360 preloader')):
-            return True
     return False
