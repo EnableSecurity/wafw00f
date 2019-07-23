@@ -1,24 +1,25 @@
 #!/usr/bin/env python
-
+'''
+Copyright (C) 2019, WAFW00F Developers.
+See the LICENSE file for copying permission.
+'''
 
 NAME = 'Instart DX (Instart Logic)'
 
 
 def is_waf(self):
-    # Instart DX sometimes associates itself with these 3 separate headers.
-    if self.matchheader(('X-Instart-Request-ID', '.+')):
+    schema1 = [
+        self.matchHeader(('X-Instart-Request-ID', '.+')),
+        self.matchHeader(('X-Instart-Cache', '.+')),
+        self.matchHeader(('X-Instart-WL', '.+'))
+    ]
+    schema2 = [
+        self.matchContent(r'the.requested.url.was.rejected'),
+        self.matchContent(r'please.consult.with.your.administrator'),
+        self.matchContent(r'your.support.id.is.')
+    ]
+    if any(i for i in schema1):
         return True
-    if self.matchheader(('X-Instart-Cache', '.+')):
+    if all(i for i in schema2):
         return True
-    if self.matchheader(('X-Instart-WL', '.+')):
-        return True
-    # Now going for attack phase
-    for attack in self.attacks:
-        r = attack(self)
-        if r is None:
-            return
-        _, page = r
-        if all(i in page for i in (b'The requested URL was rejected', b'Please consult with your administrator',
-            b'Your support ID is:')):
-            return True
     return False
