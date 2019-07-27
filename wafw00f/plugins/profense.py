@@ -1,12 +1,17 @@
 #!/usr/bin/env python
-
+'''
+Copyright (C) 2019, WAFW00F Developers.
+See the LICENSE file for copying permission.
+'''
 
 NAME = 'Profense (ArmorLogic)'
 
 
 def is_waf(self):
-    if self.matchheader(('Server', 'profense')):
-        return True
-    if self.matchcookie(r'^PLBSID='):
+    schemes = [
+        self.matchHeader(('Server', 'Profense')),
+        self.matchCookie(r'^PLBSID=')
+    ]
+    if any(i for i in schemes):
         return True
     return False
