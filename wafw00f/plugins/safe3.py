@@ -1,19 +1,17 @@
 #!/usr/bin/env python
-
+'''
+Copyright (C) 2019, WAFW00F Developers.
+See the LICENSE file for copying permission.
+'''
 
 NAME = 'Safe3 Web Firewall (Safe3)'
 
 
 def is_waf(self):
-    # Safe3 exposes itself below the Forbidden Header
-    if self.matchheader(('Server', 'Safe3 Web Firewall')):
+    schemes = [
+        self.matchHeader(('Server', 'Safe3 Web Firewall')),
+        self.matchContent(r'Safe3waf/[0-9\.]+?')
+    ]
+    if any(i for i in schemes):
         return True
-    # Now going for attack phase
-    for attack in self.attacks:
-        r = attack(self)
-        if r is None:
-            return
-        _, page = r
-        if b'Safe3waf/' in page:
-            return True
     return False
