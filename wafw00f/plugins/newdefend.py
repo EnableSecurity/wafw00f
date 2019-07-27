@@ -1,18 +1,21 @@
 #!/usr/bin/env python
-
+'''
+Copyright (C) 2019, WAFW00F Developers.
+See the LICENSE file for copying permission.
+'''
 
 NAME = 'Newdefend (NewDefend)'
 
 
 def is_waf(self):
-    # Newdefend reveals itself within the server headers without any mal requests
-    if self.matchheader(('Server', 'Newdefend')):
+    schemes = [
+        # This header can be obtained without attack mode
+        # Most reliable fingerprint
+        self.matchHeader(('Server', 'Newdefend')),
+        # Reliable ones within blockpage
+        self.matchContent(r'www.newdefend.com/feedback'),
+        self.matchContent(r'/nd\-block/')
+    ]
+    if any(i for i in schemes):
         return True
-    for attack in self.attacks:
-        r = attack(self)
-        if r is None:
-            return
-        _, page = r
-        if any(i in page for i in (b'http://www.newdefend.com/feedback', b'/nd-block/')):
-            return True
     return False
