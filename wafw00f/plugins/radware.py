@@ -1,23 +1,25 @@
 #!/usr/bin/env python
-
+'''
+Copyright (C) 2019, WAFW00F Developers.
+See the LICENSE file for copying permission.
+'''
 
 NAME = 'AppWall (Radware)'
 
 
 def is_waf(self):
-    if self.matchheader(('X-SL-CompState', '.+')):
+    schema1 = [
+        self.matchContent(r'CloudWebSec.radware.com'),
+        self.matchHeader(('X-SL-CompState', '.+'))
+    ]
+    schema2 = [
+        self.matchContent(r'because.we.have.detected.unauthorized.activity'),
+        self.matchContent(r'<title>Unauthorized Request Blocked<.+>'),
+        self.matchContent(r'if.you.believe.that.there.has.been.some.mistake'),
+        self.matchContent(r'\?Subject=Security.Page.+Case Number')
+    ]
+    if any(i for i in schema1):
         return True
-    for attack in self.attacks:
-        r = attack(self)
-        if r is None:
-            return
-        _, responsebody = r
-        # Most reliable fingerprint is this on block page
-        if all(i in responsebody for i in (b'because we have detected unauthorized activity', 
-            b'<TITLE>Unauthorized Request Blocked</TITLE>', b'If you believe that there has been some mistake',
-            b'?Subject=Security Page - Case Number')):
-            return True
-        # Restored a fingerprint for radware previously discarded
-        if b'CloudWebSec@radware.com' in responsebody:
-            return True
+    if all(i for i in schema2):
+        return True
     return False
