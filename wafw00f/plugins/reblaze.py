@@ -1,21 +1,24 @@
 #!/usr/bin/env python
-
+'''
+Copyright (C) 2019, WAFW00F Developers.
+See the LICENSE file for copying permission.
+'''
 
 NAME = 'Reblaze (Reblaze)'
 
 
 def is_waf(self):
-    if self.matchcookie(r'^rbzid='):
+    schema1 = [
+        self.matchCookie(r'^rbzid'),
+        self.matchHeader(('Server', 'Reblaze Secure Web Gateway'))
+    ]
+    schema2 = [
+        self.matchContent(r'current.session.has.been.terminated'),
+        self.matchContent(r'do.not.hesitate.to.contact.us'),
+        self.matchContent(r'access.denied.\(\d{3}\)')
+    ]
+    if any(i for i in schema1):
         return True
-    if self.matchheader(('Server', 'Reblaze Secure Web Gateway')):
+    if all(i for i in schema2):
         return True
-    # Now going for attack phase
-    for attack in self.attacks:
-        r = attack(self)
-        if r is None:
-            return
-        _, page = r
-        if all(i in page for i in (b'Current session has been terminated', b'do not hesitate to contact us', 
-            b'Access denied (403)')):
-            return True
     return False
