@@ -1,17 +1,23 @@
 #!/usr/bin/env python
-
+'''
+Copyright (C) 2019, WAFW00F Developers.
+See the LICENSE file for copying permission.
+'''
 
 NAME = 'SecuPress WordPress Security (SecuPress)'
 
 
 def is_waf(self):
-    for attack in self.attacks:
-        r = attack(self)
-        if r is None:
-            return
-        response, page = r
-        if response.status == 503 and b'<h1>SecuPress</h1><h2>' in page:
-            return True
-        if all(i in page for i in (b'SecuPress</h1>', b'Block ID: Bad URL Contents</p>')):
-            return True
+    schema1 = [
+        self.matchContent(r'<.+?>SecuPress<.+>'),
+        self.matchStatus(503)
+    ]
+    schema2 = [
+        self.matchContent(r'SecuPress<.+>'),
+        self.matchContent(r'Block.ID.+?Bad.URL.Contents<.+?>')
+    ]
+    if all(i for i in schema1):
+        return True
+    if all(i for i in schema2):
+        return True
     return False
