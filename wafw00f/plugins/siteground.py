@@ -1,16 +1,17 @@
 #!/usr/bin/env python
-
+'''
+Copyright (C) 2019, WAFW00F Developers.
+See the LICENSE file for copying permission.
+'''
 
 NAME = 'SiteGround (SiteGround)'
 
 
 def is_waf(self):
-    for attack in self.attacks:
-        r = attack(self)
-        if r is None:
-            return
-        _, page = r
-        if any(i in page for i in (b'Our system thinks you might be a robot!', 
-            b'The page you are trying to access is restricted due to a security rule')):
-            return True
+    schemes = [
+        self.matchContent(r"Our.system.thinks.you.might.be.a.robot!"),
+        self.matchContent(r'The.page.you.are.trying.to.access.is.restricted.due.to.a.security.rule')
+    ]
+    if any(i for i in schemes):
+        return True
     return False
