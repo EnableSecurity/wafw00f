@@ -1,15 +1,17 @@
 #!/usr/bin/env python
-
+'''
+Copyright (C) 2019, WAFW00F Developers.
+See the LICENSE file for copying permission.
+'''
 
 NAME = 'Safeline (Chaitin Tech.)'
 
 
 def is_waf(self):
-    for attack in self.attacks:
-        r = attack(self)
-        if r is None:
-            return
-        _, responsepage = r
-        if any(i in responsepage for i in (b'SafeLine', b'<!-- event_id:')):
-            return True
+    schemes = [
+        self.matchContent(r'safeline'),
+        self.matchContent(r'<!\-\-\sevent.id:')
+    ]
+    if any(i for i in schemes):
+        return True
     return False
