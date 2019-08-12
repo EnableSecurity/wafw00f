@@ -1,21 +1,20 @@
 #!/usr/bin/env python
-
+'''
+Copyright (C) 2019, WAFW00F Developers.
+See the LICENSE file for copying permission.
+'''
 
 NAME = 'Safedog (SafeDog)'
 
 
 def is_waf(self):
-    if self.matchcookie(r'^safedog\-flow\-item='):
+    schemes = [
+        self.matchCookie(r'^safedog\-flow\-item='),
+        self.matchHeader(('Server', 'Safedog')),
+        self.matchContent(r'safedogsite/broswer_logo.jpg'),
+        self.matchContent(r'404.safedog.cn/sitedog_stat.html'),
+        self.matchContent(r'404.safedog.cn/images/safedogsite/head.png')
+    ]
+    if any(i for i in schemes):
         return True
-    if self.matchheader(('server', 'Safedog')):
-        return True
-    for attack in self.attacks:
-        r = attack(self)
-        if r is None:
-            return
-        _, responsebody = r
-        # Most reliable fingerprint is this on block page
-        if any(i in responsebody for i in (b'safedogsite/broswer_logo.jpg', 
-            b'404.safedog.cn/sitedog_stat.html', b'404.safedog.cn/images/safedogsite/head.png')):
-            return True
     return False
