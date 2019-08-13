@@ -1,17 +1,21 @@
 #!/usr/bin/env python
+'''
+Copyright (C) 2019, WAFW00F Developers.
+See the LICENSE file for copying permission.
+'''
 
-# Well this is confusing, Sitelock itself uses Incapsula from Imperva
-# So the fingerprints obtained on blockpage are exactly similar to those of Incapsula.
 NAME = 'Sitelock (TrueShield)'
 
+# Well this is confusing, Sitelock itself uses Incapsula from Imperva
+# So the fingerprints obtained on blockpage are similar to those of Incapsula.
 
 def is_waf(self):
-    for attack in self.attacks:
-        r = attack(self)
-        if r is None:
-            return
-        _, page = r
-        if any(i in page for i in (b'SiteLock will remember you', b'SiteLock Incident ID',
-            b'Sitelock is leader in Business Website Security Services', b'sitelock_shield_logo')):
-            return True
+    schemes = [
+        self.matchContent(r"SiteLock.will.remember.you"),
+        self.matchContent(r"Sitelock.is.leader.in.Business.Website.Security.Services"),
+        self.matchContent(r"sitelock[_\-]shield([_-]logo|[-_]badge)?"),
+        self.matchContent(r'SiteLock.incident.ID')
+    ]
+    if any(i for i in schemes):
+        return True
     return False
