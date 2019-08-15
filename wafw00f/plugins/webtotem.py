@@ -1,16 +1,16 @@
 #!/usr/bin/env python
-
+'''
+Copyright (C) 2019, WAFW00F Developers.
+See the LICENSE file for copying permission.
+'''
 
 NAME = 'WebTotem (WebTotem)'
 
 
 def is_waf(self):
-    for attack in self.attacks:
-        r = attack(self)
-        if r is None:
-            return
-        _, page = r
-        # WebTotem returns its name in blockpage
-        if all(i in page for  i in (b'The current request was blocked', b'WebTotem')):
-            return True
+    schemes = [
+        self.matchContent(r"The.current.request.was.blocked.+?>WebTotem")
+    ]
+    if any(i for i in schemes):
+        return True
     return False
