@@ -1,17 +1,17 @@
 #!/usr/bin/env python
-
+'''
+Copyright (C) 2019, WAFW00F Developers.
+See the LICENSE file for copying permission.
+'''
 
 NAME = 'VirusDie (VirusDie LLC)'
 
 
 def is_waf(self):
-    for attack in self.attacks:
-        r = attack(self)
-        if r is None:
-            return
-        _, page = r
-        # Virusdie has lot of fingerprints in its blockpage
-        if any(i in page for  i in (b'cdn.virusdie.ru/splash/firewallstop.png', b'copy; Virusdie.ru',
-            b'Virusdie</title>')):
-            return True
+    schemes = [
+        self.matchContent(r"cdn\.virusdie\.ru/splash/firewallstop\.png"),
+        self.matchContent(r'copy.+?Virusdie\.ru')
+    ]
+    if any(i for i in schemes):
+        return True
     return False
