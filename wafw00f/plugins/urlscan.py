@@ -1,16 +1,17 @@
 #!/usr/bin/env python
-
+'''
+Copyright (C) 2019, WAFW00F Developers.
+See the LICENSE file for copying permission.
+'''
 
 NAME = 'URLScan (Microsoft)'
 
 
 def is_waf(self):
-    for attack in self.attacks:
-        r = attack(self)
-        if r is None:
-            return
-        _, body = r
-        # Most reliable fingerprint is this on block page
-        if any(i in body for i in (b'Rejected-By-UrlScan', b'A custom filter or module, such as URLScan')):
-            return True
+    schemes = [
+        self.matchContent(r"Rejected[-_]By[_-]UrlScan"),
+        self.matchContent(r'A.custom.filter.or.module.+?such.as.URLScan')
+    ]
+    if any(i for i in schemes):
+        return True
     return False
