@@ -1,24 +1,33 @@
 #!/usr/bin/env python
-
+'''
+Copyright (C) 2019, WAFW00F Developers.
+See the LICENSE file for copying permission.
+'''
 
 NAME = 'WebKnight (AQTRONIX)'
 
 
 def is_waf(self):
-    for attack in self.attacks:
-        r = attack(self)
-        if r is None:
-            return
-        response, page = r
-        # This method is obsolete now. Sites using older versions of
-        # Webknight will only return this fingerprint
-        if response.status == 999 and response.reason == 'No Hacking':
-            return True
-        # Nowadays updated version of Webknight return this
-        if response.status == 404 and response.reason == 'Hack Not Found':
-            return True
-        if any(i in page for i in (b'WebKnight Application Firewall Alert', b'What is WebKnight?',
-            b'AQTRONIX WebKnight is an application firewall', b'WebKnight will take over and protect',
-            b'aqtronix.com/WebKnight', b'>AQTRONIX</FONT> WebKnight')):
-            return True
+    schema1 = [
+        self.matchStatus(999),
+        self.matchReason('No Hacking')
+    ]    
+    schema2 = [
+        self.matchStatus(404),
+        self.matchReason('Hack Not Found')
+    ]
+    schema3 = [
+        self.matchContent(r'WebKnight.Application.Firewall.Alert'),
+        self.matchContent(r'What.is.webknight\?'),
+        self.matchContent(r'AQTRONIX.WebKnight.is.an.application.firewall'),
+        self.matchContent(r'WebKnight.will.take.over.and.protect'),
+        self.matchContent(r'aqtronix.com/WebKnight'),
+        self.matchContent(r'AQTRONIX.+?WebKnight'),
+    ]
+    if all(i for i in schema1):
+        return True
+    if all(i for i in schema2):
+        return True    
+    if any(i for i in schema3):
+        return True
     return False
