@@ -320,11 +320,11 @@ def main():
             sys.exit(1)
         (hostname, port, path, _, _) = pret
         log.info('starting wafw00f on %s' % target)
-        attacker = WAFW00F(hostname, port=port, debuglevel=options.verbose, path=path,
+        attacker = WAFW00F(target, port=port, debuglevel=options.verbose, path=path,
                     followredirect=options.followredirect, extraheaders=extraheaders,
                         proxy=options.proxy, auth=options.auth)
         if attacker.normalRequest() is None:
-            log.error('Site %s appears to be down' % target)
+            log.error('Site %s appears to be down' % hostname)
             continue
         if options.test:
             if options.test in attacker.wafdetections:
