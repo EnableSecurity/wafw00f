@@ -8,8 +8,11 @@ NAME = 'FortiWeb (Fortinet)'
 
 
 def is_waf(self):
-    schemes = [
+    schema1 = [
         self.matchCookie(r'^FORTIWAFSID='),
+        self.matchContent('.fgd_icon')
+    ]
+    schema2 = [
         self.matchContent('fgd_icon'),
         self.matchContent('web.page.blocked'),
         self.matchContent('url'),
@@ -17,6 +20,8 @@ def is_waf(self):
         self.matchContent('message.id'),
         self.matchContent('client.ip')
     ]
-    if all(i for i in schemes):
+    if any(i for i in schema1):
+        return True
+    if all(i for i in schema2):
         return True
     return False
