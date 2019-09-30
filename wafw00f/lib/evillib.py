@@ -6,9 +6,14 @@ See the file 'LICENSE' for copying permission
 """
 
 import logging
-import re, sys
-import requests, time
+import re
+import sys
+import time
+
+import requests
+
 import requests_cache
+
 try:
     from urlparse import urlparse, urlunparse
 except ImportError:
