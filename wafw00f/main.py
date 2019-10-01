@@ -61,6 +61,7 @@ class WAFW00F(waftoolsengine):
                  followredirect=True, extraheaders={}, proxy=None, auth=None):
         
         self.log = logging.getLogger('wafw00f')
+        self.attackres = None
         waftoolsengine.__init__(self, target, port, debuglevel, path, proxy, followredirect, auth, extraheaders)
         self.knowledge = dict(generic=dict(found=False, reason=''), wafname=list())
 
@@ -79,12 +80,23 @@ class WAFW00F(waftoolsengine):
     def lfiAttack(self):
         return self.Request(path=self.path + self.lfistring)
 
+    def centralAttack(self):
+        return self.Request(path=self.path, params= {'a': self.xsstring, 'b': self.sqlistring})
+
     def sqliAttack(self):
         return self.Request(path=self.path, params= {'s': self.sqlistring})
 
     def oscAttack(self):
         return self.Request(path=self.path, params= {'s': self.rcestring})
 
+    def performCheck(self, request_method):
+        r = request_method()
+        if r is None:
+            raise RequestBlocked()
+        return r
+
+    # Most common attacks used to detect WAFs
+    attcom = [xssAttack, sqliAttack]
     attacks = [xssAttack, xxeAttack, lfiAttack, sqliAttack, oscAttack]
 
     def genericdetect(self):
@@ -146,84 +158,52 @@ class WAFW00F(waftoolsengine):
             return True
         return False
 
-    def performCheck(self, request_method):
-        r = request_method()
-        if r is None:
-            raise RequestBlocked()
-        return r
-
     def matchHeader(self, headermatch, attack=False):
-        detected = False
+        r = self.attackres
+        if r is None:
+            return
         header, match = headermatch
-        if attack:
-            reqs = self.attacks
-        else:
-            reqs = [self.normalRequest]
-        for req in reqs:
-            r = req(self)
-            if r is None:
-                return
-            headerval = r.headers.get(header)
-            if headerval:
-                # set-cookie can have multiple headers, python gives it to us
-                # concatinated with a comma
-                if header == 'Set-Cookie':
-                    headervals = headerval.split(', ')
-                else:
-                    headervals = [headerval]
-                for headerval in headervals:
-                    if re.search(match, headerval, re.I):
-                        detected = True
-                        break
-                if detected:
-                    break
-        return detected
+        headerval = r.headers.get(header)
+        if headerval:
+            # set-cookie can have multiple headers, python gives it to us
+            # concatinated with a comma
+            if header == 'Set-Cookie':
+                headervals = headerval.split(', ')
+            else:
+                headervals = [headerval]
+            for headerval in headervals:
+                if re.search(match, headerval, re.I):
+                    return True
+        return False
 
     def matchStatus(self, statuscode, attack=True):
-        detected = False
-        if attack:
-            reqs = self.attacks
-        else:
-            reqs = [self.normalRequest]
-        for req in reqs:
-            r = req(self)
-            if r is None:
-                return
-            if r.status_code == statuscode:
-                detected = True
-        return detected
+        r = self.attackres
+        if r is None:
+            return
+        if r.status_code == statuscode:
+            return True
+        return False
 
     def matchCookie(self, match, attack=False):
         return self.matchHeader(('Set-Cookie', match), attack=attack)
 
     def matchReason(self, reasoncode, attack=True):
-        if attack:
-            reqs = self.attacks
-        else:
-            reqs = [self.normalRequest]
-        for req in reqs:
-            r = req(self)
-            if r is None:
-                return
-            # We may need to match multiline context in response body
-            if str(r.reason) == reasoncode:
-                return True
+        r = self.attackres
+        if r is None:
+            return
+        # We may need to match multiline context in response body
+        if str(r.reason) == reasoncode:
+            return True
         return False
 
     def matchContent(self, regex, attack=True):
-        detected = False
-        if attack:
-            reqs = self.attacks
-        else:
-            reqs = [self.normalRequest]
-        for req in reqs:
-            r = req(self)
-            if r is None:
-                return
-            # We may need to match multiline context in response body
-            if re.search(regex, r.text, re.I|re.M):
-                detected = True
-        return detected
+        r = self.attackres
+        if r is None:
+            return
+        # We may need to match multiline context in response body
+        if re.search(regex, r.text, re.I|re.M):
+            return True
+        return False
 
     wafdetections = dict()
 
@@ -237,6 +217,7 @@ class WAFW00F(waftoolsengine):
 
     def identwaf(self, findall=False):
         detected = list()
+        self.attackres = self.performCheck(self.centralAttack)
         for wafvendor in self.checklist:
             self.log.info('Checking for %s' % wafvendor)
             if self.wafdetections[wafvendor](self):
@@ -298,7 +279,7 @@ def main():
         print('\r\n'.join(attacker.wafdetections.keys()))
         return
     if options.version:
-        print('WAFW00F version %s' % __version__)
+        print('WAFW00F Version %s' % __version__)
         return
     extraheaders = {}
     if options.headers:
