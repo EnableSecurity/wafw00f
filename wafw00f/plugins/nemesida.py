@@ -9,8 +9,10 @@ NAME = 'Nemesida (PentestIt)'
 
 def is_waf(self):
     schemes = [
+        self.matchContent(r'\w+@?nemesida(\-security)?\.com'),
         self.matchContent(r'Suspicious.activity.detected.+?Access.to.the.site.is.blocked.'),
-        self.matchContent(r'nwaf@.+\..+')
+        self.matchContent(r'nwaf@.+\..+'),
+        self.matchStatus(222)
     ]
     if any(i for i in schemes):
         return True
