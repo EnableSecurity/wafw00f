@@ -8,7 +8,6 @@ See the file 'LICENSE' for copying permission
 import logging
 import re, sys
 import requests, time
-import requests_cache
 try:
     from urlparse import urlparse, urlunparse
 except ImportError:
@@ -17,8 +16,6 @@ try:
     from urllib import quote, unquote
 except ImportError:
     from urllib.parse import quote, unquote
-
-requests_cache.install_cache('wafw00f', backend='sqlite', expire_after=300)
 
 def_headers = { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.100 Safari/537.36',
                 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
@@ -199,6 +196,7 @@ class waftoolsengine:
             time.sleep(delay)
             req = requests.get(self.target, proxies=self.proxy, headers=self.headers, timeout=timeout,
                     allow_redirects=self.allowredir, params=params)
+            self.requestnumber += 1
             return req
         except requests.exceptions.RequestException as e:
             print('Something went wrong %s' % (e.__str__()))
