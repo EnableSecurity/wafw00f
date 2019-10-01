@@ -4,16 +4,18 @@ Copyright (C) 2019, WAFW00F Developers.
 See the LICENSE file for copying permission.
 '''
 
+import io
 import logging
-import os, io
+import os
 import random
-import sys, re
+import re
+import sys
 from optparse import OptionParser
 
 from wafw00f import __version__
+from wafw00f.lib.evillib import scrambledHeader, urlParser, waftoolsengine
 from wafw00f.manager import load_plugins
 from wafw00f.wafprio import wafdetectionsprio
-from wafw00f.lib.evillib import urlParser, waftoolsengine, scrambledHeader
 
 # Colors for terminal
 W = '\033[1;97m'
