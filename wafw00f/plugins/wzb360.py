@@ -12,6 +12,7 @@ def is_waf(self):
         self.matchHeader(('Server', r'qianxin\-waf')),
         self.matchHeader(('WZWS-Ray', r'(.+)?')),
         self.matchHeader(('X-Powered-By-360WZB', r'.+?')),
+        self.matchHeader(('X-Safe-Firewall', r'(zhuji.)?360.cn.[0-9\.]+?(.[A-Z0-9]+)?')),
         self.matchContent(r'wzws\-waf\-cgi/'),
         self.matchContent(r'wangshan\.360\.cn'),
         self.matchStatus(493)
