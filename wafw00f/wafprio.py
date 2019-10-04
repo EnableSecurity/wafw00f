@@ -47,7 +47,6 @@ wafdetectionsprio = [
     'Anquanbao (Anquanbao)',
     'AnYu (AnYu Technologies)',
     'Approach (Approach)',
-    'AppTrana (Indusface)',
     'Armor Defense (Armor)',
     'ArvanCloud (ArvanCloud)',
     'ASP.NET Generic Protection (Microsoft)',
@@ -80,6 +79,7 @@ wafdetectionsprio = [
     'Greywizard (Grey Wizard)',
     'Imunify360 (CloudLinux)',
     'Incapsula (Imperva Inc.)',
+    'IndusGuard (Indusface)',
     'Instart DX (Instart Logic)',
     'ISA Server (Microsoft)',
     'Janusec Application Gateway (Janusec)',
@@ -149,6 +149,7 @@ wafdetectionsprio = [
     'Xuanwudun',
     'Yundun (Yundun)',
     'Yunsuo (Yunsuo)',
+    'YXLink (YxLink Technologies)',
     'Zenedge (Zenedge)',
     'ZScaler (Accenture)'
 ]
