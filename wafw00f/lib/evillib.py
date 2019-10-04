@@ -62,6 +62,7 @@ class waftoolsengine:
         self.path = path
         self.redirectno = 0
         self.allowredir = redir
+        self.log = logging.getLogger('requester')
         if port:
             self.target = self.target + ':' + str(port)
         if not head:
@@ -78,10 +79,13 @@ class waftoolsengine:
             time.sleep(delay)
             req = requests.get(self.target, proxies=self.proxy, headers=self.headers, timeout=timeout,
                     allow_redirects=self.allowredir, params=params)
+            self.log.info('Request Succeeded')
+            self.log.debug('Headers: %s\n\n' % req.headers)
+            self.log.debug('Content: %s\n\n' % req.content)
             self.requestnumber += 1
             return req
         except requests.exceptions.RequestException as e:
-            print('Something went wrong %s' % (e.__str__()))
+            self.log.error('Something went wrong %s' % (e.__str__()))
 
     def parseProxy(self, auth, proxies):
         pro = {}
@@ -91,13 +95,15 @@ class waftoolsengine:
             scheme = pr.split('://')[0].strip()
             proxy = pr.split('://')[1].strip()
             if auth:
+                self.log.info('Switching to proxying with authentication')
                 proxy = 'http://' + auth + '@' + proxy
             else:
+                self.log.info('Switching to normal proxying without authentication')
                 proxy = 'http://' + proxy
             if re.search(r'(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])', proxy):
                 pro[scheme] = proxy
             else:
-                print('Invalid proxy detected. Request routing disabled.')
+                self.log.error('Invalid proxy detected. Request routing disabled.')
         return pro
 
 def scrambledHeader(header):
