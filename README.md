@@ -4,7 +4,7 @@
   WAFW00F
 </h1>
 <p align="center">
-  <b>The #1 Web Application Firewall Fingerprinting Tool.</b>
+  <b>The Web Application Firewall Fingerprinting Tool.</b>
   <br>
   <b>
     &mdash; From <a href="https://enablesecurity.com">Enable Security</a>
