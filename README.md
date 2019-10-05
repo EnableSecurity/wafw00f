@@ -7,7 +7,7 @@
 <p align="center">
   <b>The #1 Web Application Firewall Fingerprinting Tool.</b>
   <br>
-  <b>&mdash; From <a href="https://enablesecurity.com">Enable Security</a>
+  <b>&mdash; From <a href="https://enablesecurity.com">Enable Security</a></b>
 </p>
 <p align="center">
   <a href="https://docs.python.org/3/download.html">
