@@ -1,13 +1,14 @@
 <h1 align="center">
-  <br>
-  <img src="l0g0.PNG" alt="wafw00f"/>
+  <a href="https://github.com/enablesecurity/wafw00f"><img src="https://i.imgur.com/uAgp49o.png" alt="wafw00f"/></a>
   <br>
   WAFW00F
 </h1>
 <p align="center">
   <b>The #1 Web Application Firewall Fingerprinting Tool.</b>
   <br>
-  <b>&mdash; From <a href="https://enablesecurity.com">Enable Security</a>
+  <b>
+    &mdash; From <a href="https://enablesecurity.com">Enable Security</a>
+  </b>
 </p>
 <p align="center">
   <a href="https://docs.python.org/3/download.html">
@@ -238,6 +239,10 @@ python setup.py install
 
 ## Final Words
 __Questions?__ Pull up an [issue on GitHub Issue Tracker](https://github.com/enablesecurity/wafw00f/issues/new) or contact [me](mailto:sandro@enablesecurity.com). [Pull requests](https://github.com/enablesecurity/wafw00f/pulls), [ideas and issues](https://github.com/enablesecurity/wafw00f/issues) are highly welcome. If you wish to see what how WAFW00F is being developed, check out the [Development Board](https://github.com/enablesecurity/wafw00f/projects/1).
+<<<<<<< HEAD
 
 > Copyright © [__Enable Security__](https://enablesecurity.com)
+=======
+>>>>>>> c3ff211a7b1ff4bec11cf575dd58c543b945d195
 
+> Copyright © [Enable Security](https://enablesecurity.com).
