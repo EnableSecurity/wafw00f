@@ -238,11 +238,6 @@ python setup.py install
 ```
 
 ## Final Words
-__Questions?__ Pull up an [issue on GitHub Issue Tracker](https://github.com/enablesecurity/wafw00f/issues/new) or contact [me](mailto:sandro@enablesecurity.com). [Pull requests](https://github.com/enablesecurity/wafw00f/pulls), [ideas and issues](https://github.com/enablesecurity/wafw00f/issues) are highly welcome. If you wish to see what how WAFW00F is being developed, check out the [Development Board](https://github.com/enablesecurity/wafw00f/projects/1).
-<<<<<<< HEAD
-
-> Copyright © [__Enable Security__](https://enablesecurity.com)
-=======
->>>>>>> c3ff211a7b1ff4bec11cf575dd58c543b945d195
+__Questions?__ Pull up an [issue on GitHub Issue Tracker](https://github.com/enablesecurity/wafw00f/issues/new) or contact [me](mailto:sandro@enablesecurity.com). [Pull requests](https://github.com/enablesecurity/wafw00f/pulls), [ideas and issues](https://github.com/enablesecurity/wafw00f/issues) are highly welcome. If you wish to see how WAFW00F is being developed, check out the [Development Board](https://github.com/enablesecurity/wafw00f/projects/1).
 
 > Copyright © [Enable Security](https://enablesecurity.com).
