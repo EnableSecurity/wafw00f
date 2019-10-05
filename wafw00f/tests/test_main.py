@@ -104,7 +104,7 @@ class WafW00FTestCase(TestCase):
            Via: 1.0 WT263CDN-1231786 (squid/3.0.STABLE20), 1.0 test.abc.com (squid/3.0.STABLE20)
            Connection: close
         """
-        self.__assert_waf('hsht.hs3w.com', 'West263CDN', {'X-Cache': 'MISS from WT263CDN-1231786'})
+        self.__assert_waf('hsht.hs3w.com', 'West263 Content Delivery Network', {'X-Cache': 'MISS from WT263CDN-1231786'})
 
     @httpretty.activate
     def __assert_waf(self, host, vendor, fake_headers):
