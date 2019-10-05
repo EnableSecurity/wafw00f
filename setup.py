@@ -19,6 +19,7 @@ setup(
     packages=find_packages(),
     scripts=['wafw00f/bin/wafw00f'],
     install_requires=[
+        'requests',
         'pluginbase',
         'html5lib'
     ],
