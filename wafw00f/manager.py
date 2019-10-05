@@ -6,9 +6,7 @@ See the LICENSE file for copying permission.
 
 import os
 from functools import partial
-
 from pluginbase import PluginBase
-
 
 def load_plugins():
     here = os.path.abspath(os.path.dirname(__file__))
