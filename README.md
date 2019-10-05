@@ -7,7 +7,7 @@
   <b>The #1 Web Application Firewall Fingerprinting Tool.</b>
   <br>
   <b>
-    &mdash; From <a href="https://enablesecurity.com">Enable Security</a> & <a href="https://twitter.com/0xInfection">0xInfection</a>
+    &mdash; From <a href="https://enablesecurity.com">Enable Security</a>
   </b>
 </p>
 <p align="center">
@@ -240,4 +240,4 @@ python setup.py install
 ## Final Words
 __Questions?__ Pull up an [issue on GitHub Issue Tracker](https://github.com/enablesecurity/wafw00f/issues/new) or contact [me](mailto:sandro@enablesecurity.com). [Pull requests](https://github.com/enablesecurity/wafw00f/pulls), [ideas and issues](https://github.com/enablesecurity/wafw00f/issues) are highly welcome. If you wish to see what how WAFW00F is being developed, check out the [Development Board](https://github.com/enablesecurity/wafw00f/projects/1).
 
-> Copyright © [Enable Security](https://enablesecurity.com) & [0xInfection](https://twitter.com/0xInfection).
+> Copyright © [Enable Security](https://enablesecurity.com).
