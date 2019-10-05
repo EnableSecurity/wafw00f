@@ -1,28 +1,28 @@
-<h1 align="center">
-  <a href="https://github.com/enablesecurity/wafw00f"><img src="https://i.imgur.com/uAgp49o.png" alt="wafw00f"/></a>
-  <br>
-  WAFW00F
-</h1>
 <p align="center">
-  <b>The #1 Web Application Firewall Fingerprinting Tool.</b>
-  <br>
-  <b>
-    &mdash; From <a href="https://enablesecurity.com">Enable Security</a>
-  </b>
-</p>
-<p align="center">
-  <a href="https://docs.python.org/3/download.html">
-    <img src="https://img.shields.io/badge/Python-3.x/2.x-green.svg">
-  </a>
-  <a href="https://github.com/EnableSecurity/wafw00f/releases">
-    <img src="https://img.shields.io/badge/Version-v1.0.0%20(stable)-blue.svg">
-  </a>
-  <a href="https://github.com/EnableSecurity/wafw00f/blob/master/LICENSE">
-    <img src="https://img.shields.io/badge/License-BSD%203%20Clause-orange.svg">
-  </a> 
-  <a href="https://travis-ci.com/EnableSecurity/wafw00f">
-    <img src="https://img.shields.io/badge/Build-Passing-brightgreen.svg?logo=travis">
-  </a>
+
+```
+                 ______
+                /      \
+               (  Woof! )
+                \______/                      )
+                ,,                           ) (_
+           .-. -    _______                 ( |__|
+          ()``; |==|_______)                .)|__|
+          / ('        /|\                  (  |__|
+      (  /  )        / | \                  . |__|
+       \(_)_))      /  |  \                   |__|
+
+```
+
+# WAFW00F
+----
+
+**The Web Application Firewall Fingerprinting Tool.**
+  
+From [Enable Security](https://enablesecurity.com)
+
+[![](https://img.shields.io/badge/Python-3.x/2.x-green.svg)](https://docs.python.org/3/download.html) [![](https://img.shields.io/badge/Version-v1.0.0%20(stable)-blue.svg)](https://github.com/EnableSecurity/wafw00f/releases) [![](https://img.shields.io/badge/License-BSD%203%20Clause-orange.svg)](https://github.com/EnableSecurity/wafw00f/blob/master/LICENSE) [![](https://img.shields.io/badge/Build-Passing-brightgreen.svg?logo=travis)](https://travis-ci.com/EnableSecurity/wafw00f)
+
 </p>
 
 ## How does it work?
