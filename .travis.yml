@@ -19,6 +19,9 @@ script:
   - wafw00f --help
   # Testing for Cloudflare
   - wafw00f https://yoxall.me.uk
+  # Testing for ModSecurity
+  - wafw00f http://celebritytweets.co.za
+
 notifications:
   on_success: change
   on_failure: change  # `always` will be the setting once code changes slow down
