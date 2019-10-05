@@ -5,7 +5,7 @@ from unittest import TestCase
 
 import httpretty
 
-from wafw00f.main import WafW00F
+from wafw00f.main import WAFW00F
 
 
 class WafW00FTestCase(TestCase):
@@ -109,6 +109,6 @@ class WafW00FTestCase(TestCase):
     @httpretty.activate
     def __assert_waf(self, host, vendor, fake_headers):
         httpretty.register_uri(httpretty.GET, 'http://%s/' % host, body='fake text', adding_headers=fake_headers)
-        attacker = WafW00F(host)
+        attacker = WAFW00F(host)
         waf = attacker.wafdetections[vendor](attacker)
         self.assertTrue(waf)
