@@ -106,6 +106,9 @@ class WafW00FTestCase(TestCase):
         """
         self.__assert_waf('hsht.hs3w.com', 'West263 Content Delivery Network', {'X-Cache': 'MISS from WT263CDN-1231786'})
 
+    def test_iscloudflare(self):
+        self.__assert_waf('investors.com', 'Cloudflare (Cloudflare Inc.)', {})
+
     @httpretty.activate
     def __assert_waf(self, host, vendor, fake_headers):
         httpretty.register_uri(httpretty.GET, 'http://%s/' % host, body='fake text', adding_headers=fake_headers)
