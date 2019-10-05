@@ -65,10 +65,10 @@ class waftoolsengine:
         self.log = logging.getLogger('requester')
         if port:
             self.target = self.target + ':' + str(port)
-        if not head:
-            self.headers = def_headers
-        else:
+        if head:
             self.headers = head
+        else:
+            self.headers = def_headers
         if proxy:
             self.proxy = self.parseProxy(auth, proxy)
         else:
@@ -80,8 +80,8 @@ class waftoolsengine:
             req = requests.get(self.target, proxies=self.proxy, headers=self.headers, timeout=timeout,
                     allow_redirects=self.allowredir, params=params)
             self.log.info('Request Succeeded')
-            self.log.debug('Headers: %s\n\n' % req.headers)
-            self.log.debug('Content: %s\n\n' % req.content)
+            self.log.debug('Headers: %s\n' % req.headers)
+            self.log.debug('Content: %s\n' % req.content)
             self.requestnumber += 1
             return req
         except requests.exceptions.RequestException as e:
