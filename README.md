@@ -20,7 +20,7 @@
   <a href="https://github.com/EnableSecurity/wafw00f/blob/master/LICENSE">
     <img src="https://img.shields.io/badge/License-BSD%203%20Clause-orange.svg">
   </a> 
-  <a href="https://travis-ci.org/EnableSecurity/wafw00f">
+  <a href="https://travis-ci.com/EnableSecurity/wafw00f">
     <img src="https://img.shields.io/badge/Build-Passing-brightgreen.svg?logo=travis">
   </a>
 </p>
