@@ -25,8 +25,7 @@ setup(
     scripts=['wafw00f/bin/wafw00f'],
     install_requires=[
         'requests',
-        'pluginbase',
-        'html5lib'
+        'pluginbase'
     ],
     classifiers=[
         'Development Status :: 5 - Production/Stable',
