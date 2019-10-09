@@ -37,19 +37,19 @@ os.chdir(scriptDir)
 
 # WOOF! Yes you heard it! WAF says a Woof! You know who's the good boy. ;)
 woof = '''
-                 '''+W+'''______
-                '''+W+'''/      \\
-               '''+W+'''(  Woof! )
-                '''+W+'''\______/                      '''+R+''')
-                '''+W+''',,                           '''+R+''') ('''+Y+'''_
-           '''+Y+'''.-. '''+W+'''-    '''+G+'''_______                 '''+R+'''( '''+Y+'''|__|
-          '''+Y+'''()``; '''+G+'''|==|_______)                '''+R+'''.)'''+Y+'''|__|
-          '''+Y+'''/ ('        '''+G+'''/|\                  '''+R+'''(  '''+Y+'''|__|
-      '''+Y+'''(  /  )       '''+G+''' / | \                  '''+R+'''. '''+Y+'''|__|
-       '''+Y+'''\(_)_))      '''+G+'''/  |  \                   '''+Y+'''|__|'''+E+'''
+                   '''+W+'''______
+                  '''+W+'''/      \\
+                 '''+W+'''(  Woof! )
+                  '''+W+r'''\______/                      '''+R+''')
+                  '''+W+''',,                           '''+R+''') ('''+Y+'''_
+             '''+Y+'''.-. '''+W+'''-    '''+G+'''_______                 '''+R+'''( '''+Y+'''|__|
+            '''+Y+'''()``; '''+G+'''|==|_______)                '''+R+'''.)'''+Y+'''|__|
+            '''+Y+'''/ ('        '''+G+'''/|\                  '''+R+'''(  '''+Y+'''|__|
+        '''+Y+'''(  /  )       '''+G+''' / | \                  '''+R+'''. '''+Y+'''|__|
+         '''+Y+r'''\(_)_))      '''+G+'''/  |  \                   '''+Y+'''|__|'''+E+'''
 
-    WAFW00F - Web Application Firewall Detection Tool (v1.0)
-    '''
+    WAFW00F - Web Application Firewall Detection Tool (v%s)
+    ''' % (__version__)
 
 class WAFW00F(waftoolsengine):
 
@@ -274,7 +274,7 @@ def main():
                       help='Pass custom headers via a text file to overwrite the default header set.')
     options, args = parser.parse_args()
     logging.basicConfig(level=calclogginglevel(options.verbose))
-    log = logging.getLogger()
+    log = logging.getLogger('wafw00f')
     if options.list:
         print('Can test for these WAFs:\r\n')
         attacker = WAFW00F(None)
@@ -335,5 +335,5 @@ def main():
 
 if __name__ == '__main__':
     if sys.hexversion < 0x2060000:
-        sys.stderr.write('Your version of python is way too old .. please update to 2.6 or later\r\n')
+        sys.stderr.write('Your version of python is way too old... please update to 2.6 or later\r\n')
     main()
