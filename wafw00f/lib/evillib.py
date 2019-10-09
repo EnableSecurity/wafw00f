@@ -62,7 +62,7 @@ class waftoolsengine:
         self.path = path
         self.redirectno = 0
         self.allowredir = redir
-        self.log = logging.getLogger('requester')
+        self.log = logging.getLogger('wafw00f')
         if port:
             self.target = self.target + ':' + str(port)
         if head:
