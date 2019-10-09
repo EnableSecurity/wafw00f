@@ -1,9 +1,8 @@
 #!/usr/bin/env python
-
-"""
-Copyright (C) 2009-2019 WAFW00F Developers.
-See the file 'LICENSE' for copying permission
-"""
+'''
+Copyright (C) 2019, WAFW00F Developers.
+See the LICENSE file for copying permission.
+'''
 
 import re
 import sys
