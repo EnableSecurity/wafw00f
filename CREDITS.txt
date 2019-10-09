@@ -19,5 +19,5 @@ However, a number of people contributed (in no particular order):
 
 The above list is somewhat outdated, refer to https://github.com/EnableSecurity/wafw00f/graphs/contributors for a list of contributors.
 
-If you did contributed and somehow I didn't put your name in there, please do
+If you did contribute and somehow I didn't put your name in there, please do
 let me know: <sandro@enablesecurity.com>. 
