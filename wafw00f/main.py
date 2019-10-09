@@ -57,7 +57,7 @@ class WAFW00F(waftoolsengine):
     sqlistring = "UNION SELECT ALL FROM information_schema"
     lfistring = '../../../../etc/passwd'
     rcestring = '/bin/cat /etc/passwd; ping 127.0.0.1; curl google.com'
-    xxestring = '<!ENTITY xxe SYSTEM "file:///etc/shadow" >]><pwn>&hack;</pwn>'
+    xxestring = '<!ENTITY xxe SYSTEM "file:///etc/shadow">]><pwn>&hack;</pwn>'
 
     def __init__(self, target='www.example.com', port=None, debuglevel=0, path='/',
                  followredirect=True, extraheaders={}, proxy=None, auth=None):
