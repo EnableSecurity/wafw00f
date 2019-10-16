@@ -53,14 +53,15 @@ def urlParser(target):
     return (hostname, port, path, query, ssl)
 
 class waftoolsengine:
-    def __init__(self, target='https://example.com', port=None, debuglevel=0, path='/', proxy=None, 
-                redir=True, auth=None, head=None):
+    def __init__(self, target='https://example.com', port=None, debuglevel=0, path='/', proxies=None, 
+                redir=True, head=None):
         self.target = target
         self.debuglevel = debuglevel
         self.requestnumber = 0
         self.path = path
         self.redirectno = 0
         self.allowredir = redir
+        self.proxies = proxies
         self.log = logging.getLogger('wafw00f')
         if port:
             self.target = self.target + ':' + str(port)
@@ -68,16 +69,12 @@ class waftoolsengine:
             self.headers = head
         else:
             self.headers = def_headers
-        if proxy:
-            self.proxy = self.parseProxy(auth, proxy)
-        else:
-            self.proxy = proxy
 
     def Request(self, path=None, params={}, delay=0, timeout=7):
         try:
             time.sleep(delay)
-            req = requests.get(self.target, proxies=self.proxy, headers=self.headers, timeout=timeout,
-                    allow_redirects=self.allowredir, params=params)
+            req = requests.get(self.target, proxies=self.proxies, headers=self.headers, timeout=timeout,
+                    allow_redirects=self.allowredir, params=params, verify=False)
             self.log.info('Request Succeeded')
             self.log.debug('Headers: %s\n' % req.headers)
             self.log.debug('Content: %s\n' % req.content)
@@ -86,24 +83,6 @@ class waftoolsengine:
         except requests.exceptions.RequestException as e:
             self.log.error('Something went wrong %s' % (e.__str__()))
 
-    def parseProxy(self, auth, proxies):
-        pro = {}
-        # User can submit multiple proxies with commas
-        prox = proxies.split(',')
-        for pr in prox:
-            scheme = pr.split('://')[0].strip()
-            proxy = pr.split('://')[1].strip()
-            if auth:
-                self.log.info('Switching to proxying with authentication')
-                proxy = 'http://' + auth + '@' + proxy
-            else:
-                self.log.info('Switching to normal proxying without authentication')
-                proxy = 'http://' + proxy
-            if re.search(r'(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])', proxy):
-                pro[scheme] = proxy
-            else:
-                self.log.error('Invalid proxy detected. Request routing disabled.')
-        return pro
 
 def scrambledHeader(header):
     c = 'connection'

@@ -60,11 +60,11 @@ class WAFW00F(waftoolsengine):
     xxestring = '<!ENTITY xxe SYSTEM "file:///etc/shadow">]><pwn>&hack;</pwn>'
 
     def __init__(self, target='www.example.com', port=None, debuglevel=0, path='/',
-                 followredirect=True, extraheaders={}, proxy=None, auth=None):
+                 followredirect=True, extraheaders={}, proxies=None):
         
         self.log = logging.getLogger('wafw00f')
         self.attackres = None
-        waftoolsengine.__init__(self, target, port, debuglevel, path, proxy, followredirect, auth, extraheaders)
+        waftoolsengine.__init__(self, target, port, debuglevel, path, proxies, followredirect, extraheaders)
         self.knowledge = dict(generic=dict(found=False, reason=''), wafname=list())
 
     def normalRequest(self, headers=None):
@@ -266,8 +266,7 @@ def main():
     parser.add_option('-l', '--list', dest='list', action='store_true',
                       default=False, help='List all WAFs that WAFW00F is able to detect')
     parser.add_option('-p', '--proxy', dest='proxy', default=None, 
-                      help='Use an HTTP proxy to perform requests, example: http://hostname:8080, socks5://hostname:1080')
-    parser.add_option('--auth', dest='auth', default=None, help='Use custom authentication for the proxy supplied in                     the format user:pass')
+                      help='Use an HTTP proxy to perform requests, examples: http://hostname:8080, socks5://hostname:1080, http://user:pass@hostname:8080')
     parser.add_option('--version', '-V', dest='version', action='store_true',
                       default=False, help='Print out the current version of WafW00f and exit.')
     parser.add_option('--headers', '-H', dest='headers', action='store', default=None, 
@@ -303,9 +302,15 @@ def main():
             sys.exit(1)
         (hostname, port, path, _, _) = pret
         log.info('starting wafw00f on %s' % target)
+        proxies = dict()
+        if options.proxy:
+            proxies = {
+                "http": options.proxy,
+                "https": options.proxy,
+            }
         attacker = WAFW00F(target, port=port, debuglevel=options.verbose, path=path,
                     followredirect=options.followredirect, extraheaders=extraheaders,
-                        proxy=options.proxy, auth=options.auth)
+                        proxies=proxies)
         if attacker.normalRequest() is None:
             log.error('Site %s appears to be down' % hostname)
             continue

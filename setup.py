@@ -29,6 +29,7 @@ setup(
     scripts=['wafw00f/bin/wafw00f'],
     install_requires=[
         'requests',
+        'requests[socks]',
         'pluginbase'
     ],
     classifiers=[
