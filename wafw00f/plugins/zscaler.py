@@ -10,11 +10,12 @@ NAME = 'ZScaler (Accenture)'
 def is_waf(self):
     schemes = [
         self.matchHeader(('Server', r'ZScaler')),
-        self.matchContent(r"Access.Denied.+?Accenture.Policy"),
+        self.matchContent(r"Access Denied.+?Accenture Policy"),
         self.matchContent(r'policies\.accenture\.com'),
         self.matchContent(r'login\.zscloud\.net/img_logo_new1\.png'),
-        self.matchContent(r'Zscaler.to.protect.you.from.internet.threats'),
-        self.matchContent(r"Accenture.+?webfilters.indicate.that.the.site.likely.contains")
+        self.matchContent(r'Zscaler to protect you from internet threats'),
+        self.matchContent(r"Internet Security by ZScaler"),
+        self.matchContent(r"Accenture.+?webfilters indicate that the site likely contains")
     ]
     if any(i for i in schemes):
         return True

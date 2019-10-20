@@ -9,7 +9,7 @@ NAME = 'WebLand (WebLand)'
 
 def is_waf(self):
     schemes = [
-        self.matchHeader(('Server', r'\w+.protected.by.webland.\w+?'))
+        self.matchHeader(('Server', r'protected by webland'))
     ]
     if any(i for i in schemes):
         return True
