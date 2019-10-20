@@ -13,7 +13,7 @@ def is_waf(self):
         self.matchCookie(r'^jsl_tracking(.+)?='),
         self.matchCookie(r'__jsluid='),
         self.matchContent(r'notice\-jiasule'),
-        self.matchContent(r'static.jiasule.com')
+        self.matchContent(r'static\.jiasule\.com')
     ]
     if any(i for i in schemes):
         return True

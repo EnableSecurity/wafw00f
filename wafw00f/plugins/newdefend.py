@@ -13,7 +13,7 @@ def is_waf(self):
         # Most reliable fingerprint
         self.matchHeader(('Server', 'Newdefend')),
         # Reliable ones within blockpage
-        self.matchContent(r'www.newdefend.com/feedback'),
+        self.matchContent(r'www\.newdefend\.com/feedback'),
         self.matchContent(r'/nd\-block/')
     ]
     if any(i for i in schemes):
