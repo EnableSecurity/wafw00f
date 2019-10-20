@@ -8,20 +8,15 @@ NAME = 'Squarespace (Squarespace)'
 
 
 def is_waf(self):
-    schema1 = [
-        self.matchContent(r'BRICK-\d{2}'),
-        self.matchContent(r'[0-9a-z]+{8}/[0-9a-z]+{8}')
-    ]
-    schema2 = [
+    schemes = [
         self.matchHeader(('Server', 'Squarespace')),
         self.matchCookie(r'^SS_ANALYTICS_ID='),
         self.matchCookie(r'^SS_MATTR='),
         self.matchCookie(r'^SS_MID='),
         self.matchCookie(r'SS_CVT='),
-        self.matchContent(r'status\.squarespace\.com')
+        self.matchContent(r'status\.squarespace\.com'),
+        self.matchContent(r'BRICK\-\d{2}')
     ]
-    if any(i for i in schema2):
+    if any(i for i in schemes):
         return True 
-    if all(i for i in schema1):
-        return True
     return False
