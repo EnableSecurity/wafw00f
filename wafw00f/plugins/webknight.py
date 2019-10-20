@@ -21,7 +21,7 @@ def is_waf(self):
         self.matchContent(r'What.is.webknight\?'),
         self.matchContent(r'AQTRONIX.WebKnight.is.an.application.firewall'),
         self.matchContent(r'WebKnight.will.take.over.and.protect'),
-        self.matchContent(r'aqtronix.com/WebKnight'),
+        self.matchContent(r'aqtronix\.com/WebKnight'),
         self.matchContent(r'AQTRONIX.+?WebKnight'),
     ]
     if all(i for i in schema1):

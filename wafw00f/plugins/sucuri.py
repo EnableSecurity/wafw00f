@@ -15,9 +15,9 @@ def is_waf(self):
         self.matchHeader(('X-Sucuri-Block', r'.+?'), attack=True),
         self.matchContent(r"Access.Denied.+?Sucuri.Website.Firewall"),
         self.matchContent(r"<title>Sucuri.WebSite.Firewall.+?(CloudProxy)?.+?Access.Denied"),
-        self.matchContent(r"sucuri.net/privacy-policy"),
-        self.matchContent(r"cdn.sucuri.net/sucuri[-_]firewall[-_]block.css"),
-        self.matchContent(r'cloudproxy@sucuri.net')
+        self.matchContent(r"sucuri\.net/privacy\-policy"),
+        self.matchContent(r"cdn\.sucuri\.net/sucuri[-_]firewall[-_]block\.css"),
+        self.matchContent(r'cloudproxy@sucuri\.net')
     ]
     if any(i for i in schemes):
         return True
