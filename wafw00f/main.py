@@ -203,7 +203,7 @@ class WAFW00F(waftoolsengine):
         if r is None:
             return
         # We may need to match multiline context in response body
-        if re.search(regex, r.text, re.I|re.M):
+        if re.search(regex, r.text, re.I):
             return True
         return False
 
