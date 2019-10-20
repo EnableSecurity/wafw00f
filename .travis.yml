@@ -17,6 +17,8 @@ before_script:
 script:
   # Help message.
   - wafw00f --help
+  # Testing for no WAF case
+  - wafw00f https://google.com
   # Testing for Cloudflare
   - wafw00f https://yoxall.me.uk
   # Testing for ModSecurity
