@@ -37,18 +37,18 @@ os.chdir(scriptDir)
 
 # WOOF! Yes you heard it! WAF says a Woof! You know who's the good boy. ;)
 woof = '''
-                   '''+W+'''______
-                  '''+W+'''/      \\
-                 '''+W+'''(  Woof! )
-                  '''+W+r'''\______/                      '''+R+''')
-                  '''+W+''',,                           '''+R+''') ('''+Y+'''_
-             '''+Y+'''.-. '''+W+'''-    '''+G+'''_______                 '''+R+'''( '''+Y+'''|__|
-            '''+Y+'''()``; '''+G+'''|==|_______)                '''+R+'''.)'''+Y+'''|__|
-            '''+Y+'''/ ('        '''+G+'''/|\                  '''+R+'''(  '''+Y+'''|__|
-        '''+Y+'''(  /  )       '''+G+''' / | \                  '''+R+'''. '''+Y+'''|__|
-         '''+Y+r'''\(_)_))      '''+G+'''/  |  \                   '''+Y+'''|__|'''+E+'''
+                    '''+W+'''______
+                   '''+W+'''/      \\
+                  '''+W+'''(  Woof! )
+                   '''+W+r'''\______/                      '''+R+''')
+                   '''+W+''',,                           '''+R+''') ('''+Y+'''_
+              '''+Y+'''.-. '''+W+'''-    '''+G+'''_______                 '''+R+'''( '''+Y+'''|__|
+             '''+Y+'''()``; '''+G+'''|==|_______)                '''+R+'''.)'''+Y+'''|__|
+             '''+Y+'''/ ('        '''+G+'''/|\                  '''+R+'''(  '''+Y+'''|__|
+         '''+Y+'''(  /  )       '''+G+''' / | \                  '''+R+'''. '''+Y+'''|__|
+          '''+Y+r'''\(_)_))      '''+G+'''/  |  \                   '''+Y+'''|__|'''+E+'''
 
-    WAFW00F - Web Application Firewall Detection Tool (v%s)
+   WAFW00F - Web Application Firewall Detection Tool (v%s)
     ''' % (__version__)
 
 class WAFW00F(waftoolsengine):
@@ -280,7 +280,7 @@ def main():
         print('\r\n'.join(attacker.wafdetections.keys()))
         return
     if options.version:
-        print('WAFW00F Version %s' % __version__)
+        print('WAFW00F Version: v%s' % __version__)
         return
     extraheaders = {}
     if options.headers:
