@@ -9,7 +9,7 @@ NAME = 'UTM Web Protection (Sophos)'
 
 def is_waf(self):
     schema1 = [
-        self.matchContent(r'www.sophos.com'),
+        self.matchContent(r'www\.sophos\.com'),
         self.matchContent(r'Powered.by.?(Sophos)?.UTM.Web.Protection')
     ]
     schema2 = [

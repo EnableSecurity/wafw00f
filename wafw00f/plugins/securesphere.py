@@ -9,7 +9,7 @@ NAME = 'SecureSphere (Imperva Inc.)'
 
 def is_waf(self):
     schemes = [
-        self.matchContent(r'<.+>Error<.+>'),
+        self.matchContent(r'<.+?>Error<.+?>'),
         self.matchContent(r'The.incident.ID.is'),
         self.matchContent(r"This.page.can't.be.displayed"),
         self.matchContent(r'Contact.support.for.additional.information')
