@@ -9,7 +9,7 @@ import sys
 import time
 import logging
 import requests
-
+import urllib3
 try:
     from urlparse import urlparse, urlunparse
 except ImportError:
@@ -18,6 +18,10 @@ try:
     from urllib import quote, unquote
 except ImportError:
     from urllib.parse import quote, unquote
+# For requests < 2.16, this should be used.
+# requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
+# For requests >= 2.16, this is the convention 
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 def_headers = { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.100 Safari/537.36',
                 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
