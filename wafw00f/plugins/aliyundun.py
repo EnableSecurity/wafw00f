@@ -9,7 +9,7 @@ NAME = 'AliYunDun (Alibaba Cloud Computing)'
 
 def is_waf(self):
     schemes = [
-        self.matchContent(r'error(s)?.aliyun.(com|net)?'),
+        self.matchContent(r'error(s)?.aliyun(dun)?.(com|net)?'),
         self.matchStatus(405)
         ]
     if all(i for i in schemes):

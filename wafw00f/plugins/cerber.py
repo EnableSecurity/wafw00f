@@ -11,7 +11,7 @@ def is_waf(self):
     schemes = [
         self.matchContent(r'your.request.looks.suspicious.or.similar.to.automated'),
         self.matchContent(r'our.server.stopped.processing.your.request'),
-        self.matchContent(r'We.re.sorry.+you.are.not.allowed.to.proceed'),
+        self.matchContent(r'We.re.sorry.+?you.are.not.allowed.to.proceed'),
         self.matchContent(r'requests.from.spam.posting.software'),
         self.matchContent(r'<title>403.Access.Forbidden')
         ]

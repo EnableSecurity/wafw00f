@@ -9,13 +9,12 @@ NAME = 'Cloudbric (Penta Security)'
 
 def is_waf(self):
     schemes = [
-        self.matchContent(r'<title>Cloudbric \| ERROR!'),
-        self.matchContent(r'Your.request.was.blocked.by.Cloudbric'),
-        self.matchContent(r'please.contact.Cloudbric.Support'),
-        self.matchContent(r'cloudbric.zendesk.com'),
-        self.matchContent(r'Cloudbric.Help.Center'),
-        self.matchContent(r'Security check by BitNinja'),
-        self.matchContent(r'malformed.request.syntax.+?invalid.request.message.framing.+?or.deceptive.request.routing')
+        self.matchContent(r'<title>Cloudbric.+?ERROR!'),
+        self.matchContent(r'Your request was blocked by Cloudbric'),
+        self.matchContent(r'please contact Cloudbric Support'),
+        self.matchContent(r'cloudbric\.zendesk\.com'),
+        self.matchContent(r'Cloudbric Help Center'),
+        self.matchContent(r'malformed request syntax.+?invalid request message framing.+?or deceptive request routing')
     ]
     if any(i for i in schemes):
         return True

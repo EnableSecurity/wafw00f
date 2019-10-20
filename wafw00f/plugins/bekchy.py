@@ -13,8 +13,8 @@ def is_waf(self):
         # Sometimes I observed that there is an XHR request being being made to submit the 
         # report data automatically upon page load. In those cases a missing https is causing
         # false negatives.
-        self.matchContent(r'Bekchy.+Access Denied'),
-        self.matchContent(r'bekchy.com/report')
+        self.matchContent(r'Bekchy.+?Access Denied'),
+        self.matchContent(r'bekchy\.com/report')
     ]
     if any(i for i in schemes):
         return True
