@@ -14,7 +14,7 @@ def is_waf(self):
     ]
     schema2 = [
         self.matchContent(r'because.we.have.detected.unauthorized.activity'),
-        self.matchContent(r'<title>Unauthorized Request Blocked<.+>'),
+        self.matchContent(r'<title>Unauthorized Request Blocked'),
         self.matchContent(r'if.you.believe.that.there.has.been.some.mistake'),
         self.matchContent(r'\?Subject=Security.Page.+Case Number')
     ]
