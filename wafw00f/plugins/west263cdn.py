@@ -9,7 +9,7 @@ NAME = 'West263 Content Delivery Network'
 
 def is_waf(self):
     schemes = [
-        self.matchHeader(('X-Cache', r'(.+)?W(S)?T263CDN(.+)?'))
+        self.matchHeader(('X-Cache', r'(.+)?W(S)?T263CDN'))
     ]
     if any(i for i in schemes):
         return True
