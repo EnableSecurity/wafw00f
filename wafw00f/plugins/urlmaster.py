@@ -8,12 +8,16 @@ NAME = 'URLMaster SecurityCheck (iFinity/DotNetNuke)'
 
 
 def is_waf(self):
-    schemes = [
+    schema1 = [
         self.matchHeader(('X-UrlMaster-Debug', '.+')),
         self.matchHeader(('X-UrlMaster-Ex', '.+')),
-        self.matchContent(r"UrilRewriteModule"),
+    ]
+    schema2 = [
+        self.matchContent(r"Ur[li]RewriteModule"),
         self.matchContent(r'SecurityCheck')
     ]
-    if any(i for i in schemes):
+    if any(i for i in schema1):
+        return True
+    if all(i for i in schema2):
         return True
     return False

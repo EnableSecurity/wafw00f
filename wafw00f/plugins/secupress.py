@@ -8,16 +8,9 @@ NAME = 'SecuPress WordPress Security (SecuPress)'
 
 
 def is_waf(self):
-    schema1 = [
-        self.matchContent(r'<.+?>SecuPress<.+>'),
-        self.matchStatus(503)
+    schemes = [
+        self.matchContent(r'<(title|h\d{1})>SecuPress'),
     ]
-    schema2 = [
-        self.matchContent(r'SecuPress<.+>'),
-        self.matchContent(r'Block.ID.+?Bad.URL.Contents<.+?>')
-    ]
-    if all(i for i in schema1):
-        return True
-    if all(i for i in schema2):
+    if any(i for i in schemes):
         return True
     return False
