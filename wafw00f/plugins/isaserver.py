@@ -9,8 +9,7 @@ NAME = 'ISA Server (Microsoft)'
 
 def is_waf(self):
     schemes = [
-        self.matchContent(r'The.+?isa.server.+?denied.the.specified.uniform.resource.locator.\(url\)'),
-        self.matchContent(r'the.server.denied.the.specific.uniform.resource.locator.\(url\).+contact.the.server.administrator')
+        self.matchContent(r'The.+?(isa.)?server.+?denied.the.specified.uniform.resource.locator.\(url\)'),
     ]
     if any(i for i in schemes):
         return True
