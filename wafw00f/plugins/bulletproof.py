@@ -9,8 +9,7 @@ NAME = 'BulletProof Security Pro (AITpro Security)'
 
 def is_waf(self):
     schemes = [
-        self.matchContent(r'<div.+?id=.+?bpsMessage'),
-        self.matchContent(r'(?s)403 Forbidden Error Page.+?If you arrived here due to a search')
+        self.matchContent(r'(?s)bpsMessage.+?403 Forbidden Error Page.+?If you arrived here due to a search')
     ]
     if any(i for i in schemes):
         return True
