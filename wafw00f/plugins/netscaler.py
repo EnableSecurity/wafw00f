@@ -15,7 +15,7 @@ def is_waf(self):
         # Not much reliable since wafw00f isn't authenticating.
         self.matchCookie(r'^(ns_af=|citrix_ns_id|NSC_)'),
         self.matchContent(r'(NS Transaction|AppFW Session) id'),
-        self.matchContent(r'Violation Category.+?APPFW_'),
+        self.matchContent(r'Violation Category.{0,5}?APPFW_'),
         self.matchContent(r'Citrix\|NetScaler'),
         # Reliable but not all servers return this header
         self.matchHeader(('Cneonction', r'^(keep alive|close)'), attack=True),

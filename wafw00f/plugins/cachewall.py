@@ -14,7 +14,7 @@ def is_waf(self):
         self.matchHeader(('X-Cachewall-Action', '.+?')),
         self.matchHeader(('X-Cachewall-Reason', '.+?')),
         self.matchContent(r'security by cachewall'),
-        self.matchContent(r'403 naughty.+?not nice!'),
+        self.matchContent(r'403 naughty.{0,10}?not nice!'),
         self.matchContent(r'varnish cache server')
     ]
     if any(i for i in schemes):
