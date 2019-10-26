@@ -10,8 +10,7 @@ NAME = 'WTS-WAF (WTS)'
 def is_waf(self):
     schemes = [
         self.matchHeader(('Server', r'wts/[0-9\.]+?')),
-        self.matchContent(r"<h\d{1}>WTS\-WAF"),
-        self.matchContent(r'<title>WTS\-WAF')
+        self.matchContent(r"<(title|h\d{1})>WTS\-WAF")
     ]
     if any(i for i in schemes):
         return True
