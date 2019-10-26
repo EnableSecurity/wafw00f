@@ -17,10 +17,10 @@ def is_waf(self):
         self.matchReason('Hack Not Found')
     ]
     schema3 = [
-        self.matchContent(r'WebKnight.Application.Firewall.Alert'),
-        self.matchContent(r'What.is.webknight\?'),
-        self.matchContent(r'AQTRONIX.WebKnight.is.an.application.firewall'),
-        self.matchContent(r'WebKnight.will.take.over.and.protect'),
+        self.matchContent(r'WebKnight Application Firewall Alert'),
+        self.matchContent(r'What is webknight\?'),
+        self.matchContent(r'AQTRONIX WebKnight is an application firewall'),
+        self.matchContent(r'WebKnight will take over and protect'),
         self.matchContent(r'aqtronix\.com/WebKnight'),
         self.matchContent(r'AQTRONIX.+?WebKnight'),
     ]

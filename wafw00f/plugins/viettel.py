@@ -9,9 +9,9 @@ NAME = 'Viettel (Cloudrity)'
 
 def is_waf(self):
     schemes = [
-        self.matchContent(r"Access.Denied.+?Viettel.WAF"),
+        self.matchContent(r"Access Denied.+?Viettel WAF"),
         self.matchContent(r"cloudrity\.com\.(vn)?/"),
-        self.matchContent(r"Viettel.WAF.System")
+        self.matchContent(r"Viettel WAF System")
     ]
     if any(i for i in schemes):
         return True

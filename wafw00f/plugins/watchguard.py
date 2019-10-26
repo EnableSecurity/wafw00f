@@ -10,8 +10,8 @@ NAME = 'WatchGuard (WatchGuard Technologies)'
 def is_waf(self):
     schemes = [
         self.matchHeader(('Server', 'WatchGuard')),
-        self.matchContent(r"Request.denied.by.WatchGuard.Firewall"),
-        self.matchContent(r'(Powered.by.*?)?WatchGuard.Technologies.Inc\.')
+        self.matchContent(r"Request denied by WatchGuard Firewall"),
+        self.matchContent(r'WatchGuard Technologies Inc\.')
     ]
     if any(i for i in schemes):
         return True

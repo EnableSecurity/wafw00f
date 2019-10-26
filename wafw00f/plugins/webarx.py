@@ -9,7 +9,7 @@ NAME = 'WebARX (WebARX Security Solutions)'
 
 def is_waf(self):
     schemes = [
-        self.matchContent(r"WebARX.+?Web.Application.Firewall"),
+        self.matchContent(r"WebARX.+?Web Application Firewall"),
         self.matchContent(r"www\.webarxsecurity\.com"),
         self.matchContent(r'/wp\-content/plugins/webarx/includes/')
     ]
