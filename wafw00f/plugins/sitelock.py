@@ -11,10 +11,10 @@ NAME = 'Sitelock (TrueShield)'
 
 def is_waf(self):
     schemes = [
-        self.matchContent(r"SiteLock.will.remember.you"),
-        self.matchContent(r"Sitelock.is.leader.in.Business.Website.Security.Services"),
-        self.matchContent(r"sitelock[_\-]shield([_-]logo|[-_]badge)?"),
-        self.matchContent(r'SiteLock.incident.ID')
+        self.matchContent(r"SiteLock will remember you"),
+        self.matchContent(r"Sitelock is leader in Business Website Security Services"),
+        self.matchContent(r"sitelock[_\-]shield([_\-]logo|[\-_]badge)?"),
+        self.matchContent(r'SiteLock incident ID')
     ]
     if any(i for i in schemes):
         return True
