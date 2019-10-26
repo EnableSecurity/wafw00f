@@ -9,9 +9,9 @@ NAME = 'Shield Security (One Dollar Plugin)'
 
 def is_waf(self):
     schemes = [
-        self.matchContent(r"You.were.blocked.by.the.Shield"),
-        self.matchContent(r"remaining.transgression\(s\).against.this.site"),
-        self.matchContent(r"Something.in.the.URL.+?Form.or.Cookie.data.wasn't.appropriate")
+        self.matchContent(r"You were blocked by the Shield"),
+        self.matchContent(r"remaining transgression\(s\) against this site"),
+        self.matchContent(r"Something in the URL.+?Form or Cookie data wasn\'t appropriate")
     ]
     if any(i for i in schemes):
         return True
