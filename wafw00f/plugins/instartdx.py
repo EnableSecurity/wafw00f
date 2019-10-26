@@ -14,9 +14,9 @@ def is_waf(self):
         self.matchHeader(('X-Instart-WL', '.+'))
     ]
     schema2 = [
-        self.matchContent(r'the.requested.url.was.rejected'),
-        self.matchContent(r'please.consult.with.your.administrator'),
-        self.matchContent(r'your.support.id.is.')
+        self.matchContent(r'the requested url was rejected'),
+        self.matchContent(r'please consult with your administrator'),
+        self.matchContent(r'your support id is')
     ]
     if any(i for i in schema1):
         return True

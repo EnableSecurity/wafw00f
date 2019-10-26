@@ -9,8 +9,8 @@ NAME = 'Huawei Cloud Firewall (Huawei)'
 
 def is_waf(self):
     schemes = [
-        self.matchContent(r'\w+\.hwclouds\.com'),
-        self.matchContent(r'hws_security@\w+?\.\w+')
+        self.matchContent(r'(\w+\.)?hwclouds\.com'),
+        self.matchContent(r'hws_security@')
     ]
     if any(i for i in schemes):
         return True
