@@ -10,7 +10,7 @@ NAME = 'DynamicWeb Injection Check (DynamicWeb)'
 def is_waf(self):
     schemes = [
         self.matchHeader(('X-403-Status-By', r'dw.inj.check'), attack=True),
-        self.matchContent(r'by.dynamic.check(.+?\w+?module)?')
+        self.matchContent(r'by dynamic check(.+?module)?')
     ]
     if any(i for i in schemes):
         return True
