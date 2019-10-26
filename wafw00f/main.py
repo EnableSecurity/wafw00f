@@ -83,7 +83,7 @@ class WAFW00F(waftoolsengine):
         return self.Request(path=self.path + self.lfistring)
 
     def centralAttack(self):
-        return self.Request(path=self.path, params= {'a': self.xsstring, 'b': self.sqlistring})
+        return self.Request(path=self.path, params={'a': self.xsstring, 'b': self.sqlistring, 'c': self.lfistring})
 
     def sqliAttack(self):
         return self.Request(path=self.path, params= {'s': self.sqlistring})
