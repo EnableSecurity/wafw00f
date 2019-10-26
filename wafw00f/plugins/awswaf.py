@@ -12,7 +12,7 @@ def is_waf(self):
         self.matchHeader(('X-AMZ-ID', '.+?')),
         self.matchHeader(('X-AMZ-Request-ID', '.+?')),
         self.matchCookie(r'^aws.?alb='),
-        self.matchHeader(('Server', r'aws.?elb.+?'), attack=True)
+        self.matchHeader(('Server', r'aws.?elb'), attack=True)
     ]
     if any(i for i in schemes):
         return True
