@@ -14,13 +14,12 @@ def is_waf(self):
         # Cookies are set only when someone is authenticated.
         # Not much reliable since wafw00f isn't authenticating.
         self.matchCookie(r'^(ns_af=|citrix_ns_id|NSC_)'),
-        self.matchContent(r'NS.Transaction.id:'),
-        self.matchContent(r'AppFW.Session.id:'),
-        self.matchContent(r'Violation.Category.+?APPFW_'),
+        self.matchContent(r'(NS Transaction|AppFW Session) id'),
+        self.matchContent(r'Violation Category.+?APPFW_'),
         self.matchContent(r'Citrix\|NetScaler'),
         # Reliable but not all servers return this header
-        self.matchHeader(('Cneonction', r'^(keep.alive|close)'), attack=True),
-        self.matchHeader(('nnCoection', r'^(keep.alive|close)'), attack=True)
+        self.matchHeader(('Cneonction', r'^(keep alive|close)'), attack=True),
+        self.matchHeader(('nnCoection', r'^(keep alive|close)'), attack=True)
     ]
     if any(i for i in schemes):
         return True

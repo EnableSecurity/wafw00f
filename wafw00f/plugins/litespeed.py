@@ -13,7 +13,7 @@ def is_waf(self):
         self.matchStatus(403)
     ]
     schema2 = [
-        self.matchContent(r'Proudly.powered.by.litespeed.web.server'),
+        self.matchContent(r'Proudly powered by litespeed web server'),
         self.matchContent(r'www\.litespeedtech\.com/error\-page')
     ]
     if all(i for i in schema1):

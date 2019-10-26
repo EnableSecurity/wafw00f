@@ -13,9 +13,9 @@ def is_waf(self):
         self.matchHeader(('Server', 'Reblaze Secure Web Gateway'))
     ]
     schema2 = [
-        self.matchContent(r'current.session.has.been.terminated'),
-        self.matchContent(r'do.not.hesitate.to.contact.us'),
-        self.matchContent(r'access.denied.\(\d{3}\)')
+        self.matchContent(r'current session has been terminated'),
+        self.matchContent(r'do not hesitate to contact us'),
+        self.matchContent(r'access denied \(\d{3}\)')
     ]
     if any(i for i in schema1):
         return True

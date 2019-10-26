@@ -13,9 +13,9 @@ def is_waf(self):
         self.matchContent(r'Security.Alert')
     ]
     schema2 = [
-        self.matchContent(r'As.this.could.be.a.potential.hack.attack'),
-        self.matchContent(r'A.safety.critical.(call|request).was.(detected|discovered).and.blocked'),
-        self.matchContent(r'maximum.number.of.reloads.per.minute.and.prevented.access.to.this.page')
+        self.matchContent(r'As this could be a potential hack attack'),
+        self.matchContent(r'A safety critical (call|request) was (detected|discovered) and blocked'),
+        self.matchContent(r'maximum number of reloads per minute and prevented access')
     ]
     if any(i for i in schema2):
         return True

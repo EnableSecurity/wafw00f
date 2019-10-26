@@ -10,8 +10,8 @@ NAME = 'NinjaFirewall (NinTechNet)'
 def is_waf(self):
     schemes = [
         self.matchContent(r'<title>NinjaFirewall.+?\d{3}.forbidden'),
-        self.matchContent(r'For.security.reasons?.+?it.was.blocked.and.logged')
+        self.matchContent(r'For security reasons?.+?it was blocked and logged')
     ]
-    if any(i for i in schemes):
+    if all(i for i in schemes):
         return True
     return False
