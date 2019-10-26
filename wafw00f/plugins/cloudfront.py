@@ -12,7 +12,7 @@ def is_waf(self):
         # This is standard detection schema, checking the server header
         self.matchHeader(('Server', 'Cloudfront')),
         # Found samples returning 'Via: 1.1 58bfg7h6fg76h8fg7jhdf2.cloudfront.net (CloudFront)'
-        self.matchHeader(('Via', r'(.*)?cloudfront\.net.+?CloudFront.')),
+        self.matchHeader(('Via', r'([0-9\.]+?)? \w+?\.cloudfront\.net \(Cloudfront\)')),
         # The request token is sent along with this header, eg:
         # X-Amz-Cf-Id: sX5QSkbAzSwd-xx3RbJmxYHL3iVNNyXa1UIebDNCshQbHxCjVcWDww==
         self.matchHeader(('X-Amz-Cf-Id', '.+?'), attack=True),
