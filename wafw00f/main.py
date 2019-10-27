@@ -181,7 +181,9 @@ class WAFW00F(waftoolsengine):
         return False
 
     def matchStatus(self, statuscode, attack=True):
-        r = self.attackres
+        if attack: 
+            r = self.attackres
+        else: r = rq
         if r is None:
             return
         if r.status_code == statuscode:
@@ -192,7 +194,9 @@ class WAFW00F(waftoolsengine):
         return self.matchHeader(('Set-Cookie', match), attack=attack)
 
     def matchReason(self, reasoncode, attack=True):
-        r = self.attackres
+        if attack: 
+            r = self.attackres
+        else: r = rq
         if r is None:
             return
         # We may need to match multiline context in response body
@@ -201,7 +205,9 @@ class WAFW00F(waftoolsengine):
         return False
 
     def matchContent(self, regex, attack=True):
-        r = self.attackres
+        if attack: 
+            r = self.attackres
+        else: r = rq
         if r is None:
             return
         # We may need to match multiline context in response body
