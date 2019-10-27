@@ -12,7 +12,7 @@ import re
 import sys
 from optparse import OptionParser
 
-from wafw00f import __version__
+from wafw00f import __version__, __license__
 from wafw00f.lib.evillib import scrambledHeader, urlParser, waftoolsengine
 from wafw00f.manager import load_plugins
 from wafw00f.wafprio import wafdetectionsprio
@@ -280,7 +280,8 @@ def main():
         print('\r\n'.join(attacker.wafdetections.keys()))
         return
     if options.version:
-        print('WAFW00F Version: v%s' % __version__)
+        print('The present version of WAFW00F you have is v%s' % __version__)
+        print('WAFW00F is provided under the %s license.' % __license__)
         return
     extraheaders = {}
     if options.headers:
