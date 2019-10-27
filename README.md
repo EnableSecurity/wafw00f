@@ -245,6 +245,6 @@ Some useful links:
 - [Documentation/Wiki](https://github.com/enablesecurity/wafw00f/wiki/)
 - [Pypi Package Repository](https://pypi.org/project/wafw00f)
 
-Presently maintained by:
+Presently being developed and maintained by:
 - Sandro Gauci ([@SandroGauci](https://twitter.com/sandrogauci))
 - Pinaki Mondal ([@0xInfection](https://twitter.com/0xinfection))
