@@ -161,7 +161,9 @@ class WAFW00F(waftoolsengine):
         return False
 
     def matchHeader(self, headermatch, attack=False):
-        r = self.attackres
+        if attack: 
+            r = self.attackres
+        else: r = rq
         if r is None:
             return
         header, match = headermatch
@@ -312,7 +314,9 @@ def main():
         attacker = WAFW00F(target, port=port, debuglevel=options.verbose, path=path,
                     followredirect=options.followredirect, extraheaders=extraheaders,
                         proxies=proxies)
-        if attacker.normalRequest() is None:
+        global rq
+        rq = attacker.normalRequest()
+        if rq is None:
             log.error('Site %s appears to be down' % hostname)
             continue
         if options.test:
