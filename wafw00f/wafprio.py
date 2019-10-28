@@ -77,7 +77,6 @@ wafdetectionsprio = [
     'KS-WAF (KnownSec)',
     'KeyCDN (KeyCDN)',
     'LiteSpeed Firewall (LiteSpeed Technologies)',
-    'LimeLight CDN (LimeLight)',
     'Open-Resty Lua Nginx',
     'Oracle Cloud (Oracle)',
     'Malcare (Inactiv)',
