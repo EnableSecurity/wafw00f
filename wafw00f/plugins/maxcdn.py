@@ -9,7 +9,7 @@ NAME = 'MaxCDN (MaxCDN)'
 
 def is_waf(self):
     schemes = [
-        self.matchCookie(('X-CDN', r'maxcdn'))
+        self.matchHeader(('X-CDN', r'maxcdn'))
     ]
     if any(i for i in schemes):
         return True
