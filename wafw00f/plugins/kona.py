@@ -7,7 +7,7 @@ Copyright (C) 2019, WAFW00F Developers.
 See the LICENSE file for copying permission.
 '''
 
-NAME = 'Kona Site Defender (Akamai)'
+NAME = 'Kona SiteDefender (Akamai)'
 
 
 def is_waf(self):
