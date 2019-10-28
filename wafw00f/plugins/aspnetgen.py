@@ -4,7 +4,7 @@ Copyright (C) 2019, WAFW00F Developers.
 See the LICENSE file for copying permission.
 '''
 
-NAME = 'ASP.NET Generic Protection (Microsoft)'
+NAME = 'ASP.NET Generic (Microsoft)'
 
 
 def is_waf(self):

@@ -4,7 +4,7 @@ Copyright (C) 2019, WAFW00F Developers.
 See the LICENSE file for copying permission.
 '''
 
-NAME = 'Xuanwudun'
+NAME = 'Xuanwudun (Xuanwudun)'
 
 
 def is_waf(self):

@@ -4,7 +4,7 @@ Copyright (C) 2019, WAFW00F Developers.
 See the LICENSE file for copying permission.
 '''
 
-NAME = 'Positive Technologies Application Firewall (PT Security)'
+NAME = 'PT Application Firewall (Positive Technologies)'
 
 
 def is_waf(self):

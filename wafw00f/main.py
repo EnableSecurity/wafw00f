@@ -275,8 +275,8 @@ def main():
                       default=False, help='List all WAFs that WAFW00F is able to detect')
     parser.add_option('-p', '--proxy', dest='proxy', default=None, 
                       help='Use an HTTP proxy to perform requests, examples: http://hostname:8080, socks5://hostname:1080, http://user:pass@hostname:8080')
-    parser.add_option('--version', '-V', dest='version', action='store_true',
-                      default=False, help='Print out the current version of WafW00f and exit.')
+    parser.add_option('-V', '--version', dest='version', action='store_true',
+                      default=False, help='Print out the current version and license of WAFW00F and exit.')
     parser.add_option('--headers', '-H', dest='headers', action='store', default=None, 
                       help='Pass custom headers via a text file to overwrite the default header set.')
     options, args = parser.parse_args()
@@ -286,6 +286,15 @@ def main():
         print('Can test for these WAFs:\r\n')
         attacker = WAFW00F(None)
         print('\r\n'.join(attacker.wafdetections.keys()))
+        m = [i.replace(')', '').split(' (') for i in wafdetectionsprio]
+        print('\n  WAF Name'+'\t'*3+'Manufacturer\n  '+'-'*8+'\t'*3+'-'*12+'\n')
+        for i in m:
+            tab, n = '\t', 5
+            for j in range(-2,23,8):
+                if len(i[0]) < j: 
+                    print('  '+i[0]+tab*n+i[1])
+                    break
+                else: n=n-1
         return
     if options.version:
         print('The version of WAFW00F you have is %sv%s%s' % (B, __version__, E))
