@@ -4,13 +4,14 @@ Copyright (C) 2019, WAFW00F Developers.
 See the LICENSE file for copying permission.
 '''
 
-NAME = 'e3Learning Firewall'
+NAME = 'LimeLight CDN (LimeLight)'
 
 
 def is_waf(self):
     schemes = [
-        self.matchHeader(('Server', r'e3Learning[\-_]WAF'))
+        self.matchCookie(r'^limelight'),
+        self.matchCookie(r'^l[mg]_sessid=')
     ]
     if any(i for i in schemes):
         return True
-    return False
+    return False 
