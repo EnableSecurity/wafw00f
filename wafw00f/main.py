@@ -12,7 +12,7 @@ import re
 import sys
 from optparse import OptionParser
 
-from wafw00f import __version__
+from wafw00f import __version__, __license__
 from wafw00f.lib.evillib import scrambledHeader, urlParser, waftoolsengine
 from wafw00f.manager import load_plugins
 from wafw00f.wafprio import wafdetectionsprio
@@ -161,7 +161,9 @@ class WAFW00F(waftoolsengine):
         return False
 
     def matchHeader(self, headermatch, attack=False):
-        r = self.attackres
+        if attack: 
+            r = self.attackres
+        else: r = rq
         if r is None:
             return
         header, match = headermatch
@@ -179,7 +181,9 @@ class WAFW00F(waftoolsengine):
         return False
 
     def matchStatus(self, statuscode, attack=True):
-        r = self.attackres
+        if attack: 
+            r = self.attackres
+        else: r = rq
         if r is None:
             return
         if r.status_code == statuscode:
@@ -190,7 +194,9 @@ class WAFW00F(waftoolsengine):
         return self.matchHeader(('Set-Cookie', match), attack=attack)
 
     def matchReason(self, reasoncode, attack=True):
-        r = self.attackres
+        if attack: 
+            r = self.attackres
+        else: r = rq
         if r is None:
             return
         # We may need to match multiline context in response body
@@ -199,7 +205,9 @@ class WAFW00F(waftoolsengine):
         return False
 
     def matchContent(self, regex, attack=True):
-        r = self.attackres
+        if attack: 
+            r = self.attackres
+        else: r = rq
         if r is None:
             return
         # We may need to match multiline context in response body
@@ -280,7 +288,8 @@ def main():
         print('\r\n'.join(attacker.wafdetections.keys()))
         return
     if options.version:
-        print('WAFW00F Version: v%s' % __version__)
+        print('The present version of WAFW00F you have is v%s' % __version__)
+        print('WAFW00F is provided under the %s license.' % __license__)
         return
     extraheaders = {}
     if options.headers:
@@ -311,7 +320,9 @@ def main():
         attacker = WAFW00F(target, port=port, debuglevel=options.verbose, path=path,
                     followredirect=options.followredirect, extraheaders=extraheaders,
                         proxies=proxies)
-        if attacker.normalRequest() is None:
+        global rq
+        rq = attacker.normalRequest()
+        if rq is None:
             log.error('Site %s appears to be down' % hostname)
             continue
         if options.test:
