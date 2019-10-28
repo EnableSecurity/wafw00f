@@ -161,7 +161,7 @@ class WAFW00F(waftoolsengine):
         return False
 
     def matchHeader(self, headermatch, attack=False):
-        if attack: 
+        if attack:
             r = self.attackres
         else: r = rq
         if r is None:
@@ -181,7 +181,7 @@ class WAFW00F(waftoolsengine):
         return False
 
     def matchStatus(self, statuscode, attack=True):
-        if attack: 
+        if attack:
             r = self.attackres
         else: r = rq
         if r is None:
@@ -194,7 +194,7 @@ class WAFW00F(waftoolsengine):
         return self.matchHeader(('Set-Cookie', match), attack=attack)
 
     def matchReason(self, reasoncode, attack=True):
-        if attack: 
+        if attack:
             r = self.attackres
         else: r = rq
         if r is None:
@@ -205,7 +205,7 @@ class WAFW00F(waftoolsengine):
         return False
 
     def matchContent(self, regex, attack=True):
-        if attack: 
+        if attack:
             r = self.attackres
         else: r = rq
         if r is None:
@@ -288,8 +288,8 @@ def main():
         print('\r\n'.join(attacker.wafdetections.keys()))
         return
     if options.version:
-        print('The present version of WAFW00F you have is v%s' % __version__)
-        print('WAFW00F is provided under the %s license.' % __license__)
+        print('The version of WAFW00F you have is %sv%s%s' % (B, __version__, E))
+        print('WAFW00F is provided under the %s%s%s license.' % (C, __license__, E))
         return
     extraheaders = {}
     if options.headers:
@@ -329,7 +329,7 @@ def main():
             if options.test in attacker.wafdetections:
                 waf = attacker.wafdetections[options.test](attacker)
                 if waf:
-                    print('The site %s is behind %s WAF.' % (target, options.test))
+                    print('The site %s%s%s is behind %s%s%s WAF.' % (B, target, E, C, options.test, E))
                 else:
                     print('WAF %s was not detected on %s' % (options.test, target))
             else:
@@ -338,7 +338,7 @@ def main():
         waf = attacker.identwaf(options.findall)
         log.info('Identified WAF: %s' % waf)
         if len(waf) > 0:
-            print('The site %s is behind %s WAF.' % (target, ' and/or '.join(waf)))
+            print('The site %s%s%s is behind %s%s%s WAF.' % (B, target, E, C, (E+' and/or '+C).join(waf), E))
         if (options.findall) or len(waf) == 0:
             print('Generic Detection results:')
             if attacker.genericdetect():
