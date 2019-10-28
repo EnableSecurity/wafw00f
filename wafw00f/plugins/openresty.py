@@ -4,7 +4,7 @@ Copyright (C) 2019, WAFW00F Developers.
 See the LICENSE file for copying permission.
 '''
 
-NAME = 'Open-Resty Lua Nginx WAF'
+NAME = 'Open-Resty Lua Nginx'
 
 
 def is_waf(self):
