@@ -285,22 +285,23 @@ def main():
     logging.basicConfig(level=calclogginglevel(options.verbose))
     log = logging.getLogger('wafw00f')
     if options.list:
-        print('Can test for these WAFs:\r\n')
+        print('[+] Can test for these WAFs:\r\n')
         attacker = WAFW00F(None)
-        print('\r\n'.join(attacker.wafdetections.keys()))
-        m = [i.replace(')', '').split(' (') for i in wafdetectionsprio]
-        print('\n  WAF Name'+'\t'*3+'Manufacturer\n  '+'-'*8+'\t'*3+'-'*12+'\n')
-        for i in m:
-            tab, n = '\t', 5
-            for j in range(-2,23,8):
-                if len(i[0]) < j: 
-                    print('  '+i[0]+tab*n+i[1])
-                    break
-                else: n=n-1
-        return
+        try:
+            m = [i.replace(')', '').split(' (') for i in wafdetectionsprio]
+            print(R+'  WAF Name'+'\t'*3+'Manufacturer\n  '+'-'*8+'\t'*3+'-'*12+E+'\n')
+            for i in m:
+                tab, n = '\t', 5
+                for j in range(-2,23,8):
+                    if len(i[0]) < j:
+                        print('  '+Y+i[0]+E+tab*n+W+i[1]+E)
+                        break
+                    else: n=n-1
+        except Exception:
+            return
     if options.version:
-        print('The version of WAFW00F you have is %sv%s%s' % (B, __version__, E))
-        print('WAFW00F is provided under the %s%s%s license.' % (C, __license__, E))
+        print('[+] The version of WAFW00F you have is %sv%s%s' % (B, __version__, E))
+        print('[+] WAFW00F is provided under the %s%s%s license.' % (C, __license__, E))
         return
     extraheaders = {}
     if options.headers:
@@ -315,7 +316,7 @@ def main():
         if not target.startswith('http'):
             log.info('The url %s should start with http:// or https:// .. fixing (might make this unusable)' % target)
             target = 'http://' + target
-        print('Checking %s' % target)
+        print('[*] Checking %s' % target)
         pret = urlParser(target)
         if pret is None:
             log.critical('The url %s is not well formed' % target)
@@ -340,25 +341,25 @@ def main():
             if options.test in attacker.wafdetections:
                 waf = attacker.wafdetections[options.test](attacker)
                 if waf:
-                    print('The site %s%s%s is behind %s%s%s WAF.' % (B, target, E, C, options.test, E))
+                    print('[+] The site %s%s%s is behind %s%s%s WAF.' % (B, target, E, C, options.test, E))
                 else:
-                    print('WAF %s was not detected on %s' % (options.test, target))
+                    print('[-] WAF %s was not detected on %s' % (options.test, target))
             else:
                 print('WAF %s was not found in our list\r\nUse the --list option to see what is available' % options.test)
             return
         waf = attacker.identwaf(options.findall)
         log.info('Identified WAF: %s' % waf)
         if len(waf) > 0:
-            print('The site %s%s%s is behind %s%s%s WAF.' % (B, target, E, C, (E+' and/or '+C).join(waf), E))
+            print('[+] The site %s%s%s is behind %s%s%s WAF.' % (B, target, E, C, (E+' and/or '+C).join(waf), E))
         if (options.findall) or len(waf) == 0:
-            print('Generic Detection results:')
+            print('[+] Generic Detection results:')
             if attacker.genericdetect():
                 log.info('Generic Detection: %s' % attacker.knowledge['generic']['reason'])
-                print('The site %s seems to be behind a WAF or some sort of security solution' % target)
-                print('Reason: %s' % attacker.knowledge['generic']['reason'])
+                print('[*] The site %s seems to be behind a WAF or some sort of security solution' % target)
+                print('[~] Reason: %s' % attacker.knowledge['generic']['reason'])
             else:
-                print('No WAF detected by the generic detection')
-        print('Number of requests: %s' % attacker.requestnumber)
+                print('[-] No WAF detected by the generic detection')
+        print('[~] Number of requests: %s' % attacker.requestnumber)
 
 if __name__ == '__main__':
     if sys.hexversion < 0x2060000:
