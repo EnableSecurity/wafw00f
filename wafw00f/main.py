@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
 '''
 Copyright (C) 2019, WAFW00F Developers.
 See the LICENSE file for copying permission.
@@ -37,19 +38,20 @@ os.chdir(scriptDir)
 
 # WOOF! Yes you heard it! WAF says a Woof! You know who's the good boy. ;)
 woof = '''
-                    '''+W+'''______
-                   '''+W+'''/      \\
-                  '''+W+'''(  Woof! )
-                   '''+W+r'''\______/                      '''+R+''')
-                   '''+W+''',,                           '''+R+''') ('''+Y+'''_
-              '''+Y+'''.-. '''+W+'''-    '''+G+'''_______                 '''+R+'''( '''+Y+'''|__|
-             '''+Y+'''()``; '''+G+'''|==|_______)                '''+R+'''.)'''+Y+'''|__|
-             '''+Y+'''/ ('        '''+G+'''/|\                  '''+R+'''(  '''+Y+'''|__|
-         '''+Y+'''(  /  )       '''+G+''' / | \                  '''+R+'''. '''+Y+'''|__|
-          '''+Y+r'''\(_)_))      '''+G+'''/  |  \                   '''+Y+'''|__|'''+E+'''
+                '''+W+'''______
+               '''+W+'''/      \\
+              '''+W+'''(  Woof! )
+               '''+W+r'''\______/                      '''+R+''')
+               '''+W+''',,                           '''+R+''') ('''+Y+'''_
+          '''+Y+'''.-. '''+W+'''-    '''+G+'''_______                 '''+R+'''( '''+Y+'''|__|
+         '''+Y+'''()``; '''+G+'''|==|_______)                '''+R+'''.)'''+Y+'''|__|
+         '''+Y+'''/ ('        '''+G+'''/|\                  '''+R+'''(  '''+Y+'''|__|
+     '''+Y+'''(  /  )       '''+G+''' / | \                  '''+R+'''. '''+Y+'''|__|
+      '''+Y+r'''\(_)_))      '''+G+'''/  |  \                   '''+Y+'''|__|'''+E+'''
 
-   WAFW00F - Web Application Firewall Detection Tool (v%s)
-    ''' % (__version__)
+                  '''+C+'WAFW00F — '+W+'v'+__version__+'''
+  The Web Application Firewall Fingerprinting Toolkit
+'''+E
 
 class WAFW00F(waftoolsengine):
 
@@ -61,7 +63,7 @@ class WAFW00F(waftoolsengine):
 
     def __init__(self, target='www.example.com', port=None, debuglevel=0, path='/',
                  followredirect=True, extraheaders={}, proxies=None):
-        
+
         self.log = logging.getLogger('wafw00f')
         self.attackres = None
         waftoolsengine.__init__(self, target, port, debuglevel, path, proxies, followredirect, extraheaders)
@@ -98,7 +100,7 @@ class WAFW00F(waftoolsengine):
         return r
 
     # Most common attacks used to detect WAFs
-    attcom = [xssAttack, sqliAttack]
+    attcom = [xssAttack, sqliAttack, lfiAttack]
     attacks = [xssAttack, xxeAttack, lfiAttack, sqliAttack, oscAttack]
 
     def genericdetect(self):
@@ -273,11 +275,11 @@ def main():
     parser.add_option('-t', '--test', dest='test', help='Test for one specific WAF')
     parser.add_option('-l', '--list', dest='list', action='store_true',
                       default=False, help='List all WAFs that WAFW00F is able to detect')
-    parser.add_option('-p', '--proxy', dest='proxy', default=None, 
+    parser.add_option('-p', '--proxy', dest='proxy', default=None,
                       help='Use an HTTP proxy to perform requests, examples: http://hostname:8080, socks5://hostname:1080, http://user:pass@hostname:8080')
     parser.add_option('--version', '-V', dest='version', action='store_true',
                       default=False, help='Print out the current version of WafW00f and exit.')
-    parser.add_option('--headers', '-H', dest='headers', action='store', default=None, 
+    parser.add_option('--headers', '-H', dest='headers', action='store', default=None,
                       help='Pass custom headers via a text file to overwrite the default header set.')
     options, args = parser.parse_args()
     logging.basicConfig(level=calclogginglevel(options.verbose))
