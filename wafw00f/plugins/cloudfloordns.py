@@ -4,7 +4,7 @@ Copyright (C) 2019, WAFW00F Developers.
 See the LICENSE file for copying permission.
 '''
 
-NAME = 'Cloudfloor Application Firewall (Cloudfloor DNS)'
+NAME = 'Cloudfloor (Cloudfloor DNS)'
 
 
 def is_waf(self):

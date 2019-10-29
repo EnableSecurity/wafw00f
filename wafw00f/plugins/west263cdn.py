@@ -4,7 +4,7 @@ Copyright (C) 2019, WAFW00F Developers.
 See the LICENSE file for copying permission.
 '''
 
-NAME = 'West263 Content Delivery Network'
+NAME = 'West263 CDN (West263CDN)'
 
 
 def is_waf(self):

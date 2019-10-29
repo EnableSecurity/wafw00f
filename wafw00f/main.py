@@ -288,6 +288,15 @@ def main():
         print('Can test for these WAFs:\r\n')
         attacker = WAFW00F(None)
         print('\r\n'.join(attacker.wafdetections.keys()))
+        m = [i.replace(')', '').split(' (') for i in wafdetectionsprio]
+        print('\n  WAF Name'+'\t'*3+'Manufacturer\n  '+'-'*8+'\t'*3+'-'*12+'\n')
+        for i in m:
+            tab, n = '\t', 5
+            for j in range(-2,23,8):
+                if len(i[0]) < j: 
+                    print('  '+i[0]+tab*n+i[1])
+                    break
+                else: n=n-1
         return
     if options.version:
         print('The version of WAFW00F you have is %sv%s%s' % (B, __version__, E))

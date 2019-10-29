@@ -4,7 +4,7 @@ Copyright (C) 2019, WAFW00F Developers.
 See the LICENSE file for copying permission.
 '''
 
-NAME = 'BIG-IP Application Security Manager (F5 Networks)'
+NAME = 'BIG-IP AppSec Manager (F5 Networks)'
 
 
 def is_waf(self):

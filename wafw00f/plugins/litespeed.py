@@ -4,7 +4,7 @@ Copyright (C) 2019, WAFW00F Developers.
 See the LICENSE file for copying permission.
 '''
 
-NAME = 'LiteSpeed Firewall (LiteSpeed Technologies)'
+NAME = 'LiteSpeed (LiteSpeed Technologies)'
 
 
 def is_waf(self):

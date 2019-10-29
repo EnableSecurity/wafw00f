@@ -4,7 +4,7 @@ Copyright (C) 2019, WAFW00F Developers.
 See the LICENSE file for copying permission.
 '''
 
-NAME = 'Mission Control Application Shield (Mission Control)'
+NAME = 'Mission Control Shield (Mission Control)'
 
 
 def is_waf(self):

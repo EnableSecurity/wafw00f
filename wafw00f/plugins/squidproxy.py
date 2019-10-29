@@ -4,7 +4,7 @@ Copyright (C) 2019, WAFW00F Developers.
 See the LICENSE file for copying permission.
 '''
 
-NAME = 'SquidProxy IDS'
+NAME = 'SquidProxy IDS (SquidProxy)'
 
 
 def is_waf(self):

@@ -4,7 +4,7 @@ Copyright (C) 2019, WAFW00F Developers.
 See the LICENSE file for copying permission.
 '''
 
-NAME = 'SecuPress WordPress Security (SecuPress)'
+NAME = 'SecuPress WP Security (SecuPress)'
 
 
 def is_waf(self):
