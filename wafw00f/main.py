@@ -142,15 +142,16 @@ class WAFW00F(waftoolsengine):
                         self.knowledge['generic']['found'] = True
                         return True
             # When we're blank on what happened :(
-            for attack in wafdetectionsprio:
-                if not self.wafdetections[attack](self):
-                    self.knowledge['generic']['reason'] = reasons[0]
-                    self.knowledge['generic']['found'] = True
-                    return True
+            ## for attack in wafdetectionsprio:
+            ##     if not self.wafdetections[attack](self):
+            ##         self.knowledge['generic']['reason'] = reasons[0]
+            ##         self.knowledge['generic']['found'] = True
+            ##         return True
             # When the headers are scrambled, we've a clue
             for attack in self.attacks:
                 response = self.performCheck(lambda: attack(self))
-                for h, _ in response.headers():
+                for hv in response.headers:
+                    h = hv[0]
                     if scrambledHeader(h):
                         self.knowledge['generic']['reason'] = reasons[4]
                         self.knowledge['generic']['found'] = True
