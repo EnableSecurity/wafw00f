@@ -14,9 +14,9 @@ import sys
 from optparse import OptionParser
 
 from wafw00f import __version__, __license__
-from wafw00f.lib.evillib import scrambledHeader, urlParser, waftoolsengine
 from wafw00f.manager import load_plugins
 from wafw00f.wafprio import wafdetectionsprio
+from wafw00f.lib.evillib import urlParser, waftoolsengine, def_headers
 
 # Colors for terminal
 W = '\033[1;97m'
@@ -49,14 +49,14 @@ woof = '''
      '''+Y+'''(  /  )       '''+G+''' / | \                  '''+R+'''. '''+Y+'''|__|
       '''+Y+r'''\(_)_))      '''+G+'''/  |  \                   '''+Y+'''|__|'''+E+'''
 
-                  '''+C+'WAFW00F — '+W+'v'+__version__+'''
+                '''+C+'~ WAFW00F : '+W+'v'+__version__+''' ~
   The Web Application Firewall Fingerprinting Toolkit
 '''+E
 
 class WAFW00F(waftoolsengine):
 
     xsstring = '<script>alert("XSS");</script>'
-    sqlistring = "UNION SELECT ALL FROM information_schema"
+    sqlistring = "UNION SELECT ALL FROM information_schema AND ' or SLEEP(5) or '"
     lfistring = '../../../../etc/passwd'
     rcestring = '/bin/cat /etc/passwd; ping 127.0.0.1; curl google.com'
     xxestring = '<!ENTITY xxe SYSTEM "file:///etc/shadow">]><pwn>&hack;</pwn>'
@@ -69,8 +69,11 @@ class WAFW00F(waftoolsengine):
         waftoolsengine.__init__(self, target, port, debuglevel, path, proxies, followredirect, extraheaders)
         self.knowledge = dict(generic=dict(found=False, reason=''), wafname=list())
 
-    def normalRequest(self, headers=None):
+    def normalRequest(self):
         return self.Request()
+
+    def customRequest(self, headers=None):
+        return self.Request(headers=headers)
 
     def nonExistent(self):
         return self.Request(path=self.path + str(random.randrange(100, 999)) + '.html')
@@ -109,53 +112,75 @@ class WAFW00F(waftoolsengine):
                    'The server header is different when an attack is detected.',
                    'The server returns a different response code when an attack string is used.',
                    'It closed the connection for a normal request.',
-                   'The connection header was scrambled.'
+                   'The response was different when the request wasn\'t made from a browser.'
                 ]
         try:
-            # Testing the status code upon sending a malicious request
+            # Testing for no user-agent response. Detects almost all WAFs out there.
             resp1 = self.performCheck(self.normalRequest)
-            resp2 = self.performCheck(self.xssAttack)
-            if resp1.status_code != resp2.status_code:
-                self.log.info('Server returned a different response when a script tag was tried')
-                reason = reasons[2]
+            del def_headers['User-Agent']  # Deleting the user-agent key
+            resp3 = self.customRequest(headers=def_headers)
+            if resp1.status_code != resp3.status_code:
+                self.log.info('Server returned a different response when request didn\'t contain the User-Agent header.')
+                reason = reasons[4]
                 reason += '\r\n'
                 reason += 'Normal response code is "%s",' % resp1.status_code
-                reason += ' while the response code to an attack is "%s"' % resp2.status_code
+                reason += ' while the response code to a modified request is "%s"' % resp3.status_code
                 self.knowledge['generic']['reason'] = reason
                 self.knowledge['generic']['found'] = True
                 return True
+
+            # Testing the status code upon sending a xss attack
+            resp2 = self.performCheck(self.xssAttack)
+            if resp1.status_code != resp2.status_code:
+                self.log.info('Server returned a different response when a XSS attack vector was tried.')
+                reason = reasons[2]
+                reason += '\r\n'
+                reason += 'Normal response code is "%s",' % resp1.status_code
+                reason += ' while the response code to cross-site scripting attack is "%s"' % resp2.status_code
+                self.knowledge['generic']['reason'] = reason
+                self.knowledge['generic']['found'] = True
+                return True
+
+            # Testing the status code upon sending a lfi attack
+            resp2 = self.performCheck(self.lfiAttack)
+            if resp1.status_code != resp2.status_code:
+                self.log.info('Server returned a different response when a directory traversal was attempted.')
+                reason = reasons[2]
+                reason += '\r\n'
+                reason += 'Normal response code is "%s",' % resp1.status_code
+                reason += ' while the response code to a file inclusion attack is "%s"' % resp2.status_code
+                self.knowledge['generic']['reason'] = reason
+                self.knowledge['generic']['found'] = True
+                return True
+
+            # Testing the status code upon sending a sqli attack
+            resp2 = self.performCheck(self.sqliAttack)
+            if resp1.status_code != resp2.status_code:
+                self.log.info('Server returned a different response when a SQLi was attempted.')
+                reason = reasons[2]
+                reason += '\r\n'
+                reason += 'Normal response code is "%s",' % resp1.status_code
+                reason += ' while the response code to a SQL injection attack is "%s"' % resp2.status_code
+                self.knowledge['generic']['reason'] = reason
+                self.knowledge['generic']['found'] = True
+                return True
+
             # Checking for the Server header after sending malicious requests
-            response = self.performCheck(self.normalRequest)
-            normalserver = response.headers.get('Server')
-            for attack in self.attacks:
-                response = self.performCheck(lambda: attack(self))
-                attackresponse_server = response.headers.get('Server')
-                if attackresponse_server:
-                    if attackresponse_server != normalserver:
-                        self.log.info('Server header changed, WAF possibly detected')
-                        self.log.debug('Attack response: %s' % attackresponse_server)
-                        self.log.debug('Normal response: %s' % normalserver)
-                        reason = reasons[1]
-                        reason += '\r\nThe server header for a normal response is "%s",' % normalserver
-                        reason += ' while the server header a response to an attack is "%s",' % attackresponse_server
-                        self.knowledge['generic']['reason'] = reason
-                        self.knowledge['generic']['found'] = True
-                        return True
-            # When we're blank on what happened :(
-            ## for attack in wafdetectionsprio:
-            ##     if not self.wafdetections[attack](self):
-            ##         self.knowledge['generic']['reason'] = reasons[0]
-            ##         self.knowledge['generic']['found'] = True
-            ##         return True
-            # When the headers are scrambled, we've a clue
-            for attack in self.attacks:
-                response = self.performCheck(lambda: attack(self))
-                for hv in response.headers:
-                    h = hv[0]
-                    if scrambledHeader(h):
-                        self.knowledge['generic']['reason'] = reasons[4]
-                        self.knowledge['generic']['found'] = True
-                        return True
+            response = self.attackres
+            normalserver = resp1.headers.get('Server')
+            attackresponse_server = response.headers.get('Server')
+            if attackresponse_server:
+                if attackresponse_server != normalserver:
+                    self.log.info('Server header changed, WAF possibly detected')
+                    self.log.debug('Attack response: %s' % attackresponse_server)
+                    self.log.debug('Normal response: %s' % normalserver)
+                    reason = reasons[1]
+                    reason += '\r\nThe server header for a normal response is "%s",' % normalserver
+                    reason += ' while the server header a response to an attack is "%s",' % attackresponse_server
+                    self.knowledge['generic']['reason'] = reason
+                    self.knowledge['generic']['found'] = True
+                    return True
+
         # If at all request doesn't go, press F
         except RequestBlocked:
             self.knowledge['generic']['reason'] = reasons[0]

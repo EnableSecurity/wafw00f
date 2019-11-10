@@ -23,13 +23,13 @@ except ImportError:
 # For requests >= 2.16, this is the convention 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
-def_headers = { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.100 Safari/537.36',
-                'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
-                'Accept-Encoding': 'gzip, deflate',
-                'Accept-Language': 'en-US,en;q=0.9',
-                'DNT': '1',  # Do Not Track request header
-                'Cache-Control': 'max-age=0',
-                'Connection': 'keep-alive'
+def_headers = {'User-Agent'     : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3770.100 Safari/537.36',
+               'Accept'         : 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+               'Accept-Encoding': 'gzip, deflate',
+               'Accept-Language': 'en-US,en;q=0.9',
+               'DNT'            : '1',  # Do Not Track request header
+               'Cache-Control'  : 'max-age=0',
+               'Connection'     : 'keep-alive'
         }
 proxies = {}
 
@@ -74,10 +74,13 @@ class waftoolsengine:
         else:
             self.headers = def_headers
 
-    def Request(self, path=None, params={}, delay=0, timeout=7):
+    def Request(self, headers=None, path=None, params={}, delay=0, timeout=7):
         try:
             time.sleep(delay)
-            req = requests.get(self.target, proxies=self.proxies, headers=self.headers, timeout=timeout,
+            if not headers: 
+                h = self.headers
+            else: h = headers
+            req = requests.get(self.target, proxies=self.proxies, headers=h, timeout=timeout,
                     allow_redirects=self.allowredir, params=params, verify=False)
             self.log.info('Request Succeeded')
             self.log.debug('Headers: %s\n' % req.headers)
@@ -86,15 +89,3 @@ class waftoolsengine:
             return req
         except requests.exceptions.RequestException as e:
             self.log.error('Something went wrong %s' % (e.__str__()))
-
-
-def scrambledHeader(header):
-    c = 'connection'
-    if len(header) != len(c):
-        return False
-    if header == c:
-        return False
-    for character in c:
-        if c.count(character) != header.count(character):
-            return False
-    return True
