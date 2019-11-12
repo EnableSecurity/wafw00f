@@ -118,7 +118,7 @@ wafdetectionsprio = [
     'WebKnight (AQTRONIX)',
     'WebSEAL (IBM)',
     'WebTotem (WebTotem)',
-    'Wordfence (Feedjit)',
+    'Wordfence (Defiant)',
     'WTS-WAF (WTS)',
     '360WangZhanBao (360 Technologies)',
     'Xuanwudun',
