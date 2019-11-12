@@ -151,7 +151,7 @@ WebKnight (AQTRONIX)
 WebSEAL (IBM)
 WebTotem (WebTotem)
 West263 Content Delivery Network
-Wordfence (Feedjit)
+Wordfence (Defiant)
 WTS-WAF (WTS)
 360WangZhanBao (360 Technologies)
 XLabs Security WAF (XLabs)
