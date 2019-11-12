@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 
-NAME = 'Wordfence (Feedjit)'
+NAME = 'Wordfence (Defiant)'
 
 
 def is_waf(self):
