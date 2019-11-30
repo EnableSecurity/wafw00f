@@ -255,7 +255,10 @@ class WAFW00F(waftoolsengine):
 
     def identwaf(self, findall=False):
         detected = list()
-        self.attackres = self.performCheck(self.centralAttack)
+        try:
+            self.attackres = self.performCheck(self.centralAttack)
+        except RequestBlocked:
+            return detected
         for wafvendor in self.checklist:
             self.log.info('Checking for %s' % wafvendor)
             if self.wafdetections[wafvendor](self):
