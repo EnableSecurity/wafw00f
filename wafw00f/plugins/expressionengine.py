@@ -17,8 +17,7 @@ def is_waf(self):
         # Set-Cookie: exp_last_id=b342b432b1a876r8
         self.matchCookie(r'^exp_last_.+?=', attack=True),
         # In-page fingerprints vary a lot in different sites. Hence these are not quite reliable.
-        self.matchContent(r'invalid get data'),
-        self.matchContent(r'invalid uri')
+        self.matchContent(r'invalid get data')
     ]
     if any(i for i in schemes):
         return True
