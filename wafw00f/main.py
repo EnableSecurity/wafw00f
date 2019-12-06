@@ -16,42 +16,12 @@ from optparse import OptionParser
 from wafw00f import __version__, __license__
 from wafw00f.manager import load_plugins
 from wafw00f.wafprio import wafdetectionsprio
+from wafw00f.lib.asciiarts import *
 from wafw00f.lib.evillib import urlParser, waftoolsengine, def_headers
-
-# Colors for terminal
-W = '\033[1;97m'
-Y = '\033[1;93m'
-G = '\033[1;92m'
-R = '\033[1;91m'
-B = '\033[1;94m'
-C = '\033[1;96m'
-E = '\033[0m'
-
-# Windows based systems do not support ANSI sequences,
-# hence not displaying them.
-if 'win' in sys.platform:
-    W = Y = G = R = B = C = E = ''
 
 currentDir = os.getcwd()
 scriptDir = os.path.dirname(sys.argv[0]) or '.'
 os.chdir(scriptDir)
-
-# WOOF! Yes you heard it! WAF says a Woof! You know who's the good boy. ;)
-woof = '''
-                '''+W+'''______
-               '''+W+'''/      \\
-              '''+W+'''(  Woof! )
-               '''+W+r'''\______/                      '''+R+''')
-               '''+W+''',,                           '''+R+''') ('''+Y+'''_
-          '''+Y+'''.-. '''+W+'''-    '''+G+'''_______                 '''+R+'''( '''+Y+'''|__|
-         '''+Y+'''()``; '''+G+'''|==|_______)                '''+R+'''.)'''+Y+'''|__|
-         '''+Y+'''/ ('        '''+G+'''/|\                  '''+R+'''(  '''+Y+'''|__|
-     '''+Y+'''(  /  )       '''+G+''' / | \                  '''+R+'''. '''+Y+'''|__|
-      '''+Y+r'''\(_)_))      '''+G+'''/  |  \                   '''+Y+'''|__|'''+E+'''
-
-                '''+C+'~ WAFW00F : '+W+'v'+__version__+''' ~
-  The Web Application Firewall Fingerprinting Toolkit
-'''+E
 
 class WAFW00F(waftoolsengine):
 
@@ -293,7 +263,7 @@ class RequestBlocked(Exception):
     pass
 
 def main():
-    print(woof)
+    print(randomArt())
     parser = OptionParser(usage='%prog url1 [url2 [url3 ... ]]\r\nexample: %prog http://www.victim.org/')
     parser.add_option('-v', '--verbose', action='count', dest='verbose', default=0,
                       help='Enable verbosity, multiple -v options increase verbosity')
