@@ -1,19 +1,18 @@
 #!/usr/bin/env python
-
+'''
+Copyright (C) 2019, WAFW00F Developers.
+See the LICENSE file for copying permission.
+'''
 
 NAME = 'WebSEAL (IBM)'
 
 
 def is_waf(self):
-    if self.matchheader(('Server', 'WebSEAL')):
+    schemes = [
+        self.matchHeader(('Server', 'WebSEAL')),
+        self.matchContent(r"This is a WebSEAL error message template file"),
+        self.matchContent(r"WebSEAL server received an invalid HTTP request")
+    ]
+    if any(i for i in schemes):
         return True
-    # Now going for attack phase
-    for attack in self.attacks:
-        r = attack(self)
-        if r is None:
-            return
-        _, page = r
-        # The first fingerprint is for unconfigured blockpages
-        if any(i in page for i in (b'This is a WebSEAL error message template file', b'WebSEAL server received an invalid HTTP request')):
-            return True
     return False

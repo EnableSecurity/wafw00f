@@ -1,19 +1,17 @@
 #!/usr/bin/env python
-
+'''
+Copyright (C) 2019, WAFW00F Developers.
+See the LICENSE file for copying permission.
+'''
 
 NAME = 'WTS-WAF (WTS)'
 
 
 def is_waf(self):
-    # There are sites which are found to return 'Server: wts/1.2'
-    if self.matchheader(('Server', r'wts(.+)?')):
+    schemes = [
+        self.matchHeader(('Server', r'wts/[0-9\.]+?')),
+        self.matchContent(r"<(title|h\d{1})>WTS\-WAF")
+    ]
+    if any(i for i in schemes):
         return True
-    for attack in self.attacks:
-        r = attack(self)
-        if r is None:
-            return
-        _, page = r
-        # WTS returns its name in blockpage
-        if any(i in page for  i in (b'<h1>WTS-WAF', b'<title>WTS-WAF')):
-            return True
     return False

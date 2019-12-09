@@ -1,6 +1,29 @@
-# WAFW00F
-
-WAFW00F identifies and fingerprints Web Application Firewall (WAF) products.
+<h1 align="center">
+  <a href="https://github.com/enablesecurity/wafw00f"><img src="https://i.imgur.com/uAgp49o.png" alt="wafw00f"/></a>
+  <br>
+  WAFW00F
+</h1>
+<p align="center">
+  <b>The Web Application Firewall Fingerprinting Tool.</b>
+  <br>
+  <b>
+    &mdash; From <a href="https://enablesecurity.com">Enable Security</a>
+  </b>
+</p>
+<p align="center">
+  <a href="https://docs.python.org/3/download.html">
+    <img src="https://img.shields.io/badge/Python-3.x/2.x-green.svg">
+  </a>
+  <a href="https://github.com/EnableSecurity/wafw00f/releases">
+    <img src="https://img.shields.io/badge/Version-v2.0.0%20(stable)-blue.svg">
+  </a>
+  <a href="https://github.com/EnableSecurity/wafw00f/blob/master/LICENSE">
+    <img src="https://img.shields.io/badge/License-BSD%203%20Clause-orange.svg">
+  </a> 
+  <a href="https://travis-ci.com/EnableSecurity/wafw00f">
+    <img src="https://img.shields.io/badge/Build-Passing-brightgreen.svg?logo=travis">
+  </a>
+</p>
 
 ## How does it work?
 
@@ -14,196 +37,226 @@ To do its magic, WAFW00F does the following:
   returned and uses another simple algorithm to guess if a WAF or security
   solution is actively responding to our attacks.
 
-For further details, check out the source code on the main site,
-[github.com/EnableSecurity/wafw00f](https://github.com/EnableSecurity/wafw00f).
+For further details, check out the source code on our [main repository](https://github.com/EnableSecurity/wafw00f).
 
 ## What does it detect?
 
-It detects a number of WAFs. To view which WAFs it is able to detect run
-WAFW00F with the `-l` option. At the time of writing the output is as follows:
+WAFW00F can detect a number of firewalls, a list of which is as below:
 
 ```
 $ wafw00f -l
 
-                 ______
-                /      \
-               (  Woof! )
-                \______/                      )
-                ,,                           ) (_
-           .-. -    _______                 ( |__|
-          ()``; |==|_______)                .)|__|
-          / ('        /|\                  (  |__|
-      (  /  )        / | \                  . |__|
-       \(_)_))      /  |  \                   |__|
+                                                                      
+                ______                                                
+               /      \                                               
+              (  W00f! )                                              
+               \  ____/                                               
+               ,,    __            404 Hack Not Found                 
+           |`-.__   / /                      __     __                
+           /"  _/  /_/                       \ \   / /                
+          *===*    /                          \ \_/ /  405 Not Allowed
+         /     )__//                           \   /                  
+    /|  /     /---`                        403 Forbidden
+    \\/`   \ |                                 / _ \ 
+    `\    /_\\_              502 Bad Gateway  / / \ \  500 Internal Error
+      `_____``-`                             /_/   \_\
 
-    WAFW00F - Web Application Firewall Detection Tool
+                        ~ WAFW00F : v2.0.0 ~
+        The Web Application Firewall Fingerprinting Toolkit
 
-Can test for these WAFs:
+[+] Can test for these WAFs:
 
-aeSecure (aeSecure)
-Airlock (Phion/Ergon)
-Alert Logic (Alert Logic)
-AliYunDun (Alibaba Cloud Computing)
-Anquanbao (Anquanbao)
-AnYu (AnYu Technologies)
-Approach (Approach)
-Armor Defense (Armor)
-ASP.NET Generic Protection (Microsoft)
-Astra Web Protection (Czar Securities)
-AWS Elastic Load Balancer (Amazon)
-Yunjiasu (Baidu Cloud Computing)
-Barikode (Ethic Ninja)
-Barracuda Application Firewall (Barracuda Networks)
-Bekchy (Faydata Technologies Inc.)
-BinarySec (BinarySec)
-BitNinja (BitNinja)
-BlockDoS (BlockDoS)
-Bluedon (Bluedon IST)
-CacheWall (Varnish)
-CdnNS Application Gateway (CdnNs/WdidcNet)
-WP Cerber Security (Cerber Tech)
-ChinaCache CDN Load Balancer (ChinaCache)
-Chuang Yu Shield (Yunaq)
-ACE XML Gateway (Cisco)
-Cloudbric (Penta Security)
-Cloudflare (Cloudflare Inc.)
-Cloudfront (Amazon)
-Comodo cWatch (Comodo CyberSecurity)
-CrawlProtect (Jean-Denis Brun)
-DenyALL (Rohde & Schwarz CyberSecurity)
-Distil (Distil Networks)
-DOSarrest (DOSarrest Internet Security)
-DotDefender (Applicure Technologies)
-DynamicWeb Injection Check (DynamicWeb)
-Edgecast (Verizon Digital Media)
-Expression Engine (EllisLab)
-BIG-IP Access Policy Manager (F5 Networks)
-BIG-IP Application Security Manager (F5 Networks)
-BIG-IP Local Traffic Manager (F5 Networks)
-FirePass (F5 Networks)
-Trafficshield (F5 Networks)
-FortiWeb (Fortinet)
-GoDaddy Website Protection (GoDaddy)
-Greywizard (Grey Wizard)
-HyperGuard (Art of Defense)
-DataPower (IBM)
-Imunify360 (CloudLinux)
-Incapsula (Imperva Inc.)
-Instart DX (Instart Logic)
-ISA Server (Microsoft)
-Janusec Application Gateway (Janusec)
-Jiasule (Jiasule)
-KS-WAF (KnownSec)
-Kona Site Defender (Akamai)
-LiteSpeed Firewall (LiteSpeed Technologies)
-Malcare (Inactiv)
-Mission Control Application Shield (Mission Control)
-ModSecurity (SpiderLabs)
-NAXSI (NBS Systems)
-Nemesida (PentestIt)
-NetContinuum (Barracuda Networks)
-NetScaler AppFirewall (Citrix Systems)
-NevisProxy (AdNovum)
-Newdefend (NewDefend)
-NexusGuard Firewall (NexusGuard)
-NinjaFirewall (NinTechNet)
-NSFocus (NSFocus Global Inc.)
-OnMessage Shield (BlackBaud)
-Open-Resty Lua Nginx WAF
-Palo Alto Next Gen Firewall (Palo Alto Networks)
-PerimeterX (PerimeterX)
-pkSecurity Intrusion Detection System
-PowerCDN (PowerCDN)
-Profense (ArmorLogic)
-AppWall (Radware)
-Reblaze (Reblaze)
-RSFirewall (RSJoomla!)
-ASP.NET RequestValidationMode (Microsoft)
-Sabre Firewall (Sabre)
-Safe3 Web Firewall (Safe3)
-Safedog (SafeDog)
-Safeline (Chaitin Tech.)
-SecuPress WordPress Security (SecuPress)
-Secure Entry (United Security Providers)
-eEye SecureIIS (BeyondTrust)
-SecureSphere (Imperva Inc.)
-SEnginx (Neusoft)
-Shield Security (One Dollar Plugin)
-SiteGround (SiteGround)
-SiteGuard (Sakura Inc.)
-Sitelock (TrueShield)
-SonicWall (Dell)
-UTM Web Protection (Sophos)
-Squarespace (Squarespace)
-StackPath (StackPath)
-Sucuri CloudProxy (Sucuri Inc.)
-Tencent Cloud Firewall (Tencent Technologies)
-Teros (Citrix Systems)
-TransIP Web Firewall (TransIP)
-URLMaster SecurityCheck (iFinity/DotNetNuke)
-URLScan (Microsoft)
-Varnish (OWASP)
-VirusDie (VirusDie LLC)
-Wallarm (Wallarm Inc.)
-WatchGuard (WatchGuard Technologies)
-WebARX (WebARX Security Solutions)
-WebKnight (AQTRONIX)
-WebSEAL (IBM)
-WebTotem (WebTotem)
-West263 Content Delivery Network
-Wordfence (Feedjit)
-WTS-WAF (WTS)
-360WangZhanBao (360 Technologies)
-XLabs Security WAF (XLabs)
-Xuanwudun
-Yundun (Yundun)
-Yunsuo (Yunsuo)
-Zenedge (Zenedge)
-ZScaler (Accenture)
+  WAF Name                      Manufacturer
+  --------                      ------------
+
+  ACE XML Gateway               Cisco
+  aeSecure                      aeSecure
+  AireeCDN                      Airee
+  Airlock                       Phion/Ergon
+  Alert Logic                   Alert Logic
+  AliYunDun                     Alibaba Cloud Computing
+  Anquanbao                     Anquanbao
+  AnYu                          AnYu Technologies
+  Approach                      Approach
+  AppWall                       Radware
+  Armor Defense                 Armor
+  ArvanCloud                    ArvanCloud
+  ASP.NET Generic               Microsoft
+  ASPA Firewall                 ASPA Engineering Co.
+  Astra                         Czar Securities
+  AzionCDN                      AzionCDN
+  Barikode                      Ethic Ninja
+  Barracuda                     Barracuda Networks
+  Bekchy                        Faydata Technologies Inc.
+  Beluga CDN                    Beluga
+  BinarySec                     BinarySec
+  BitNinja                      BitNinja
+  BlockDoS                      BlockDoS
+  Bluedon                       Bluedon IST
+  CacheWall                     Varnish
+  CacheFly CDN                  CacheFly
+  Comodo cWatch                 Comodo CyberSecurity
+  Chuang Yu Shield              Yunaq
+  Cloudbric                     Penta Security
+  Cloudflare                    Cloudflare Inc.
+  Cloudfloor                    Cloudfloor DNS
+  Cloudfront                    Amazon
+  CrawlProtect                  Jean-Denis Brun
+  DataPower                     IBM
+  DenyALL                       Rohde & Schwarz CyberSecurity
+  Distil                        Distil Networks
+  DOSarrest                     DOSarrest Internet Security
+  DotDefender                   Applicure Technologies
+  Edgecast                      Verizon Digital Media
+  Eisoo Cloud Firewall          Eisoo
+  Expression Engine             EllisLab
+  BIG-IP AppSec Manager         F5 Networks
+  BIG-IP AP Manager             F5 Networks
+  Fastly                        Fastly CDN
+  FirePass                      F5 Networks
+  FortiWeb                      Fortinet
+  Greywizard                    Grey Wizard
+  HyperGuard                    Art of Defense
+  Imunify360                    CloudLinux
+  Incapsula                     Imperva Inc.
+  IndusGuard                    Indusface
+  Instart DX                    Instart Logic
+  ISA Server                    Microsoft
+  Jiasule                       Jiasule
+  Kona SiteDefender             Akamai
+  KS-WAF                        KnownSec
+  KeyCDN                        KeyCDN
+  LimeLight CDN                 LimeLight
+  LiteSpeed                     LiteSpeed Technologies
+  Open-Resty Lua Nginx          FLOSS
+  Oracle Cloud                  Oracle
+  Malcare                       Inactiv
+  MaxCDN                        MaxCDN
+  ModSecurity                   SpiderLabs
+  NAXSI                         NBS Systems
+  Nemesida                      PentestIt
+  NevisProxy                    AdNovum
+  NetContinuum                  Barracuda Networks
+  NetScaler AppFirewall         Citrix Systems
+  Newdefend                     NewDefend
+  NexusGuard Firewall           NexusGuard
+  NinjaFirewall                 NinTechNet
+  NullDDoS Protection           NullDDoS
+  NSFocus                       NSFocus Global Inc.
+  OnMessage Shield              BlackBaud
+  PerimeterX                    PerimeterX
+  PentaWAF                      Global Network Services
+  pkSecurity IDS                pkSec
+  PowerCDN                      PowerCDN
+  Profense                      ArmorLogic
+  Puhui                         Puhui
+  Qiniu                         Qiniu CDN
+  Reblaze                       Reblaze
+  RSFirewall                    RSJoomla!
+  Safe3 Web Firewall            Safe3
+  Safedog                       SafeDog
+  Safeline                      Chaitin Tech.
+  SecKing                       SecKing
+  eEye SecureIIS                BeyondTrust
+  SecuPress WP Security         SecuPress
+  SecureSphere                  Imperva Inc.
+  Secure Entry                  United Security Providers
+  SEnginx                       Neusoft    
+  ServerDefender VP             Port80 Software
+  Shield Security               One Dollar Plugin
+  Shadow Daemon                 Zecure  
+  SiteGround                    SiteGround 
+  SiteGuard                     Sakura Inc.   
+  Sitelock                      TrueShield
+  SonicWall                     Dell        
+  UTM Web Protection            Sophos   
+  Squarespace                   Squarespace  
+  SquidProxy IDS                SquidProxy
+  StackPath                     StackPath
+  Sucuri CloudProxy             Sucuri Inc.
+  Teros                         Citrix Systems
+  Trafficshield                 F5 Networks
+  TransIP Web Firewall          TransIP  
+  URLScan                       Microsoft
+  UEWaf                         UCloud
+  Varnish                       OWASP 
+  Viettel                       Cloudrity
+  VirusDie                      VirusDie LLC
+  Wallarm                       Wallarm Inc.
+  WatchGuard                    WatchGuard Technologies
+  WebARX                        WebARX Security Solutions
+  WebKnight                     AQTRONIX
+  WebLand                       WebLand
+  RayWAF                        WebRay Solutions
+  WebSEAL                       IBM
+  WebTotem                      WebTotem
+  West263 CDN                   West263CDN
+  Wordfence                     Defiant 
+  WP Cerber Security            Cerber Tech
+  WTS-WAF                       WTS      
+  360WangZhanBao                360 Technologies
+  XLabs Security WAF            XLabs
+  Xuanwudun                     Xuanwudun
+  Yundun                        Yundun
+  Yunsuo                        Yunsuo
+  Yunjiasu                      Baidu Cloud Computing
+  YXLink                        YxLink Technologies
+  Zenedge                       Zenedge
+  ZScaler                       Accenture
+  Huawei Cloud Firewall         Huawei
+  Sabre Firewall                Sabre
 ```
 
 ## How do I use it?
 
 First, install the tools as described [here](#how-do-i-install-it).
 
-For help please make use of the `--help` option. The basic usage is to pass it
-a URL as an argument. Example:
+For help you can make use of the `--help` option. The basic usage is to pass
+an URL as an argument. Example:
+```
+$  wafw00f https://example.org
 
-    $  wafw00f https://example.org
+                ______
+               /      \
+              (  W00f! )
+               \  ____/
+               ,,    __            404 Hack Not Found
+           |`-.__   / /                      __     __
+           /"  _/  /_/                       \ \   / /
+          *===*    /                          \ \_/ /  405 Not Allowed
+         /     )__//                           \   /
+    /|  /     /---`                        403 Forbidden
+    \\/`   \ |                                 / _ \
+    `\    /_\\_              502 Bad Gateway  / / \ \  500 Internal Error
+      `_____``-`                             /_/   \_\
 
-                 ______
-                /      \
-               (  Woof! )
-                \______/                      )
-                ,,                           ) (_
-           .-. -    _______                 ( |__|
-          ()``; |==|_______)                .)|__|
-          / ('        /|\                  (  |__|
-      (  /  )        / | \                  . |__|
-       \(_)_))      /  |  \                   |__|
-
-        WAFW00F - Web Application Firewall Detection Tool
-
-    Checking https://example.org
-    The site https://example.org is behind Edgecast (Verizon Digital Media) WAF.
-    Number of requests: 1
-
+                        ~ WAFW00F : v2.0.0 ~
+        The Web Application Firewall Fingerprinting Toolkit
+    
+[*] Checking https://example.org
+[+] The site https://example.org is behind Edgecast (Verizon Digital Media) WAF.
+[~] Number of requests: 2
+```
 
 ## How do I install it?
 
 The following should do the trick:
 
-    python setup.py install
+```
+python setup.py install
+```
 
-## Looking for pentesters?
+## Final Words
 
-More information about the services that we offer at [Enable Security](http://enablesecurity.com/)
+__Questions?__ Pull up an [issue on GitHub Issue Tracker](https://github.com/enablesecurity/wafw00f/issues/new) or contact [me](mailto:sandro@enablesecurity.com).  
+[Pull requests](https://github.com/enablesecurity/wafw00f/pulls), [ideas and issues](https://github.com/enablesecurity/wafw00f/issues) are highly welcome. If you wish to see how WAFW00F is being developed, check out the [development board](https://github.com/enablesecurity/wafw00f/projects/1).
 
-## How do I write my own new checks?
+Some useful links:
 
-Follow the instructions on the [wiki](https://github.com/EnableSecurity/wafw00f/wiki/How-to-write-new-WAF-checks)
+- [Documentation/Wiki](https://github.com/enablesecurity/wafw00f/wiki/)
+- [Pypi Package Repository](https://pypi.org/project/wafw00f)
 
-## Questions?
+Presently being developed and maintained by:
 
-Pull up an [issue](https://github.com/enablesecurity/wafw00f/issues/new) or contact [me](mailto:sandro@enablesecurity.com).
-
+- Sandro Gauci ([@SandroGauci](https://twitter.com/sandrogauci))
+- Pinaki Mondal ([@0xInfection](https://twitter.com/0xinfection))

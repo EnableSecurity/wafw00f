@@ -1,19 +1,18 @@
 #!/usr/bin/env python
-
+'''
+Copyright (C) 2019, WAFW00F Developers.
+See the LICENSE file for copying permission.
+'''
 
 NAME = 'Zenedge (Zenedge)'
 
 
 def is_waf(self):
-    if self.matchheader(('Server', 'ZENEDGE')):
+    schemes = [
+        self.matchHeader(('Server', 'ZENEDGE')),
+        self.matchHeader(('X-Zen-Fury', r'.+?')),
+        self.matchContent(r'/__zenedge/')
+    ]
+    if any(i for i in schemes):
         return True
-    for attack in self.attacks:
-        r = attack(self)
-        if r is None:
-            return
-        response, page = r
-        if b'/__zenedge/' in page:
-            return True
-        if response.getheader('X-Zen-Fury'):
-            return True
     return False

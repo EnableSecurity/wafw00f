@@ -1,19 +1,21 @@
 #!/usr/bin/env python
-
+'''
+Copyright (C) 2019, WAFW00F Developers.
+See the LICENSE file for copying permission.
+'''
 
 NAME = 'Bekchy (Faydata Technologies Inc.)'
 
 
 def is_waf(self):
-    for attack in self.attacks:
-        r = attack(self)
-        if r is None:
-            return
-        _, page = r
+    schemes = [
         # Both signatures are contained within response, so checking for any one of them
         # Sometimes I observed that there is an XHR request being being made to submit the 
         # report data automatically upon page load. In those cases a missing https is causing
         # false negatives.
-        if any(i in page for i in (b'Bekchy - Access Denied', b'bekchy.com/report')):
-            return True
+        self.matchContent(r'Bekchy.{0,10}?Access Denied'),
+        self.matchContent(r'bekchy\.com/report')
+    ]
+    if any(i for i in schemes):
+        return True
     return False

@@ -1,16 +1,16 @@
 #!/usr/bin/env python
-
+'''
+Copyright (C) 2019, WAFW00F Developers.
+See the LICENSE file for copying permission.
+'''
 
 NAME = 'GoDaddy Website Protection (GoDaddy)'
 
 
 def is_waf(self):
-    for attack in self.attacks:
-        r = attack(self)
-        if r is None:
-            return
-        _, page = r
-        # Sites without modified block page return both, so checking for any one of them works.
-        if any(i in page for i in (b'GoDaddy Security - Access Denied', b'Access Denied - GoDaddy Website Firewall')):
-            return True
+    schemes = [
+        self.matchContent(r'GoDaddy (security|website firewall)')
+    ]
+    if any(i for i in schemes):
+        return True
     return False

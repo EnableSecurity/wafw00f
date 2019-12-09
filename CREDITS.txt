@@ -1,6 +1,22 @@
-Original code by Sandro Gauci && Wendel G. Henrique
+===================
+THE WAFW00F PROJECT
+===================
 
-However, a number of people contributed (in no particular order):
+$ AUTHORS
+  =======
+
+* Present Developers :-
+    - Sandro Gauci <sandro [at] enablesecurity [dot] com>
+    - Pinaki Mondal <theinfecteddrake [at] gmail [dot] com>
+
+* Original Code by :-
+    - Sandro Gauci <sandro [at] enablesecurity [dot] com>
+    - Wendel G. Henrique <whenrique [at] trustwave [dot] com>
+
+$ CONTRIBUTORS
+  ============
+
+A number of people contributed in the past (in no particular order):
 
 - Sebastien Gioria <https://github.com/SPoint42>
 - W3AF (or Andres Riancho) <https://github.com/andresriancho>
@@ -17,7 +33,5 @@ However, a number of people contributed (in no particular order):
 - g0tmi1k (?) <https://github.com/g0tmi1k>
 - MyKings <https://github.com/MyKings>
 
-The above list is somewhat outdated, refer to https://github.com/EnableSecurity/wafw00f/graphs/contributors for a list of contributors.
-
-If you did contributed and somehow I didn't put your name in there, please do
-let me know: <sandro@enablesecurity.com>. 
+If you did contribute and somehow I didn't put your name in there, please do
+let me know at: <sandro [at] enablesecurity [dot] com>. 

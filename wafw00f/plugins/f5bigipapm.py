@@ -1,26 +1,30 @@
 #!/usr/bin/env python
+'''
+Copyright (C) 2019, WAFW00F Developers.
+See the LICENSE file for copying permission.
+'''
 
-
-NAME = 'BIG-IP Access Policy Manager (F5 Networks)'
+NAME = 'BIG-IP AP Manager (F5 Networks)'
 
 
 def is_waf(self):
-    # the following based on nmap's http-waf-fingerprint.nse
-    if self.matchcookie(r'^LastMRH_Session') and self.matchcookie(r'^MRHSession'):
+    schema1 = [
+        self.matchCookie('^LastMRH_Session'),
+        self.matchCookie('^MRHSession')
+    ]
+    schema2 = [
+        self.matchCookie('^MRHSession'),
+        self.matchHeader(('Server', r'Big([-_])?IP'), attack=True)
+    ]
+    schema3 = [
+        self.matchCookie('^F5_fullWT'),
+        self.matchCookie('^F5_fullWT'),
+        self.matchCookie('^F5_HT_shrinked')
+    ]
+    if all(i for i in schema1):
         return True
-    elif self.matchheader(('server', r'BigIP|BIG-IP|BIGIP')) and self.matchcookie(r'^MRHSession'):
+    if all(i for i in schema2):
         return True
-    if self.matchheader(('Location', r'\/my.policy')) and self.matchheader(('server', r'BigIP|BIG-IP|BIGIP')):
+    if any(i for i in schema3):
         return True
-    elif self.matchheader(('Location', r'\/my\.logout\.php3')) and self.matchheader(('server', r'BigIP|BIG-IP|BIGIP')):
-        return True
-    elif self.matchheader(('Location', r'.+\/f5\-w\-68747470.+')) and self.matchheader(('server', r'BigIP|BIG-IP|BIGIP')):
-        return True
-    elif self.matchheader(('server', r'BigIP|BIG-IP|BIGIP')):
-        return True
-    elif self.matchcookie(r'^F5_fullWT') or self.matchcookie(r'^F5_ST') or self.matchcookie(r'^F5_HT_shrinked'):
-        return True
-    elif self.matchcookie(r'^MRHSequence') or self.matchcookie(r'^MRHSHint') or self.matchcookie(r'^LastMRH_Session'):
-        return True
-    else:
-        return False
+    return False

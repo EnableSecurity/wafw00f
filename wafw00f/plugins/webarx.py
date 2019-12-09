@@ -1,16 +1,18 @@
 #!/usr/bin/env python
-
+'''
+Copyright (C) 2019, WAFW00F Developers.
+See the LICENSE file for copying permission.
+'''
 
 NAME = 'WebARX (WebARX Security Solutions)'
 
 
 def is_waf(self):
-    for attack in self.attacks:
-        r = attack(self)
-        if r is None:
-            return
-        _, page = r
-        if any(i in page for i in (b'WebARX</a> Web Application Firewall', b'www.webarxsecurity.com',
-            b'/wp-content/plugins/webarx/includes/')):
-            return True
+    schemes = [
+        self.matchContent(r"WebARX.{0,10}?Web Application Firewall"),
+        self.matchContent(r"www\.webarxsecurity\.com"),
+        self.matchContent(r'/wp\-content/plugins/webarx/includes/')
+    ]
+    if any(i for i in schemes):
+        return True
     return False

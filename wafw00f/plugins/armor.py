@@ -1,17 +1,17 @@
 #!/usr/bin/env python
-
+'''
+Copyright (C) 2019, WAFW00F Developers.
+See the LICENSE file for copying permission.
+'''
 
 NAME = 'Armor Defense (Armor)'
 
 
 def is_waf(self):
-    for attack in self.attacks:
-        r = attack(self)
-        if r is None:
-            return
-        _, page = r
-        # Armor reveals itself only in blockpage twice.
-        if any(i in page for i in (b'blocked by website protection from Armor', 
-            b'please create an Armor support ticket')):
-            return True
+    schemes = [
+        self.matchContent(r'blocked by website protection from armor'),
+        self.matchContent(r'please create an armor support ticket')
+    ]
+    if any(i for i in schemes):
+        return True
     return False

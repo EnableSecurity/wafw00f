@@ -1,16 +1,17 @@
 #!/usr/bin/env python
-
+'''
+Copyright (C) 2019, WAFW00F Developers.
+See the LICENSE file for copying permission.
+'''
 
 NAME = 'StackPath (StackPath)'
 
 
 def is_waf(self):
-    for attack in self.attacks:
-        r = attack(self)
-        if r is None:
-            return
-        _, page = r
-        if all(i in page for i in (b'This website is using a security service to protect itself',
-            b'You performed an action that triggered the service and blocked your request')):
-            return True
+    schemes = [
+        self.matchContent(r"This website is using a security service to protect itself"),
+        self.matchContent(r'You performed an action that triggered the service and blocked your request')
+    ]
+    if all(i for i in schemes):
+        return True
     return False

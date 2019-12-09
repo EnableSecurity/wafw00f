@@ -1,17 +1,19 @@
 #!/usr/bin/env python
-
+'''
+Copyright (C) 2019, WAFW00F Developers.
+See the LICENSE file for copying permission.
+'''
 
 NAME = 'SecureSphere (Imperva Inc.)'
 
 
 def is_waf(self):
-    for attack in self.attacks:
-        r = attack(self)
-        if r is None:
-            return
-        response, page = r
-        # this is more reliable fingerprint, the standard error page
-        if all(m in page for m in (b'<H2>Error</H2>', b'<title>Error</title>', b'The incident ID is:',
-             b"This page can't be displayed.", b"Contact support for additional information.")):
-            return True
+    schemes = [
+        self.matchContent(r'<(title|h2)>Error'),
+        self.matchContent(r'The incident ID is'),
+        self.matchContent(r"This page can't be displayed"),
+        self.matchContent(r'Contact support for additional information')
+    ]
+    if all(i for i in schemes):
+        return True
     return False

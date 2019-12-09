@@ -1,16 +1,18 @@
 #!/usr/bin/env python
+'''
+Copyright (C) 2019, WAFW00F Developers.
+See the LICENSE file for copying permission.
+'''
 
 NAME = 'XLabs Security WAF (XLabs)'
 
+
 def is_waf(self):
-    if self.matchheader(('x-cdn', 'XLabs Security')):
-        return True
-    # This is another fingerprint header found in a different site
-    # during extensive testing for this plugin.
-    if self.matchheader(('Secured', r'^By XLabs Security.+?')):
-        return True
-    # Another nice fingerprint found where server returns attack
-    # header as 'Server: XLabs WAF v3.0 http://www.xlabs.com.br/waf'
-    if self.matchheader(('Server', r'^XLabs WAF.+?'), attack=True):
+    schemes = [
+        self.matchHeader(('X-CDN', r'XLabs Security')),
+        self.matchHeader(('Secured', r'^By XLabs Security')),
+        self.matchHeader(('Server', r'XLabs[-_]?.?WAF'), attack=True)
+    ]
+    if any(i for i in schemes):
         return True
     return False

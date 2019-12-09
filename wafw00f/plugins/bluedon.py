@@ -1,18 +1,18 @@
 #!/usr/bin/env python
-
+'''
+Copyright (C) 2019, WAFW00F Developers.
+See the LICENSE file for copying permission.
+'''
 
 NAME = 'Bluedon (Bluedon IST)'
 
 
 def is_waf(self):
-    # Found sample servers returning 'Server: BDWAF/2.0'
-    if self.matchheader(('Server', r'BDWAF(.*)?')):
+    schemes = [
+        # Found sample servers returning 'Server: BDWAF/2.0'
+        self.matchHeader(('Server', r'BDWAF')),
+        self.matchContent(r'bluedon web application firewall')
+    ]
+    if any(i for i in schemes):
         return True
-    for attack in self.attacks:
-        r = attack(self)
-        if r is None:
-            return
-        _, page = r
-        if b'Bluedon Web Application Firewall' in page:
-            return True
     return False

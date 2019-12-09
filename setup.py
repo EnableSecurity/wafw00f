@@ -1,4 +1,8 @@
 #!/usr/bin/env python
+'''
+Copyright (C) 2019, WAFW00F Developers.
+See the LICENSE file for copying permission.
+'''
 
 import io
 from setuptools import setup, find_packages
@@ -16,11 +20,17 @@ setup(
     author_email='sandro@enablesecurity.com',
     license='BSD License',
     url='https://github.com/enablesecurity/wafw00f',
+    project_urls={
+        "Bug Tracker": "https://github.com/EnableSecurity/wafw00f/issues",
+        "Documentation": "https://github.com/EnableSecurity/wafw00f/wiki",
+        "Source Code": "https://github.com/EnableSecurity/wafw00f/tree/master",
+    },
     packages=find_packages(),
     scripts=['wafw00f/bin/wafw00f'],
     install_requires=[
-        'pluginbase',
-        'html5lib'
+        'requests',
+        'requests[socks]',
+        'pluginbase'
     ],
     classifiers=[
         'Development Status :: 5 - Production/Stable',
@@ -32,22 +42,15 @@ setup(
         'License :: OSI Approved :: BSD License',
         'Programming Language :: Python :: 2',
         'Programming Language :: Python :: 3',
+        'Operating System :: OS Independent'
     ],
     keywords='waf firewall detector fingerprint',
     extras_require={
         'dev': [
             'prospector',
         ],
-        'test': [
-            'httpretty',
-            'coverage',
-            'coveralls',
-            'python-coveralls',
-            'nose',
-        ],
         'docs': [
             'Sphinx',
         ],
     },
-    test_suite='nose.collector',
 )

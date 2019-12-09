@@ -1,13 +1,20 @@
 #!/usr/bin/env python
 
 
-NAME = 'Kona Site Defender (Akamai)'
+#!/usr/bin/env python
+'''
+Copyright (C) 2019, WAFW00F Developers.
+See the LICENSE file for copying permission.
+'''
+
+NAME = 'Kona SiteDefender (Akamai)'
 
 
 def is_waf(self):
-    # Kona has a nice way of expressing itself in server header
-    if self.matchheader(('Server', 'AkamaiGHost')):
-        return True
-    if self.matchheader(('Server', 'AkamaiGHost'), attack=True):
+    schemes = [
+        self.matchHeader(('Server', 'AkamaiGHost')),
+        self.matchHeader(('Server', 'AkamaiGHost'), attack=True)        
+    ]
+    if any(i for i in schemes):
         return True
     return False

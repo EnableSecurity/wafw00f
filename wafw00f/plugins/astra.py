@@ -1,17 +1,18 @@
 #!/usr/bin/env python
+'''
+Copyright (C) 2019, WAFW00F Developers.
+See the LICENSE file for copying permission.
+'''
 
-
-NAME = 'Astra Web Protection (Czar Securities)'
+NAME = 'Astra (Czar Securities)'
 
 
 def is_waf(self):
-    if self.matchcookie(r'^cz_astra_csrf_cookie'):
+    schemes = [
+        self.matchCookie(r'^cz_astra_csrf_cookie'),
+        self.matchContent(r'astrawebsecurity\.freshdesk\.com'),
+        self.matchContent(r'www\.getastra\.com/assets/images')
+    ]
+    if any(i for i in schemes):
         return True
-    for attack in self.attacks:
-        r = attack(self)
-        if r is None:
-            return
-        _, responsepage = r
-        if b'www.getastra.com/assets/images' in responsepage:
-            return True
     return False

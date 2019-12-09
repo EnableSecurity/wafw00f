@@ -1,16 +1,22 @@
 #!/usr/bin/env python
-
+'''
+Copyright (C) 2019, WAFW00F Developers.
+See the LICENSE file for copying permission.
+'''
 
 NAME = 'Sabre Firewall (Sabre)'
 
 
 def is_waf(self):
-    for attack in self.attacks:
-        r = attack(self)
-        if r is None:
-            return
-        _, responsepage = r
-        if any(i in responsepage for i in (b'dxsupport@sabre.com', b'<title>Application Firewall Error</title>',
-            b'email link will automatically add some important details to the email for us to investigate')):
-            return True
+    schema1 = [
+        self.matchContent(r'dxsupport\.sabre\.com')
+    ]
+    schema2 = [
+        self.matchContent(r'<title>Application Firewall Error'),
+        self.matchContent(r'add some important details to the email for us to investigate')
+    ]
+    if any(i for i in schema1):
+        return True
+    if all(i for i in schema2):
+        return True
     return False

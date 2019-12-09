@@ -1,12 +1,16 @@
 #!/usr/bin/env python
+'''
+Copyright (C) 2019, WAFW00F Developers.
+See the LICENSE file for copying permission.
+'''
 
-
-NAME = 'West263 Content Delivery Network'
+NAME = 'West263 CDN (West263CDN)'
 
 
 def is_waf(self):
-	# Found traces where only WT263CDN was in X-Cache header
-    # Also found traces where X-Cache header where WST263CDN was being put
-    if self.matchheader(('X-Cache', r'(.+)?W(S)?T263CDN(.+)?')):
+    schemes = [
+        self.matchHeader(('X-Cache', r'WS?T263CDN'))
+    ]
+    if any(i for i in schemes):
         return True
     return False

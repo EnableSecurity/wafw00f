@@ -1,14 +1,18 @@
 #!/usr/bin/env python
-
+'''
+Copyright (C) 2019, WAFW00F Developers.
+See the LICENSE file for copying permission.
+'''
 
 NAME = 'BinarySec (BinarySec)'
 
 
 def is_waf(self):
-    if self.matchheader(('server', 'BinarySec')):
-        return True
-    if self.matchheader(('x-binarysec-via', '.+')):
-        return True
-    if self.matchheader(('x-binarysec-nocache', '.+')):
+    schemes = [
+        self.matchHeader(('Server', 'BinarySec')),
+        self.matchHeader(('x-binarysec-via', '.+')),
+        self.matchHeader(('x-binarysec-nocache', '.+'))
+    ]
+    if any(i for i in schemes):
         return True
     return False

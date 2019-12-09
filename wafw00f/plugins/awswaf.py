@@ -1,18 +1,19 @@
 #!/usr/bin/env python
-
+'''
+Copyright (C) 2019, WAFW00F Developers.
+See the LICENSE file for copying permission.
+'''
 
 NAME = 'AWS Elastic Load Balancer (Amazon)'
 
 
 def is_waf(self):
-    # Prioritize these checks first which doesn't require attack
-    if self.matchheader(('X-AMZ-ID', '.*')):
-        return True
-    if self.matchheader(('X-AMZ-Request-ID', '.*')):
-        return True
-    if self.matchcookie(r'^aws.?alb='):
-        return True
-    # Move to attack phase for identification
-    if self.matchheader(('Server', r'awselb/2\.0'), attack=True):
+    schemes = [
+        self.matchHeader(('X-AMZ-ID', '.+?')),
+        self.matchHeader(('X-AMZ-Request-ID', '.+?')),
+        self.matchCookie(r'^aws.?alb='),
+        self.matchHeader(('Server', r'aws.?elb'), attack=True)
+    ]
+    if any(i for i in schemes):
         return True
     return False

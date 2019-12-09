@@ -1,10 +1,16 @@
 #!/usr/bin/env python
+'''
+Copyright (C) 2019, WAFW00F Developers.
+See the LICENSE file for copying permission.
+'''
 
 NAME = 'Comodo cWatch (Comodo CyberSecurity)'
 
+
 def is_waf(self):
-    # The (.*)? was required since some servers return additional info like
-    # version of the WAF. eg. Protected by COMODO WAF mod_fcgid/2.3.9   
-    if self.matchheader(('Server', r'Protected by COMODO WAF(.+)?')):
+    schemes = [
+        self.matchHeader(('Server', r'Protected by COMODO WAF(.+)?'))
+    ]
+    if any(i for i in schemes):
         return True
     return False

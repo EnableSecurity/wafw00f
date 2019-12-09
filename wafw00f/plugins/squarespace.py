@@ -1,15 +1,22 @@
 #!/usr/bin/env python
-
+'''
+Copyright (C) 2019, WAFW00F Developers.
+See the LICENSE file for copying permission.
+'''
 
 NAME = 'Squarespace (Squarespace)'
 
 
 def is_waf(self):
-    for attack in self.attacks:
-        r = attack(self)
-        if r is None:
-            return
-        _, page = r
-        if b'BRICK-50' in page:
-            return True
+    schemes = [
+        self.matchHeader(('Server', 'Squarespace')),
+        self.matchCookie(r'^SS_ANALYTICS_ID='),
+        self.matchCookie(r'^SS_MATTR='),
+        self.matchCookie(r'^SS_MID='),
+        self.matchCookie(r'SS_CVT='),
+        self.matchContent(r'status\.squarespace\.com'),
+        self.matchContent(r'BRICK\-\d{2}')
+    ]
+    if any(i for i in schemes):
+        return True 
     return False

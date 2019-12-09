@@ -1,15 +1,19 @@
 #!/usr/bin/env python
-
+'''
+Copyright (C) 2019, WAFW00F Developers.
+See the LICENSE file for copying permission.
+'''
 
 NAME = 'AliYunDun (Alibaba Cloud Computing)'
 
 
 def is_waf(self):
-    for attack in self.attacks:
-        r = attack(self)
-        if r is None:
-            return
-        response, page = r
-        if response.status == 405 and b'errors.aliyun.com' in page:
-            return True
+    schemes = [
+        self.matchContent(r'error(s)?\.aliyun(dun)?\.(com|net)?'),
+        self.matchCookie(r'^aliyungf_tc='),
+        self.matchContent(r'cdn\.aliyun(cs)?\.com'),
+        self.matchStatus(405)
+        ]
+    if all(i for i in schemes):
+        return True
     return False

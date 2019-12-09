@@ -1,20 +1,18 @@
 #!/usr/bin/env python
-
+'''
+Copyright (C) 2019, WAFW00F Developers.
+See the LICENSE file for copying permission.
+'''
 
 NAME = 'SonicWall (Dell)'
 
 
 def is_waf(self):
-    # Sonicwall exposes itself within server headers
-    if self.matchheader(('Server', 'SonicWALL')):
+    schemes = [
+        self.matchHeader(('Server', 'SonicWALL')),
+        self.matchContent(r"<(title|h\d{1})>Web Site Blocked"),
+        self.matchContent(r'\+?nsa_banner')
+    ]
+    if any(i for i in schemes):
         return True
-    # Now going for attack phase
-    for attack in self.attacks:
-        r = attack(self)
-        if r is None:
-            return
-        _, page = r
-        # This is the funny part :p
-        if all(i in page for i in (b'<title>Web Site Blocked</title>', b'nsa_banner')):
-            return True
     return False

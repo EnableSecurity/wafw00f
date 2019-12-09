@@ -15,7 +15,6 @@ develop-eggs/
 dist/
 eggs/
 include/
-lib/
 local/
 lib64/
 man/

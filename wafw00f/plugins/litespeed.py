@@ -1,18 +1,23 @@
 #!/usr/bin/env python
+'''
+Copyright (C) 2019, WAFW00F Developers.
+See the LICENSE file for copying permission.
+'''
 
-
-NAME = 'LiteSpeed Firewall (LiteSpeed Technologies)'
+NAME = 'LiteSpeed (LiteSpeed Technologies)'
 
 
 def is_waf(self):
-    if self.matchheader(('Server', 'LiteSpeed')):
+    schema1 = [
+        self.matchHeader(('Server', 'LiteSpeed')),
+        self.matchStatus(403)
+    ]
+    schema2 = [
+        self.matchContent(r'Proudly powered by litespeed web server'),
+        self.matchContent(r'www\.litespeedtech\.com/error\-page')
+    ]
+    if all(i for i in schema1):
         return True
-    for attack in self.attacks:
-        r = attack(self)
-        if r is None:
-            return
-        _, page = r
-        if any(i in page for i in (b'Proudly powered by LiteSpeed Web Server', b'www.litespeedtech.com/error-page',
-            b'Access to resource on this server is denied')):
-            return True
+    if any(i for i in schema2):
+        return True
     return False

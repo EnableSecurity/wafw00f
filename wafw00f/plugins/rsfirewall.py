@@ -1,15 +1,16 @@
 #!/usr/bin/env python
-
+'''
+Copyright (C) 2019, WAFW00F Developers.
+See the LICENSE file for copying permission.
+'''
 
 NAME = 'RSFirewall (RSJoomla!)'
 
 
 def is_waf(self):
-    for attack in self.attacks:
-        r = attack(self)
-        if r is None:
-            return
-        _, page = r
-        if any(i in page for i in (b'COM_RSFIREWALL_403_FORBIDDEN', b'COM_RSFIREWALL_EVENT')):
-            return True
+    schemes = [
+        self.matchContent(r'com_rsfirewall_(\d{3}_forbidden|event)?')
+    ]
+    if any(i for i in schemes):
+        return True
     return False

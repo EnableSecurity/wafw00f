@@ -1,16 +1,18 @@
 #!/usr/bin/env python
-
+'''
+Copyright (C) 2019, WAFW00F Developers.
+See the LICENSE file for copying permission.
+'''
 
 NAME = 'PerimeterX (PerimeterX)'
 
 
 def is_waf(self):
-    for attack in self.attacks:
-        r = attack(self)
-        if r is None:
-            return
-        _, page = r
-        if any(i in page for i in (b'www.perimeterx.com/whywasiblocked', b'client.perimeterx.net', 
-            b'Access to this page has been denied because we believe you are using automation tools')):
-            return True
+    schemes = [
+        self.matchContent(r'www\.perimeterx\.(com|net)/whywasiblocked'),
+        self.matchContent(r'client\.perimeterx\.(net|com)'),
+        self.matchContent(r'denied because we believe you are using automation tools')
+    ]
+    if any(i for i in schemes):
+        return True
     return False

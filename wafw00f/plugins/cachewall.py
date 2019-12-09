@@ -1,26 +1,22 @@
 #!/usr/bin/env python
-
+'''
+Copyright (C) 2019, WAFW00F Developers.
+See the LICENSE file for copying permission.
+'''
 
 NAME = 'CacheWall (Varnish)'
 
 
 def is_waf(self):
-    # Varnish CacheWALL nicely puts itself in various headers as below.
-    if self.matchheader(('Server', 'Varnish')):
+    schemes = [
+        self.matchHeader(('Server', 'Varnish')),
+        self.matchHeader(('X-Varnish', '.+')),
+        self.matchHeader(('X-Cachewall-Action', '.+?')),
+        self.matchHeader(('X-Cachewall-Reason', '.+?')),
+        self.matchContent(r'security by cachewall'),
+        self.matchContent(r'403 naughty.{0,10}?not nice!'),
+        self.matchContent(r'varnish cache server')
+    ]
+    if any(i for i in schemes):
         return True
-    if self.matchheader(('X-Varnish', '.+')):
-        return True
-    if self.matchheader(('X-Cachewall-Action', '.+')):
-        return True
-    if self.matchheader(('X-Cachewall-Reason', '.+')):
-        return True
-    for attack in self.attacks:
-        r = attack(self)
-        if r is None:
-            return
-        _, page = r
-        # In-page fingerprints vary a lot in different sites. Hence these are not quite reliable.
-        if any(i in page for i in (b'Security by Cachewall </span>', b'403 Naughty, not Nice!',
-            b'Varnish cache Server')):
-            return True
     return False

@@ -1,20 +1,18 @@
 #!/usr/bin/env python
-
+'''
+Copyright (C) 2019, WAFW00F Developers.
+See the LICENSE file for copying permission.
+'''
 
 NAME = 'PowerCDN (PowerCDN)'
 
 
 def is_waf(self):
-    # More later versions of PowerCDN waf >= v4.x return these two headers specifically.
-    # I implemented them in this way:
-    # Via: 1.1 cc89.powercdn.com (PowerCDN/4.1)
-    if self.matchheader(('Via', r'(.*)?powercdn.com(.*)?')):
+    schemes = [
+        self.matchHeader(('Via', r'(.*)?powercdn.com(.*)?')),
+        self.matchHeader(('X-Cache', r'(.*)?powercdn.com(.*)?')),
+        self.matchHeader(('X-CDN', r'PowerCDN'))
+    ]
+    if any(i for i in schemes):
         return True
-    # X-Cache: HIT from cc89.powercdn.com
-    if self.matchheader(('X-Cache', r'(.*)?powercdn.com(.*)?')):
-        return True
-    # This used be found on earlier versions of PowerCDN no longer now. 
-    if self.matchheader(('PowerCDN', '.+')):
-        return True
-    
     return False
