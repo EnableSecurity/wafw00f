@@ -3,7 +3,7 @@ name: Bug report
 about: Create a report to help us improve
 title: ''
 labels: ''
-assignees: sandrogauci
+assignees: sandrogauci 0xInfection
 
 ---
 
@@ -28,30 +28,57 @@ If applicable, add screenshots to help explain your problem.
 Paste the output that you get when passing `-vv` to wafw00f. Example:
 
 ```
-INFO:root:The url www.example.org should start with http:// or https:// .. fixing (might make this unusable)
-Checking http://www.example.org
-INFO:root:starting wafw00f on http://www.example.org
-INFO:wafw00f:Sending GET /
-send: 'GET / HTTP/1.1\r\nHost: www.example.org\r\nAccept-Encoding: identity\r\nAccept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7\r\nAccept: */*\r\nUser-Agent: Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.5; en-US; rv:1.9.1b1) Gecko/20081007 Firefox/3.0\r\n\r\n'
-reply: 'HTTP/1.1 200 OK\r\n'
-header: Accept-Ranges: bytes
-header: Cache-Control: max-age=604800
-header: Content-Type: text/html; charset=UTF-8
-header: Date: Tue, 30 Apr 2019 13:23:52 GMT
-header: Etag: "1541025663+ident"
-header: Expires: Tue, 07 May 2019 13:23:52 GMT
-header: Last-Modified: Fri, 09 Aug 2013 23:54:35 GMT
-header: Server: ECS (dcb/7EC9)
-header: Vary: Accept-Encoding
-header: X-Cache: HIT
-header: Content-Length: 1270
-INFO:wafw00f:Checking for Yunjiasu (Baidu Cloud Computing)
-INFO:wafw00f:Checking for PowerCDN (PowerCDN)
-INFO:wafw00f:Checking for ChinaCache CDN Load Balancer (ChinaCache)
+[*] Checking http://www.example.com
+INFO:wafw00f:starting wafw00f on http://www.example.com
+INFO:wafw00f:Request Succeeded
+INFO:wafw00f:Request Succeeded
+INFO:wafw00f:Checking for ACE XML Gateway (Cisco)
+INFO:wafw00f:Checking for aeSecure (aeSecure)
+INFO:wafw00f:Checking for AireeCDN (Airee)
+INFO:wafw00f:Checking for Airlock (Phion/Ergon)
+INFO:wafw00f:Checking for Alert Logic (Alert Logic)
+INFO:wafw00f:Checking for AliYunDun (Alibaba Cloud Computing)
+INFO:wafw00f:Checking for Anquanbao (Anquanbao)
+INFO:wafw00f:Checking for AnYu (AnYu Technologies)
+INFO:wafw00f:Checking for Approach (Approach)
+INFO:wafw00f:Checking for AppWall (Radware)
+INFO:wafw00f:Checking for Armor Defense (Armor)
+INFO:wafw00f:Checking for ArvanCloud (ArvanCloud)
+INFO:wafw00f:Checking for ASP.NET Generic (Microsoft)
+INFO:wafw00f:Checking for ASPA Firewall (ASPA Engineering Co.)
+INFO:wafw00f:Checking for Astra (Czar Securities)
+INFO:wafw00f:Checking for AzionCDN (AzionCDN)
+INFO:wafw00f:Checking for Barikode (Ethic Ninja)
+INFO:wafw00f:Checking for Barracuda (Barracuda Networks)
+INFO:wafw00f:Checking for Bekchy (Faydata Technologies Inc.)
+INFO:wafw00f:Checking for Beluga CDN (Beluga)
+INFO:wafw00f:Checking for BIG-IP Local Traffic Manager (F5 Networks)
+INFO:wafw00f:Checking for BinarySec (BinarySec)
+INFO:wafw00f:Checking for BitNinja (BitNinja)
+INFO:wafw00f:Checking for BlockDoS (BlockDoS)
+INFO:wafw00f:Checking for Bluedon (Bluedon IST)
+INFO:wafw00f:Checking for BulletProof Security Pro (AITpro Security)
+INFO:wafw00f:Checking for CacheWall (Varnish)
+INFO:wafw00f:Checking for CacheFly CDN (CacheFly)
+INFO:wafw00f:Checking for Comodo cWatch (Comodo CyberSecurity)
+INFO:wafw00f:Checking for CdnNS Application Gateway (CdnNs/WdidcNet)
+INFO:wafw00f:Checking for ChinaCache Load Balancer (ChinaCache)
+INFO:wafw00f:Checking for Chuang Yu Shield (Yunaq)
+INFO:wafw00f:Checking for Cloudbric (Penta Security)
+INFO:wafw00f:Checking for Cloudflare (Cloudflare Inc.)
+INFO:wafw00f:Checking for Cloudfloor (Cloudfloor DNS)
+INFO:wafw00f:Checking for Cloudfront (Amazon)
+INFO:wafw00f:Checking for CrawlProtect (Jean-Denis Brun)
+INFO:wafw00f:Checking for DataPower (IBM)
+INFO:wafw00f:Checking for DenyALL (Rohde & Schwarz CyberSecurity)
+INFO:wafw00f:Checking for Distil (Distil Networks)
+INFO:wafw00f:Checking for DOSarrest (DOSarrest Internet Security)
+INFO:wafw00f:Checking for DotDefender (Applicure Technologies)
+INFO:wafw00f:Checking for DynamicWeb Injection Check (DynamicWeb)
 INFO:wafw00f:Checking for Edgecast (Verizon Digital Media)
-INFO:root:Ident WAF: ['Edgecast (Verizon Digital Media)']
-The site http://www.example.org is behind Edgecast (Verizon Digital Media) WAF.
-Number of requests: 1
+INFO:wafw00f:Identified WAF: ['Edgecast (Verizon Digital Media)']
+[+] The site http://www.example.com is behind Edgecast (Verizon Digital Media) WAF.
+[~] Number of requests: 2
 ```
 
 **Additional context**
