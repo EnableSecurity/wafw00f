@@ -116,6 +116,7 @@ $ wafw00f -l
   FirePass                      F5 Networks
   FortiWeb                      Fortinet
   Greywizard                    Grey Wizard
+  Huawei Cloud Firewall         Huawei
   HyperGuard                    Art of Defense
   Imunify360                    CloudLinux
   Incapsula                     Imperva Inc.
@@ -153,6 +154,7 @@ $ wafw00f -l
   Qiniu                         Qiniu CDN
   Reblaze                       Reblaze
   RSFirewall                    RSJoomla!
+  Sabre Firewall                Sabre
   Safe3 Web Firewall            Safe3
   Safedog                       SafeDog
   Safeline                      Chaitin Tech.
@@ -203,8 +205,6 @@ $ wafw00f -l
   YXLink                        YxLink Technologies
   Zenedge                       Zenedge
   ZScaler                       Accenture
-  Huawei Cloud Firewall         Huawei
-  Sabre Firewall                Sabre
 ```
 
 ## How do I use it?
