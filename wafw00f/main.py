@@ -4,8 +4,9 @@
 Copyright (C) 2019, WAFW00F Developers.
 See the LICENSE file for copying permission.
 '''
-
+import csv
 import io
+import json
 import logging
 import os
 import random
@@ -262,6 +263,14 @@ def getheaders(fn):
 class RequestBlocked(Exception):
     pass
 
+
+def buildResultRecord(url, waf):
+    result = {}
+    result['url'] = url
+    result['waf'] = waf
+    return result
+
+
 def main():
     print(randomArt())
     parser = OptionParser(usage='%prog url1 [url2 [url3 ... ]]\r\nexample: %prog http://www.victim.org/')
@@ -272,6 +281,8 @@ def main():
     parser.add_option('-r', '--noredirect', action='store_false', dest='followredirect',
                       default=True, help='Do not follow redirections given by 3xx responses')
     parser.add_option('-t', '--test', dest='test', help='Test for one specific WAF')
+    parser.add_option('-o', '--output', dest='output', help='Write output to this file. (.csv or .json) example: /tmp/out.json',
+                      default=None)
     parser.add_option('-l', '--list', dest='list', action='store_true',
                       default=False, help='List all WAFs that WAFW00F is able to detect')
     parser.add_option('-p', '--proxy', dest='proxy', default=None,
@@ -311,6 +322,7 @@ def main():
     if len(args) == 0:
         parser.error('No test target specified.')
     targets = args
+    results = []
     for target in targets:
         if not target.startswith('http'):
             log.info('The url %s should start with http:// or https:// .. fixing (might make this unusable)' % target)
@@ -349,6 +361,8 @@ def main():
         waf = attacker.identwaf(options.findall)
         log.info('Identified WAF: %s' % waf)
         if len(waf) > 0:
+            for i in waf:
+                results.append(buildResultRecord(target, i))
             print('[+] The site %s%s%s is behind %s%s%s WAF.' % (B, target, E, C, (E+' and/or '+C).join(waf), E))
         if (options.findall) or len(waf) == 0:
             print('[+] Generic Detection results:')
@@ -359,6 +373,22 @@ def main():
             else:
                 print('[-] No WAF detected by the generic detection')
         print('[~] Number of requests: %s' % attacker.requestnumber)
+    #write result to file if --output flag is set
+    if options.output and '.json' in options.output:
+        log.debug("Exporting data in json format to file: %s" %(options.output))
+        with open(options.output, 'w') as outfile:
+            json.dump(results, outfile)
+    elif options.output and '.csv' in options.output:
+        log.debug("Exporting data in csv format to file: %s" %(options.output))
+        with open(options.output, mode='w') as outfile:
+            csvwriter = csv.writer(outfile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+            count = 0
+            for result in results:
+                if count == 0:
+                    header = result.keys()
+                    csvwriter.writerow(header)
+                    count += 1
+                csvwriter.writerow(result.values())
 
 if __name__ == '__main__':
     if sys.hexversion < 0x2060000:
