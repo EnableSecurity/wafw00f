@@ -8,6 +8,8 @@ import re
 import sys
 import time
 import logging
+from copy import copy
+
 import requests
 import urllib3
 try:
@@ -71,7 +73,7 @@ class waftoolsengine:
         if head:
             self.headers = head
         else:
-            self.headers = def_headers
+            self.headers = copy(def_headers) # fix issue #90 copy obejct by value not reference
 
     def Request(self, headers=None, path=None, params={}, delay=0, timeout=7):
         try:
