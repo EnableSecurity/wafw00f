@@ -13,6 +13,7 @@ import random
 import re
 import sys
 from optparse import OptionParser
+from tabulate import tabulate
 
 from wafw00f import __version__, __license__
 from wafw00f.manager import load_plugins
@@ -88,7 +89,7 @@ class WAFW00F(waftoolsengine):
         try:
             # Testing for no user-agent response. Detects almost all WAFs out there.
             resp1 = self.performCheck(self.normalRequest)
-            del def_headers['User-Agent']  # Deleting the user-agent key
+            del self.headers['User-Agent']  # Deleting the user-agent key from object not dict.
             resp3 = self.customRequest(headers=def_headers)
             if resp1.status_code != resp3.status_code:
                 self.log.info('Server returned a different response when request didn\'t contain the User-Agent header.')
@@ -246,6 +247,13 @@ def calclogginglevel(verbosity):
         level = 0
     return level
 
+def buildResultRecord(url, waf):
+    result = {}
+    result['url'] = url
+    result['waf'] = waf
+    return result
+
+
 def getheaders(fn):
     headers = {}
     fullfn = os.path.abspath(os.path.join(os.getcwd(), fn))
@@ -274,6 +282,8 @@ def main():
                       default=True, help='Do not follow redirections given by 3xx responses')
     parser.add_option('-t', '--test', dest='test', help='Test for one specific WAF')
     parser.add_option('-o', '--output', dest='output', help='Write output to this file. (.csv or .json) example: /tmp/out.json',
+                      default=None)
+    parser.add_option('-i', '--input-file', dest='input', help='Reads targets from file',
                       default=None)
     parser.add_option('-l', '--list', dest='list', action='store_true',
                       default=False, help='List all WAFs that WAFW00F is able to detect')
@@ -313,7 +323,18 @@ def main():
             parser.error('Please provide a headers file with colon delimited header names and values')
     if len(args) == 0:
         parser.error('No test target specified.')
-    targets = args
+    #check if input file is present
+    if options.input:
+        try:
+            log.debug("loading file '%s'" % options.input)
+            with open(options.input) as f:
+                urls = json.loads(f.read())
+            log.info("Found: %s urls to check." %(len(urls)))
+            targets = [ item['url'] for item in urls ]
+        except:
+            log.error("File error: failed to read input file %s" % (options.input))
+    else:
+        targets = args
     results = []
     for target in targets:
         if not target.startswith('http'):
@@ -353,6 +374,8 @@ def main():
         waf = attacker.identwaf(options.findall)
         log.info('Identified WAF: %s' % waf)
         if len(waf) > 0:
+            for i in waf:
+                results.append(buildResultRecord(target, i))
             print('[+] The site %s%s%s is behind %s%s%s WAF.' % (B, target, E, C, (E+' and/or '+C).join(waf), E))
         if (options.findall) or len(waf) == 0:
             print('[+] Generic Detection results:')
@@ -363,6 +386,12 @@ def main():
             else:
                 print('[-] No WAF detected by the generic detection')
         print('[~] Number of requests: %s' % attacker.requestnumber)
+    #print table of results
+    if len(results) > 0:
+        log.info("Found: %s matches." % (len(results)))
+    print('\n')
+    print('Results: %s' % (len(results)))
+    print(tabulate(results))
     #write result to file if --output flag is set
     if options.output and '.json' in options.output:
         log.debug("Exporting data in json format to file: %s" %(options.output))
