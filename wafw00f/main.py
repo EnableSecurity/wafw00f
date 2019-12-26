@@ -6,6 +6,7 @@ See the LICENSE file for copying permission.
 '''
 
 import io
+import json
 import logging
 import os
 import random
@@ -280,6 +281,8 @@ def main():
     parser.add_option('-r', '--noredirect', action='store_false', dest='followredirect',
                       default=True, help='Do not follow redirections given by 3xx responses')
     parser.add_option('-t', '--test', dest='test', help='Test for one specific WAF')
+    parser.add_option('-i', '--input-file', dest='input', help='Reads targets from file',
+                      default=None)
     parser.add_option('-l', '--list', dest='list', action='store_true',
                       default=False, help='List all WAFs that WAFW00F is able to detect')
     parser.add_option('-p', '--proxy', dest='proxy', default=None,
@@ -318,7 +321,18 @@ def main():
             parser.error('Please provide a headers file with colon delimited header names and values')
     if len(args) == 0:
         parser.error('No test target specified.')
-    targets = args
+    #check if input file is present
+    if options.input:
+        try:
+            log.debug("loading file '%s'" % options.input)
+            with open(options.input) as f:
+                urls = json.loads(f.read())
+            log.info("Found: %s urls to check." %(len(urls)))
+            targets = [ item['url'] for item in urls ]
+        except:
+            log.error("File error: failed to read input file %s" % (options.input))
+    else:
+        targets = args
     results = []
     for target in targets:
         if not target.startswith('http'):
