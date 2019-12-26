@@ -30,7 +30,7 @@ setup(
     install_requires=[
         'requests',
         'requests[socks]',
-        'pluginbase'
+        'pluginbase', 'tabulate'
     ],
     classifiers=[
         'Development Status :: 5 - Production/Stable',

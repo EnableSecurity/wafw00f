@@ -13,6 +13,7 @@ import random
 import re
 import sys
 from optparse import OptionParser
+from tabulate import tabulate
 
 from wafw00f import __version__, __license__
 from wafw00f.manager import load_plugins
@@ -246,6 +247,13 @@ def calclogginglevel(verbosity):
         level = 0
     return level
 
+def buildResultRecord(url, waf):
+    result = {}
+    result['url'] = url
+    result['waf'] = waf
+    return result
+
+
 def getheaders(fn):
     headers = {}
     fullfn = os.path.abspath(os.path.join(os.getcwd(), fn))
@@ -325,6 +333,7 @@ def main():
             log.error("File error: failed to read input file %s" % (options.input))
     else:
         targets = args
+    results = []
     for target in targets:
         if not target.startswith('http'):
             log.info('The url %s should start with http:// or https:// .. fixing (might make this unusable)' % target)
@@ -363,6 +372,8 @@ def main():
         waf = attacker.identwaf(options.findall)
         log.info('Identified WAF: %s' % waf)
         if len(waf) > 0:
+            for i in waf:
+                results.append(buildResultRecord(target, i))
             print('[+] The site %s%s%s is behind %s%s%s WAF.' % (B, target, E, C, (E+' and/or '+C).join(waf), E))
         if (options.findall) or len(waf) == 0:
             print('[+] Generic Detection results:')
@@ -373,6 +384,12 @@ def main():
             else:
                 print('[-] No WAF detected by the generic detection')
         print('[~] Number of requests: %s' % attacker.requestnumber)
+    #print table of results
+    if len(results) > 0:
+        log.info("Found: %s matches." % (len(results)))
+    print('\n')
+    print('Results: %s' % (len(results)))
+    print(tabulate(results))
 
 if __name__ == '__main__':
     if sys.hexversion < 0x2060000:
