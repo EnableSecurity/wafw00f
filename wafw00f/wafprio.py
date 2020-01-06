@@ -26,6 +26,7 @@ wafdetectionsprio = [
     'ASPA Firewall (ASPA Engineering Co.)',
     'Astra (Czar Securities)',
     'AzionCDN (AzionCDN)',
+    'Azure Front Door (Microsoft)',
     'Barikode (Ethic Ninja)',
     'Barracuda (Barracuda Networks)',
     'Bekchy (Faydata Technologies Inc.)',
