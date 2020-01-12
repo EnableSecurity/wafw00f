@@ -12,13 +12,13 @@ import os
 import random
 import re
 import sys
-from optparse import OptionParser
 from tabulate import tabulate
-
+from collections import defaultdict
+from optparse import OptionParser
+from wafw00f.lib.asciiarts import *
 from wafw00f import __version__, __license__
 from wafw00f.manager import load_plugins
 from wafw00f.wafprio import wafdetectionsprio
-from wafw00f.lib.asciiarts import *
 from wafw00f.lib.evillib import urlParser, waftoolsengine, def_headers
 
 currentDir = os.getcwd()
@@ -250,9 +250,9 @@ def calclogginglevel(verbosity):
 def buildResultRecord(url, waf):
     result = {}
     result['url'] = url
-    result['waf'] = waf
+    result['firewall'] = waf.split('(')[0].strip()
+    result['manufacturer'] = waf.split('(')[1].replace(')', '').strip()
     return result
-
 
 def getheaders(fn):
     headers = {}
@@ -321,18 +321,27 @@ def main():
         extraheaders = getheaders(options.headers)
         if extraheaders is None:
             parser.error('Please provide a headers file with colon delimited header names and values')
-    if len(args) == 0:
+    if len(args) == 0 and not options.input:
         parser.error('No test target specified.')
     #check if input file is present
     if options.input:
-        try:
-            log.debug("loading file '%s'" % options.input)
+        log.debug("Loading file '%s'" % options.input)
+        if options.input.endswith('json'):
             with open(options.input) as f:
                 urls = json.loads(f.read())
             log.info("Found: %s urls to check." %(len(urls)))
             targets = [ item['url'] for item in urls ]
-        except:
-            log.error("File error: failed to read input file %s" % (options.input))
+        elif options.input.endswith('csv'):
+            columns = defaultdict(list)
+            with open(options.input) as f:
+                reader = csv.DictReader(f) 
+                for row in reader:
+                    for (k,v) in row.items():
+                        columns[k].append(v)
+            targets = columns['url']
+        else:
+            with open(options.input) as f:
+                targets = [x for x in f.read().splitlines()]
     else:
         targets = args
     results = []
@@ -389,25 +398,25 @@ def main():
     #print table of results
     if len(results) > 0:
         log.info("Found: %s matches." % (len(results)))
-    print('\n')
-    print('Results: %s' % (len(results)))
-    print(tabulate(results))
-    #write result to file if --output flag is set
-    if options.output and '.json' in options.output:
-        log.debug("Exporting data in json format to file: %s" %(options.output))
-        with open(options.output, 'w') as outfile:
-            json.dump(results, outfile)
-    elif options.output and '.csv' in options.output:
-        log.debug("Exporting data in csv format to file: %s" %(options.output))
-        with open(options.output, mode='w') as outfile:
-            csvwriter = csv.writer(outfile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
-            count = 0
-            for result in results:
-                if count == 0:
-                    header = result.keys()
-                    csvwriter.writerow(header)
-                    count += 1
-                csvwriter.writerow(result.values())
+    #print('[+] Results: %s' % (len(results)))
+    #print(tabulate(results, headers="firstrow"))
+    if options.output:
+        if options.output.endswith('json'):
+            log.debug("Exporting data in json format to file: %s" % (options.output))
+            with open(options.output, 'w') as outfile:
+                json.dump(results, outfile, indent=2)
+        if options.output.endswith('csv'):
+            log.debug("Exporting data in csv format to file: %s" % (options.output))
+            with open(options.output, mode='w') as outfile:
+                csvwriter = csv.writer(outfile, delimiter=',', quotechar='"', 
+                    quoting=csv.QUOTE_MINIMAL)
+                count = 0
+                for result in results:
+                    if count == 0:
+                        header = result.keys()
+                        csvwriter.writerow(header)
+                        count += 1
+                    csvwriter.writerow(result.values())
 
 if __name__ == '__main__':
     if sys.hexversion < 0x2060000:
