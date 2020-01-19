@@ -298,7 +298,7 @@ def main():
     parser.add_option('-t', '--test', dest='test', help='Test for one specific WAF')
     parser.add_option('-o', '--output', dest='output', help='Write output to this file. (.csv or .json) example: /tmp/out.json',
                       default=None)
-    parser.add_option('-i', '--input-file', dest='input', help='Reads targets from file',
+    parser.add_option('-i', '--input-file', dest='input', help='Reads targets from a file. Input format can be txt, json or csv, provided a `url` element is present.',
                       default=None)
     parser.add_option('-l', '--list', dest='list', action='store_true',
                       default=False, help='List all WAFs that WAFW00F is able to detect')
@@ -422,8 +422,6 @@ def main():
     #print table of results
     if len(results) > 0:
         log.info("Found: %s matches." % (len(results)))
-    #print('[+] Results: %s' % (len(results)))
-    #print(tabulate(results, headers="firstrow"))
     if options.output:
         if options.output == '-':
             enableStdOut()
