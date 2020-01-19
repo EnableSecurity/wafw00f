@@ -12,7 +12,6 @@ import os
 import random
 import re
 import sys
-from tabulate import tabulate
 from collections import defaultdict
 from optparse import OptionParser
 from wafw00f.lib.asciiarts import *
@@ -407,7 +406,7 @@ def main():
                 json.dump(results, outfile, indent=2)
         if options.output.endswith('csv'):
             log.debug("Exporting data in csv format to file: %s" % (options.output))
-            with open(options.output, mode='w') as outfile:
+            with open(options.output, 'w') as outfile:
                 csvwriter = csv.writer(outfile, delimiter=',', quotechar='"', 
                     quoting=csv.QUOTE_MINIMAL)
                 count = 0
