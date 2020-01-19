@@ -250,8 +250,18 @@ def calclogginglevel(verbosity):
 def buildResultRecord(url, waf):
     result = {}
     result['url'] = url
-    result['firewall'] = waf.split('(')[0].strip()
-    result['manufacturer'] = waf.split('(')[1].replace(')', '').strip()
+    if waf:
+        result['detected'] = 'True'
+        if waf == 'generic':
+            result['firewall'] = 'generic'
+            result['manufacturer'] = 'unknown'
+        else:
+            result['firewall'] = waf.split('(')[0].strip()
+            result['manufacturer'] = waf.split('(')[1].replace(')', '').strip()
+    else:
+        result['detected'] = 'False'
+        result['firewall'] = 'None'
+        result['manufacturer'] = 'None'
     return result
 
 def disableStdOut():
@@ -404,8 +414,10 @@ def main():
                 log.info('Generic Detection: %s' % attacker.knowledge['generic']['reason'])
                 print('[*] The site %s seems to be behind a WAF or some sort of security solution' % target)
                 print('[~] Reason: %s' % attacker.knowledge['generic']['reason'])
+                results.append(buildResultRecord(target, 'generic'))
             else:
                 print('[-] No WAF detected by the generic detection')
+                results.append(buildResultRecord(target, None))
         print('[~] Number of requests: %s' % attacker.requestnumber)
     #print table of results
     if len(results) > 0:
@@ -413,7 +425,7 @@ def main():
     #print('[+] Results: %s' % (len(results)))
     #print(tabulate(results, headers="firstrow"))
     if options.output:
-        if options.input == '-':
+        if options.output == '-':
             enableStdOut()
             print(tabulate(results))
         if options.output.endswith('json'):
