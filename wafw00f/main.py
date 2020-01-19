@@ -12,7 +12,6 @@ import os
 import random
 import re
 import sys
-from tabulate import tabulate
 from collections import defaultdict
 from optparse import OptionParser
 from wafw00f.lib.asciiarts import *
@@ -264,6 +263,25 @@ def buildResultRecord(url, waf):
         result['manufacturer'] = 'None'
     return result
 
+def getStdOut(res=None):
+    # leaving out some space for future possibilities of newer columns
+    # newer columns can be added to this tuple below
+    keys = ('detected')
+    res = [({key: ba[key] for key in ba if key not in keys}) for ba in res]
+    rows = []
+    for dk in res:
+            p = []
+            for _, x in dk.items():
+                    p.append(x)
+            rows.append(p)
+    defgen = [
+        (max([len(str(row[i])) for row in rows]) + 3)
+        for i in range(len(rows[0]))
+    ]
+    rwfmt = "".join(["{:>"+str(dank)+"}" for dank in defgen])
+    for row in rows:
+        print(rwfmt.format(*row))
+
 def disableStdOut():
     sys.stdout = None
 
@@ -425,7 +443,7 @@ def main():
     if options.output:
         if options.output == '-':
             enableStdOut()
-            print(tabulate(results))
+            getStdOut(results)
         if options.output.endswith('json'):
             log.debug("Exporting data in json format to file: %s" % (options.output))
             with open(options.output, 'w') as outfile:
