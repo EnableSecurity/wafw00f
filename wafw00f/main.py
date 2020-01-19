@@ -253,8 +253,8 @@ def buildResultRecord(url, waf):
     if waf:
         result['detected'] = 'True'
         if waf == 'generic':
-            result['firewall'] = 'generic'
-            result['manufacturer'] = 'unknown'
+            result['firewall'] = 'Generic'
+            result['manufacturer'] = 'Unknown'
         else:
             result['firewall'] = waf.split('(')[0].strip()
             result['manufacturer'] = waf.split('(')[1].replace(')', '').strip()
