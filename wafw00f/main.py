@@ -12,6 +12,7 @@ import os
 import random
 import re
 import sys
+from tabulate import tabulate
 from collections import defaultdict
 from optparse import OptionParser
 from wafw00f.lib.asciiarts import *
@@ -253,6 +254,12 @@ def buildResultRecord(url, waf):
     result['manufacturer'] = waf.split('(')[1].replace(')', '').strip()
     return result
 
+def disableStdOut():
+    sys.stdout = None
+
+def enableStdOut():
+    sys.stdout = sys.__stdout__
+
 def getheaders(fn):
     headers = {}
     fullfn = os.path.abspath(os.path.join(os.getcwd(), fn))
@@ -271,7 +278,6 @@ class RequestBlocked(Exception):
     pass
 
 def main():
-    print(randomArt())
     parser = OptionParser(usage='%prog url1 [url2 [url3 ... ]]\r\nexample: %prog http://www.victim.org/')
     parser.add_option('-v', '--verbose', action='count', dest='verbose', default=0,
                       help='Enable verbosity, multiple -v options increase verbosity')
@@ -295,6 +301,9 @@ def main():
     options, args = parser.parse_args()
     logging.basicConfig(level=calclogginglevel(options.verbose))
     log = logging.getLogger('wafw00f')
+    if options.output == '-':
+        disableStdOut()
+    print(randomArt())
     if options.list:
         print('[+] Can test for these WAFs:\r\n')
         attacker = WAFW00F(None)
@@ -325,22 +334,26 @@ def main():
     #check if input file is present
     if options.input:
         log.debug("Loading file '%s'" % options.input)
-        if options.input.endswith('json'):
-            with open(options.input) as f:
-                urls = json.loads(f.read())
-            log.info("Found: %s urls to check." %(len(urls)))
-            targets = [ item['url'] for item in urls ]
-        elif options.input.endswith('csv'):
-            columns = defaultdict(list)
-            with open(options.input) as f:
-                reader = csv.DictReader(f) 
-                for row in reader:
-                    for (k,v) in row.items():
-                        columns[k].append(v)
-            targets = columns['url']
-        else:
-            with open(options.input) as f:
-                targets = [x for x in f.read().splitlines()]
+        try:
+            if options.input.endswith('json'):
+                with open(options.input) as f:
+                    urls = json.loads(f.read())
+                log.info("Found: %s urls to check." %(len(urls)))
+                targets = [ item['url'] for item in urls ]
+            elif options.input.endswith('csv'):
+                columns = defaultdict(list)
+                with open(options.input) as f:
+                    reader = csv.DictReader(f) 
+                    for row in reader:
+                        for (k,v) in row.items():
+                            columns[k].append(v)
+                targets = columns['url']
+            else:
+                with open(options.input) as f:
+                    targets = [x for x in f.read().splitlines()]
+        except FileNotFoundError:
+            log.error('File %s could not be read. No targets loaded.')
+            sys.exit(1)
     else:
         targets = args
     results = []
@@ -400,6 +413,9 @@ def main():
     #print('[+] Results: %s' % (len(results)))
     #print(tabulate(results, headers="firstrow"))
     if options.output:
+        if options.input == '-':
+            enableStdOut()
+            print(tabulate(results))
         if options.output.endswith('json'):
             log.debug("Exporting data in json format to file: %s" % (options.output))
             with open(options.output, 'w') as outfile:
