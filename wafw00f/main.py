@@ -296,7 +296,7 @@ def main():
     parser.add_option('-r', '--noredirect', action='store_false', dest='followredirect',
                       default=True, help='Do not follow redirections given by 3xx responses')
     parser.add_option('-t', '--test', dest='test', help='Test for one specific WAF')
-    parser.add_option('-o', '--output', dest='output', help='Write output to this file. (.csv or .json) example: /tmp/out.json',
+    parser.add_option('-o', '--output', dest='output', help='Writes output. Ouput formats may be a csv, json file or standard stdout on terminal.',
                       default=None)
     parser.add_option('-i', '--input-file', dest='input', help='Reads targets from a file. Input format can be txt, json or csv, provided a `url` element is present.',
                       default=None)

@@ -29,6 +29,12 @@ Do not follow redirections given by 3xx responses.
 \fB\-t\fR WAF, \fB\-\-test\fR=\fI\,WAF\/\fR
 Test for one specific WAF product.
 .TP
+\fB\-o\fR OUTPUT, \fB\-\-output\fR=\fI\,OUTPUT\/\fR
+Writes output. Ouput formats may be a csv, json file or standard stdout on terminal.
+.TP
+\fB\-i\fR INPUT, \fB\-\-input\fR=\fI\,INPUT\/\fR
+Reads targets from a file. Input format can be txt, json or csv, provided a `url` element's presence.
+.TP
 \fB\-l\fR, \fB\-\-list\fR
 List all the WAFs that WAFW00F is able to detect.
 .TP
