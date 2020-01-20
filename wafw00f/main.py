@@ -316,7 +316,7 @@ def main():
     parser.add_option('-t', '--test', dest='test', help='Test for one specific WAF')
     parser.add_option('-o', '--output', dest='output', help='Write output to csv, json or text file depending on file extension. For stdout, specify - as filename.',
                       default=None)
-    parser.add_option('-i', '--input-file', dest='input', help='Read targets from a file. Input format can be txt, json or csv, provided a `url` element is present.',
+    parser.add_option('-i', '--input-file', dest='input', help='Read targets from a file. Input format can be csv, json or text. For csv and json, a `url` column name or element is required.',
                       default=None)
     parser.add_option('-l', '--list', dest='list', action='store_true',
                       default=False, help='List all WAFs that WAFW00F is able to detect')
