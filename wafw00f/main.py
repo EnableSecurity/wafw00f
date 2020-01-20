@@ -363,7 +363,7 @@ def main():
     if options.input:
         log.debug("Loading file '%s'" % options.input)
         try:
-            if options.input.endswith('json'):
+            if options.input.endswith('.json'):
                 with open(options.input) as f:
                     try:
                         urls = json.loads(f.read())
@@ -372,7 +372,7 @@ def main():
                         sys.exit(1)
                 log.info("Found: %s urls to check." %(len(urls)))
                 targets = [ item['url'] for item in urls ]
-            elif options.input.endswith('csv'):
+            elif options.input.endswith('.csv'):
                 columns = defaultdict(list)
                 with open(options.input) as f:
                     reader = csv.DictReader(f) 
