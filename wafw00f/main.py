@@ -20,10 +20,6 @@ from wafw00f.manager import load_plugins
 from wafw00f.wafprio import wafdetectionsprio
 from wafw00f.lib.evillib import urlParser, waftoolsengine, def_headers
 
-currentDir = os.getcwd()
-scriptDir = os.path.dirname(sys.argv[0]) or '.'
-os.chdir(scriptDir)
-
 class WAFW00F(waftoolsengine):
 
     xsstring = '<script>alert("XSS");</script>'
