@@ -380,7 +380,7 @@ def main():
                 with open(options.input) as f:
                     targets = [x for x in f.read().splitlines()]
         except FileNotFoundError:
-            log.error('File %s could not be read. No targets loaded.')
+            log.error('File %s could not be read. No targets loaded.', options.input)
             sys.exit(1)
     else:
         targets = args
