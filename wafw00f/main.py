@@ -259,7 +259,7 @@ def buildResultRecord(url, waf):
         result['manufacturer'] = 'None'
     return result
 
-def getStdOut(res=None):
+def getTextResults(res=None):
     # leaving out some space for future possibilities of newer columns
     # newer columns can be added to this tuple below
     keys = ('detected')
@@ -275,8 +275,10 @@ def getStdOut(res=None):
         for i in range(len(rows[0]))
     ]
     rwfmt = "".join(["{:>"+str(dank)+"}" for dank in defgen])
+    textresults = []
     for row in rows:
-        print(rwfmt.format(*row))
+        textresults.append(rwfmt.format(*row))
+    return textresults
 
 def disableStdOut():
     sys.stdout = None
@@ -439,7 +441,7 @@ def main():
     if options.output:
         if options.output == '-':
             enableStdOut()
-            getStdOut(results)
+            print(os.linesep.join(getTextResults(results)))
         elif options.output.endswith('.json'):
             log.debug("Exporting data in json format to file: %s" % (options.output))
             with open(options.output, 'w') as outfile:
@@ -456,6 +458,10 @@ def main():
                         csvwriter.writerow(header)
                         count += 1
                     csvwriter.writerow(result.values())
+        else:
+            log.debug("Exporting data in text format to file: %s" % (options.output))
+            with open(options.output, 'w') as outfile:
+                outfile.write(os.linesep.join(getTextResults(results)))
 
 if __name__ == '__main__':
     if sys.hexversion < 0x2060000:
