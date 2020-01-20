@@ -365,7 +365,11 @@ def main():
         try:
             if options.input.endswith('json'):
                 with open(options.input) as f:
-                    urls = json.loads(f.read())
+                    try:
+                        urls = json.loads(f.read())
+                    except json.decoder.JSONDecodeError:
+                        log.critical("JSON file %s did not contain well-formed JSON", options.input)
+                        sys.exit(1)
                 log.info("Found: %s urls to check." %(len(urls)))
                 targets = [ item['url'] for item in urls ]
             elif options.input.endswith('csv'):
