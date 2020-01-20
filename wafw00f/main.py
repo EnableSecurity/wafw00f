@@ -246,7 +246,7 @@ def buildResultRecord(url, waf):
     result = {}
     result['url'] = url
     if waf:
-        result['detected'] = 'True'
+        result['detected'] = True
         if waf == 'generic':
             result['firewall'] = 'Generic'
             result['manufacturer'] = 'Unknown'
@@ -254,9 +254,9 @@ def buildResultRecord(url, waf):
             result['firewall'] = waf.split('(')[0].strip()
             result['manufacturer'] = waf.split('(')[1].replace(')', '').strip()
     else:
-        result['detected'] = 'False'
-        result['firewall'] = 'None'
-        result['manufacturer'] = 'None'
+        result['detected'] = False
+        result['firewall'] = None
+        result['manufacturer'] = None
     return result
 
 def getTextResults(res=None):
@@ -268,6 +268,7 @@ def getTextResults(res=None):
     for dk in res:
             p = []
             for _, x in dk.items():
+                    x = str(x)
                     p.append(x)
             rows.append(p)
     defgen = [
