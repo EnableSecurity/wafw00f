@@ -314,9 +314,9 @@ def main():
     parser.add_option('-r', '--noredirect', action='store_false', dest='followredirect',
                       default=True, help='Do not follow redirections given by 3xx responses')
     parser.add_option('-t', '--test', dest='test', help='Test for one specific WAF')
-    parser.add_option('-o', '--output', dest='output', help='Writes output. Ouput formats may be a csv, json file or standard stdout on terminal.',
+    parser.add_option('-o', '--output', dest='output', help='Write output to csv, json file or standard stdout depending on file extension. For stdout, specify - as filename.',
                       default=None)
-    parser.add_option('-i', '--input-file', dest='input', help='Reads targets from a file. Input format can be txt, json or csv, provided a `url` element is present.',
+    parser.add_option('-i', '--input-file', dest='input', help='Read targets from a file. Input format can be txt, json or csv, provided a `url` element is present.',
                       default=None)
     parser.add_option('-l', '--list', dest='list', action='store_true',
                       default=False, help='List all WAFs that WAFW00F is able to detect')
@@ -444,11 +444,11 @@ def main():
         if options.output == '-':
             enableStdOut()
             getStdOut(results)
-        if options.output.endswith('json'):
+        elif options.output.endswith('.json'):
             log.debug("Exporting data in json format to file: %s" % (options.output))
             with open(options.output, 'w') as outfile:
                 json.dump(results, outfile, indent=2)
-        if options.output.endswith('csv'):
+        elif options.output.endswith('.csv'):
             log.debug("Exporting data in csv format to file: %s" % (options.output))
             with open(options.output, 'w') as outfile:
                 csvwriter = csv.writer(outfile, delimiter=',', quotechar='"', 
