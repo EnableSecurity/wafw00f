@@ -4,24 +4,21 @@
 Copyright (C) 2019, WAFW00F Developers.
 See the LICENSE file for copying permission.
 '''
-
+import csv
 import io
+import json
 import logging
 import os
 import random
 import re
 import sys
+from collections import defaultdict
 from optparse import OptionParser
-
+from wafw00f.lib.asciiarts import *
 from wafw00f import __version__, __license__
 from wafw00f.manager import load_plugins
 from wafw00f.wafprio import wafdetectionsprio
-from wafw00f.lib.asciiarts import *
 from wafw00f.lib.evillib import urlParser, waftoolsengine, def_headers
-
-currentDir = os.getcwd()
-scriptDir = os.path.dirname(sys.argv[0]) or '.'
-os.chdir(scriptDir)
 
 class WAFW00F(waftoolsengine):
 
@@ -87,7 +84,8 @@ class WAFW00F(waftoolsengine):
         try:
             # Testing for no user-agent response. Detects almost all WAFs out there.
             resp1 = self.performCheck(self.normalRequest)
-            del self.headers['User-Agent']  # Deleting the user-agent key from object not dict.
+            if 'User-Agent' in self.headers:
+                del self.headers['User-Agent']  # Deleting the user-agent key from object not dict.
             resp3 = self.customRequest(headers=def_headers)
             if resp1.status_code != resp3.status_code:
                 self.log.info('Server returned a different response when request didn\'t contain the User-Agent header.')
@@ -245,6 +243,48 @@ def calclogginglevel(verbosity):
         level = 0
     return level
 
+def buildResultRecord(url, waf):
+    result = {}
+    result['url'] = url
+    if waf:
+        result['detected'] = True
+        if waf == 'generic':
+            result['firewall'] = 'Generic'
+            result['manufacturer'] = 'Unknown'
+        else:
+            result['firewall'] = waf.split('(')[0].strip()
+            result['manufacturer'] = waf.split('(')[1].replace(')', '').strip()
+    else:
+        result['detected'] = False
+        result['firewall'] = 'None'
+        result['manufacturer'] = 'None'
+    return result
+
+def getTextResults(res=None):
+    # leaving out some space for future possibilities of newer columns
+    # newer columns can be added to this tuple below
+    keys = ('detected')
+    res = [({key: ba[key] for key in ba if key not in keys}) for ba in res]
+    rows = []
+    for dk in res:
+        p = [str(x) for _, x in dk.items()]
+        rows.append(p)
+    defgen = [
+        (max([len(str(row[i])) for row in rows]) + 3)
+        for i in range(len(rows[0]))
+    ]
+    rwfmt = "".join(["{:>"+str(dank)+"}" for dank in defgen])
+    textresults = []
+    for row in rows:
+        textresults.append(rwfmt.format(*row))
+    return textresults
+
+def disableStdOut():
+    sys.stdout = None
+
+def enableStdOut():
+    sys.stdout = sys.__stdout__
+
 def getheaders(fn):
     headers = {}
     fullfn = os.path.abspath(os.path.join(os.getcwd(), fn))
@@ -263,7 +303,6 @@ class RequestBlocked(Exception):
     pass
 
 def main():
-    print(randomArt())
     parser = OptionParser(usage='%prog url1 [url2 [url3 ... ]]\r\nexample: %prog http://www.victim.org/')
     parser.add_option('-v', '--verbose', action='count', dest='verbose', default=0,
                       help='Enable verbosity, multiple -v options increase verbosity')
@@ -272,6 +311,10 @@ def main():
     parser.add_option('-r', '--noredirect', action='store_false', dest='followredirect',
                       default=True, help='Do not follow redirections given by 3xx responses')
     parser.add_option('-t', '--test', dest='test', help='Test for one specific WAF')
+    parser.add_option('-o', '--output', dest='output', help='Write output to csv, json or text file depending on file extension. For stdout, specify - as filename.',
+                      default=None)
+    parser.add_option('-i', '--input-file', dest='input', help='Read targets from a file. Input format can be csv, json or text. For csv and json, a `url` column name or element is required.',
+                      default=None)
     parser.add_option('-l', '--list', dest='list', action='store_true',
                       default=False, help='List all WAFs that WAFW00F is able to detect')
     parser.add_option('-p', '--proxy', dest='proxy', default=None,
@@ -283,6 +326,9 @@ def main():
     options, args = parser.parse_args()
     logging.basicConfig(level=calclogginglevel(options.verbose))
     log = logging.getLogger('wafw00f')
+    if options.output == '-':
+        disableStdOut()
+    print(randomArt())
     if options.list:
         print('[+] Can test for these WAFs:\r\n')
         attacker = WAFW00F(None)
@@ -308,9 +354,38 @@ def main():
         extraheaders = getheaders(options.headers)
         if extraheaders is None:
             parser.error('Please provide a headers file with colon delimited header names and values')
-    if len(args) == 0:
+    if len(args) == 0 and not options.input:
         parser.error('No test target specified.')
-    targets = args
+    #check if input file is present
+    if options.input:
+        log.debug("Loading file '%s'" % options.input)
+        try:
+            if options.input.endswith('.json'):
+                with open(options.input) as f:
+                    try:
+                        urls = json.loads(f.read())
+                    except json.decoder.JSONDecodeError:
+                        log.critical("JSON file %s did not contain well-formed JSON", options.input)
+                        sys.exit(1)
+                log.info("Found: %s urls to check." %(len(urls)))
+                targets = [ item['url'] for item in urls ]
+            elif options.input.endswith('.csv'):
+                columns = defaultdict(list)
+                with open(options.input) as f:
+                    reader = csv.DictReader(f) 
+                    for row in reader:
+                        for (k,v) in row.items():
+                            columns[k].append(v)
+                targets = columns['url']
+            else:
+                with open(options.input) as f:
+                    targets = [x for x in f.read().splitlines()]
+        except FileNotFoundError:
+            log.error('File %s could not be read. No targets loaded.', options.input)
+            sys.exit(1)
+    else:
+        targets = args
+    results = []
     for target in targets:
         if not target.startswith('http'):
             log.info('The url %s should start with http:// or https:// .. fixing (might make this unusable)' % target)
@@ -344,11 +419,13 @@ def main():
                 else:
                     print('[-] WAF %s was not detected on %s' % (options.test, target))
             else:
-                print('WAF %s was not found in our list\r\nUse the --list option to see what is available' % options.test)
+                print('[-] WAF %s was not found in our list\r\nUse the --list option to see what is available' % options.test)
             return
         waf = attacker.identwaf(options.findall)
         log.info('Identified WAF: %s' % waf)
         if len(waf) > 0:
+            for i in waf:
+                results.append(buildResultRecord(target, i))
             print('[+] The site %s%s%s is behind %s%s%s WAF.' % (B, target, E, C, (E+' and/or '+C).join(waf), E))
         if (options.findall) or len(waf) == 0:
             print('[+] Generic Detection results:')
@@ -356,9 +433,38 @@ def main():
                 log.info('Generic Detection: %s' % attacker.knowledge['generic']['reason'])
                 print('[*] The site %s seems to be behind a WAF or some sort of security solution' % target)
                 print('[~] Reason: %s' % attacker.knowledge['generic']['reason'])
+                results.append(buildResultRecord(target, 'generic'))
             else:
                 print('[-] No WAF detected by the generic detection')
+                results.append(buildResultRecord(target, None))
         print('[~] Number of requests: %s' % attacker.requestnumber)
+    #print table of results
+    if len(results) > 0:
+        log.info("Found: %s matches." % (len(results)))
+    if options.output:
+        if options.output == '-':
+            enableStdOut()
+            print(os.linesep.join(getTextResults(results)))
+        elif options.output.endswith('.json'):
+            log.debug("Exporting data in json format to file: %s" % (options.output))
+            with open(options.output, 'w') as outfile:
+                json.dump(results, outfile, indent=2)
+        elif options.output.endswith('.csv'):
+            log.debug("Exporting data in csv format to file: %s" % (options.output))
+            with open(options.output, 'w') as outfile:
+                csvwriter = csv.writer(outfile, delimiter=',', quotechar='"', 
+                    quoting=csv.QUOTE_MINIMAL)
+                count = 0
+                for result in results:
+                    if count == 0:
+                        header = result.keys()
+                        csvwriter.writerow(header)
+                        count += 1
+                    csvwriter.writerow(result.values())
+        else:
+            log.debug("Exporting data in text format to file: %s" % (options.output))
+            with open(options.output, 'w') as outfile:
+                outfile.write(os.linesep.join(getTextResults(results)))
 
 if __name__ == '__main__':
     if sys.hexversion < 0x2060000:

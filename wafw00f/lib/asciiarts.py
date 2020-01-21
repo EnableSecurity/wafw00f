@@ -36,7 +36,7 @@ def randomArt():
         '''+Y+'''(  /  )       '''+G+''' / | \                  '''+R+'''. '''+Y+'''|__|
          '''+Y+r'''\(_)_))      '''+G+'''/  |  \                   '''+Y+'''|__|'''+E+'''
 
-                    '''+C+'~ WAFW00F : '+W+'v'+__version__+''' ~
+                    '''+C+'~ WAFW00F : '+B+'v'+__version__+''' ~'''+W+'''
     The Web Application Firewall Fingerprinting Toolkit
     '''+E
 
