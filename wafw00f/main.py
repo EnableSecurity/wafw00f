@@ -256,8 +256,8 @@ def buildResultRecord(url, waf):
             result['manufacturer'] = waf.split('(')[1].replace(')', '').strip()
     else:
         result['detected'] = False
-        result['firewall'] = None
-        result['manufacturer'] = None
+        result['firewall'] = 'None'
+        result['manufacturer'] = 'None'
     return result
 
 def getTextResults(res=None):
@@ -267,11 +267,8 @@ def getTextResults(res=None):
     res = [({key: ba[key] for key in ba if key not in keys}) for ba in res]
     rows = []
     for dk in res:
-            p = []
-            for _, x in dk.items():
-                    x = str(x)
-                    p.append(x)
-            rows.append(p)
+        p = [str(x) for _, x in dk.items()]
+        rows.append(p)
     defgen = [
         (max([len(str(row[i])) for row in rows]) + 3)
         for i in range(len(rows[0]))
@@ -422,7 +419,7 @@ def main():
                 else:
                     print('[-] WAF %s was not detected on %s' % (options.test, target))
             else:
-                print('WAF %s was not found in our list\r\nUse the --list option to see what is available' % options.test)
+                print('[-] WAF %s was not found in our list\r\nUse the --list option to see what is available' % options.test)
             return
         waf = attacker.identwaf(options.findall)
         log.info('Identified WAF: %s' % waf)
