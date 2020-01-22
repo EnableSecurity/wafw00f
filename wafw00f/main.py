@@ -269,6 +269,9 @@ def getTextResults(res=None):
     for dk in res:
         p = [str(x) for _, x in dk.items()]
         rows.append(p)
+    for m in rows:
+        m[1] = f'{m[1]} ({m[2]})'
+        m.pop()
     defgen = [
         (max([len(str(row[i])) for row in rows]) + 3)
         for i in range(len(rows[0]))
