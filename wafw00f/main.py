@@ -290,9 +290,8 @@ def enableStdOut():
 
 def getheaders(fn):
     headers = {}
-    fullfn = os.path.abspath(os.path.join(os.getcwd(), fn))
-    if not os.path.exists(fullfn):
-        logging.getLogger('wafw00f').critical('Headers file "%s" does not exist!' % fullfn)
+    if not os.path.exists(fn):
+        logging.getLogger('wafw00f').critical('Headers file "%s" does not exist!' % fn)
         return
     with io.open(fn, 'r', encoding='utf-8') as f:
         for line in f.readlines():
