@@ -28,12 +28,12 @@ class WAFW00F(waftoolsengine):
     rcestring = '/bin/cat /etc/passwd; ping 127.0.0.1; curl google.com'
     xxestring = '<!ENTITY xxe SYSTEM "file:///etc/shadow">]><pwn>&hack;</pwn>'
 
-    def __init__(self, target='www.example.com', port=None, debuglevel=0, path='/',
+    def __init__(self, target='www.example.com', debuglevel=0, path='/',
                  followredirect=True, extraheaders={}, proxies=None):
 
         self.log = logging.getLogger('wafw00f')
         self.attackres = None
-        waftoolsengine.__init__(self, target, port, debuglevel, path, proxies, followredirect, extraheaders)
+        waftoolsengine.__init__(self, target, debuglevel, path, proxies, followredirect, extraheaders)
         self.knowledge = dict(generic=dict(found=False, reason=''), wafname=list())
 
     def normalRequest(self):
@@ -405,7 +405,7 @@ def main():
                 "http": options.proxy,
                 "https": options.proxy,
             }
-        attacker = WAFW00F(target, port=port, debuglevel=options.verbose, path=path,
+        attacker = WAFW00F(target, debuglevel=options.verbose, path=path,
                     followredirect=options.followredirect, extraheaders=extraheaders,
                         proxies=proxies)
         global rq
