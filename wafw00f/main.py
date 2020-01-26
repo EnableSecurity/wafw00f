@@ -392,7 +392,7 @@ def main():
     for target in targets:
         if not target.startswith('http'):
             log.info('The url %s should start with http:// or https:// .. fixing (might make this unusable)' % target)
-            target = 'http://' + target
+            target = 'https://' + target
         print('[*] Checking %s' % target)
         pret = urlParser(target)
         if pret is None:
