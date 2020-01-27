@@ -58,7 +58,7 @@ def urlParser(target):
     return (hostname, port, path, query, ssl)
 
 class waftoolsengine:
-    def __init__(self, target='https://example.com', port=None, debuglevel=0, path='/', proxies=None, 
+    def __init__(self, target='https://example.com', debuglevel=0, path='/', proxies=None, 
                 redir=True, head=None):
         self.target = target
         self.debuglevel = debuglevel
@@ -68,8 +68,6 @@ class waftoolsengine:
         self.allowredir = redir
         self.proxies = proxies
         self.log = logging.getLogger('wafw00f')
-        if port:
-            self.target = self.target + ':' + str(port)
         if head:
             self.headers = head
         else:
