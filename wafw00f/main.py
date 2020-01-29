@@ -336,14 +336,19 @@ def main():
         attacker = WAFW00F(None)
         try:
             m = [i.replace(')', '').split(' (') for i in wafdetectionsprio]
-            print(R+'  WAF Name'+'\t'*3+'Manufacturer\n  '+'-'*8+'\t'*3+'-'*12+E+'\n')
-            for i in m:
-                tab, n = '\t', 5
-                for j in range(-2,23,8):
-                    if len(i[0]) < j:
-                        print('  '+Y+i[0]+E+tab*n+W+i[1]+E)
-                        break
-                    else: n=n-1
+            print(R+'  WAF Name'+' '*24+'Manufacturer\n  '+'-'*8+' '*24+'-'*12+'\n')
+            max_len = max(len(str(x)) for k in m for x in k) 
+            for inner in m:
+                first = True
+                for elem in inner:
+                    if first:
+                        text = Y+"  {:<{}} ".format(elem, max_len+2)
+                        first = False
+                    else:
+                        text = W+"{:<{}} ".format(elem, max_len+2)
+                    print(text, E, end="")
+                print()
+            sys.exit(0)
         except Exception:
             return
     if options.version:
