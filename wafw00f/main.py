@@ -4,6 +4,9 @@
 Copyright (C) 2019, WAFW00F Developers.
 See the LICENSE file for copying permission.
 '''
+# For keeping python2 support for now
+from __future__ import print_function
+
 import csv
 import io
 import json
@@ -270,7 +273,7 @@ def getTextResults(res=None):
         p = [str(x) for _, x in dk.items()]
         rows.append(p)
     for m in rows:
-        m[1] = f'{m[1]} ({m[2]})'
+        m[1] = '%s (%s)' % (m[1], m[2])
         m.pop()
     defgen = [
         (max([len(str(row[i])) for row in rows]) + 3)
@@ -402,7 +405,7 @@ def main():
         if pret is None:
             log.critical('The url %s is not well formed' % target)
             sys.exit(1)
-        (hostname, port, path, _, _) = pret
+        (hostname, _, path, _, _) = pret
         log.info('starting wafw00f on %s' % target)
         proxies = dict()
         if options.proxy:
