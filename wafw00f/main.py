@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 '''
-Copyright (C) 2019, WAFW00F Developers.
+Copyright (C) 2020, WAFW00F Developers.
 See the LICENSE file for copying permission.
 '''
 # For keeping python2 support for now
