@@ -4,7 +4,7 @@ Copyright (C) 2020, WAFW00F Developers.
 See the LICENSE file for copying permission.
 '''
 
-NAME = 'Qcloud Web Application Firewall (Tencent Cloud)'
+NAME = 'Qcloud (Tencent Cloud)'
 
 
 def is_waf(self):
