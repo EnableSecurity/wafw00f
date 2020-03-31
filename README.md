@@ -159,6 +159,7 @@ $ wafw00f -l
   PowerCDN                         PowerCDN                         
   Profense                         ArmorLogic                       
   Puhui                            Puhui                            
+  Qcloud                           Tencent Cloud                    
   Qiniu                            Qiniu CDN                        
   Reblaze                          Reblaze                          
   RSFirewall                       RSJoomla!                        
@@ -215,8 +216,7 @@ $ wafw00f -l
   Yunjiasu                         Baidu Cloud Computing            
   YXLink                           YxLink Technologies              
   Zenedge                          Zenedge                          
-  ZScaler                          Accenture                        
-  e3Learning Firewall  
+  ZScaler                          Accenture
 ```
 
 ## How do I use it?
