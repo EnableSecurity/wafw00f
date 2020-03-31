@@ -104,6 +104,7 @@ wafdetectionsprio = [
     'PowerCDN (PowerCDN)',
     'Profense (ArmorLogic)',
     'Puhui (Puhui)',
+    'Qcloud (Tencent Cloud)',
     'Qiniu (Qiniu CDN)',
     'Reblaze (Reblaze)',
     'RSFirewall (RSJoomla!)',
