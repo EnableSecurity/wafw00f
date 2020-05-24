@@ -161,5 +161,6 @@ wafdetectionsprio = [
     'Yunjiasu (Baidu Cloud Computing)',
     'YXLink (YxLink Technologies)',
     'Zenedge (Zenedge)',
-    'ZScaler (Accenture)'
+    'ZScaler (Accenture)',
+    'wpmudev WAF (Incsub)'
 ]
