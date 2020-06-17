@@ -146,6 +146,7 @@ wafdetectionsprio = [
     'WebARX (WebARX Security Solutions)',
     'WebKnight (AQTRONIX)',
     'WebLand (WebLand)',
+    'wpmudev WAF (Incsub)',
     'RayWAF (WebRay Solutions)',
     'WebSEAL (IBM)',
     'WebTotem (WebTotem)',
@@ -161,5 +162,5 @@ wafdetectionsprio = [
     'Yunjiasu (Baidu Cloud Computing)',
     'YXLink (YxLink Technologies)',
     'Zenedge (Zenedge)',
-    'ZScaler (Accenture)'
+    'ZScaler (Accenture)',
 ]
