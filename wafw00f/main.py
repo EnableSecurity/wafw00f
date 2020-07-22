@@ -156,13 +156,13 @@ class WAFW00F(waftoolsengine):
             # Checking for the X-Powered-By header after sending malicious requests
             attackresx_powered_by = response.headers.get('X-Powered-By')
             if attackresx_powered_by:
-                if attackresponse_server != normalserver:
+                if attackresx_powered_by != normalserver:
                     self.log.info('X-Powered-By header changed, WAF possibly detected')
-                    self.log.debug('Attack response: %s' % attackresponse_server)
+                    self.log.debug('Attack response: %s' % attackresx_powered_by)
                     self.log.debug('Normal response: %s' % normalserver)
                     reason = reasons[1]
                     reason += '\r\nThe X-Powered-By header for a normal response is "%s",' % normalserver
-                    reason += ' while the X-Powered-By header a response to an attack is "%s",' % attackresponse_server
+                    reason += ' while the X-Powered-By header a response to an attack is "%s",' % attackresx_powered_by
                     self.knowledge['generic']['reason'] = reason
                     self.knowledge['generic']['found'] = True
                     return True
