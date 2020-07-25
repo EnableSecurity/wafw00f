@@ -79,6 +79,7 @@ class WAFW00F(waftoolsengine):
     def genericdetect(self):
         reason = ''
         reasons = ['Blocking is being done at connection/packet level.',
+                   'The X-Powered-By header is different when an attack is detected.',
                    'The server header is different when an attack is detected.',
                    'The server returns a different response code when an attack string is used.',
                    'It closed the connection for a normal request.',
@@ -148,6 +149,21 @@ class WAFW00F(waftoolsengine):
                     reason = reasons[1]
                     reason += '\r\nThe server header for a normal response is "%s",' % normalserver
                     reason += ' while the server header a response to an attack is "%s",' % attackresponse_server
+                    self.knowledge['generic']['reason'] = reason
+                    self.knowledge['generic']['found'] = True
+                    return True
+
+            # Checking for the X-Powered-By header after sending malicious requests
+            attackresx_powered_by = response.headers.get('X-Powered-By')
+            normal_x_powered_by = resp1.headers.get('X-Powered-By')
+            if attackresx_powered_by:
+                if attackresx_powered_by != normal_x_powered_by:
+                    self.log.info('X-Powered-By header changed, WAF possibly detected')
+                    self.log.debug('Attack response: %s' % attackresx_powered_by)
+                    self.log.debug('Normal response: %s' % normal_x_powered_by)
+                    reason = reasons[1]
+                    reason += '\r\nThe X-Powered-By header for a normal response is "%s",' % normal_x_powered_by
+                    reason += ' while the X-Powered-By header a response to an attack is "%s",' % attackresx_powered_by
                     self.knowledge['generic']['reason'] = reason
                     self.knowledge['generic']['found'] = True
                     return True
