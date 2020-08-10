@@ -12,7 +12,6 @@ def is_waf(self):
 
         # just added another signature
         self.matchHeader(('Server', r'Yunjiasu(.+)?')),
-        self.matchHeader(('Server', 'yunjiasu-nginx'))
     ]
     if any(i for i in schemes):
         return True

@@ -12,7 +12,6 @@ def is_waf(self):
 
         # just added another extra signature used by Anquanbao
         self.matchHeader(('X-Powered-By-Anquanbao', '.+?')),
-        self.matchHeader(('X-Powered-By-Anquanbao', 'MISS')),
         self.matchContent(r'aqb_cc/error/')
         ]
     if any(i for i in schemes):
