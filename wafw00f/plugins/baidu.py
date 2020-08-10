@@ -9,8 +9,6 @@ NAME = 'Yunjiasu (Baidu Cloud Computing)'
 
 def is_waf(self):
     schemes = [
-
-        # just added another signature
         self.matchHeader(('Server', r'Yunjiasu(.+)?')),
     ]
     if any(i for i in schemes):

@@ -9,8 +9,6 @@ NAME = 'Anquanbao (Anquanbao)'
 
 def is_waf(self):
     schemes = [
-
-        # just added another extra signature used by Anquanbao
         self.matchHeader(('X-Powered-By-Anquanbao', '.+?')),
         self.matchContent(r'aqb_cc/error/')
         ]
