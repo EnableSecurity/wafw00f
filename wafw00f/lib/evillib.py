@@ -73,7 +73,7 @@ class waftoolsengine:
         else:
             self.headers = copy(def_headers) #copy object by value not reference. Fix issue #90
 
-    def Request(self, headers=None, path=None, params={}, delay=0, timeout=7):
+    def Request(self, headers=None, path=None, params={}, delay=0, timeout=2):
         try:
             time.sleep(delay)
             if not headers: 
@@ -88,3 +88,4 @@ class waftoolsengine:
             return req
         except requests.exceptions.RequestException as e:
             self.log.error('Something went wrong %s' % (e.__str__()))
+            return

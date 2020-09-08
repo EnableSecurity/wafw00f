@@ -69,7 +69,7 @@ class WAFW00F(waftoolsengine):
     def performCheck(self, request_method):
         r = request_method()
         if r is None:
-            raise RequestBlocked()
+            self.log.fatal('Looks like all our requests are timeout\'ing / being reset')
         return r
 
     # Most common attacks used to detect WAFs
