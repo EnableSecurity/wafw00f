@@ -25,7 +25,7 @@
   </a>
 </p>
 
-## How does it work?
+* How does it work?
 
 To do its magic, WAFW00F does the following:
 
@@ -39,7 +39,7 @@ To do its magic, WAFW00F does the following:
 
 For further details, check out the source code on our [main repository](https://github.com/EnableSecurity/wafw00f).
 
-## What does it detect?
+* What does it detect?
 
 WAFW00F can detect a number of firewalls, a list of which is as below:
 
@@ -219,7 +219,7 @@ $ wafw00f -l
   ZScaler                          Accenture
 ```
 
-## How do I use it?
+* How do I use it?
 
 First, install the tools as described [here](#how-do-i-install-it).
 
@@ -247,7 +247,7 @@ $   wafw00f https://example.org
 [~] Number of requests: 2
 ```
 
-## How do I install it?
+* How do I install it?
 
 The following should do the trick:
 
@@ -255,7 +255,7 @@ The following should do the trick:
 python setup.py install
 ```
 
-## Final Words
+* Final Words
 
 __Questions?__ Pull up an [issue on GitHub Issue Tracker](https://github.com/enablesecurity/wafw00f/issues/new) or contact [me](mailto:sandro@enablesecurity.com).  
 [Pull requests](https://github.com/enablesecurity/wafw00f/pulls), [ideas and issues](https://github.com/enablesecurity/wafw00f/issues) are highly welcome. If you wish to see how WAFW00F is being developed, check out the [development board](https://github.com/enablesecurity/wafw00f/projects/1).
