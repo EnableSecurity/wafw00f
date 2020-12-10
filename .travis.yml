@@ -6,6 +6,12 @@ matrix:
     - python: 3.7
       dist: xenial    # required for Python 3.7 (travis-ci/travis-ci#9069)
       sudo: required  # required for Python 3.7 (travis-ci/travis-ci#9069)
+    # power support  
+    - python: 3.7
+      arch: ppc64le
+      dist: xenial    # required for Python 3.7 (travis-ci/travis-ci#9069)
+      sudo: required  # required for Python 3.7 (travis-ci/travis-ci#9069)
+      
 install:
   - python setup.py install
   - pip install flake8
