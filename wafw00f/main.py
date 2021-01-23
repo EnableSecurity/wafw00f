@@ -137,20 +137,22 @@ class WAFW00F(waftoolsengine):
                 return True
 
             # Checking for the Server header after sending malicious requests
+            normalserver, attackresponse_server = '', ''
             response = self.attackres
-            normalserver = resp1.headers.get('Server')
-            attackresponse_server = response.headers.get('Server')
-            if attackresponse_server:
-                if attackresponse_server != normalserver:
-                    self.log.info('Server header changed, WAF possibly detected')
-                    self.log.debug('Attack response: %s' % attackresponse_server)
-                    self.log.debug('Normal response: %s' % normalserver)
-                    reason = reasons[1]
-                    reason += '\r\nThe server header for a normal response is "%s",' % normalserver
-                    reason += ' while the server header a response to an attack is "%s",' % attackresponse_server
-                    self.knowledge['generic']['reason'] = reason
-                    self.knowledge['generic']['found'] = True
-                    return True
+            if 'server' in resp1.headers:
+                normalserver = resp1.headers.get('Server')
+            if 'server' in response.headers:
+                attackresponse_server = response.headers.get('Server')
+            if attackresponse_server != normalserver:
+                self.log.info('Server header changed, WAF possibly detected')
+                self.log.debug('Attack response: %s' % attackresponse_server)
+                self.log.debug('Normal response: %s' % normalserver)
+                reason = reasons[1]
+                reason += '\r\nThe server header for a normal response is "%s",' % normalserver
+                reason += ' while the server header a response to an attack is "%s",' % attackresponse_server
+                self.knowledge['generic']['reason'] = reason
+                self.knowledge['generic']['found'] = True
+                return True
 
         # If at all request doesn't go, press F
         except RequestBlocked:
@@ -340,7 +342,7 @@ def main():
         try:
             m = [i.replace(')', '').split(' (') for i in wafdetectionsprio]
             print(R+'  WAF Name'+' '*24+'Manufacturer\n  '+'-'*8+' '*24+'-'*12+'\n')
-            max_len = max(len(str(x)) for k in m for x in k) 
+            max_len = max(len(str(x)) for k in m for x in k)
             for inner in m:
                 first = True
                 for elem in inner:
@@ -382,7 +384,7 @@ def main():
             elif options.input.endswith('.csv'):
                 columns = defaultdict(list)
                 with open(options.input) as f:
-                    reader = csv.DictReader(f) 
+                    reader = csv.DictReader(f)
                     for row in reader:
                         for (k,v) in row.items():
                             columns[k].append(v)
@@ -462,7 +464,7 @@ def main():
         elif options.output.endswith('.csv'):
             log.debug("Exporting data in csv format to file: %s" % (options.output))
             with open(options.output, 'w') as outfile:
-                csvwriter = csv.writer(outfile, delimiter=',', quotechar='"', 
+                csvwriter = csv.writer(outfile, delimiter=',', quotechar='"',
                     quoting=csv.QUOTE_MINIMAL)
                 count = 0
                 for result in results:
