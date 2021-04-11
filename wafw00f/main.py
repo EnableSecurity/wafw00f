@@ -320,6 +320,8 @@ def main():
     parser.add_option('-t', '--test', dest='test', help='Test for one specific WAF')
     parser.add_option('-o', '--output', dest='output', help='Write output to csv, json or text file depending on file extension. For stdout, specify - as filename.',
                       default=None)
+    parser.add_option('-f', '--format', dest='format', help='Force output format to csv, json or text.',
+                      default=None)
     parser.add_option('-i', '--input-file', dest='input', help='Read targets from a file. Input format can be csv, json or text. For csv and json, a `url` column name or element is required.',
                       default=None)
     parser.add_option('-l', '--list', dest='list', action='store_true',
@@ -456,7 +458,20 @@ def main():
     if options.output:
         if options.output == '-':
             enableStdOut()
-            print(os.linesep.join(getTextResults(results)))
+            if options.format == 'json':
+                json.dump(results, sys.stdout, indent=2)
+            elif options.format == 'csv':
+                csvwriter = csv.writer(sys.stdout, delimiter=',', quotechar='"',
+                    quoting=csv.QUOTE_MINIMAL)
+                count = 0
+                for result in results:
+                    if count == 0:
+                        header = result.keys()
+                        csvwriter.writerow(header)
+                        count += 1
+                    csvwriter.writerow(result.values())
+            else:
+                print(os.linesep.join(getTextResults(results)))
         elif options.output.endswith('.json'):
             log.debug("Exporting data in json format to file: %s" % (options.output))
             with open(options.output, 'w') as outfile:
@@ -475,8 +490,23 @@ def main():
                     csvwriter.writerow(result.values())
         else:
             log.debug("Exporting data in text format to file: %s" % (options.output))
-            with open(options.output, 'w') as outfile:
-                outfile.write(os.linesep.join(getTextResults(results)))
+            if options.format == 'json':
+                with open(options.output, 'w') as outfile:
+                    json.dump(results, outfile, indent=2)
+            elif options.format == 'csv':
+                with open(options.output, 'w') as outfile:
+                    csvwriter = csv.writer(outfile, delimiter=',', quotechar='"',
+                        quoting=csv.QUOTE_MINIMAL)
+                    count = 0
+                    for result in results:
+                        if count == 0:
+                            header = result.keys()
+                            csvwriter.writerow(header)
+                            count += 1
+                        csvwriter.writerow(result.values())
+            else:
+                with open(options.output, 'w') as outfile:
+                    outfile.write(os.linesep.join(getTextResults(results)))
 
 if __name__ == '__main__':
     if sys.hexversion < 0x2060000:
