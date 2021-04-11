@@ -76,11 +76,6 @@ class WAFW00F(waftoolsengine):
     attcom = [xssAttack, sqliAttack, lfiAttack]
     attacks = [xssAttack, xxeAttack, lfiAttack, sqliAttack, oscAttack]
 
-    def merge_two_dicts(self, first, second):
-        result = first.copy()
-        result.update(second)
-        return result
-
     def genericdetect(self):
         reason = ''
         reasons = ['Blocking is being done at connection/packet level.',
@@ -94,7 +89,7 @@ class WAFW00F(waftoolsengine):
             resp1 = self.performCheck(self.normalRequest)
             if 'User-Agent' in self.headers:
                 del self.headers['User-Agent']  # Deleting the user-agent key from object not dict.
-            resp3 = self.customRequest(headers=self.merge_two_dicts(def_headers, self.headers))
+            resp3 = self.customRequest(headers=self.headers)
             if resp1.status_code != resp3.status_code:
                 self.log.info('Server returned a different response when request didn\'t contain the User-Agent header.')
                 reason = reasons[4]
