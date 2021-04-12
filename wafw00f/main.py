@@ -23,6 +23,7 @@ from wafw00f.manager import load_plugins
 from wafw00f.wafprio import wafdetectionsprio
 from wafw00f.lib.evillib import urlParser, waftoolsengine, def_headers
 
+
 class WAFW00F(waftoolsengine):
 
     xsstring = '<script>alert("XSS");</script>'
@@ -38,6 +39,7 @@ class WAFW00F(waftoolsengine):
         self.attackres = None
         waftoolsengine.__init__(self, target, debuglevel, path, proxies, followredirect, extraheaders)
         self.knowledge = dict(generic=dict(found=False, reason=''), wafname=list())
+        self.rq = self.normalRequest()
 
     def normalRequest(self):
         return self.Request()
@@ -164,9 +166,11 @@ class WAFW00F(waftoolsengine):
     def matchHeader(self, headermatch, attack=False):
         if attack:
             r = self.attackres
-        else: r = rq
+        else:
+            r = self.rq
         if r is None:
             return
+
         header, match = headermatch
         headerval = r.headers.get(header)
         if headerval:
@@ -184,7 +188,8 @@ class WAFW00F(waftoolsengine):
     def matchStatus(self, statuscode, attack=True):
         if attack:
             r = self.attackres
-        else: r = rq
+        else:
+            r = self.rq
         if r is None:
             return
         if r.status_code == statuscode:
@@ -197,7 +202,8 @@ class WAFW00F(waftoolsengine):
     def matchReason(self, reasoncode, attack=True):
         if attack:
             r = self.attackres
-        else: r = rq
+        else:
+            r = self.rq
         if r is None:
             return
         # We may need to match multiline context in response body
@@ -208,7 +214,8 @@ class WAFW00F(waftoolsengine):
     def matchContent(self, regex, attack=True):
         if attack:
             r = self.attackres
-        else: r = rq
+        else:
+            r = self.rq
         if r is None:
             return
         # We may need to match multiline context in response body
@@ -340,7 +347,7 @@ def main():
     print(randomArt())
     if options.list:
         print('[+] Can test for these WAFs:\r\n')
-        attacker = WAFW00F(None)
+        WAFW00F(None)
         try:
             m = [i.replace(')', '').split(' (') for i in wafdetectionsprio]
             print(R+'  WAF Name'+' '*24+'Manufacturer\n  '+'-'*8+' '*24+'-'*12+'\n')
@@ -420,9 +427,7 @@ def main():
         attacker = WAFW00F(target, debuglevel=options.verbose, path=path,
                     followredirect=options.followredirect, extraheaders=extraheaders,
                         proxies=proxies)
-        global rq
-        rq = attacker.normalRequest()
-        if rq is None:
+        if attacker.rq is None:
             log.error('Site %s appears to be down' % hostname)
             continue
         if options.test:
