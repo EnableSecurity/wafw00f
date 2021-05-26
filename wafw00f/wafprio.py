@@ -50,6 +50,7 @@ wafdetectionsprio = [
     'Cloudfront (Amazon)',
     'CrawlProtect (Jean-Denis Brun)',
     'DataPower (IBM)',
+    'Cloud Protector (Rohde & Schwarz CyberSecurity)',
     'DenyALL (Rohde & Schwarz CyberSecurity)',
     'Distil (Distil Networks)',
     'DOSarrest (DOSarrest Internet Security)',
