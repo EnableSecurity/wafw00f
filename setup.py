@@ -26,7 +26,7 @@ setup(
         "Source Code": "https://github.com/EnableSecurity/wafw00f/tree/master",
     },
     packages=find_packages(),
-    scripts=['wafw00f/bin/wafw00f'],
+    # scripts=['wafw00f/bin/wafw00f'],
     install_requires=[
         'requests',
         'requests[socks]',
