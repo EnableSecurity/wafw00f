@@ -347,7 +347,6 @@ def main():
     print(randomArt())
     if options.list:
         print('[+] Can test for these WAFs:\r\n')
-        WAFW00F(None)
         try:
             m = [i.replace(')', '').split(' (') for i in wafdetectionsprio]
             print(R+'  WAF Name'+' '*24+'Manufacturer\n  '+'-'*8+' '*24+'-'*12+'\n')
