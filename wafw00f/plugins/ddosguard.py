@@ -4,7 +4,7 @@ Copyright (C) 2020, WAFW00F Developers.
 See the LICENSE file for copying permission.
 '''
 
-NAME = 'Ddos-guard (DDOS-GUARD CORP.)'
+NAME = 'DDoS-GUARD (DDOS-GUARD CORP.)'
 
 
 def is_waf(self):
