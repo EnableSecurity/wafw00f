@@ -54,6 +54,7 @@ wafdetectionsprio = [
     'DenyALL (Rohde & Schwarz CyberSecurity)',
     'Distil (Distil Networks)',
     'DOSarrest (DOSarrest Internet Security)',
+    'DDoS-GUARD (DDOS-GUARD CORP.)',
     'DotDefender (Applicure Technologies)',
     'DynamicWeb Injection Check (DynamicWeb)',
     'Edgecast (Verizon Digital Media)',
@@ -163,5 +164,5 @@ wafdetectionsprio = [
     'Yunjiasu (Baidu Cloud Computing)',
     'YXLink (YxLink Technologies)',
     'Zenedge (Zenedge)',
-    'ZScaler (Accenture)',
+    'ZScaler (Accenture)'
 ]
