@@ -143,7 +143,7 @@ class WAFW00F(waftoolsengine):
             response = self.attackres
             if 'server' in resp1.headers:
                 normalserver = resp1.headers.get('Server')
-            if 'server' in response.headers:
+            if response is not None and 'server' in response.headers:
                 attackresponse_server = response.headers.get('Server')
             if attackresponse_server != normalserver:
                 self.log.info('Server header changed, WAF possibly detected')
