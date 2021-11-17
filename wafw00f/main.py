@@ -89,7 +89,7 @@ class WAFW00F(waftoolsengine):
         try:
             # Testing for no user-agent response. Detects almost all WAFs out there.
             resp1 = self.performCheck(self.normalRequest)
-            if self is not None and 'User-Agent' in self.headers:
+            if 'User-Agent' in self.headers:
                 del self.headers['User-Agent']  # Deleting the user-agent key from object not dict.
             resp3 = self.customRequest(headers=self.headers)
             if resp1.status_code != resp3.status_code:
