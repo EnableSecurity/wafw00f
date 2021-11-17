@@ -89,7 +89,7 @@ class WAFW00F(waftoolsengine):
         try:
             # Testing for no user-agent response. Detects almost all WAFs out there.
             resp1 = self.performCheck(self.normalRequest)
-            if 'User-Agent' in self.headers:
+            if self is not None and 'User-Agent' in self.headers:
                 del self.headers['User-Agent']  # Deleting the user-agent key from object not dict.
             resp3 = self.customRequest(headers=self.headers)
             if resp1.status_code != resp3.status_code:
@@ -141,9 +141,9 @@ class WAFW00F(waftoolsengine):
             # Checking for the Server header after sending malicious requests
             normalserver, attackresponse_server = '', ''
             response = self.attackres
-            if 'server' in resp1.headers:
+            if response is not None and 'server' in resp1.headers:
                 normalserver = resp1.headers.get('Server')
-            if 'server' in response.headers:
+            if response is not None and 'server' in response.headers:
                 attackresponse_server = response.headers.get('Server')
             if attackresponse_server != normalserver:
                 self.log.info('Server header changed, WAF possibly detected')
