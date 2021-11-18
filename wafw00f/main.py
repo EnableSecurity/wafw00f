@@ -90,17 +90,18 @@ class WAFW00F(waftoolsengine):
             # Testing for no user-agent response. Detects almost all WAFs out there.
             resp1 = self.performCheck(self.normalRequest)
             if 'User-Agent' in self.headers:
-                del self.headers['User-Agent']  # Deleting the user-agent key from object not dict.
+                self.headers.pop('User-Agent')  # Deleting the user-agent key from object not dict.
             resp3 = self.customRequest(headers=self.headers)
-            if resp1.status_code != resp3.status_code:
-                self.log.info('Server returned a different response when request didn\'t contain the User-Agent header.')
-                reason = reasons[4]
-                reason += '\r\n'
-                reason += 'Normal response code is "%s",' % resp1.status_code
-                reason += ' while the response code to a modified request is "%s"' % resp3.status_code
-                self.knowledge['generic']['reason'] = reason
-                self.knowledge['generic']['found'] = True
-                return True
+            if resp3 is not None:
+                if resp1.status_code != resp3.status_code:
+                    self.log.info('Server returned a different response when request didn\'t contain the User-Agent header.')
+                    reason = reasons[4]
+                    reason += '\r\n'
+                    reason += 'Normal response code is "%s",' % resp1.status_code
+                    reason += ' while the response code to a modified request is "%s"' % resp3.status_code
+                    self.knowledge['generic']['reason'] = reason
+                    self.knowledge['generic']['found'] = True
+                    return True
 
             # Testing the status code upon sending a xss attack
             resp2 = self.performCheck(self.xssAttack)
