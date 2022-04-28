@@ -108,6 +108,7 @@ wafdetectionsprio = [
     'Puhui (Puhui)',
     'Qcloud (Tencent Cloud)',
     'Qiniu (Qiniu CDN)',
+    'Qrator (Qrator)'
     'Reblaze (Reblaze)',
     'RSFirewall (RSJoomla!)',
     'RequestValidationMode (Microsoft)',
