@@ -8,10 +8,17 @@ NAME = 'BIG-IP AppSec Manager (F5 Networks)'
 
 
 def is_waf(self):
-    schemes = [
+    schema1 = [
         self.matchContent('the requested url was rejected'),
         self.matchContent('please consult with your administrator')
     ]
-    if all(i for i in schemes):
+
+    schema2 = [
+        self.matchCookie(r'^TS.+?')
+    ]
+
+    if all(i for i in schema1):
+        return True
+    if all(i for i in schema2):
         return True
     return False
