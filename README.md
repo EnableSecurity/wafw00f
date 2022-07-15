@@ -256,6 +256,10 @@ The following should do the trick:
 python setup.py install
 ```
 
+It is also possible to run it within a docker container. Clone this repository first and build the Docker image using `docker build . -t wafw00f`.
+Now you can run `docker run --rm -it wafw00f https://example.com`
+
+
 ## Final Words
 
 __Questions?__ Pull up an [issue on GitHub Issue Tracker](https://github.com/enablesecurity/wafw00f/issues/new) or contact [me](mailto:sandro@enablesecurity.com).  
