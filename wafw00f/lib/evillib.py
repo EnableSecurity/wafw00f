@@ -1,11 +1,9 @@
 #!/usr/bin/env python
 '''
-Copyright (C) 2020, WAFW00F Developers.
+Copyright (C) 2022, WAFW00F Developers.
 See the LICENSE file for copying permission.
 '''
 
-import re
-import sys
 import time
 import logging
 from copy import copy
@@ -16,13 +14,10 @@ try:
     from urlparse import urlparse, urlunparse
 except ImportError:
     from urllib.parse import urlparse, urlunparse
-try:
-    from urllib import quote, unquote
-except ImportError:
-    from urllib.parse import quote, unquote
+
 # For requests < 2.16, this should be used.
 # requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
-# For requests >= 2.16, this is the convention 
+# For requests >= 2.16, this is the convention
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 def_headers = {'Accept'         : 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
@@ -58,7 +53,7 @@ def urlParser(target):
     return (hostname, port, path, query, ssl)
 
 class waftoolsengine:
-    def __init__(self, target='https://example.com', debuglevel=0, path='/', proxies=None, 
+    def __init__(self, target='https://example.com', debuglevel=0, path='/', proxies=None,
                 redir=True, head=None):
         self.target = target
         self.debuglevel = debuglevel
@@ -76,7 +71,7 @@ class waftoolsengine:
     def Request(self, headers=None, path=None, params={}, delay=0, timeout=7):
         try:
             time.sleep(delay)
-            if not headers: 
+            if not headers:
                 h = self.headers
             else: h = headers
             req = requests.get(self.target, proxies=self.proxies, headers=h, timeout=timeout,
