@@ -4,25 +4,56 @@ Copyright (C) 2022, WAFW00F Developers.
 See the LICENSE file for copying permission.
 '''
 
-from sys import platform
+from dataclasses import asdict, dataclass, fields
 from random import randint
+
 from wafw00f import __version__
 
-# Colors for terminal
-W = '\033[1;97m'
-Y = '\033[1;93m'
-G = '\033[1;92m'
-R = '\033[1;91m'
-B = '\033[1;94m'
-C = '\033[1;96m'
-E = '\033[0m'
 
-# Windows based systems do not support ANSI sequences,
-# hence not displaying them.
-if 'win' in platform:
-    W = Y = G = R = B = C = E = ''
+@dataclass
+class Color:
+    """ANSI colors."""
+    W: str = '\033[1;97m'
+    Y: str = '\033[1;93m'
+    G: str = '\033[1;92m'
+    R: str = '\033[1;91m'
+    B: str = '\033[1;94m'
+    C: str = '\033[1;96m'
+    E: str = '\033[0m'
+
+    @classmethod
+    def disable(cls):
+        """Disables all colors."""
+        cls.W = ''
+        cls.Y = ''
+        cls.G = ''
+        cls.R = ''
+        cls.B = ''
+        cls.C = ''
+        cls.E = ''
+
+    @classmethod
+    def unpack(cls):
+        """Unpacks and returns the color values.
+        Useful for brevity, e.g.:
+        (W,Y,G,R,B,C,E) = Color.unpack()
+        """
+        return (cls.W, 
+                cls.Y,
+                cls.G,
+                cls.R,
+                cls.B,
+                cls.C,
+                cls.E
+                )
+          
+
+
 
 def randomArt():
+    # Colors for terminal
+
+    (W,Y,G,R,B,C,E) = Color.unpack()
 
     woof = '''
                    '''+W+'''______

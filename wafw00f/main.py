@@ -17,11 +17,12 @@ import re
 import sys
 from collections import defaultdict
 from optparse import OptionParser
-from wafw00f.lib.asciiarts import *
-from wafw00f import __version__, __license__
+
+from wafw00f import __license__, __version__
+from wafw00f.lib.asciiarts import Color, randomArt
+from wafw00f.lib.evillib import def_headers, urlParser, waftoolsengine
 from wafw00f.manager import load_plugins
 from wafw00f.wafprio import wafdetectionsprio
-from wafw00f.lib.evillib import urlParser, waftoolsengine, def_headers
 
 
 class WAFW00F(waftoolsengine):
@@ -340,12 +341,24 @@ def main():
                       default=False, help='Print out the current version of WafW00f and exit.')
     parser.add_option('--headers', '-H', dest='headers', action='store', default=None,
                       help='Pass custom headers via a text file to overwrite the default header set.')
+    parser.add_option('--no-colors', '-C', dest='colors', action='store_false', 
+                      default=True, help='Disable ANSI colors in output.')
+    
     options, args = parser.parse_args()
+    
     logging.basicConfig(level=calclogginglevel(options.verbose))
     log = logging.getLogger('wafw00f')
     if options.output == '-':
         disableStdOut()
+
+    # Windows based systems do not support ANSI sequences,
+    # hence not displaying them.
+    if not options.colors or 'win' in sys.platform:
+        Color.disable()
+        
     print(randomArt())
+    (W,Y,G,R,B,C,E) = Color.unpack()
+    
     if options.list:
         print('[+] Can test for these WAFs:\r\n')
         try:
