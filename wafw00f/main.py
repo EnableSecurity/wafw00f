@@ -341,7 +341,7 @@ def main():
                       default=False, help='Print out the current version of WafW00f and exit.')
     parser.add_option('--headers', '-H', dest='headers', action='store', default=None,
                       help='Pass custom headers via a text file to overwrite the default header set.')
-    parser.add_option('--no-colors', '-C', dest='colors', action='store_false', 
+    parser.add_option('--no-colors', dest='colors', action='store_false', 
                       default=True, help='Disable ANSI colors in output.')
     
     options, args = parser.parse_args()
