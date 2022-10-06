@@ -8,10 +8,20 @@ NAME = 'StackPath (StackPath)'
 
 
 def is_waf(self):
-    schemes = [
-        self.matchContent(r"This website is using a security service to protect itself"),
-        self.matchContent(r'You performed an action that triggered the service and blocked your request')
+    schema1 = [
+        self.matchContent(r'<title>StackPath[^<]+</title>'),
+        self.matchContent(r'Protected by <a href="https?:\/\/(?:www\.)?stackpath\.com\/"[^>]+>StackPath')
     ]
-    if all(i for i in schemes):
+
+    schema2 = [
+        self.matchContent(r"is using a security service for protection against online attacks"),
+        self.matchContent(r'An action has triggered the service and blocked your request')
+    ]
+
+    if any(i for i in schema1):
         return True
+
+    if all(i for i in schema2):
+        return True
+
     return False
