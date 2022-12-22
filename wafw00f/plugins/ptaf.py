@@ -8,10 +8,10 @@ NAME = 'PT Application Firewall (Positive Technologies)'
 
 
 def is_waf(self):
-    schemes = [
-        self.matchContent(r'<h1.{0,10}?Forbidden'),
-        self.matchContent(r'<pre>Request.ID:.{0,10}?\d{4}\-(\d{2})+.{0,35}?pre>')
-    ]
-    if all(i for i in schemes):
-        return True
-    return False
+    if not self.matchContent(r'<h1.{0,10}?Forbidden'):
+        return False
+
+    if not self.matchContent(r'<pre>Request.ID:.{0,10}?\d{4}\-(\d{2})+.{0,35}?pre>'):
+        return False
+
+    return True
