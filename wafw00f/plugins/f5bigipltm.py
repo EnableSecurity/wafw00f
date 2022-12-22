@@ -8,10 +8,10 @@ NAME = 'BIG-IP Local Traffic Manager (F5 Networks)'
 
 
 def is_waf(self):
-    schemes = [
-        self.matchCookie('^bigipserver'),
-        self.matchHeader(('X-Cnection', 'close'), attack=True)
-    ]
-    if any(i for i in schemes):
+    if self.matchCookie('^bigipserver'):
         return True
+
+    if self.matchHeader(('X-Cnection', 'close'), attack=True):
+        return True
+
     return False

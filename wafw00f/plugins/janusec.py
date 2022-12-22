@@ -8,9 +8,7 @@ NAME = 'Janusec Application Gateway (Janusec)'
 
 
 def is_waf(self):
-    schemes = [
-        self.matchContent(r'janusec application gateway')
-    ]
-    if any(i for i in schemes):
+    if self.matchContent(r'janusec application gateway'):
         return True
+
     return False

@@ -8,9 +8,7 @@ NAME = 'Qrator (Qrator)'
 
 
 def is_waf(self):
-    schemes = [
-        self.matchHeader(('Server', r'QRATOR')),
-    ]
-    if any(i for i in schemes):
+    if self.matchHeader(('Server', r'QRATOR')):
         return True
+
     return False

@@ -8,17 +8,31 @@ NAME = 'Sucuri CloudProxy (Sucuri Inc.)'
 
 
 def is_waf(self):
-    schemes = [
-        self.matchHeader(('X-Sucuri-ID', r'.+?')),
-        self.matchHeader(('X-Sucuri-Cache', r'.+?')),
-        self.matchHeader(('Server', r'Sucuri(\-Cloudproxy)?')),
-        self.matchHeader(('X-Sucuri-Block', r'.+?'), attack=True),
-        self.matchContent(r"Access Denied.{0,6}?Sucuri Website Firewall"),
-        self.matchContent(r"<title>Sucuri WebSite Firewall.{0,6}?(CloudProxy)?.{0,6}?Access Denied"),
-        self.matchContent(r"sucuri\.net/privacy\-policy"),
-        self.matchContent(r"cdn\.sucuri\.net/sucuri[-_]firewall[-_]block\.css"),
-        self.matchContent(r'cloudproxy@sucuri\.net')
-    ]
-    if any(i for i in schemes):
+    if self.matchHeader(('X-Sucuri-ID', r'.+?')):
         return True
+
+    if self.matchHeader(('X-Sucuri-Cache', r'.+?')):
+        return True
+
+    if self.matchHeader(('Server', r'Sucuri(\-Cloudproxy)?')):
+        return True
+
+    if self.matchHeader(('X-Sucuri-Block', r'.+?'), attack=True):
+        return True
+
+    if self.matchContent(r"Access Denied.{0,6}?Sucuri Website Firewall"):
+        return True
+
+    if self.matchContent(r"<title>Sucuri WebSite Firewall.{0,6}?(CloudProxy)?.{0,6}?Access Denied"):
+        return True
+
+    if self.matchContent(r"sucuri\.net/privacy\-policy"):
+        return True
+
+    if self.matchContent(r"cdn\.sucuri\.net/sucuri[-_]firewall[-_]block\.css"):
+        return True
+
+    if self.matchContent(r'cloudproxy@sucuri\.net'):
+        return True
+
     return False

@@ -8,10 +8,10 @@ NAME = 'Trafficshield (F5 Networks)'
 
 
 def is_waf(self):
-    schemes = [
-        self.matchCookie('^ASINFO='),
-        self.matchHeader(('Server', 'F5-TrafficShield'))
-    ]
-    if any(i for i in schemes):
+    if self.matchCookie('^ASINFO='):
         return True
+
+    if self.matchHeader(('Server', 'F5-TrafficShield')):
+        return True
+
     return False

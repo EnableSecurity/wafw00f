@@ -8,9 +8,7 @@ NAME = 'ArvanCloud (ArvanCloud)'
 
 
 def is_waf(self):
-    schemes = [
-        self.matchHeader(('Server', 'ArvanCloud'))
-    ]
-    if any(i for i in schemes):
+    if self.matchHeader(('Server', 'ArvanCloud')):
         return True
+
     return False

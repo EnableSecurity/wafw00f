@@ -10,12 +10,16 @@ NAME = 'Sitelock (TrueShield)'
 # So the fingerprints obtained on blockpage are similar to those of Incapsula.
 
 def is_waf(self):
-    schemes = [
-        self.matchContent(r"SiteLock will remember you"),
-        self.matchContent(r"Sitelock is leader in Business Website Security Services"),
-        self.matchContent(r"sitelock[_\-]shield([_\-]logo|[\-_]badge)?"),
-        self.matchContent(r'SiteLock incident ID')
-    ]
-    if any(i for i in schemes):
+    if self.matchContent(r"SiteLock will remember you"):
         return True
+
+    if self.matchContent(r"Sitelock is leader in Business Website Security Services"):
+        return True
+
+    if self.matchContent(r"sitelock[_\-]shield([_\-]logo|[\-_]badge)?"):
+        return True
+
+    if self.matchContent(r'SiteLock incident ID'):
+        return True
+
     return False

@@ -8,13 +8,19 @@ NAME = 'OnMessage Shield (BlackBaud)'
 
 
 def is_waf(self):
-    schemes = [
-        self.matchHeader(('X-Engine', 'onMessage Shield')),
-        self.matchContent(r'Blackbaud K\-12 conducts routine maintenance'),
-        self.matchContent(r'onMessage SHEILD'),
-        self.matchContent(r'maintenance\.blackbaud\.com'),
-        self.matchContent(r'status\.blackbaud\.com')
-    ]
-    if any(i for i in schemes):
+    if self.matchHeader(('X-Engine', 'onMessage Shield')):
         return True
+
+    if self.matchContent(r'Blackbaud K\-12 conducts routine maintenance'):
+        return True
+
+    if self.matchContent(r'onMessage SHEILD'):
+        return True
+
+    if self.matchContent(r'maintenance\.blackbaud\.com'):
+        return True
+
+    if self.matchContent(r'status\.blackbaud\.com'):
+        return True
+
     return False

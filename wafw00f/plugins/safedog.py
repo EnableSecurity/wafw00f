@@ -8,13 +8,19 @@ NAME = 'Safedog (SafeDog)'
 
 
 def is_waf(self):
-    schemes = [
-        self.matchCookie(r'^safedog\-flow\-item='),
-        self.matchHeader(('Server', 'Safedog')),
-        self.matchContent(r'safedogsite/broswer_logo\.jpg'),
-        self.matchContent(r'404\.safedog\.cn/sitedog_stat.html'),
-        self.matchContent(r'404\.safedog\.cn/images/safedogsite/head\.png')
-    ]
-    if any(i for i in schemes):
+    if self.matchCookie(r'^safedog\-flow\-item='):
         return True
+
+    if self.matchHeader(('Server', 'Safedog')):
+        return True
+
+    if self.matchContent(r'safedogsite/broswer_logo\.jpg'):
+        return True
+
+    if self.matchContent(r'404\.safedog\.cn/sitedog_stat.html'):
+        return True
+
+    if self.matchContent(r'404\.safedog\.cn/images/safedogsite/head\.png'):
+        return True
+
     return False

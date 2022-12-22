@@ -8,15 +8,25 @@ NAME = 'Squarespace (Squarespace)'
 
 
 def is_waf(self):
-    schemes = [
-        self.matchHeader(('Server', 'Squarespace')),
-        self.matchCookie(r'^SS_ANALYTICS_ID='),
-        self.matchCookie(r'^SS_MATTR='),
-        self.matchCookie(r'^SS_MID='),
-        self.matchCookie(r'SS_CVT='),
-        self.matchContent(r'status\.squarespace\.com'),
-        self.matchContent(r'BRICK\-\d{2}')
-    ]
-    if any(i for i in schemes):
-        return True 
+    if self.matchHeader(('Server', 'Squarespace')):
+        return True
+
+    if self.matchCookie(r'^SS_ANALYTICS_ID='):
+        return True
+
+    if self.matchCookie(r'^SS_MATTR='):
+        return True
+
+    if self.matchCookie(r'^SS_MID='):
+        return True
+
+    if self.matchCookie(r'SS_CVT='):
+        return True
+
+    if self.matchContent(r'status\.squarespace\.com'):
+        return True
+
+    if self.matchContent(r'BRICK\-\d{2}'):
+        return True
+
     return False
