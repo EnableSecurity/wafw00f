@@ -8,17 +8,33 @@ NAME = 'pkSecurity IDS (pkSec)'
 
 
 def is_waf(self):
-    schema1 = [
-        self.matchContent(r'pk.?Security.?Module'),
-        self.matchContent(r'Security.Alert')
-    ]
-    schema2 = [
-        self.matchContent(r'As this could be a potential hack attack'),
-        self.matchContent(r'A safety critical (call|request) was (detected|discovered) and blocked'),
-        self.matchContent(r'maximum number of reloads per minute and prevented access')
-    ]
-    if any(i for i in schema2):
+    if check_schema_01(self):
         return True
-    if all(i for i in schema1):
+
+    if check_schema_02(self):
         return True
+
     return False
+
+
+def check_schema_01(self):
+    if self.matchContent(r'pk.?Security.?Module'):
+        return True
+
+    if self.matchContent(r'Security.Alert'):
+        return True
+
+    return False
+
+
+def check_schema_02(self):
+    if not self.matchContent(r'As this could be a potential hack attack'):
+        return False
+
+    if not self.matchContent(r'A safety critical (call|request) was (detected|discovered) and blocked'):
+        return False
+
+    if not self.matchContent(r'maximum number of reloads per minute and prevented access'):
+        return False
+
+    return True

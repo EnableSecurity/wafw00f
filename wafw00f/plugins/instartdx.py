@@ -8,18 +8,36 @@ NAME = 'Instart DX (Instart Logic)'
 
 
 def is_waf(self):
-    schema1 = [
-        self.matchHeader(('X-Instart-Request-ID', '.+')),
-        self.matchHeader(('X-Instart-Cache', '.+')),
-        self.matchHeader(('X-Instart-WL', '.+'))
-    ]
-    schema2 = [
-        self.matchContent(r'the requested url was rejected'),
-        self.matchContent(r'please consult with your administrator'),
-        self.matchContent(r'your support id is')
-    ]
-    if any(i for i in schema1):
+    if check_schema_01(self):
         return True
-    if all(i for i in schema2):
+
+    if check_schema_02(self):
         return True
+
     return False
+
+
+def check_schema_01(self):
+    if self.matchHeader(('X-Instart-Request-ID', '.+')):
+        return True
+
+    if self.matchHeader(('X-Instart-Cache', '.+')):
+        return True
+
+    if self.matchHeader(('X-Instart-WL', '.+')):
+        return True
+
+    return False
+
+
+def check_schema_02(self):
+    if not self.matchContent(r'the requested url was rejected'):
+        return False
+
+    if not self.matchContent(r'please consult with your administrator'):
+        return False
+
+    if not self.matchContent(r'your support id is'):
+        return False
+
+    return True
