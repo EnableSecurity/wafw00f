@@ -8,13 +8,19 @@ NAME = 'DDoS-GUARD (DDOS-GUARD CORP.)'
 
 
 def is_waf(self):
-    schemes = [
-        self.matchCookie(r'^__ddg1.*?='),
-        self.matchCookie(r'^__ddg2.*?='),
-        self.matchCookie(r'^__ddgid.*?='),
-        self.matchCookie(r'^__ddgmark.*?='),
-        self.matchHeader(('Server', 'ddos-guard')),
-    ]
-    if any(i for i in schemes):
+    if self.matchCookie(r'^__ddg1.*?='):
         return True
+
+    if self.matchCookie(r'^__ddg2.*?='):
+        return True
+
+    if self.matchCookie(r'^__ddgid.*?='):
+        return True
+
+    if self.matchCookie(r'^__ddgmark.*?='):
+        return True
+
+    if self.matchHeader(('Server', 'ddos-guard')):
+        return True
+
     return False

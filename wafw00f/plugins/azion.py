@@ -8,9 +8,7 @@ NAME = 'AzionCDN (AzionCDN)'
 
 
 def is_waf(self):
-    schemes = [
-        self.matchHeader(('Server', r'Azion([-_]CDN)?'))
-    ]
-    if any(i for i in schemes):
+    if self.matchHeader(('Server', r'Azion([-_]CDN)?')):
         return True
+
     return False

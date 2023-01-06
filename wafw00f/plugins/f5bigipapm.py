@@ -8,23 +8,46 @@ NAME = 'BIG-IP AP Manager (F5 Networks)'
 
 
 def is_waf(self):
-    schema1 = [
-        self.matchCookie('^LastMRH_Session'),
-        self.matchCookie('^MRHSession')
-    ]
-    schema2 = [
-        self.matchCookie('^MRHSession'),
-        self.matchHeader(('Server', r'Big([-_])?IP'), attack=True)
-    ]
-    schema3 = [
-        self.matchCookie('^F5_fullWT'),
-        self.matchCookie('^F5_fullWT'),
-        self.matchCookie('^F5_HT_shrinked')
-    ]
-    if all(i for i in schema1):
+    if check_schema_01(self):
         return True
-    if all(i for i in schema2):
+
+    if check_schema_02(self):
         return True
-    if any(i for i in schema3):
+
+    if check_schema_03(self):
         return True
+
+    return False
+
+
+def check_schema_01(self):
+    if not self.matchCookie('^LastMRH_Session'):
+        return False
+
+    if not self.matchCookie('^MRHSession'):
+        return False
+
+    return True
+
+
+def check_schema_02(self):
+    if not self.matchCookie('^MRHSession'):
+        return False
+
+    if not self.matchHeader(('Server', r'Big([-_])?IP'), attack=True):
+        return False
+
+    return True
+
+
+def check_schema_03(self):
+    if self.matchCookie('^F5_fullWT'):
+        return True
+
+    if self.matchCookie('^F5_fullWT'):
+        return True
+
+    if self.matchCookie('^F5_HT_shrinked'):
+        return True
+
     return False

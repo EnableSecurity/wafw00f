@@ -8,9 +8,7 @@ NAME = 'Barikode (Ethic Ninja)'
 
 
 def is_waf(self):
-    schemes = [
-        self.matchContent(r'<strong>barikode<.strong>'),
-    ]
-    if any(i for i in schemes):
+    if self.matchContent(r'<strong>barikode<.strong>'):
         return True
+
     return False

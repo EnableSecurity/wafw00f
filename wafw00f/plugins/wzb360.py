@@ -8,14 +8,22 @@ NAME = '360WangZhanBao (360 Technologies)'
 
 
 def is_waf(self):
-    schemes = [
-        self.matchHeader(('Server', r'qianxin\-waf')),
-        self.matchHeader(('WZWS-Ray', r'.+?')),
-        self.matchHeader(('X-Powered-By-360WZB', r'.+?')),
-        self.matchContent(r'wzws\-waf\-cgi/'),
-        self.matchContent(r'wangshan\.360\.cn'),
-        self.matchStatus(493)
-    ]
-    if any(i for i in schemes):
+    if self.matchHeader(('Server', r'qianxin\-waf')):
         return True
+
+    if self.matchHeader(('WZWS-Ray', r'.+?')):
+        return True
+
+    if self.matchHeader(('X-Powered-By-360WZB', r'.+?')):
+        return True
+
+    if self.matchContent(r'wzws\-waf\-cgi/'):
+        return True
+
+    if self.matchContent(r'wangshan\.360\.cn'):
+        return True
+
+    if self.matchStatus(493):
+        return True
+
     return False

@@ -8,10 +8,10 @@ NAME = 'NevisProxy (AdNovum)'
 
 
 def is_waf(self):
-    schemes = [
-        self.matchCookie(r'^Navajo'),
-        self.matchCookie(r'^NP_ID')
-    ]
-    if any(i for i in schemes):
+    if self.matchCookie(r'^Navajo'):
         return True
+
+    if self.matchCookie(r'^NP_ID'):
+        return True
+
     return False

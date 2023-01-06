@@ -8,10 +8,10 @@ NAME = 'aeSecure (aeSecure)'
 
 
 def is_waf(self):
-    schemes = [
-        self.matchHeader(('aeSecure-code', '.+?')),
-        self.matchContent(r'aesecure_denied\.png')
-    ]
-    if any(i for i in schemes):
+    if self.matchHeader(('aeSecure-code', '.+?')):
         return True
+
+    if self.matchContent(r'aesecure_denied\.png'):
+        return True
+
     return False
