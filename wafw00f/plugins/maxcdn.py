@@ -8,9 +8,7 @@ NAME = 'MaxCDN (MaxCDN)'
 
 
 def is_waf(self):
-    schemes = [
-        self.matchHeader(('X-CDN', r'maxcdn'))
-    ]
-    if any(i for i in schemes):
+    if self.matchHeader(('X-CDN', r'maxcdn')):
         return True
+
     return False

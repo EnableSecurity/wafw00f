@@ -8,10 +8,10 @@ NAME = 'Anquanbao (Anquanbao)'
 
 
 def is_waf(self):
-    schemes = [
-        self.matchHeader(('X-Powered-By-Anquanbao', '.+?')),
-        self.matchContent(r'aqb_cc/error/')
-        ]
-    if any(i for i in schemes):
+    if self.matchHeader(('X-Powered-By-Anquanbao', '.+?')):
         return True
+
+    if self.matchContent(r'aqb_cc/error/'):
+        return True
+
     return False

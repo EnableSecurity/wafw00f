@@ -8,13 +8,19 @@ NAME = 'Jiasule (Jiasule)'
 
 
 def is_waf(self):
-    schemes = [
-        self.matchHeader(('Server', r'jiasule\-waf')),
-        self.matchCookie(r'^jsl_tracking(.+)?='),
-        self.matchCookie(r'__jsluid='),
-        self.matchContent(r'notice\-jiasule'),
-        self.matchContent(r'static\.jiasule\.com')
-    ]
-    if any(i for i in schemes):
+    if self.matchHeader(('Server', r'jiasule\-waf')):
         return True
+
+    if self.matchCookie(r'^jsl_tracking(.+)?='):
+        return True
+
+    if self.matchCookie(r'__jsluid='):
+        return True
+
+    if self.matchContent(r'notice\-jiasule'):
+        return True
+
+    if self.matchContent(r'static\.jiasule\.com'):
+        return True
+
     return False

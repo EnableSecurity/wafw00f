@@ -8,10 +8,10 @@ NAME = 'CacheFly CDN (CacheFly)'
 
 
 def is_waf(self):
-    schemes = [
-        self.matchHeader(('BestCDN', r'Cachefly')),
-        self.matchCookie(r'^cfly_req.*=')
-    ]
-    if any(i for i in schemes):
+    if self.matchHeader(('BestCDN', r'Cachefly')):
         return True
+
+    if self.matchCookie(r'^cfly_req.*='):
+        return True
+
     return False

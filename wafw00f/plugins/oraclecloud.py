@@ -8,11 +8,13 @@ NAME = 'Oracle Cloud (Oracle)'
 
 
 def is_waf(self):
-    schemes = [
-        self.matchContent(r'<title>fw_error_www'),
-        self.matchContent(r'src=\"/oralogo_small\.gif\"'),
-        self.matchContent(r'www\.oracleimg\.com/us/assets/metrics/ora_ocom\.js')
-    ]
-    if any(i for i in schemes):
+    if self.matchContent(r'<title>fw_error_www'):
         return True
+
+    if self.matchContent(r'src=\"/oralogo_small\.gif\"'):
+        return True
+
+    if self.matchContent(r'www\.oracleimg\.com/us/assets/metrics/ora_ocom\.js'):
+        return True
+
     return False

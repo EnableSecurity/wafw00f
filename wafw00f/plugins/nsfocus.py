@@ -8,9 +8,7 @@ NAME = 'NSFocus (NSFocus Global Inc.)'
 
 
 def is_waf(self):
-    schemes = [
-        self.matchHeader(('Server', 'NSFocus'))
-    ]
-    if any(i for i in schemes):
+    if self.matchHeader(('Server', 'NSFocus')):
         return True
+
     return False

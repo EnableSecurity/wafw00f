@@ -8,17 +8,33 @@ NAME = 'Reblaze (Reblaze)'
 
 
 def is_waf(self):
-    schema1 = [
-        self.matchCookie(r'^rbzid'),
-        self.matchHeader(('Server', 'Reblaze Secure Web Gateway'))
-    ]
-    schema2 = [
-        self.matchContent(r'current session has been terminated'),
-        self.matchContent(r'do not hesitate to contact us'),
-        self.matchContent(r'access denied \(\d{3}\)')
-    ]
-    if any(i for i in schema1):
+    if check_schema_01(self):
         return True
-    if all(i for i in schema2):
+
+    if check_schema_02(self):
         return True
+
     return False
+
+
+def check_schema_01(self):
+    if self.matchCookie(r'^rbzid'):
+        return True
+
+    if self.matchHeader(('Server', 'Reblaze Secure Web Gateway')):
+        return True
+
+    return False
+
+
+def check_schema_02(self):
+    if not self.matchContent(r'current session has been terminated'):
+        return False
+
+    if not self.matchContent(r'do not hesitate to contact us'):
+        return False
+
+    if not self.matchContent(r'access denied \(\d{3}\)'):
+        return False
+
+    return True

@@ -8,19 +8,39 @@ NAME = 'UTM Web Protection (Sophos)'
 
 
 def is_waf(self):
-    schema1 = [
-        self.matchContent(r'www\.sophos\.com'),
-        self.matchContent(r'Powered by.?(Sophos)? UTM Web Protection')
-    ]
-    schema2 = [
-        self.matchContent(r'<title>Access to the requested URL was blocked'),
-        self.matchContent(r'Access to the requested URL was blocked'),
-        self.matchContent(r'incident was logged with the following log identifier'),
-        self.matchContent(r'Inbound Anomaly Score exceeded'),
-        self.matchContent(r'Your cache administrator is')
-    ]
-    if any(i for i in schema1):
+    if check_schema_01(self):
         return True
-    if all(i for i in schema2):
+
+    if check_schema_02(self):
         return True
+
     return False
+
+
+def check_schema_01(self):
+    if self.matchContent(r'www\.sophos\.com'):
+        return True
+
+    if self.matchContent(r'Powered by.?(Sophos)? UTM Web Protection'):
+        return True
+
+    return False
+
+
+def check_schema_02(self):
+    if not self.matchContent(r'<title>Access to the requested URL was blocked'):
+        return False
+
+    if not self.matchContent(r'Access to the requested URL was blocked'):
+        return False
+
+    if not self.matchContent(r'incident was logged with the following log identifier'):
+        return False
+
+    if not self.matchContent(r'Inbound Anomaly Score exceeded'):
+        return False
+
+    if not self.matchContent(r'Your cache administrator is'):
+        return False
+
+    return True

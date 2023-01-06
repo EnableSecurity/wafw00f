@@ -8,11 +8,13 @@ NAME = 'Distil (Distil Networks)'
 
 
 def is_waf(self):
-    schemes = [
-        self.matchContent(r'cdn\.distilnetworks\.com/images/anomaly\.detected\.png'),
-        self.matchContent(r'distilCaptchaForm'),
-        self.matchContent(r'distilCallbackGuard')
-    ]
-    if any(i for i in schemes):
+    if self.matchContent(r'cdn\.distilnetworks\.com/images/anomaly\.detected\.png'):
         return True
+
+    if self.matchContent(r'distilCaptchaForm'):
+        return True
+
+    if self.matchContent(r'distilCallbackGuard'):
+        return True
+
     return False

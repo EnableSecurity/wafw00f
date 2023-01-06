@@ -8,15 +8,25 @@ NAME = 'CacheWall (Varnish)'
 
 
 def is_waf(self):
-    schemes = [
-        self.matchHeader(('Server', 'Varnish')),
-        self.matchHeader(('X-Varnish', '.+')),
-        self.matchHeader(('X-Cachewall-Action', '.+?')),
-        self.matchHeader(('X-Cachewall-Reason', '.+?')),
-        self.matchContent(r'security by cachewall'),
-        self.matchContent(r'403 naughty.{0,10}?not nice!'),
-        self.matchContent(r'varnish cache server')
-    ]
-    if any(i for i in schemes):
+    if self.matchHeader(('Server', 'Varnish')):
         return True
+
+    if self.matchHeader(('X-Varnish', '.+')):
+        return True
+
+    if self.matchHeader(('X-Cachewall-Action', '.+?')):
+        return True
+
+    if self.matchHeader(('X-Cachewall-Reason', '.+?')):
+        return True
+
+    if self.matchContent(r'security by cachewall'):
+        return True
+
+    if self.matchContent(r'403 naughty.{0,10}?not nice!'):
+        return True
+
+    if self.matchContent(r'varnish cache server'):
+        return True
+
     return False

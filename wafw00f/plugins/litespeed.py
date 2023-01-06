@@ -8,16 +8,30 @@ NAME = 'LiteSpeed (LiteSpeed Technologies)'
 
 
 def is_waf(self):
-    schema1 = [
-        self.matchHeader(('Server', 'LiteSpeed')),
-        self.matchStatus(403)
-    ]
-    schema2 = [
-        self.matchContent(r'Proudly powered by litespeed web server'),
-        self.matchContent(r'www\.litespeedtech\.com/error\-page')
-    ]
-    if all(i for i in schema1):
+    if check_schema_01(self):
         return True
-    if any(i for i in schema2):
+
+    if check_schema_02(self):
         return True
+
+    return False
+
+
+def check_schema_01(self):
+    if not self.matchHeader(('Server', 'LiteSpeed')):
+        return False
+
+    if not self.matchStatus(403):
+        return False
+
+    return True
+
+
+def check_schema_02(self):
+    if self.matchContent(r'Proudly powered by litespeed web server'):
+        return True
+
+    if self.matchContent(r'www\.litespeedtech\.com/error\-page'):
+        return True
+
     return False

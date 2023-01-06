@@ -8,10 +8,10 @@ NAME = 'Xuanwudun (Xuanwudun)'
 
 
 def is_waf(self):
-    schemes = [
-        self.matchContent(r"admin\.dbappwaf\.cn/(index\.php/Admin/ClientMisinform/)?"),
-        self.matchContent(r'class=.(db[\-_]?)?waf(.)?([\-_]?row)?>')
-    ]
-    if any(i for i in schemes):
+    if self.matchContent(r"admin\.dbappwaf\.cn/(index\.php/Admin/ClientMisinform/)?"):
         return True
+
+    if self.matchContent(r'class=.(db[\-_]?)?waf(.)?([\-_]?row)?>'):
+        return True
+
     return False

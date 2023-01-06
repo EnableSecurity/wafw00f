@@ -8,11 +8,13 @@ NAME = 'SonicWall (Dell)'
 
 
 def is_waf(self):
-    schemes = [
-        self.matchHeader(('Server', 'SonicWALL')),
-        self.matchContent(r"<(title|h\d{1})>Web Site Blocked"),
-        self.matchContent(r'\+?nsa_banner')
-    ]
-    if any(i for i in schemes):
+    if self.matchHeader(('Server', 'SonicWALL')):
         return True
+
+    if self.matchContent(r"<(title|h\d{1})>Web Site Blocked"):
+        return True
+
+    if self.matchContent(r'\+?nsa_banner'):
+        return True
+
     return False

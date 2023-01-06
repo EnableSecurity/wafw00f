@@ -8,15 +8,20 @@ NAME = 'Sabre Firewall (Sabre)'
 
 
 def is_waf(self):
-    schema1 = [
-        self.matchContent(r'dxsupport\.sabre\.com')
-    ]
-    schema2 = [
-        self.matchContent(r'<title>Application Firewall Error'),
-        self.matchContent(r'add some important details to the email for us to investigate')
-    ]
-    if any(i for i in schema1):
+    if self.matchContent(r'dxsupport\.sabre\.com'):
         return True
-    if all(i for i in schema2):
+
+    if check_schema_01(self):
         return True
+
     return False
+
+
+def check_schema_01(self):
+    if not self.matchContent(r'<title>Application Firewall Error'):
+        return False
+
+    if not self.matchContent(r'add some important details to the email for us to investigate'):
+        return False
+
+    return True
