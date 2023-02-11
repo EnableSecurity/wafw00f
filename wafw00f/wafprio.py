@@ -141,6 +141,7 @@ wafdetectionsprio = [
     'URLMaster SecurityCheck (iFinity/DotNetNuke)',
     'URLScan (Microsoft)',
     'UEWaf (UCloud)',
+    'Variti (Variti)',
     'Varnish (OWASP)',
     'Viettel (Cloudrity)',
     'VirusDie (VirusDie LLC)',
