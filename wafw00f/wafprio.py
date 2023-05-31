@@ -64,6 +64,7 @@ wafdetectionsprio = [
     'BIG-IP AP Manager (F5 Networks)',
     'Fastly (Fastly CDN)',
     'FirePass (F5 Networks)',
+    'FortiGate (Fortinet)',
     'FortiWeb (Fortinet)',
     'GoDaddy Website Protection (GoDaddy)',
     'Greywizard (Grey Wizard)',
