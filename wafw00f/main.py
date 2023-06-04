@@ -15,6 +15,7 @@ import os
 import random
 import re
 import sys
+import string
 from collections import defaultdict
 from optparse import OptionParser
 
@@ -46,28 +47,61 @@ class WAFW00F(waftoolsengine):
         return self.Request()
 
     def customRequest(self, headers=None):
-        return self.Request(headers=headers)
+        return self.Request(
+            headers=headers
+        )
 
     def nonExistent(self):
-        return self.Request(path=self.path + str(random.randrange(100, 999)) + '.html')
+        return self.Request(
+            path=self.path + str(random.randrange(100, 999)) + '.html'
+        )
 
     def xssAttack(self):
-        return self.Request(path=self.path, params= {'s': self.xsstring})
+        return self.Request(
+            path=self.path,
+            params={
+                create_random_param_name(): self.xsstring
+            }
+        )
 
     def xxeAttack(self):
-        return self.Request(path=self.path, params= {'s': self.xxestring})
+        return self.Request(
+            path=self.path,
+            params={
+                create_random_param_name(): self.xxestring
+            }
+        )
 
     def lfiAttack(self):
-        return self.Request(path=self.path + self.lfistring)
+        return self.Request(
+            path=self.path + self.lfistring
+        )
 
     def centralAttack(self):
-        return self.Request(path=self.path, params={'a': self.xsstring, 'b': self.sqlistring, 'c': self.lfistring})
+        return self.Request(
+            path=self.path,
+            params={
+                create_random_param_name(): self.xsstring,
+                create_random_param_name(): self.sqlistring,
+                create_random_param_name(): self.lfistring
+            }
+        )
 
     def sqliAttack(self):
-        return self.Request(path=self.path, params= {'s': self.sqlistring})
+        return self.Request(
+            path=self.path,
+            params={
+                create_random_param_name(): self.sqlistring
+            }
+        )
 
-    def oscAttack(self):
-        return self.Request(path=self.path, params= {'s': self.rcestring})
+    def osciAttack(self):
+        return self.Request(
+            path=self.path,
+            params= {
+                create_random_param_name(): self.rcestring
+            }
+        )
 
     def performCheck(self, request_method):
         r = request_method()
@@ -77,7 +111,7 @@ class WAFW00F(waftoolsengine):
 
     # Most common attacks used to detect WAFs
     attcom = [xssAttack, sqliAttack, lfiAttack]
-    attacks = [xssAttack, xxeAttack, lfiAttack, sqliAttack, oscAttack]
+    attacks = [xssAttack, xxeAttack, lfiAttack, sqliAttack, osciAttack]
 
     def genericdetect(self):
         reason = ''
@@ -296,6 +330,9 @@ def getTextResults(res=None):
         textresults.append(rwfmt.format(*row))
     return textresults
 
+def create_random_param_name(size=8, chars=string.ascii_lowercase):
+    return ''.join(random.choice(chars) for _ in range(size))
+
 def disableStdOut():
     sys.stdout = None
 
@@ -341,11 +378,11 @@ def main():
                       default=False, help='Print out the current version of WafW00f and exit.')
     parser.add_option('--headers', '-H', dest='headers', action='store', default=None,
                       help='Pass custom headers via a text file to overwrite the default header set.')
-    parser.add_option('--no-colors', dest='colors', action='store_false', 
+    parser.add_option('--no-colors', dest='colors', action='store_false',
                       default=True, help='Disable ANSI colors in output.')
-    
+
     options, args = parser.parse_args()
-    
+
     logging.basicConfig(level=calclogginglevel(options.verbose))
     log = logging.getLogger('wafw00f')
     if options.output == '-':
@@ -355,10 +392,10 @@ def main():
     # hence not displaying them.
     if not options.colors or 'win' in sys.platform:
         Color.disable()
-        
+
     print(randomArt())
     (W,Y,G,R,B,C,E) = Color.unpack()
-    
+
     if options.list:
         print('[+] Can test for these WAFs:\r\n')
         try:
