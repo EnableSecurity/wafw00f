@@ -11,9 +11,9 @@ from copy import copy
 import requests
 import urllib3
 try:
-    from urlparse import urlparse, urlunparse
+    from urlparse import urlparse
 except ImportError:
-    from urllib.parse import urlparse, urlunparse
+    from urllib.parse import urlparse
 
 # For requests < 2.16, this should be used.
 # requests.packages.urllib3.disable_warnings(InsecureRequestWarning)

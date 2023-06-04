@@ -107,7 +107,7 @@ class WAFW00F(waftoolsengine):
         r = request_method()
         if r is None:
             raise RequestBlocked()
-        return r
+        return r, r.url
 
     # Most common attacks used to detect WAFs
     attcom = [xssAttack, sqliAttack, lfiAttack]
@@ -123,7 +123,7 @@ class WAFW00F(waftoolsengine):
                 ]
         try:
             # Testing for no user-agent response. Detects almost all WAFs out there.
-            resp1 = self.performCheck(self.normalRequest)
+            resp1, _ = self.performCheck(self.normalRequest)
             if 'User-Agent' in self.headers:
                 self.headers.pop('User-Agent')  # Deleting the user-agent key from object not dict.
             resp3 = self.customRequest(headers=self.headers)
@@ -139,7 +139,7 @@ class WAFW00F(waftoolsengine):
                     return True
 
             # Testing the status code upon sending a xss attack
-            resp2 = self.performCheck(self.xssAttack)
+            resp2, xss_url = self.performCheck(self.xssAttack)
             if resp1.status_code != resp2.status_code:
                 self.log.info('Server returned a different response when a XSS attack vector was tried.')
                 reason = reasons[2]
@@ -148,10 +148,10 @@ class WAFW00F(waftoolsengine):
                 reason += ' while the response code to cross-site scripting attack is "%s"' % resp2.status_code
                 self.knowledge['generic']['reason'] = reason
                 self.knowledge['generic']['found'] = True
-                return True
+                return xss_url
 
             # Testing the status code upon sending a lfi attack
-            resp2 = self.performCheck(self.lfiAttack)
+            resp2, lfi_url = self.performCheck(self.lfiAttack)
             if resp1.status_code != resp2.status_code:
                 self.log.info('Server returned a different response when a directory traversal was attempted.')
                 reason = reasons[2]
@@ -160,10 +160,10 @@ class WAFW00F(waftoolsengine):
                 reason += ' while the response code to a file inclusion attack is "%s"' % resp2.status_code
                 self.knowledge['generic']['reason'] = reason
                 self.knowledge['generic']['found'] = True
-                return True
+                return lfi_url
 
             # Testing the status code upon sending a sqli attack
-            resp2 = self.performCheck(self.sqliAttack)
+            resp2, sqli_url = self.performCheck(self.sqliAttack)
             if resp1.status_code != resp2.status_code:
                 self.log.info('Server returned a different response when a SQLi was attempted.')
                 reason = reasons[2]
@@ -172,7 +172,7 @@ class WAFW00F(waftoolsengine):
                 reason += ' while the response code to a SQL injection attack is "%s"' % resp2.status_code
                 self.knowledge['generic']['reason'] = reason
                 self.knowledge['generic']['found'] = True
-                return True
+                return sqli_url
 
             # Checking for the Server header after sending malicious requests
             normalserver, attackresponse_server = '', ''
@@ -272,9 +272,9 @@ class WAFW00F(waftoolsengine):
     def identwaf(self, findall=False):
         detected = list()
         try:
-            self.attackres = self.performCheck(self.centralAttack)
+            self.attackres, xurl = self.performCheck(self.centralAttack)
         except RequestBlocked:
-            return detected
+            return detected, None
         for wafvendor in self.checklist:
             self.log.info('Checking for %s' % wafvendor)
             if self.wafdetections[wafvendor](self):
@@ -282,7 +282,7 @@ class WAFW00F(waftoolsengine):
                 if not findall:
                     break
         self.knowledge['wafname'] = detected
-        return detected
+        return detected, xurl
 
 def calclogginglevel(verbosity):
     default = 40  # errors are printed out
@@ -291,15 +291,17 @@ def calclogginglevel(verbosity):
         level = 0
     return level
 
-def buildResultRecord(url, waf):
+def buildResultRecord(url, waf, evil_url=None):
     result = {}
     result['url'] = url
     if waf:
         result['detected'] = True
         if waf == 'generic':
+            result['trigger_url'] = evil_url
             result['firewall'] = 'Generic'
             result['manufacturer'] = 'Unknown'
         else:
+            result['trigger_url'] = evil_url
             result['firewall'] = waf.split('(')[0].strip()
             result['manufacturer'] = waf.split('(')[1].replace(')', '').strip()
     else:
@@ -490,22 +492,23 @@ def main():
             else:
                 print('[-] WAF %s was not found in our list\r\nUse the --list option to see what is available' % options.test)
             return
-        waf = attacker.identwaf(options.findall)
+        waf, xurl = attacker.identwaf(options.findall)
         log.info('Identified WAF: %s' % waf)
         if len(waf) > 0:
             for i in waf:
-                results.append(buildResultRecord(target, i))
+                results.append(buildResultRecord(target, i, xurl))
             print('[+] The site %s%s%s is behind %s%s%s WAF.' % (B, target, E, C, (E+' and/or '+C).join(waf), E))
         if (options.findall) or len(waf) == 0:
             print('[+] Generic Detection results:')
-            if attacker.genericdetect():
+            generic_url = attacker.genericdetect()
+            if generic_url:
                 log.info('Generic Detection: %s' % attacker.knowledge['generic']['reason'])
                 print('[*] The site %s seems to be behind a WAF or some sort of security solution' % target)
                 print('[~] Reason: %s' % attacker.knowledge['generic']['reason'])
-                results.append(buildResultRecord(target, 'generic'))
+                results.append(buildResultRecord(target, 'generic', generic_url))
             else:
                 print('[-] No WAF detected by the generic detection')
-                results.append(buildResultRecord(target, None))
+                results.append(buildResultRecord(target, None, None))
         print('[~] Number of requests: %s' % attacker.requestnumber)
     #print table of results
     if len(results) > 0:
