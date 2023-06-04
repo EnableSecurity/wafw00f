@@ -518,7 +518,7 @@ def main():
         if options.output == '-':
             enableStdOut()
             if options.format == 'json':
-                json.dump(results, sys.stdout, indent=2)
+                json.dump(results, sys.stdout, indent=2, sort_keys=True)
             elif options.format == 'csv':
                 csvwriter = csv.writer(sys.stdout, delimiter=',', quotechar='"',
                     quoting=csv.QUOTE_MINIMAL)
@@ -534,7 +534,7 @@ def main():
         elif options.output.endswith('.json'):
             log.debug("Exporting data in json format to file: %s" % (options.output))
             with open(options.output, 'w') as outfile:
-                json.dump(results, outfile, indent=2)
+                json.dump(results, outfile, indent=2, sort_keys=True)
         elif options.output.endswith('.csv'):
             log.debug("Exporting data in csv format to file: %s" % (options.output))
             with open(options.output, 'w') as outfile:
@@ -551,7 +551,7 @@ def main():
             log.debug("Exporting data in text format to file: %s" % (options.output))
             if options.format == 'json':
                 with open(options.output, 'w') as outfile:
-                    json.dump(results, outfile, indent=2)
+                    json.dump(results, outfile, indent=2, sort_keys=True)
             elif options.format == 'csv':
                 with open(options.output, 'w') as outfile:
                     csvwriter = csv.writer(outfile, delimiter=',', quotechar='"',
