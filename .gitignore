@@ -55,7 +55,7 @@ coverage.xml
 # Sphinx documentation
 docs/_build/
 
-
+*.csv
+*.json
 .idea/*
-
 .vscode/*

@@ -305,6 +305,7 @@ def buildResultRecord(url, waf, evil_url=None):
             result['firewall'] = waf.split('(')[0].strip()
             result['manufacturer'] = waf.split('(')[1].replace(')', '').strip()
     else:
+        result['trigger_url'] = evil_url
         result['detected'] = False
         result['firewall'] = 'None'
         result['manufacturer'] = 'None'
