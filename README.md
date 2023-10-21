@@ -256,6 +256,12 @@ The following should do the trick:
 python setup.py install
 ```
 
+or by using pipx
+
+```
+pipx install git+https://github.com/EnableSecurity/wafw00f.git
+```
+
 It is also possible to run it within a docker container. Clone this repository first and build the Docker image using `docker build . -t wafw00f`.
 Now you can run `docker run --rm -it wafw00f https://example.com`
 
