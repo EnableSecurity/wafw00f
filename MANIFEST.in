@@ -1,6 +1,0 @@
-include CREDITS.txt
-include LICENSE
-include MANIFEST.in
-include README.md
-include wafw00f/__init__.py
-include wafw00f/bin/wafw00f

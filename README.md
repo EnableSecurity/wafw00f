@@ -253,7 +253,8 @@ $   wafw00f https://example.org
 The following should do the trick:
 
 ```
-python setup.py install
+git clone https://github.com/EnableSecurity/wafw00f.git && cd wafw00f
+pip install .
 ```
 
 It is also possible to run it within a docker container. Clone this repository first and build the Docker image using `docker build . -t wafw00f`.

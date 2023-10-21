@@ -13,7 +13,7 @@ matrix:
       sudo: required  # required for Python 3.7 (travis-ci/travis-ci#9069)
       
 install:
-  - python setup.py install
+  - pip install .
   - pip install flake8
 before_script:
   # stop the build if there are Python syntax errors or undefined names

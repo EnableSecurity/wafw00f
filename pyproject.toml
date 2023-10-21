@@ -1,0 +1,50 @@
+[build-system]
+requires = ["hatchling>=1.17.1"]
+build-backend = "hatchling.build"
+
+[project]
+name = "wafw00f"
+description = "Web Application Firewall Detection Tool"
+readme = "README.md"
+license = "BSD-3-Clause"
+author = "Sandro Gauci"
+requires-python = ">=3.6"
+author-email = "sandro@enablesecurity.com"
+keywords = [
+    "waf",
+    "firewall",
+    "detector",
+    "fingerprint"
+]
+dependencies = [
+    "requests",
+    "requests[socks]",
+    "pluginbase"
+]
+dynamic = ["version"]
+
+[project.optional-dependencies]
+dev = [
+    "prospector",
+    "tox"
+]
+docs = [
+    "Sphinx"
+]
+
+[project.urls]
+Project = "https://github.com/enablesecurity/wafw00f"
+BugTracker = "https://github.com/EnableSecurity/wafw00f/issues"
+Documentation = "https://github.com/EnableSecurity/wafw00f/wiki"
+SourceCode = "https://github.com/EnableSecurity/wafw00f/tree/master"
+
+[project.scripts]
+wafw00f = "wafw00f.main:main"
+
+[tool.hatch.version]
+path = "wafw00f/__init__.py"
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "/wafw00f",
+]
