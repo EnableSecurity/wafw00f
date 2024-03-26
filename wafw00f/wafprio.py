@@ -68,6 +68,7 @@ wafdetectionsprio = [
     'FortiGuard (Fortinet)',
     'FortiWeb (Fortinet)',
     'GoDaddy Website Protection (GoDaddy)',
+    'Gocache (Gocache)',
     'Greywizard (Grey Wizard)',
     'Huawei Cloud Firewall (Huawei)',
     'HyperGuard (Art of Defense)',
