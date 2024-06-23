@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 '''
-Copyright (C) 2022, WAFW00F Developers.
+Copyright (C) 2024, WAFW00F Developers.
 See the LICENSE file for copying permission.
 '''
 
@@ -38,7 +38,7 @@ class Color:
         Useful for brevity, e.g.:
         (W,Y,G,R,B,C,E) = Color.unpack()
         """
-        return (cls.W, 
+        return (cls.W,
                 cls.Y,
                 cls.G,
                 cls.R,
@@ -46,7 +46,7 @@ class Color:
                 cls.C,
                 cls.E
                 )
-          
+
 
 
 

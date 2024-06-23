@@ -4,14 +4,14 @@ Copyright (C) 2024, WAFW00F Developers.
 See the LICENSE file for copying permission.
 '''
 
-NAME = 'NevisProxy (AdNovum)'
+NAME = 'Kemp LoadMaster (Progress)'
 
 
 def is_waf(self):
-    if self.matchCookie(r'^Navajo'):
+    if self.matchContent(r'firewall.{0,15}?powered.by.{0,15}?malcare.{0,15}?pro'):
         return True
 
-    if self.matchCookie(r'^NP_ID'):
+    if self.matchContent('blocked because of malicious activities'):
         return True
 
     return False
