@@ -23,7 +23,7 @@ setup(
     project_urls={
         "Bug Tracker": "https://github.com/EnableSecurity/wafw00f/issues",
         "Documentation": "https://github.com/EnableSecurity/wafw00f/wiki",
-        "Source Code": "https://github.com/EnableSecurity/wafw00f/tree/master",
+        "Source Code": "https://github.com/EnableSecurity/wafw00f/tree/master"
     },
     packages=find_packages(),
     scripts=['wafw00f/bin/wafw00f'],
@@ -47,10 +47,15 @@ setup(
     keywords='waf firewall detector fingerprint',
     extras_require={
         'dev': [
-            'prospector',
+            'prospector'
         ],
         'docs': [
-            'Sphinx',
-        ],
+            'Sphinx'
+        ]
     },
+    entry_points={
+        'console_scripts': [
+            'wafw00f = wafw00f.main:main'
+        ]
+    }
 )
