@@ -81,7 +81,7 @@ $ wafw00f -l
   ASPA Firewall                    ASPA Engineering Co.
   Astra                            Czar Securities
   AWS Elastic Load Balancer        Amazon
-  AzionCDN                         AzionCDN
+  Azion Edge Firewall              Azion
   Azure Front Door                 Microsoft
   Barikode                         Ethic Ninja
   Barracuda                        Barracuda Networks
