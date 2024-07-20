@@ -27,6 +27,7 @@ wafdetectionsprio = [
     'Astra (Czar Securities)',
     'AWS Elastic Load Balancer (Amazon)',
     'Azion Edge Firewall (Azion)',
+    'Azure Application Gateway (Microsoft)',
     'Azure Front Door (Microsoft)',
     'Barikode (Ethic Ninja)',
     'Barracuda (Barracuda Networks)',
