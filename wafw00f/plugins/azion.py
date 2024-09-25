@@ -4,11 +4,14 @@ Copyright (C) 2024, WAFW00F Developers.
 See the LICENSE file for copying permission.
 '''
 
-NAME = 'AzionCDN (AzionCDN)'
+NAME = 'Azion Edge Firewall (Azion)'
 
 
 def is_waf(self):
-    if self.matchHeader(('Server', r'Azion([-_]CDN)?')):
+    if self.matchHeader(('x-azion-edge-pop', r'.+?')):
+        return True
+
+    if self.matchHeader(('x-azion-request-id', r'.+?')):
         return True
 
     return False
