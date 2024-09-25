@@ -20,4 +20,7 @@ def is_waf(self):
     if self.matchHeader(('Server', r'aws.?elb'), attack=True):
         return True
 
+    if self.matchHeader(('X-Blocked-By-WAF', 'Blocked_by_custom_response_for_AWSManagedRules.*')):
+        return True
+
     return False
