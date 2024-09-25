@@ -4,14 +4,13 @@ Copyright (C) 2024, WAFW00F Developers.
 See the LICENSE file for copying permission.
 '''
 
-NAME = 'Kemp LoadMaster (Progress)'
+NAME = 'Kemp LoadMaster (Progress Software)'
 
 
 def is_waf(self):
-    if self.matchContent(r'firewall.{0,15}?powered.by.{0,15}?malcare.{0,15}?pro'):
-        return True
-
-    if self.matchContent('blocked because of malicious activities'):
+    if self.matchHeader(('X-ServedBy', 'KEMP-LM')) and \
+        self.matchStatus(403) and \
+        self.matchContent(r'<title>403 Forbidden</title>'):
         return True
 
     return False

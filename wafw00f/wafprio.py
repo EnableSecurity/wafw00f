@@ -78,6 +78,7 @@ wafdetectionsprio = [
     'ISA Server (Microsoft)',
     'Janusec Application Gateway (Janusec)',
     'Jiasule (Jiasule)',
+    'Kemp LoadMaster (Progress Software)',
     'Kona SiteDefender (Akamai)',
     'KS-WAF (KnownSec)',
     'KeyCDN (KeyCDN)',
