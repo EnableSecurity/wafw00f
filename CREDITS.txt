@@ -7,7 +7,7 @@ $ AUTHORS
 
 * Present Developers :-
     - Sandro Gauci <sandro [at] enablesecurity [dot] com>
-    - Pinaki Mondal <theinfecteddrake [at] gmail [dot] com>
+    - Pinaki Mondal <0xinfection [at] gmail [dot] com>
 
 * Original Code by :-
     - Sandro Gauci <sandro [at] enablesecurity [dot] com>
@@ -34,4 +34,4 @@ A number of people contributed in the past (in no particular order):
 - MyKings <https://github.com/MyKings>
 
 If you did contribute and somehow I didn't put your name in there, please do
-let me know at: <sandro [at] enablesecurity [dot] com>. 
+let me know at: <sandro [at] enablesecurity [dot] com>.
