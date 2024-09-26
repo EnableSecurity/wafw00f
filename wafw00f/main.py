@@ -1,11 +1,9 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 '''
 Copyright (C) 2024, WAFW00F Developers.
 See the LICENSE file for copying permission.
 '''
-# For keeping python2 support for now
-from __future__ import print_function
 
 import csv
 import io
@@ -16,23 +14,24 @@ import random
 import re
 import sys
 import string
+import urllib.parse
 from collections import defaultdict
 from optparse import OptionParser
 
 from wafw00f import __license__, __version__
 from wafw00f.lib.asciiarts import Color, randomArt
-from wafw00f.lib.evillib import def_headers, urlParser, waftoolsengine
+from wafw00f.lib.evillib import waftoolsengine
 from wafw00f.manager import load_plugins
 from wafw00f.wafprio import wafdetectionsprio
 
 
 class WAFW00F(waftoolsengine):
 
-    xsstring = '<script>alert("XSS");</script>'
-    sqlistring = "UNION SELECT ALL FROM information_schema AND ' or SLEEP(5) or '"
-    lfistring = '../../../../etc/passwd'
-    rcestring = '/bin/cat /etc/passwd; ping 127.0.0.1; curl google.com'
-    xxestring = '<!ENTITY xxe SYSTEM "file:///etc/shadow">]><pwn>&hack;</pwn>'
+    xsstring = r'<script>alert("XSS");</script>'
+    sqlistring = r'UNION SELECT ALL FROM information_schema AND " or SLEEP(5) or "'
+    lfistring = r'../../etc/passwd'
+    rcestring = r'/bin/cat /etc/passwd; ping 127.0.0.1; curl google.com'
+    xxestring = r'<!ENTITY xxe SYSTEM "file:///etc/shadow">]><pwn>&hack;</pwn>'
 
     def __init__(self, target='www.example.com', debuglevel=0, path='/',
                  followredirect=True, extraheaders={}, proxies=None):
@@ -40,7 +39,13 @@ class WAFW00F(waftoolsengine):
         self.log = logging.getLogger('wafw00f')
         self.attackres = None
         waftoolsengine.__init__(self, target, debuglevel, path, proxies, followredirect, extraheaders)
-        self.knowledge = dict(generic=dict(found=False, reason=''), wafname=list())
+        self.knowledge = {
+            'generic': {
+                'found': False,
+                'reason': ''
+            },
+            'wafname': []
+        }
         self.rq = self.normalRequest()
 
     def normalRequest(self):
@@ -311,7 +316,7 @@ def buildResultRecord(url, waf, evil_url=None):
         result['manufacturer'] = 'None'
     return result
 
-def getTextResults(res=None):
+def getTextResults(res=[]):
     # leaving out some space for future possibilities of newer columns
     # newer columns can be added to this tuple below
     keys = ('detected')
@@ -327,7 +332,7 @@ def getTextResults(res=None):
         (max([len(str(row[i])) for row in rows]) + 3)
         for i in range(len(rows[0]))
     ]
-    rwfmt = "".join(["{:>"+str(dank)+"}" for dank in defgen])
+    rwfmt = ''.join(['{:>'+str(dank)+'}' for dank in defgen])
     textresults = []
     for row in rows:
         textresults.append(rwfmt.format(*row))
@@ -409,11 +414,11 @@ def main():
                 first = True
                 for elem in inner:
                     if first:
-                        text = Y+"  {:<{}} ".format(elem, max_len+2)
+                        text = Y+'  {:<{}} '.format(elem, max_len+2)
                         first = False
                     else:
-                        text = W+"{:<{}} ".format(elem, max_len+2)
-                    print(text, E, end="")
+                        text = W+'{:<{}} '.format(elem, max_len+2)
+                    print(text, E, end='')
                 print()
             sys.exit(0)
         except Exception:
@@ -432,16 +437,16 @@ def main():
         parser.error('No test target specified.')
     #check if input file is present
     if options.input:
-        log.debug("Loading file '%s'" % options.input)
+        log.debug('Loading file "%s"' % options.input)
         try:
             if options.input.endswith('.json'):
                 with open(options.input) as f:
                     try:
                         urls = json.loads(f.read())
                     except json.decoder.JSONDecodeError:
-                        log.critical("JSON file %s did not contain well-formed JSON", options.input)
+                        log.critical('JSON file %s did not contain well-formed JSON', options.input)
                         sys.exit(1)
-                log.info("Found: %s urls to check." %(len(urls)))
+                log.info('Found: %s urls to check.' %(len(urls)))
                 targets = [ item['url'] for item in urls ]
             elif options.input.endswith('.csv'):
                 columns = defaultdict(list)
@@ -465,23 +470,22 @@ def main():
             log.info('The url %s should start with http:// or https:// .. fixing (might make this unusable)' % target)
             target = 'https://' + target
         print('[*] Checking %s' % target)
-        pret = urlParser(target)
+        pret = urllib.parse.urlparse(target)
         if pret is None:
             log.critical('The url %s is not well formed' % target)
             sys.exit(1)
-        (hostname, _, path, _, _) = pret
         log.info('starting wafw00f on %s' % target)
         proxies = dict()
         if options.proxy:
             proxies = {
-                "http": options.proxy,
-                "https": options.proxy,
+                'http': options.proxy,
+                'https': options.proxy,
             }
-        attacker = WAFW00F(target, debuglevel=options.verbose, path=path,
+        attacker = WAFW00F(target, debuglevel=options.verbose, path=pret.path,
                     followredirect=options.followredirect, extraheaders=extraheaders,
                         proxies=proxies)
         if attacker.rq is None:
-            log.error('Site %s appears to be down' % hostname)
+            log.error('Site %s appears to be down' % pret.hostname)
             continue
         if options.test:
             if options.test in attacker.wafdetections:
@@ -513,7 +517,7 @@ def main():
         print('[~] Number of requests: %s' % attacker.requestnumber)
     #print table of results
     if len(results) > 0:
-        log.info("Found: %s matches." % (len(results)))
+        log.info('Found: %s matches.' % (len(results)))
     if options.output:
         if options.output == '-':
             enableStdOut()
@@ -532,11 +536,11 @@ def main():
             else:
                 print(os.linesep.join(getTextResults(results)))
         elif options.output.endswith('.json'):
-            log.debug("Exporting data in json format to file: %s" % (options.output))
+            log.debug('Exporting data in json format to file: %s' % (options.output))
             with open(options.output, 'w') as outfile:
                 json.dump(results, outfile, indent=2, sort_keys=True)
         elif options.output.endswith('.csv'):
-            log.debug("Exporting data in csv format to file: %s" % (options.output))
+            log.debug('Exporting data in csv format to file: %s' % (options.output))
             with open(options.output, 'w') as outfile:
                 csvwriter = csv.writer(outfile, delimiter=',', quotechar='"',
                     quoting=csv.QUOTE_MINIMAL)
@@ -548,7 +552,7 @@ def main():
                         count += 1
                     csvwriter.writerow(result.values())
         else:
-            log.debug("Exporting data in text format to file: %s" % (options.output))
+            log.debug('Exporting data in text format to file: %s' % (options.output))
             if options.format == 'json':
                 with open(options.output, 'w') as outfile:
                     json.dump(results, outfile, indent=2, sort_keys=True)
@@ -568,6 +572,7 @@ def main():
                     outfile.write(os.linesep.join(getTextResults(results)))
 
 if __name__ == '__main__':
-    if sys.hexversion < 0x2060000:
-        sys.stderr.write('Your version of python is way too old... please update to 2.6 or later\r\n')
+    version_info = sys.version_info
+    if version_info.major < 3 or (version_info.major == 3 and version_info.minor < 6):
+        sys.stderr.write('Your version of python is way too old... please update to 3.6 or later\r\n')
     main()
