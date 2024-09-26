@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 '''
 Copyright (C) 2024, WAFW00F Developers.
 See the LICENSE file for copying permission.
@@ -10,47 +10,24 @@ from copy import copy
 
 import requests
 import urllib3
-try:
-    from urlparse import urlparse
-except ImportError:
-    from urllib.parse import urlparse
 
 # For requests < 2.16, this should be used.
 # requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 # For requests >= 2.16, this is the convention
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
-def_headers = {'Accept'         : 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
-               'Accept-Encoding': 'gzip, deflate',
-               'Accept-Language': 'en-US,en;q=0.9',
-               'DNT'            : '1',  # Do Not Track request header
-               'User-Agent'     : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3770.100 Safari/537.36',
-               'Upgrade-Insecure-Requests': '1' #
-        }
+def_headers = {
+    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+    'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:130.0) Gecko/20100101 Firefox/130.0',
+    'Accept-Language': 'en-US,en;q=0.5',
+    'Upgrade-Insecure-Requests': '1',
+    'Sec-Fetch-Dest': 'document',
+    'Sec-Fetch-Mode': 'navigate',
+    'Sec-Fetch-Site': 'cross-site',
+    'Priority': 'u=0, i',
+    'DNT': '1',
+}
 proxies = {}
-
-def urlParser(target):
-    log = logging.getLogger('urlparser')
-
-    ssl = False
-    o = urlparse(target)
-    if o[0] not in ['http', 'https', '']:
-        log.error('scheme %s not supported' % o[0])
-        return
-    if o[0] == 'https':
-        ssl = True
-    if len(o[2]) > 0:
-        path = o[2]
-    else:
-        path = '/'
-    tmp = o[1].split(':')
-    if len(tmp) > 1:
-        port = tmp[1]
-    else:
-        port = None
-    hostname = tmp[0]
-    query = o[4]
-    return (hostname, port, path, query, ssl)
 
 class waftoolsengine:
     def __init__(self, target='https://example.com', debuglevel=0, path='/', proxies=None,
