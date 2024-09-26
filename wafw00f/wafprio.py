@@ -59,6 +59,7 @@ wafdetectionsprio = [
     'DynamicWeb Injection Check (DynamicWeb)',
     'Edgecast (Verizon Digital Media)',
     'Eisoo Cloud Firewall (Eisoo)',
+    'Envoy (EnvoyProxy)',
     'Expression Engine (EllisLab)',
     'BIG-IP AppSec Manager (F5 Networks)',
     'BIG-IP AP Manager (F5 Networks)',

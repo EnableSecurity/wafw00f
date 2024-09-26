@@ -4,7 +4,7 @@ Copyright (C) 2022, WAFW00F Developers.
 See the LICENSE file for copying permission.
 '''
 
-NAME = 'Envoy'
+NAME = 'Envoy (EnvoyProxy)'
 
 
 def is_waf(self):
