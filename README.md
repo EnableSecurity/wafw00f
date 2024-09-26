@@ -218,6 +218,7 @@ $ wafw00f -l
   YXLink                           YxLink Technologies
   Zenedge                          Zenedge
   ZScaler                          Accenture
+  Envoy                            EnvoyProxy
 ```
 
 ## How do I use it?
