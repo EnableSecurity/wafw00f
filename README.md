@@ -120,6 +120,7 @@ $ wafw00f -l
   FirePass                         F5 Networks
   FortiWeb                         Fortinet
   GoDaddy Website Protection       GoDaddy
+  Google Cloud App Armor           Google Cloud
   Greywizard                       Grey Wizard
   Huawei Cloud Firewall            Huawei
   HyperGuard                       Art of Defense
