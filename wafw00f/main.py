@@ -388,6 +388,8 @@ def main():
                       help='Pass custom headers via a text file to overwrite the default header set.')
     parser.add_option('--no-colors', dest='colors', action='store_false',
                       default=True, help='Disable ANSI colors in output.')
+    parser.add_option('--no-banner', dest='banner', action='store_false',
+                      default=True, help='Disable Wafw00f banner in output.')
 
     options, args = parser.parse_args()
 
@@ -401,7 +403,8 @@ def main():
     if not options.colors or 'win' in sys.platform:
         Color.disable()
 
-    print(randomArt())
+    if options.banner:
+        print(randomArt())
     (W,Y,G,R,B,C,E) = Color.unpack()
 
     if options.list:
