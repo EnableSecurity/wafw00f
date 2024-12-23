@@ -15,7 +15,7 @@
     <img src="https://img.shields.io/badge/Python-3.x/2.x-green.svg">
   </a>
   <a href="https://github.com/EnableSecurity/wafw00f/releases">
-    <img src="https://img.shields.io/badge/Version-v2.2.0%20(stable)-blue.svg">
+    <img src="https://img.shields.io/badge/Version-v2.3.0%20(stable)-blue.svg">
   </a>
   <a href="https://github.com/EnableSecurity/wafw00f/blob/master/LICENSE">
     <img src="https://img.shields.io/badge/License-BSD%203%20Clause-orange.svg">
@@ -46,145 +46,145 @@ WAFW00F can detect a number of firewalls, a list of which is as below:
 ```
 $ wafw00f -l
 
-                   ______
-                  /      \
-                 (  Woof! )
-                  \  ____/                      )
-                  ,,                           ) (_
-             .-. -    _______                 ( |__|
-            ()``; |==|_______)                .)|__|
-            / ('        /|\                  (  |__|
-        (  /  )        / | \                  . |__|
-         \(_)_))      /  |  \                   |__|
 
-                    ~ WAFW00F : v2.2.0 ~
-    The Web Application Firewall Fingerprinting Toolkit
+                  ?              ,.   (   .      )        .      "
+          __        ??          ("     )  )'     ,'        )  . (`     '`
+    (___()'`;   ???          .; )  ' (( (" )    ;(,     ((  (  ;)  "  )")
+    /,___ /`                 _"., ,._'_.,)_(..,( . )_  _' )_') (. _..( ' )
+    \\   \\                 |____|____|____|____|____|____|____|____|____|
+
+                                ~ WAFW00F : v2.3.0 ~
+                  ~ Sniffing Web Application Firewalls since 2014 ~
 
 [+] Can test for these WAFs:
 
   WAF Name                        Manufacturer
   --------                        ------------
 
+  360WangZhanBao                   360 Technologies
   ACE XML Gateway                  Cisco
-  aeSecure                         aeSecure
+  ASP.NET Generic                  Microsoft
+  ASPA Firewall                    ASPA Engineering Co.
+  AWS Elastic Load Balancer        Amazon
   AireeCDN                         Airee
   Airlock                          Phion/Ergon
   Alert Logic                      Alert Logic
   AliYunDun                        Alibaba Cloud Computing
-  Anquanbao                        Anquanbao
   AnYu                             AnYu Technologies
-  Approach                         Approach
+  Anquanbao                        Anquanbao
   AppWall                          Radware
+  Approach                         Approach
   Armor Defense                    Armor
   ArvanCloud                       ArvanCloud
-  ASP.NET Generic                  Microsoft
-  ASPA Firewall                    ASPA Engineering Co.
   Astra                            Czar Securities
-  AWS Elastic Load Balancer        Amazon
   Azion Edge Firewall              Azion
   Azure Application Gateway        Microsoft
   Azure Front Door                 Microsoft
+  BIG-IP AP Manager                F5 Networks
+  BIG-IP AppSec Manager            F5 Networks
+  BIG-IP Local Traffic Manager     F5 Networks
   Barikode                         Ethic Ninja
   Barracuda                        Barracuda Networks
   Bekchy                           Faydata Technologies Inc.
   Beluga CDN                       Beluga
-  BIG-IP Local Traffic Manager     F5 Networks
   BinarySec                        BinarySec
   BitNinja                         BitNinja
   BlockDoS                         BlockDoS
   Bluedon                          Bluedon IST
   BulletProof Security Pro         AITpro Security
-  CacheWall                        Varnish
   CacheFly CDN                     CacheFly
-  Comodo cWatch                    Comodo CyberSecurity
+  CacheWall                        Varnish
   CdnNS Application Gateway        CdnNs/WdidcNet
   ChinaCache Load Balancer         ChinaCache
   Chuang Yu Shield                 Yunaq
+  Cloud Protector                  Rohde & Schwarz CyberSecurity
   Cloudbric                        Penta Security
   Cloudflare                       Cloudflare Inc.
   Cloudfloor                       Cloudfloor DNS
   Cloudfront                       Amazon
+  Comodo cWatch                    Comodo CyberSecurity
   CrawlProtect                     Jean-Denis Brun
+  DDoS-GUARD                       DDOS-GUARD CORP.
+  DOSarrest                        DOSarrest Internet Security
   DataPower                        IBM
   DenyALL                          Rohde & Schwarz CyberSecurity
   Distil                           Distil Networks
-  DOSarrest                        DOSarrest Internet Security
   DotDefender                      Applicure Technologies
   DynamicWeb Injection Check       DynamicWeb
   Edgecast                         Verizon Digital Media
   Eisoo Cloud Firewall             Eisoo
+  Envoy                            EnvoyProxy
   Expression Engine                EllisLab
-  BIG-IP AppSec Manager            F5 Networks
-  BIG-IP AP Manager                F5 Networks
   Fastly                           Fastly CDN
   FirePass                         F5 Networks
+  FortiGate                        Fortinet
+  FortiGuard                       Fortinet
   FortiWeb                         Fortinet
   GoDaddy Website Protection       GoDaddy
   Google Cloud App Armor           Google Cloud
   Greywizard                       Grey Wizard
   Huawei Cloud Firewall            Huawei
   HyperGuard                       Art of Defense
+  ISA Server                       Microsoft
   Imunify360                       CloudLinux
   Incapsula                        Imperva Inc.
   IndusGuard                       Indusface
   Instart DX                       Instart Logic
-  ISA Server                       Microsoft
   Janusec Application Gateway      Janusec
   Jiasule                          Jiasule
-  Kona SiteDefender                Akamai
   KS-WAF                           KnownSec
+  Kemp LoadMaster                  Progress Software
   KeyCDN                           KeyCDN
+  Kona SiteDefender                Akamai
   LimeLight CDN                    LimeLight
   LiteSpeed                        LiteSpeed Technologies
-  Open-Resty Lua Nginx             FLOSS
-  Oracle Cloud                     Oracle
   Malcare                          Inactiv
   MaxCDN                           MaxCDN
   Mission Control Shield           Mission Control
   ModSecurity                      SpiderLabs
   NAXSI                            NBS Systems
+  NSFocus                          NSFocus Global Inc.
   Nemesida                         PentestIt
-  NevisProxy                       AdNovum
   NetContinuum                     Barracuda Networks
   NetScaler AppFirewall            Citrix Systems
+  NevisProxy                       AdNovum
   Newdefend                        NewDefend
   NexusGuard Firewall              NexusGuard
   NinjaFirewall                    NinTechNet
   NullDDoS Protection              NullDDoS
-  NSFocus                          NSFocus Global Inc.
   OnMessage Shield                 BlackBaud
-  Palo Alto Next Gen Firewall      Palo Alto Networks
-  PerimeterX                       PerimeterX
-  PentaWAF                         Global Network Services
-  pkSecurity IDS                   pkSec
+  Open-Resty Lua Nginx             FLOSS
+  Oracle Cloud                     Oracle
   PT Application Firewall          Positive Technologies
+  Palo Alto Next Gen Firewall      Palo Alto Networks
+  PentaWAF                         Global Network Services
+  PerimeterX                       PerimeterX
   PowerCDN                         PowerCDN
   Profense                         ArmorLogic
   Puhui                            Puhui
   Qcloud                           Tencent Cloud
   Qiniu                            Qiniu CDN
   Qrator                           Qrator
-  Reblaze                          Reblaze
   RSFirewall                       RSJoomla!
+  RayWAF                           WebRay Solutions
+  Reblaze                          Reblaze
   RequestValidationMode            Microsoft
+  SEnginx                          Neusoft
   Sabre Firewall                   Sabre
   Safe3 Web Firewall               Safe3
   Safedog                          SafeDog
   Safeline                         Chaitin Tech.
   SecKing                          SecKing
-  eEye SecureIIS                   BeyondTrust
   SecuPress WP Security            SecuPress
-  SecureSphere                     Imperva Inc.
   Secure Entry                     United Security Providers
-  SEnginx                          Neusoft
+  SecureSphere                     Imperva Inc.
   ServerDefender VP                Port80 Software
-  Shield Security                  One Dollar Plugin
   Shadow Daemon                    Zecure
+  Shield Security                  One Dollar Plugin
   SiteGround                       SiteGround
   SiteGuard                        Sakura Inc.
   Sitelock                         TrueShield
   SonicWall                        Dell
-  UTM Web Protection               Sophos
   Squarespace                      Squarespace
   SquidProxy IDS                   SquidProxy
   StackPath                        StackPath
@@ -193,34 +193,38 @@ $ wafw00f -l
   Teros                            Citrix Systems
   Trafficshield                    F5 Networks
   TransIP Web Firewall             TransIP
+  UEWaf                            UCloud
   URLMaster SecurityCheck          iFinity/DotNetNuke
   URLScan                          Microsoft
-  UEWaf                            UCloud
+  UTM Web Protection               Sophos
+  Variti                           Variti
   Varnish                          OWASP
   Viettel                          Cloudrity
   VirusDie                         VirusDie LLC
+  WP Cerber Security               Cerber Tech
+  WTS-WAF                          WTS
   Wallarm                          Wallarm Inc.
   WatchGuard                       WatchGuard Technologies
   WebARX                           WebARX Security Solutions
   WebKnight                        AQTRONIX
   WebLand                          WebLand
-  RayWAF                           WebRay Solutions
   WebSEAL                          IBM
   WebTotem                         WebTotem
   West263 CDN                      West263CDN
   Wordfence                        Defiant
-  WP Cerber Security               Cerber Tech
-  WTS-WAF                          WTS
-  360WangZhanBao                   360 Technologies
   XLabs Security WAF               XLabs
   Xuanwudun                        Xuanwudun
-  Yundun                           Yundun
-  Yunsuo                           Yunsuo
-  Yunjiasu                         Baidu Cloud Computing
   YXLink                           YxLink Technologies
-  Zenedge                          Zenedge
+  Yundun                           Yundun
+  Yunjiasu                         Baidu Cloud Computing
+  Yunsuo                           Yunsuo
   ZScaler                          Accenture
-  Envoy                            EnvoyProxy
+  Zenedge                          Zenedge
+  aeSecure                         aeSecure
+  eEye SecureIIS                   BeyondTrust
+  pkSecurity IDS                   pkSec
+  wpmudev WAF                      Incsub
+  Shieldon Firewall                Shieldon.io
 ```
 
 ## How do I use it?
@@ -253,26 +257,47 @@ $   wafw00f https://example.org
 
 ## How do I install it?
 
-The following should do the trick:
-
+### Install from PyPI (recommended)
+Run:
 ```
-python setup.py install
+python3 -m pip install wafw00f
+```
+or
+```
+pip3 install wafw00f
 ```
 
-or by using pipx
+### Via Docker
+It is also possible to run it within a docker container. Clone this repository first and build the Docker image using:
+```
+docker build . -t wafw00f
+```
+Now you can run:
+```
+docker run --rm -it wafw00f https://example.com
+```
 
+### From source
+> NOTE: Be careful to not break your system packages while installing wafw00f. Use venv as and when required.
+Clone the repository:
+```
+git clone https://github.com/enablesecurity/wafw00f.git
+```
+Then:
+```
+cd wafw00f/
+python3 -m pip install .
+```
+
+Or, by using pipx directly:
 ```
 pipx install git+https://github.com/EnableSecurity/wafw00f.git
 ```
 
-It is also possible to run it within a docker container. Clone this repository first and build the Docker image using `docker build . -t wafw00f`.
-Now you can run `docker run --rm -it wafw00f https://example.com`
-
-
 ## Final Words
 
 __Questions?__ Pull up an [issue on GitHub Issue Tracker](https://github.com/enablesecurity/wafw00f/issues/new) or contact [me](mailto:sandro@enablesecurity.com).
-[Pull requests](https://github.com/enablesecurity/wafw00f/pulls), [ideas and issues](https://github.com/enablesecurity/wafw00f/issues) are highly welcome. If you wish to see how WAFW00F is being developed, check out the [development board](https://github.com/enablesecurity/wafw00f/projects/1).
+[Pull requests](https://github.com/enablesecurity/wafw00f/pulls), [ideas and issues](https://github.com/enablesecurity/wafw00f/issues) are highly welcome.
 
 Some useful links:
 

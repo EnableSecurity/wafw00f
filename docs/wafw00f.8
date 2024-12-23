@@ -32,6 +32,9 @@ Test for one specific WAF product.
 \fB\-o\fR OUTPUT, \fB\-\-output\fR=\fI\,OUTPUT\/\fR
 Write output to csv, json or text file depending on file extension. For stdout, specify - as filename.
 .TP
+\fB\-f\fR, \fB\-\-format\fR=\fI\,FORMAT\/\fR
+Force output format to csv, json or text.
+.TP
 \fB\-i\fR INPUT, \fB\-\-input\fR=\fI\,INPUT\/\fR
 Read targets from a file. Input format can be csv, json or text. For csv and json, a `url` column name or element is required.
 .TP
@@ -46,6 +49,12 @@ Print out the version.
 .TP
 \fB\-H\fR FILE, \fB\-\-headers\fR=\fI\,FILE\/\fR
 Pass custom headers, for example to overwrite the default user\-agent string.
+.TP
+\fB\-T\fR TIMEOUT, \fB\-\-timeout\fR=\fI\,TIMEOUT\/\fR
+Set the timeout for the requests.
+.TP
+\fB\-\-no\-colors\fR
+Disable ANSI colors in output.
 .SH AUTHORS
 Sandro Gauci (@SandroGauci)
 .br

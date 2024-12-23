@@ -5,7 +5,7 @@ THE WAFW00F PROJECT
 $ AUTHORS
   =======
 
-* Present Developers :-
+* Current Maintainers :-
     - Sandro Gauci <sandro [at] enablesecurity [dot] com>
     - Pinaki Mondal <0xinfection [at] gmail [dot] com>
 
