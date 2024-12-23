@@ -279,6 +279,7 @@ docker run --rm -it wafw00f https://example.com
 
 ### From source
 > NOTE: Be careful to not break your system packages while installing wafw00f. Use venv as and when required.
+
 Clone the repository:
 ```
 git clone https://github.com/enablesecurity/wafw00f.git
