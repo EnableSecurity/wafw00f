@@ -30,8 +30,10 @@ def_headers = {
 proxies = {}
 
 class waftoolsengine:
-    def __init__(self, target='https://example.com', debuglevel=0, path='/', proxies=None,
-                redir=True, head=None):
+    def __init__(
+        self, target='https://example.com', debuglevel=0,
+        path='/', proxies=None, redir=True, head=None, timeout=7
+    ):
         self.target = target
         self.debuglevel = debuglevel
         self.requestnumber = 0
@@ -40,18 +42,19 @@ class waftoolsengine:
         self.allowredir = redir
         self.proxies = proxies
         self.log = logging.getLogger('wafw00f')
+        self.timeout = timeout
         if head:
             self.headers = head
         else:
             self.headers = copy(def_headers) #copy object by value not reference. Fix issue #90
 
-    def Request(self, headers=None, path=None, params={}, delay=0, timeout=7):
+    def Request(self, headers=None, path=None, params={}, delay=0):
         try:
             time.sleep(delay)
             if not headers:
                 h = self.headers
             else: h = headers
-            req = requests.get(self.target, proxies=self.proxies, headers=h, timeout=timeout,
+            req = requests.get(self.target, proxies=self.proxies, headers=h, timeout=self.timeout,
                     allow_redirects=self.allowredir, params=params, verify=False)
             self.log.info('Request Succeeded')
             self.log.debug('Headers: %s\n' % req.headers)

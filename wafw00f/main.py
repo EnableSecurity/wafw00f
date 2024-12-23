@@ -34,11 +34,11 @@ class WAFW00F(waftoolsengine):
     xxestring = r'<!ENTITY xxe SYSTEM "file:///etc/shadow">]><pwn>&hack;</pwn>'
 
     def __init__(self, target='www.example.com', debuglevel=0, path='/',
-                 followredirect=True, extraheaders={}, proxies=None):
+                 followredirect=True, extraheaders={}, proxies=None, timeout=7):
 
         self.log = logging.getLogger('wafw00f')
         self.attackres = None
-        waftoolsengine.__init__(self, target, debuglevel, path, proxies, followredirect, extraheaders)
+        waftoolsengine.__init__(self, target, debuglevel, path, proxies, followredirect, extraheaders, timeout)
         self.knowledge = {
             'generic': {
                 'found': False,
@@ -386,6 +386,8 @@ def main():
                       default=False, help='Print out the current version of WafW00f and exit.')
     parser.add_option('--headers', '-H', dest='headers', action='store', default=None,
                       help='Pass custom headers via a text file to overwrite the default header set.')
+    parser.add_option('-T', '--timeout', dest='timeout', action='store', default=7, type=int,
+                      help='Set the timeout for the requests.')
     parser.add_option('--no-colors', dest='colors', action='store_false',
                       default=True, help='Disable ANSI colors in output.')
 
@@ -483,7 +485,7 @@ def main():
             }
         attacker = WAFW00F(target, debuglevel=options.verbose, path=pret.path,
                     followredirect=options.followredirect, extraheaders=extraheaders,
-                        proxies=proxies)
+                        proxies=proxies, timeout=options.timeout)
         if attacker.rq is None:
             log.error('Site %s appears to be down' % pret.hostname)
             continue
