@@ -247,7 +247,7 @@ $   wafw00f https://example.org
         (  /  )        / | \                  . |__|
          \(_)_))      /  |  \                   |__|
 
-                    ~ WAFW00F : v2.2.0 ~
+                    ~ WAFW00F : v2.3.0 ~
     The Web Application Firewall Fingerprinting Toolkit
 
 [*] Checking https://example.org
