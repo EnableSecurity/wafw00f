@@ -39,7 +39,6 @@ setup(
         'Topic :: Security',
         'Topic :: System :: Networking :: Firewalls',
         'License :: OSI Approved :: BSD License',
-        'Programming Language :: Python :: 2',
         'Programming Language :: Python :: 3',
         'Operating System :: OS Independent'
     ],

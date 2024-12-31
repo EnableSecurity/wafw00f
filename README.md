@@ -15,7 +15,7 @@
     <img src="https://img.shields.io/badge/Python-3.x/2.x-green.svg">
   </a>
   <a href="https://github.com/EnableSecurity/wafw00f/releases">
-    <img src="https://img.shields.io/badge/Version-v2.3.0%20(stable)-blue.svg">
+    <img src="https://img.shields.io/badge/Version-v2.3.1%20(stable)-blue.svg">
   </a>
   <a href="https://github.com/EnableSecurity/wafw00f/blob/master/LICENSE">
     <img src="https://img.shields.io/badge/License-BSD%203%20Clause-orange.svg">
@@ -53,7 +53,7 @@ $ wafw00f -l
     /,___ /`                 _"., ,._'_.,)_(..,( . )_  _' )_') (. _..( ' )
     \\   \\                 |____|____|____|____|____|____|____|____|____|
 
-                                ~ WAFW00F : v2.3.0 ~
+                                ~ WAFW00F : v2.3.1 ~
                   ~ Sniffing Web Application Firewalls since 2014 ~
 
 [+] Can test for these WAFs:
@@ -247,7 +247,7 @@ $   wafw00f https://example.org
         (  /  )        / | \                  . |__|
          \(_)_))      /  |  \                   |__|
 
-                    ~ WAFW00F : v2.3.0 ~
+                    ~ WAFW00F : v2.3.1 ~
     The Web Application Firewall Fingerprinting Toolkit
 
 [*] Checking https://example.org
