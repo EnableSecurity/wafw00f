@@ -5,23 +5,26 @@ See the LICENSE file for copying permission.
 '''
 
 import os
-from functools import partial
-from pluginbase import PluginBase
+import importlib.util
 
 def load_plugins():
     here = os.path.abspath(os.path.dirname(__file__))
-    get_path = partial(os.path.join, here)
-    plugin_dir = get_path('plugins')
-
-    plugin_base = PluginBase(
-        package='wafw00f.plugins', searchpath=[plugin_dir]
-    )
-    plugin_source = plugin_base.make_plugin_source(
-        searchpath=[plugin_dir], persist=True
-    )
+    plugin_dir = os.path.join(here, 'plugins')
 
     plugin_dict = {}
-    for plugin_name in plugin_source.list_plugins():
-        plugin_dict[plugin_name] = plugin_source.load_plugin(plugin_name)
+
+    # Iterate over all files in the plugin directory
+    for filename in os.listdir(plugin_dir):
+        if filename.endswith('.py') and filename != '__init__.py':
+            plugin_name = filename[:-3]  # Remove the .py extension
+            plugin_path = os.path.join(plugin_dir, filename)
+
+            # Load the plugin module
+            spec = importlib.util.spec_from_file_location(plugin_name, plugin_path)
+            plugin_module = importlib.util.module_from_spec(spec)
+            spec.loader.exec_module(plugin_module)
+
+            # Store the loaded plugin in the dictionary
+            plugin_dict[plugin_name] = plugin_module
 
     return plugin_dict
