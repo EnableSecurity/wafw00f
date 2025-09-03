@@ -87,6 +87,7 @@ wafdetectionsprio = [
 	'KeyCDN (KeyCDN)',
 	'Kona SiteDefender (Akamai)',
 	'LimeLight CDN (LimeLight)',
+	'Link11 WAAP (Link11)',
 	'LiteSpeed (LiteSpeed Technologies)',
 	'Malcare (Inactiv)',
 	'MaxCDN (MaxCDN)',
