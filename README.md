@@ -85,6 +85,7 @@ $ wafw00f -l
   BIG-IP Local Traffic Manager     F5 Networks
   Barikode                         Ethic Ninja
   Barracuda                        Barracuda Networks
+  Baffin Bay                       Mastercard
   Bekchy                           Faydata Technologies Inc.
   Beluga CDN                       Beluga
   BinarySec                        BinarySec

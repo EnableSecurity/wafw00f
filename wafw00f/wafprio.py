@@ -29,6 +29,7 @@ wafdetectionsprio = [
 	'Azion Edge Firewall (Azion)',
 	'Azure Application Gateway (Microsoft)',
 	'Azure Front Door (Microsoft)',
+    'Baffin Bay (Mastercard)',
 	'BIG-IP AP Manager (F5 Networks)',
 	'BIG-IP AppSec Manager (F5 Networks)',
 	'BIG-IP Local Traffic Manager (F5 Networks)',
