@@ -182,7 +182,7 @@ $ wafw00f -l
   Shadow Daemon                    Zecure
   Shield Security                  One Dollar Plugin
   SiteGround                       SiteGround
-  SiteGuard                        Sakura Inc.
+  SiteGuard                        EG Secure Solutions Inc.
   Sitelock                         TrueShield
   SonicWall                        Dell
   Squarespace                      Squarespace
