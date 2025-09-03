@@ -85,6 +85,7 @@ $ wafw00f -l
   BIG-IP Local Traffic Manager     F5 Networks
   Barikode                         Ethic Ninja
   Barracuda                        Barracuda Networks
+  Baffin Bay                       Mastercard
   Bekchy                           Faydata Technologies Inc.
   Beluga CDN                       Beluga
   BinarySec                        BinarySec
@@ -137,6 +138,7 @@ $ wafw00f -l
   KeyCDN                           KeyCDN
   Kona SiteDefender                Akamai
   LimeLight CDN                    LimeLight
+  Link11 WAAP                      Link11
   LiteSpeed                        LiteSpeed Technologies
   Malcare                          Inactiv
   MaxCDN                           MaxCDN
@@ -182,7 +184,7 @@ $ wafw00f -l
   Shadow Daemon                    Zecure
   Shield Security                  One Dollar Plugin
   SiteGround                       SiteGround
-  SiteGuard                        Sakura Inc.
+  SiteGuard                        EG Secure Solutions Inc.
   Sitelock                         TrueShield
   SonicWall                        Dell
   Squarespace                      Squarespace

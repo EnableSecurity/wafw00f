@@ -29,6 +29,7 @@ wafdetectionsprio = [
 	'Azion Edge Firewall (Azion)',
 	'Azure Application Gateway (Microsoft)',
 	'Azure Front Door (Microsoft)',
+    'Baffin Bay (Mastercard)',
 	'BIG-IP AP Manager (F5 Networks)',
 	'BIG-IP AppSec Manager (F5 Networks)',
 	'BIG-IP Local Traffic Manager (F5 Networks)',
@@ -86,6 +87,7 @@ wafdetectionsprio = [
 	'KeyCDN (KeyCDN)',
 	'Kona SiteDefender (Akamai)',
 	'LimeLight CDN (LimeLight)',
+	'Link11 WAAP (Link11)',
 	'LiteSpeed (LiteSpeed Technologies)',
 	'Malcare (Inactiv)',
 	'MaxCDN (MaxCDN)',
@@ -131,7 +133,7 @@ wafdetectionsprio = [
 	'Shadow Daemon (Zecure)',
 	'Shield Security (One Dollar Plugin)',
 	'SiteGround (SiteGround)',
-	'SiteGuard (Sakura Inc.)',
+	'SiteGuard (EG Secure Solutions Inc.)',
 	'Sitelock (TrueShield)',
 	'SonicWall (Dell)',
 	'Squarespace (Squarespace)',
@@ -173,5 +175,5 @@ wafdetectionsprio = [
 	'aeSecure (aeSecure)',
 	'eEye SecureIIS (BeyondTrust)',
 	'pkSecurity IDS (pkSec)',
-	'wpmudev WAF (Incsub)'
-	]
+	'wpmudev WAF (Incsub)',
+]
