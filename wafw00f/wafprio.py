@@ -10,8 +10,8 @@ See the LICENSE file for copying permission.
 
 
 wafdetectionsprio = [
-    '360WangZhanBao (360 Technologies)',
-    'ACE XML Gateway (Cisco)',
+	'360WangZhanBao (360 Technologies)',
+	'ACE XML Gateway (Cisco)',
 	'ASP.NET Generic (Microsoft)',
 	'ASPA Firewall (ASPA Engineering Co.)',
 	'AWS Elastic Load Balancer (Amazon)',
@@ -142,6 +142,7 @@ wafdetectionsprio = [
 	'Sucuri CloudProxy (Sucuri Inc.)',
 	'Tencent Cloud Firewall (Tencent Technologies)',
 	'Teros (Citrix Systems)',
+	'ThreatX (A10 Networks)',
 	'Trafficshield (F5 Networks)',
 	'TransIP Web Firewall (TransIP)',
 	'UEWaf (UCloud)',
@@ -174,5 +175,5 @@ wafdetectionsprio = [
 	'aeSecure (aeSecure)',
 	'eEye SecureIIS (BeyondTrust)',
 	'pkSecurity IDS (pkSec)',
-	'wpmudev WAF (Incsub)'
+	'wpmudev WAF (Incsub)',
 ]

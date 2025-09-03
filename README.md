@@ -193,6 +193,7 @@ $ wafw00f -l
   Sucuri CloudProxy                Sucuri Inc.
   Tencent Cloud Firewall           Tencent Technologies
   Teros                            Citrix Systems
+  ThreatX                          A10 Networks
   Trafficshield                    F5 Networks
   TransIP Web Firewall             TransIP
   UEWaf                            UCloud
