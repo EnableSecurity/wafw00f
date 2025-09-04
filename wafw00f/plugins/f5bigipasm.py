@@ -12,11 +12,11 @@ def is_waf(self):
         return True
 
     # ASM ≥ 11.4.0 → eight hex digits after “TS” - https://my.f5.com/manage/s/article/K6850
-    if self.matchCookie((r'^TS[a-fA-F0-9]{8}$', r'.+')):
+    if self.matchCookie(r'^TS[a-fA-F0-9]{8}=.+'):
         return True
     
     # ASM 10.0.0 – 11.3.0 → six hex digits after “TS” - https://my.f5.com/manage/s/article/K6850
-    if self.matchCookie((r'^TS[a-fA-F0-9]{6}$', r'.+')):
+    if self.matchCookie(r'^TS[a-fA-F0-9]{6}=.+'):
         return True
 
     return False
