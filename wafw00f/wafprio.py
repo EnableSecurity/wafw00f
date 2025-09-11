@@ -10,6 +10,7 @@ See the LICENSE file for copying permission.
 
 
 wafdetectionsprio = [
+    '360PanYun (360 Technologies)',
     '360WangZhanBao (360 Technologies)',
     'ACE XML Gateway (Cisco)',
 	'ASP.NET Generic (Microsoft)',
