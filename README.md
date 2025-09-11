@@ -86,6 +86,7 @@ $ wafw00f -l
   BIG-IP Local Traffic Manager     F5 Networks
   Barikode                         Ethic Ninja
   Barracuda                        Barracuda Networks
+  Baffin Bay                       Mastercard
   Bekchy                           Faydata Technologies Inc.
   Beluga CDN                       Beluga
   BinarySec                        BinarySec
@@ -138,6 +139,7 @@ $ wafw00f -l
   KeyCDN                           KeyCDN
   Kona SiteDefender                Akamai
   LimeLight CDN                    LimeLight
+  Link11 WAAP                      Link11
   LiteSpeed                        LiteSpeed Technologies
   Malcare                          Inactiv
   MaxCDN                           MaxCDN
@@ -192,6 +194,7 @@ $ wafw00f -l
   Sucuri CloudProxy                Sucuri Inc.
   Tencent Cloud Firewall           Tencent Technologies
   Teros                            Citrix Systems
+  ThreatX                          A10 Networks
   Trafficshield                    F5 Networks
   TransIP Web Firewall             TransIP
   UEWaf                            UCloud

@@ -10,9 +10,9 @@ See the LICENSE file for copying permission.
 
 
 wafdetectionsprio = [
-    '360PanYun (360 Technologies)',
-    '360WangZhanBao (360 Technologies)',
-    'ACE XML Gateway (Cisco)',
+  '360PanYun (360 Technologies)',
+	'360WangZhanBao (360 Technologies)',
+	'ACE XML Gateway (Cisco)',
 	'ASP.NET Generic (Microsoft)',
 	'ASPA Firewall (ASPA Engineering Co.)',
 	'AWS Elastic Load Balancer (Amazon)',
@@ -30,6 +30,7 @@ wafdetectionsprio = [
 	'Azion Edge Firewall (Azion)',
 	'Azure Application Gateway (Microsoft)',
 	'Azure Front Door (Microsoft)',
+    'Baffin Bay (Mastercard)',
 	'BIG-IP AP Manager (F5 Networks)',
 	'BIG-IP AppSec Manager (F5 Networks)',
 	'BIG-IP Local Traffic Manager (F5 Networks)',
@@ -87,6 +88,7 @@ wafdetectionsprio = [
 	'KeyCDN (KeyCDN)',
 	'Kona SiteDefender (Akamai)',
 	'LimeLight CDN (LimeLight)',
+	'Link11 WAAP (Link11)',
 	'LiteSpeed (LiteSpeed Technologies)',
 	'Malcare (Inactiv)',
 	'MaxCDN (MaxCDN)',
@@ -141,6 +143,7 @@ wafdetectionsprio = [
 	'Sucuri CloudProxy (Sucuri Inc.)',
 	'Tencent Cloud Firewall (Tencent Technologies)',
 	'Teros (Citrix Systems)',
+	'ThreatX (A10 Networks)',
 	'Trafficshield (F5 Networks)',
 	'TransIP Web Firewall (TransIP)',
 	'UEWaf (UCloud)',
@@ -173,5 +176,5 @@ wafdetectionsprio = [
 	'aeSecure (aeSecure)',
 	'eEye SecureIIS (BeyondTrust)',
 	'pkSecurity IDS (pkSec)',
-	'wpmudev WAF (Incsub)'
+	'wpmudev WAF (Incsub)',
 ]
