@@ -126,6 +126,7 @@ wafdetectionsprio = [
 	'Safe3 Web Firewall (Safe3)',
 	'Safedog (SafeDog)',
 	'Safeline (Chaitin Tech.)',
+	'Scutum (Secure Sky Technology Inc.)',
 	'SecKing (SecKing)',
 	'SecuPress WP Security (SecuPress)',
 	'Secure Entry (United Security Providers)',
