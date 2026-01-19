@@ -22,6 +22,7 @@ wafdetectionsprio = [
 	'AliYunDun (Alibaba Cloud Computing)',
 	'AnYu (AnYu Technologies)',
 	'Anquanbao (Anquanbao)',
+	'Anubis (Techaro)',
 	'AppWall (Radware)',
 	'Approach (Approach)',
 	'Armor Defense (Armor)',
