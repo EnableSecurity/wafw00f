@@ -11,6 +11,15 @@ all:
 install:
 	pip install -q -e .[dev,docs]
 
+test:
+	pytest
+
+test-verbose:
+	pytest -v --tb=short
+
+test-coverage:
+	pytest --cov=$(SRC_DIR) --cov-report=term-missing
+
 lint:
 	prospector $(SRC_DIR) --strictness veryhigh
 

@@ -30,7 +30,7 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-dev = ["prospector"]
+dev = ["prospector", "pytest", "pytest-mock", "responses"]
 docs = ["Sphinx"]
 
 [project.urls]
@@ -47,3 +47,9 @@ version = {attr = "wafw00f.__version__"}
 
 [tool.setuptools.packages.find]
 include = ["wafw00f*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_functions = ["test_*"]
+addopts = "-v"
