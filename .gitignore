@@ -59,3 +59,4 @@ docs/_build/
 *.json
 .idea/*
 .vscode/*
+.pypirc
