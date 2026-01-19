@@ -371,7 +371,7 @@ def main():
                       help='Find all WAFs which match the signatures, do not stop testing on the first one')
     parser.add_option('-r', '--noredirect', action='store_false', dest='followredirect',
                       default=True, help='Do not follow redirections given by 3xx responses')
-    parser.add_option('-t', '--test', dest='test', help='Test for one specific WAF')
+    parser.add_option('-t', '--test', dest='test', help='Test for one specific WAF (use --list to get names, quote names with spaces e.g. "AireeCDN (Airee)")')
     parser.add_option('-o', '--output', dest='output', help='Write output to csv, json or text file depending on file extension. For stdout, specify - as filename.',
                       default=None)
     parser.add_option('-f', '--format', dest='format', help='Force output format to csv, json or text.',
