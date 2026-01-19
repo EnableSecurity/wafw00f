@@ -7,7 +7,7 @@ name = "wafw00f"
 dynamic = ["version"]
 description = "The Web Application Firewall Fingerprinting Toolkit"
 readme = "README.md"
-license = {text = "BSD 3-Clause"}
+license = "BSD-3-Clause"
 authors = [
     {name = "Sandro Gauci", email = "sandro@enablesecurity.com"}
 ]
@@ -19,7 +19,6 @@ classifiers = [
     "Topic :: Internet",
     "Topic :: Security",
     "Topic :: System :: Networking :: Firewalls",
-    "License :: OSI Approved :: BSD License",
     "Programming Language :: Python :: 3",
     "Operating System :: OS Independent",
 ]
