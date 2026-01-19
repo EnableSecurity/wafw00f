@@ -12,16 +12,13 @@
 </p>
 <p align="center">
   <a href="https://docs.python.org/3/download.html">
-    <img src="https://img.shields.io/badge/Python-3.x/2.x-green.svg">
+    <img src="https://img.shields.io/badge/Python-3.8+-green.svg">
   </a>
   <a href="https://github.com/EnableSecurity/wafw00f/releases">
     <img src="https://img.shields.io/badge/Version-v2.3.2%20(stable)-blue.svg">
   </a>
   <a href="https://github.com/EnableSecurity/wafw00f/blob/master/LICENSE">
     <img src="https://img.shields.io/badge/License-BSD%203%20Clause-orange.svg">
-  </a>
-  <a href="https://app.travis-ci.com/github/EnableSecurity/wafw00f">
-    <img src="https://app.travis-ci.com/EnableSecurity/wafw00f.svg">
   </a>
 </p>
 
@@ -73,6 +70,7 @@ $ wafw00f -l
   AliYunDun                        Alibaba Cloud Computing
   AnYu                             AnYu Technologies
   Anquanbao                        Anquanbao
+  Anubis                           Techaro
   AppWall                          Radware
   Approach                         Approach
   Armor Defense                    Armor
