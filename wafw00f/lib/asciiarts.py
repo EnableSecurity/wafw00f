@@ -97,7 +97,7 @@ def randomArt():
     \\   \\                 |____|____|____|____|____|____|____|____|____|
 
                                 ~ WAFW00F : v'''+__version__+''' ~
-                    ~ Sniffing Web Application Firewalls since 2014 ~
+                    ~ Sniffing Web Application Firewalls since 2009 ~
 '''
 
     arts = [woof, w00f, wo0f]
