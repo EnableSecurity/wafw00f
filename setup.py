@@ -28,8 +28,7 @@ setup(
     packages=find_packages(),
     install_requires=[
         'requests',
-        'requests[socks]',
-        'pluginbase'
+        'requests[socks]'
     ],
     classifiers=[
         'Development Status :: 5 - Production/Stable',
