@@ -11,7 +11,7 @@ def is_waf(self):
     if self.matchHeader(('X-Fastly-Request-ID', r'\w+')):
         return True
 
-    if self.matchHeader(('X-Served-By', r'^cache-[^\s]*')):
+    if self.matchHeader(('X-Served-By', r'^cache-[a-z]{3}\d+-[A-Z]{3}')):
         return True
 
     return False
