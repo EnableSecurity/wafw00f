@@ -51,7 +51,7 @@ $ wafw00f -l
     \\   \\                 |____|____|____|____|____|____|____|____|____|
 
                                 ~ WAFW00F : v2.3.2 ~
-                  ~ Sniffing Web Application Firewalls since 2014 ~
+                  ~ Sniffing Web Application Firewalls since 2009 ~
 
 [+] Can test for these WAFs:
 
