@@ -29,6 +29,9 @@ def_headers = {
 }
 proxies = {}
 
+# Maximum response body size to read (100KB should be plenty for WAF detection)
+MAX_RESPONSE_SIZE = 100 * 1024
+
 class waftoolsengine:
     def __init__(
         self, target='https://example.com', debuglevel=0,
@@ -55,7 +58,17 @@ class waftoolsengine:
                 h = self.headers
             else: h = headers
             req = requests.get(self.target, proxies=self.proxies, headers=h, timeout=self.timeout,
-                    allow_redirects=self.allowredir, params=params, verify=False)
+                    allow_redirects=self.allowredir, params=params, verify=False, stream=True)
+            # Read only up to MAX_RESPONSE_SIZE to avoid hanging on streaming responses
+            # (e.g., audio streams) - see issue #246
+            chunks = []
+            bytes_read = 0
+            for chunk in req.iter_content(chunk_size=8192):
+                chunks.append(chunk)
+                bytes_read += len(chunk)
+                if bytes_read >= MAX_RESPONSE_SIZE:
+                    break
+            req._content = b''.join(chunks)
             self.log.info('Request Succeeded')
             self.log.debug('Headers: %s\n' % req.headers)
             self.log.debug('Content: %s\n' % req.content)
