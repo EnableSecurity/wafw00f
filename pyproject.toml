@@ -1,0 +1,50 @@
+[build-system]
+requires = ["setuptools>=64", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "wafw00f"
+dynamic = ["version"]
+description = "The Web Application Firewall Fingerprinting Toolkit"
+readme = "README.md"
+license = {text = "BSD 3-Clause"}
+authors = [
+    {name = "Sandro Gauci", email = "sandro@enablesecurity.com"}
+]
+keywords = ["waf", "firewall", "detector", "fingerprint"]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: System Administrators",
+    "Intended Audience :: Information Technology",
+    "Topic :: Internet",
+    "Topic :: Security",
+    "Topic :: System :: Networking :: Firewalls",
+    "License :: OSI Approved :: BSD License",
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+requires-python = ">=3.8"
+dependencies = [
+    "requests",
+    "requests[socks]",
+    "pluginbase",
+]
+
+[project.optional-dependencies]
+dev = ["prospector"]
+docs = ["Sphinx"]
+
+[project.urls]
+Homepage = "https://github.com/enablesecurity/wafw00f"
+"Bug Tracker" = "https://github.com/EnableSecurity/wafw00f/issues"
+Documentation = "https://github.com/EnableSecurity/wafw00f/wiki"
+"Source Code" = "https://github.com/EnableSecurity/wafw00f/tree/master"
+
+[project.scripts]
+wafw00f = "wafw00f.main:main"
+
+[tool.setuptools.dynamic]
+version = {attr = "wafw00f.__version__"}
+
+[tool.setuptools.packages.find]
+include = ["wafw00f*"]
