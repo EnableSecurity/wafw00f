@@ -118,3 +118,31 @@ class TestResponseSizeLimit:
         # Should be truncated to around MAX_RESPONSE_SIZE (may be slightly over due to chunk size)
         assert len(resp.content) <= MAX_RESPONSE_SIZE + 8192
         assert len(resp.content) >= MAX_RESPONSE_SIZE
+
+
+class TestTimeoutEnforcement:
+    """Tests for timeout enforcement during response reading."""
+
+    @responses.activate
+    def test_timeout_attribute_used(self):
+        """Test timeout is properly configured and accessible.
+
+        Note: Testing actual timeout enforcement during slow streaming
+        requires integration tests with real servers, as the responses
+        mock library doesn't support time-based streaming simulation.
+        The timeout enforcement logic in Request() will break out of
+        the chunk reading loop if time.time() - start_time > self.timeout.
+        """
+        responses.add(
+            responses.GET,
+            'https://example.com',
+            body='test',
+            status=200
+        )
+
+        engine = waftoolsengine(target='https://example.com', timeout=5)
+        resp = engine.Request()
+
+        # Verify the engine has timeout configured
+        assert engine.timeout == 5
+        assert resp is not None

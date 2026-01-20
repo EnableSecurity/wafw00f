@@ -61,12 +61,18 @@ class waftoolsengine:
                     allow_redirects=self.allowredir, params=params, verify=False, stream=True)
             # Read only up to MAX_RESPONSE_SIZE to avoid hanging on streaming responses
             # (e.g., audio streams) - see issue #246
+            # Also enforce timeout during reading to handle slow streaming servers
             chunks = []
             bytes_read = 0
+            start_time = time.time()
             for chunk in req.iter_content(chunk_size=8192):
                 chunks.append(chunk)
                 bytes_read += len(chunk)
                 if bytes_read >= MAX_RESPONSE_SIZE:
+                    break
+                # Check if we've exceeded the timeout during reading
+                if time.time() - start_time > self.timeout:
+                    self.log.debug('Timeout reached during response body reading')
                     break
             req._content = b''.join(chunks)
             self.log.info('Request Succeeded')
