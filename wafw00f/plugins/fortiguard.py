@@ -13,16 +13,12 @@ def is_waf(self):
     return False
 
 def check_schema(self):
+    # Use OR logic with strong signatures containing explicit FortiGuard/Fortinet branding
+    # Generic "Web Filter" strings are avoided to prevent false positives
     if self.matchContent('FortiGuard Intrusion Prevention'):
         return True
 
     if self.matchContent('//globalurl.fortinet.net'):
-        return True
-
-    if self.matchContent('<title>Web Filter Violation'):
-        return True
-    
-    if self.matchContent('Web Filter Block Override'):
         return True
 
     return False
