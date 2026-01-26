@@ -15,7 +15,7 @@
     <img src="https://img.shields.io/badge/Python-3.8+-green.svg">
   </a>
   <a href="https://github.com/EnableSecurity/wafw00f/releases">
-    <img src="https://img.shields.io/badge/Version-v2.4.1%20(stable)-blue.svg">
+    <img src="https://img.shields.io/badge/Version-2.4.2%20(stable)-blue.svg">
   </a>
   <a href="https://github.com/EnableSecurity/wafw00f/blob/master/LICENSE">
     <img src="https://img.shields.io/badge/License-BSD%203%20Clause-orange.svg">
@@ -50,7 +50,7 @@ $ wafw00f -l
     /,___ /`                 _"., ,._'_.,)_(..,( . )_  _' )_') (. _..( ' )
     \\   \\                 |____|____|____|____|____|____|____|____|____|
 
-                                ~ WAFW00F : v2.4.1 ~
+                                ~ WAFW00F : v2.4.2 ~
                   ~ Sniffing Web Application Firewalls since 2009 ~
 
 [+] Can test for these WAFs:
@@ -169,6 +169,7 @@ $ wafw00f -l
   RSFirewall                       RSJoomla!
   RayWAF                           WebRay Solutions
   Reblaze                          Reblaze
+  Reflected Networks               Reflected Networks
   RequestValidationMode            Microsoft
   SEnginx                          Neusoft
   Sabre Firewall                   Sabre
@@ -202,6 +203,7 @@ $ wafw00f -l
   UTM Web Protection               Sophos
   Variti                           Variti
   Varnish                          OWASP
+  Vercel WAF                       Vercel
   Viettel                          Cloudrity
   VirusDie                         VirusDie LLC
   WP Cerber Security               Cerber Tech
@@ -250,7 +252,7 @@ $   wafw00f https://example.org
         (  /  )        / | \                  . |__|
          \(_)_))      /  |  \                   |__|
 
-                    ~ WAFW00F : v2.4.1 ~
+                    ~ WAFW00F : v2.4.2 ~
     The Web Application Firewall Fingerprinting Toolkit
 
 [*] Checking https://example.org
