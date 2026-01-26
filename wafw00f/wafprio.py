@@ -121,6 +121,7 @@ wafdetectionsprio = [
 	'RSFirewall (RSJoomla!)',
 	'RayWAF (WebRay Solutions)',
 	'Reblaze (Reblaze)',
+	'Reflected Networks (Reflected Networks)',
 	'RequestValidationMode (Microsoft)',
 	'SEnginx (Neusoft)',
 	'Sabre Firewall (Sabre)',
