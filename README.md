@@ -12,7 +12,7 @@
 </p>
 <p align="center">
   <a href="https://docs.python.org/3/download.html">
-    <img src="https://img.shields.io/badge/Python-3.8+-green.svg">
+    <img src="https://img.shields.io/badge/Python-3.10+-green.svg">
   </a>
   <a href="https://github.com/EnableSecurity/wafw00f/releases">
     <img src="https://img.shields.io/badge/Version-2.4.2%20(stable)-blue.svg">
