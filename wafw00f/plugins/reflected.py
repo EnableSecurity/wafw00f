@@ -8,8 +8,7 @@ NAME = 'Reflected Networks (Reflected Networks)'
 
 
 def is_waf(self):
-    if self.matchContent(r'<b>Request ID</b>') and \
-        self.matchContent(r'[0-9A-F]{8}-[0-9A-F]{18}-[0-9A-F]{6}') and \
+    if self.matchContent('<img class="logo loader" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbgAAABHCAIAAAD6G8WcAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyRpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw') and \
         self.matchStatus(403) and \
         self.matchContent(r'content="Request is denied"') and \
         self.matchContent(r'<title>Forbidden</title>'):
