@@ -354,7 +354,7 @@ def getheaders(fn):
         return
     with io.open(fn, 'r', encoding='utf-8') as f:
         for line in f.readlines():
-            _t = line.split(':', 2)
+            _t = line.split(':', 1)
             if len(_t) == 2:
                 h, v = map(lambda x: x.strip(), _t)
                 headers[h] = v
