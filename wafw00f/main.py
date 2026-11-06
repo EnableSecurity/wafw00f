@@ -534,7 +534,7 @@ def main():
                         header = result.keys()
                         csvwriter.writerow(header)
                         count += 1
-                    csvwriter.writerow(result.values())
+                    csvwriter.writerow([result[key] for key in header])
             else:
                 print(os.linesep.join(getTextResults(results)))
         elif options.output.endswith('.json'):
@@ -552,7 +552,7 @@ def main():
                         header = result.keys()
                         csvwriter.writerow(header)
                         count += 1
-                    csvwriter.writerow(result.values())
+                    csvwriter.writerow([result[key] for key in header])
         else:
             log.debug('Exporting data in text format to file: %s' % (options.output))
             if options.format == 'json':
@@ -568,7 +568,7 @@ def main():
                             header = result.keys()
                             csvwriter.writerow(header)
                             count += 1
-                        csvwriter.writerow(result.values())
+                        csvwriter.writerow([result[key] for key in header])
             else:
                 with open(options.output, 'w') as outfile:
                     outfile.write(os.linesep.join(getTextResults(results)))
