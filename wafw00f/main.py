@@ -328,6 +328,9 @@ def getTextResults(res=[]):
     for m in rows:
         m[1] = '%s (%s)' % (m[1], m[2])
         m.pop()
+    if not rows:
+        # No target produced a result, so there is no column width to compute.
+        return []
     defgen = [
         (max([len(str(row[i])) for row in rows]) + 3)
         for i in range(len(rows[0]))
