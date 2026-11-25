@@ -363,6 +363,17 @@ def getheaders(fn):
 class RequestBlocked(Exception):
     pass
 
+def _open_output(path):
+    '''Open *path* for writing, exiting with an error message if that fails.'''
+    try:
+        return open(path, 'w')
+    except OSError as exc:
+        logging.getLogger('wafw00f').error(
+            'File %s could not be written: %s', path, exc
+        )
+        sys.exit(1)
+
+
 def main():
     parser = OptionParser(usage='%prog url1 [url2 [url3 ... ]]\r\nexample: %prog http://www.victim.org/')
     parser.add_option('-v', '--verbose', action='count', dest='verbose', default=0,
@@ -466,6 +477,16 @@ def main():
             sys.exit(1)
     else:
         targets = args
+    if options.output and options.output != '-':
+        output_dir = os.path.dirname(os.path.abspath(options.output))
+        if not os.path.isdir(output_dir):
+            log.error('Directory %s for output file %s does not exist.',
+                      output_dir, options.output)
+            sys.exit(1)
+        if not os.access(output_dir, os.W_OK):
+            log.error('Directory %s for output file %s is not writable.',
+                      output_dir, options.output)
+            sys.exit(1)
     results = []
     for target in targets:
         if not target.startswith('http'):
@@ -539,11 +560,11 @@ def main():
                 print(os.linesep.join(getTextResults(results)))
         elif options.output.endswith('.json'):
             log.debug('Exporting data in json format to file: %s' % (options.output))
-            with open(options.output, 'w') as outfile:
+            with _open_output(options.output) as outfile:
                 json.dump(results, outfile, indent=2, sort_keys=True)
         elif options.output.endswith('.csv'):
             log.debug('Exporting data in csv format to file: %s' % (options.output))
-            with open(options.output, 'w') as outfile:
+            with _open_output(options.output) as outfile:
                 csvwriter = csv.writer(outfile, delimiter=',', quotechar='"',
                     quoting=csv.QUOTE_MINIMAL)
                 count = 0
@@ -556,10 +577,10 @@ def main():
         else:
             log.debug('Exporting data in text format to file: %s' % (options.output))
             if options.format == 'json':
-                with open(options.output, 'w') as outfile:
+                with _open_output(options.output) as outfile:
                     json.dump(results, outfile, indent=2, sort_keys=True)
             elif options.format == 'csv':
-                with open(options.output, 'w') as outfile:
+                with _open_output(options.output) as outfile:
                     csvwriter = csv.writer(outfile, delimiter=',', quotechar='"',
                         quoting=csv.QUOTE_MINIMAL)
                     count = 0
@@ -570,7 +591,7 @@ def main():
                             count += 1
                         csvwriter.writerow(result.values())
             else:
-                with open(options.output, 'w') as outfile:
+                with _open_output(options.output) as outfile:
                     outfile.write(os.linesep.join(getTextResults(results)))
 
 if __name__ == '__main__':
